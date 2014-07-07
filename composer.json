@@ -1,6 +1,7 @@
 {
     "name": "messagebird/php-rest-api",
     "description": "MessageBird REST API client for PHP",
+    "version": "1.0.0",
     "type": "library",
     "homepage": "https://github.com/messagebird/php-rest-api",
     "autoload": {
