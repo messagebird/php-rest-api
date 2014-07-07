@@ -1,0 +1,11 @@
+{
+    "name": "messagebird/php-rest-api",
+    "description": "MessageBird REST API for PHP",
+    "type": "library",
+    "homepage": "https://github.com/messagebird/php-rest-api",
+    "autoload": {
+        "psr-4": {
+            "MessageBird\\": "src/MessageBird/"
+        }
+    }
+}
