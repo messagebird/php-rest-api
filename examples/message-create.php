@@ -18,7 +18,7 @@ try {
     echo 'wrong login';
 
 } catch (MessageBird\Exceptions\BalanceException $e) {
-    // That means that you are out of credits, so do somehting about it.
+    // That means that you are out of credits, so do something about it.
     echo 'no balance';
 
 } catch (Exception $e) {

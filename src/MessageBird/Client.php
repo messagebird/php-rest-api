@@ -34,22 +34,36 @@ class Client
      */
     public $balance;
 
+    /**
+     * @var Common\HttpClient
+     */
+    protected $HttpClient;
+
 
     /**
      * @param $accessKey
      */
-    public function __construct($accessKey)
+    public function __construct($accessKey = null)
     {
-        $Authentication = new Common\Authentication($accessKey);
+        $this->HttpClient = new Common\HttpClient(self::ENDPOINT);
+        $this->HttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
 
-        $HttpClient = new Common\HttpClient(self::ENDPOINT);
-        $HttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
-        $HttpClient->setAuthentication($Authentication);
+        if ($accessKey !== null) {
+            $this->setAccessKey($accessKey);
+        }
 
-        $this->messages = new Resources\Messages($HttpClient);
-        $this->hlr      = new Resources\Hlr($HttpClient);
-        $this->balance  = new Resources\Balance($HttpClient);
+        $this->messages = new Resources\Messages($this->HttpClient);
+        $this->hlr      = new Resources\Hlr($this->HttpClient);
+        $this->balance  = new Resources\Balance($this->HttpClient);
     }
 
+    /**
+     * @param $accessKey
+     */
+    public function setAccessKey ($accessKey)
+    {
+        $Authentication = new Common\Authentication($accessKey);
+        $this->HttpClient->setAuthentication($Authentication);
+    }
 
 }
