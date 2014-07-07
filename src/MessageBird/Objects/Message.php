@@ -82,14 +82,6 @@ class Message extends Base
     }
 
     /**
-     * @param $recipient
-     */
-    public function addRecipient($recipient)
-    {
-        $this->recipients[] = $recipient;
-    }
-
-    /**
      * Get the created id
      *
      * @return mixed
