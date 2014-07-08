@@ -18,13 +18,13 @@ Installation
 
 ####Composer installation
 
-- Add the `"messagebird/php-rest-api": "1.0.x"` into the `require` section of your `composer.json`.
+- Add the `"messagebird/php-rest-api": "1.1.x"` into the `require` section of your `composer.json`.
 - Run `composer install`.
 
 ```
 {
     "require": {
-        "messagebird/php-rest-api": "1.0.x"
+        "messagebird/php-rest-api": "1.1.x"
     }
 }
 ```
