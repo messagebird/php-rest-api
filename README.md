@@ -17,6 +17,7 @@ Installation
 
 ####Composer installation
 
+- [Download composer](https://getcomposer.org/doc/00-intro.md#installation-nix)
 - Add the `"messagebird/php-rest-api": "1.1.x"` into the `require` section of your `composer.json`.
 - Run `composer install`.
 
