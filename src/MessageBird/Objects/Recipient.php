@@ -22,7 +22,7 @@ class Recipient extends Base
      * Possible values for SMS are: scheduled, sent, buffered,
      * delivered, delivery_failed
      *
-     * Possible values for TTS are: calling, answered,
+     * Possible values for voice messages are: calling, answered,
      * failed, busy, machine
      *
      * @var string

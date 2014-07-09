@@ -6,11 +6,11 @@ use MessageBird\Objects;
 use MessageBird\Common;
 
 /**
- * Class Tts
+ * Class VoiceMessage
  *
  * @package MessageBird\Resources
  */
-class Tts extends Base
+class VoiceMessage extends Base
 {
 
     /**
@@ -18,8 +18,8 @@ class Tts extends Base
      */
     public function __construct(Common\HttpClient $HttpClient)
     {
-        $this->setObject(new Objects\Tts);
-        $this->setResourceName('tts');
+        $this->setObject(new Objects\VoiceMessage);
+        $this->setResourceName('voicemessages');
 
         parent::__construct($HttpClient);
     }

@@ -3,11 +3,11 @@
 namespace MessageBird\Objects;
 
 /**
- * Class Tts
+ * Class VoiceMessage
  *
  * @package MessageBird\Objects
  */
-class Tts extends Base
+class VoiceMessage extends Base
 {
     /**
      * An unique random ID which is created on the MessageBird
@@ -18,7 +18,7 @@ class Tts extends Base
     protected $id;
 
     /**
-     * The body of the TTS message.
+     * The body of the voice message.
      *
      * @var string
      */

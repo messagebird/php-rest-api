@@ -25,9 +25,9 @@ class Client
     public $messages;
 
     /**
-     * @var Resources\Tts
+     * @var Resources\VoiceMessage
      */
-    public $tts;
+    public $voicemessages;
 
     /**
      * @var Resources\Hlr
@@ -60,7 +60,7 @@ class Client
         $this->messages = new Resources\Messages($this->HttpClient);
         $this->hlr      = new Resources\Hlr($this->HttpClient);
         $this->balance  = new Resources\Balance($this->HttpClient);
-        $this->tts      = new Resources\Tts($this->HttpClient);
+        $this->voicemessages      = new Resources\VoiceMessage($this->HttpClient);
     }
 
     /**
