@@ -16,6 +16,7 @@ class Hlr extends Base
     const STATUS_FAILED = 'failed';
 
     protected $id;
+    protected $href;
 
     public $msisdn;
     public $network;

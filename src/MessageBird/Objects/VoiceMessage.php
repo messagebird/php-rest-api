@@ -18,6 +18,13 @@ class VoiceMessage extends Base
     protected $id;
 
     /**
+     * The URL of the created object.
+     *
+     * @var string
+     */
+    protected $href;
+
+    /**
      * The body of the voice message.
      *
      * @var string

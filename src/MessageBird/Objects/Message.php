@@ -25,6 +25,13 @@ class Message extends Base
     protected $id;
 
     /**
+     * The URL of the created object.
+     *
+     * @var string
+     */
+    protected $href;
+
+    /**
      * Tells you if the message is sent or received.
      * mt: mobile terminated (sent to mobile)
      * mo: mobile originated (received from mobile)
