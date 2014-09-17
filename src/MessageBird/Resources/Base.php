@@ -80,14 +80,14 @@ class Base
     public function create($object)
     {
         $body = json_encode($object);
-        list($status, $headers, $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_POST, $this->resourceName, $query = null, $body);
+        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_POST, $this->resourceName, $query = null, $body);
         return $this->processRequest($body);
     }
 
 
     public function getList($parameters = array ())
     {
-        list($status, $headers, $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $this->resourceName, $parameters);
+        list($status, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $this->resourceName, $parameters);
 
         if ($status === 200) {
             $body = json_decode($body);
@@ -119,7 +119,7 @@ class Base
     public function read($id = null)
     {
         $ResourceName = $this->resourceName . (($id) ? '/' . $id : null);
-        list($status, $headers, $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $ResourceName);
+        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $ResourceName);
         return $this->processRequest($body);
     }
 
@@ -134,7 +134,7 @@ class Base
     public function delete($id)
     {
         $ResourceName = $this->resourceName . '/' . $id;
-        list($status, $headers, $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_DELETE, $ResourceName);
+        list($status, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_DELETE, $ResourceName);
 
         if ($status === Common\HttpClient::HTTP_NO_CONTENT) {
             return true;
@@ -145,13 +145,12 @@ class Base
 
     /**
      * @param      $body
-     * @param null $header
      *
      * @return $this
      * @throws \MessageBird\Exceptions\RequestException
      * @throws \MessageBird\Exceptions\ServerException
      */
-    public function processRequest($body, $header = null)
+    public function processRequest($body)
     {
         $body = @json_decode($body);
 
