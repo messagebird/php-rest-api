@@ -3,7 +3,6 @@
 namespace MessageBird\Common;
 
 use MessageBird\Exceptions;
-use MessageBird\Objects;
 use MessageBird\Common;
 
 /**
