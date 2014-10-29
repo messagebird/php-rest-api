@@ -8,11 +8,11 @@ try {
     $deleted = $MessageBird->messages->delete('deb1fe303539efdf1730124b69920283'); // Set a message id here
     var_dump('Deleted: ' . $deleted);
 
-} catch (MessageBird\Exceptions\AuthenticateException $e) {
+} catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'wrong login';
 
-} catch (Exception $e) {
+} catch (\Exception $e) {
     var_dump($e->getMessage());
 
 }

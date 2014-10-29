@@ -10,10 +10,10 @@ try {
     $VoiceMessageResult = $MessageBird->voicemessages->read('ca0a8220453bc36ddeb3115a37400870'); // Set a message id here
     var_dump($VoiceMessageResult);
 
-} catch (MessageBird\Exceptions\AuthenticateException $e) {
+} catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'wrong login';
 
-} catch (Exception $e) {
+} catch (\Exception $e) {
     var_dump($e->getMessage());
 }

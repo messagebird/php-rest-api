@@ -12,6 +12,6 @@ try {
     // That means that your accessKey is unknown
     echo 'wrong login';
 
-} catch (Exception $e) {
+} catch (\Exception $e) {
     var_dump($e->getMessage());
 }

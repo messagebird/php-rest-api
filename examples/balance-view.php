@@ -8,11 +8,11 @@ try {
     $Balance = $MessageBird->balance->read();
     var_dump($Balance);
 
-} catch (MessageBird\Exceptions\AuthenticateException $e) {
+} catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'wrong login';
 
-} catch (Exception $e) {
+} catch (\Exception $e) {
     var_dump($e->getMessage());
 
 }
