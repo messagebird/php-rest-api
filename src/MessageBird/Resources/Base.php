@@ -98,8 +98,12 @@ class Base
             $BaseList = new Objects\BaseList();
             $BaseList->loadFromArray($body);
 
+            $objectName = $this->Object;
+
             foreach ($Items AS $Item) {
-                $Message           = $this->Object->loadFromArray($Item);
+                $Object = new $objectName($this->HttpClient);
+
+                $Message           = $Object->loadFromArray($Item);
                 $BaseList->items[] = $Message;
             }
             return $BaseList;
