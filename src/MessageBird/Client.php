@@ -64,6 +64,26 @@ class Client
     }
 
     /**
+     * Gets the value of the SSL verification flag.
+     *
+     * @return bool Returns true when SSL verification is enabled; false otherwise.
+     */
+    public function getSSLVerificationEnabled()
+    {
+        return $this->HttpClient->getSSLVerificationEnabled();
+    }
+
+    /**
+     * Sets the SSL verification flag to either true or false.
+     *
+     * @param bool $sslVerificationEnabled A value to enable or disable the setting.
+     */
+    public function setSSLVerificationEnabled($sslVerificationEnabled)
+    {
+        $this->HttpClient->setSSLVerificationEnabled($sslVerificationEnabled);
+    }
+
+    /**
      * @param $accessKey
      */
     public function setAccessKey ($accessKey)
