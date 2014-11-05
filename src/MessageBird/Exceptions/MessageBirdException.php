@@ -1,13 +1,12 @@
 <?php
-
 namespace MessageBird\Exceptions;
 
 /**
- * Class RequestException
+ * Class MessageBirdException
  *
  * @package MessageBird\Exceptions
  */
-class RequestException extends MessageBirdException
+abstract class MessageBirdException extends \Exception
 {
 
 }
