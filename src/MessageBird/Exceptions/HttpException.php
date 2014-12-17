@@ -7,7 +7,7 @@ namespace MessageBird\Exceptions;
  *
  * @package MessageBird\Exceptions
  */
-class HttpException extends \Exception
+class HttpException extends MessageBirdException
 {
 
 }

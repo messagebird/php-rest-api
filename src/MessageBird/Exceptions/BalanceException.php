@@ -7,7 +7,7 @@ namespace MessageBird\Exceptions;
  *
  * @package MessageBird\Exceptions
  */
-class BalanceException extends \Exception
+class BalanceException extends MessageBirdException
 {
 
 }

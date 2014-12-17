@@ -7,7 +7,7 @@ namespace MessageBird\Exceptions;
  *
  * @package MessageBird\Exceptions
  */
-class AuthenticateException extends \Exception
+class AuthenticateException extends MessageBirdException
 {
 
 }
