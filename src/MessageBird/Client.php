@@ -52,6 +52,7 @@ class Client
     {
         $this->HttpClient = new Common\HttpClient(self::ENDPOINT);
         $this->HttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
+        $this->HttpClient->addUserAgentString($this->getPhpVersion());
 
         if ($accessKey !== null) {
             $this->setAccessKey($accessKey);
@@ -70,6 +71,15 @@ class Client
     {
         $Authentication = new Common\Authentication($accessKey);
         $this->HttpClient->setAuthentication($Authentication);
+    }
+
+    private function getPhpVersion()
+    {
+        if (!defined('PHP_VERSION_ID')) {
+            $version = explode('.', PHP_VERSION);
+            define('PHP_VERSION_ID', ($version[0] * 10000 + $version[1] * 100 + $version[2]));
+        }
+        return "PHP/" . PHP_VERSION_ID;
     }
 
 }

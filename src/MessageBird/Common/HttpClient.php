@@ -88,8 +88,6 @@ class HttpClient
     {
         $curl = curl_init();
 
-        $this->addUserAgentString('PHP/' . PHP_VERSION_ID);
-
         $headers = array (
             'User-agent: ' . implode(' ', $this->userAgent),
             'Accepts: application/json',
