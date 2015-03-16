@@ -101,6 +101,7 @@ class HttpClient
         curl_setopt($curl, CURLOPT_URL, $this->getRequestUrl($resourceName, $query));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 2);
 
         if ($method === self::REQUEST_GET) {
             curl_setopt($curl, CURLOPT_HTTPGET, true);
