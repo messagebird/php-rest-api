@@ -183,6 +183,17 @@ class Message extends Base
     }
 
     /**
+     * Get the CreationDatetime (as a pass by value enforced through the string concatination)
+     * 
+     * @return string
+     * @author Lawri van Buël
+     */
+    public function getCreationDatetime()
+    {
+        return $this->createdDatetime . "";
+    }    
+
+    /**
      * @param $object
      *
      * @return $this|void

@@ -84,10 +84,39 @@ class Base
         return $this->processRequest($body);
     }
 
-
+    /**
+     * Add the parameters to the resourceName for use in a GET request.
+     * @author Lawri van Buël
+     * @param array $parameters
+     * @return string
+     */
+    private function prepGetParameters(array $parameters) {
+        $getOptions = "";
+        foreach ($parameters as $key => $value) {
+            $getOptions.="&$key=$value";
+        }
+        if(strlen($getOptions)>1){
+            $getOptions="?".substr($getOptions,1,strlen($getOptions));
+        }
+        else {
+            $getOptions = "";
+        }
+        return $this->resourceName.$getOptions;
+    }
+    
+    /**
+     * Modified by @author to make the get request include the parameters.
+     * get modification is done through a helper function.
+     * @author Lawri van Buël
+     * @param array $parameters
+     * @return Objects\BaseList|Base
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
+     */
     public function getList($parameters = array ())
     {
-        list($status, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $this->resourceName, $parameters);
+        list($status, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $this->prepGetParameters($parameters), $parameters);
 
         if ($status === 200) {
             $body = json_decode($body);
