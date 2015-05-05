@@ -12,7 +12,7 @@ class Client
 
     const ENDPOINT = 'https://rest.messagebird.com';
 
-    const CLIENT_VERSION = '1.1.7';
+    const CLIENT_VERSION = '1.1.8';
 
     /**
      * @var string
@@ -33,6 +33,11 @@ class Client
      * @var Resources\Hlr
      */
     public $hlr;
+
+    /**
+     * @var Resources\Otp
+     */
+    public $otp;
 
     /**
      * @var Resources\Balance
@@ -60,6 +65,7 @@ class Client
 
         $this->messages = new Resources\Messages($this->HttpClient);
         $this->hlr      = new Resources\Hlr($this->HttpClient);
+        $this->otp      = new Resources\Otp($this->HttpClient);
         $this->balance  = new Resources\Balance($this->HttpClient);
         $this->voicemessages      = new Resources\VoiceMessage($this->HttpClient);
     }
