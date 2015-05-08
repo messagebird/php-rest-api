@@ -34,11 +34,20 @@ class HttpClient
     protected $Authentication;
 
     /**
+     * A flag that indicates whether or not SSL verification should take place.
+     * Always set this flag to true for production environments.
+     *
+     * @var bool
+     */
+    protected $sslVerificationEnabled;
+
+    /**
      * @param $endpoint
      */
     public function __construct($endpoint)
     {
         $this->endpoint = $endpoint;
+        $this->sslVerificationEnabled = true;
     }
 
     /**
@@ -55,6 +64,26 @@ class HttpClient
     public function setAuthentication(Common\Authentication $Authentication)
     {
         $this->Authentication = $Authentication;
+    }
+
+    /**
+     * Gets the value of the SSL verification flag.
+     *
+     * @return bool Returns true when SSL verification is enabled; false otherwise.
+     */
+    public function getSSLVerificationEnabled()
+    {
+        return $this->sslVerificationEnabled;
+    }
+
+    /**
+     * Sets the SSL verification flag to either true or false.
+     *
+     * @param bool $sslVerificationEnabled A value to enable or disable the setting.
+     */
+    public function setSSLVerificationEnabled($sslVerificationEnabled)
+    {
+        $this->sslVerificationEnabled = $sslVerificationEnabled;
     }
 
     /**
@@ -102,6 +131,11 @@ class HttpClient
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_TIMEOUT, 10);
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 2);
+
+        if (!$this->getSSLVerificationEnabled()) {
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+        }
 
         if ($method === self::REQUEST_GET) {
             curl_setopt($curl, CURLOPT_HTTPGET, true);
