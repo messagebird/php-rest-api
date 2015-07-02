@@ -183,6 +183,26 @@ class Message extends Base
     }
 
     /**
+     * Get the created href
+     *
+     * @return string
+     */
+    public function getHref()
+    {
+        return $this->href;
+    }
+
+    /**
+     * Get the $createdDatetime value
+     *
+     * @return string
+     */
+    public function getCreatedDatetime()
+    {
+        return $this->createdDatetime;
+    }
+
+    /**
      * @param $object
      *
      * @return $this|void
