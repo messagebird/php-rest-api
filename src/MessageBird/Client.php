@@ -53,16 +53,20 @@ class Client
     /**
      * @param $accessKey
      */
-    public function __construct($accessKey = null)
+    public function __construct($accessKey = null, Common\HttpClient $httpClient = null)
     {
-        $this->HttpClient = new Common\HttpClient(self::ENDPOINT);
+        if($httpClient == null)
+        {
+            $this->HttpClient = new Common\HttpClient(self::ENDPOINT);
+        } else {
+            $this->HttpClient = $httpClient;
+        }
         $this->HttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
         $this->HttpClient->addUserAgentString($this->getPhpVersion());
 
         if ($accessKey !== null) {
             $this->setAccessKey($accessKey);
         }
-
         $this->messages = new Resources\Messages($this->HttpClient);
         $this->hlr      = new Resources\Hlr($this->HttpClient);
         $this->otp      = new Resources\Otp($this->HttpClient);
