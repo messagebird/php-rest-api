@@ -55,8 +55,7 @@ class Client
      */
     public function __construct($accessKey = null, Common\HttpClient $httpClient = null)
     {
-        if($httpClient == null)
-        {
+        if ($httpClient == null) {
             $this->HttpClient = new Common\HttpClient(self::ENDPOINT);
         } else {
             $this->HttpClient = $httpClient;
