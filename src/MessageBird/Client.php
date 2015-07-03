@@ -12,7 +12,7 @@ class Client
 
     const ENDPOINT = 'https://rest.messagebird.com';
 
-    const CLIENT_VERSION = '1.1.9';
+    const CLIENT_VERSION = '1.1.10';
 
     /**
      * @var string
