@@ -1,6 +1,12 @@
 <?php
 class BaseTest extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->mockClient = $this->getMockBuilder("\MessageBird\Common\HttpClient")->setConstructorArgs(array("fake.messagebird.dev"))->getMock();
+
+    }
+
     public function testClientConstructor()
     {
         $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY');
@@ -9,5 +15,11 @@ class BaseTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('MessageBird\Resources\Messages', $MessageBird->messages);
         $this->assertInstanceOf('MessageBird\Resources\VoiceMessage', $MessageBird->voicemessages);
         $this->assertInstanceOf('MessageBird\Resources\Otp', $MessageBird->otp);
+    }
+
+    public function testHttpClientMock()
+    {
+        $this->mockClient->expects($this->atLeastOnce())->method('addUserAgentString');
+        $client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
     }
 }
