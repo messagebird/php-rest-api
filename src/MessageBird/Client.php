@@ -47,7 +47,7 @@ class Client
     /**
      * @var Common\HttpClient
      */
-    public $HttpClient;
+    protected $HttpClient;
 
 
     /**
