@@ -53,7 +53,7 @@ class Client
     /**
      * @param $accessKey
      */
-    public function __construct($accessKey = null, $httpClient = null)
+    public function __construct($accessKey = null, Common\HttpClient $httpClient = null)
     {
         if($httpClient == null)
         {
