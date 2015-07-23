@@ -25,6 +25,14 @@ class VoiceMessage extends Base
     protected $href;
 
     /**
+     * The originator of the voice message.
+     *
+     * Should be a valid MSISDN (telephone number including country code)
+     * @var string/int
+     */
+    public $originator;
+
+    /**
      * The body of the voice message.
      *
      * @var string
