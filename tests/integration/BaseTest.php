@@ -4,7 +4,6 @@ class BaseTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->mockClient = $this->getMockBuilder("\MessageBird\Common\HttpClient")->setConstructorArgs(array("fake.messagebird.dev"))->getMock();
-
     }
 
     public function testClientConstructor()
