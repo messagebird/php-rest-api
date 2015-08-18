@@ -25,7 +25,7 @@ class Base
     protected $resourceName;
 
     /**
-     * @var Objects\Hlr|Objects\Message|Objects\Balance
+     * @var Objects\Hlr|Objects\Message|Objects\Balance|Objects\Verify
      */
     protected $Object;
 
