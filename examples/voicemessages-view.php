@@ -1,7 +1,5 @@
 <?php
 
-date_default_timezone_set('Europe/Amsterdam');
-
 require_once(__DIR__ . '/../autoload.php');
 
 $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
