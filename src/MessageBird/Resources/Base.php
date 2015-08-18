@@ -71,14 +71,14 @@ class Base
 
     /**
      * @param       $object
-     * @param array $query
+     * @param array|null $query
      *
      * @return $this->Object
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
      */
-    public function create($object, $query = [])
+    public function create($object, $query = null)
     {
         $body = json_encode($object);
         list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_POST, $this->resourceName, $query, $body);
