@@ -5,13 +5,15 @@ require_once(__DIR__ . '/../autoload.php');
 $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 try {
-    $VoiceMessageResult = $MessageBird->voicemessages->read('ca0a8220453bc36ddeb3115a37400870'); // Set a message id here
-    var_dump($VoiceMessageResult);
+    $VerifyResult = $MessageBird->verify->verify('05a90ee1155d2f4cdd12440v10006813', '585438'); // Set a message id and the token here.
+    var_dump($VerifyResult);
+
+    // Check if $VerifyResult->getStatus() === MessageBird\Objects\Verify::STATUS_VERIFIED
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'wrong login';
 
 } catch (\Exception $e) {
-    var_dump($e->getMessage());
+    echo $e->getMessage();
 }

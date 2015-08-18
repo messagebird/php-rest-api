@@ -13,7 +13,7 @@ class BaseTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('MessageBird\Resources\Hlr', $MessageBird->hlr);
         $this->assertInstanceOf('MessageBird\Resources\Messages', $MessageBird->messages);
         $this->assertInstanceOf('MessageBird\Resources\VoiceMessage', $MessageBird->voicemessages);
-        $this->assertInstanceOf('MessageBird\Resources\Otp', $MessageBird->otp);
+        $this->assertInstanceOf('MessageBird\Resources\Verify', $MessageBird->verify);
     }
 
     public function testHttpClientMock()

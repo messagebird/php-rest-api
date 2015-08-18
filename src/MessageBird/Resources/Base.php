@@ -25,7 +25,7 @@ class Base
     protected $resourceName;
 
     /**
-     * @var Objects\Hlr|Objects\Message|Objects\Balance
+     * @var Objects\Hlr|Objects\Message|Objects\Balance|Objects\Verify
      */
     protected $Object;
 
@@ -70,17 +70,18 @@ class Base
     }
 
     /**
-     * @param $object
+     * @param       $object
+     * @param array|null $query
      *
      * @return $this->Object
-     *
+     * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
      */
-    public function create($object)
+    public function create($object, $query = null)
     {
         $body = json_encode($object);
-        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_POST, $this->resourceName, $query = null, $body);
+        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_POST, $this->resourceName, $query, $body);
         return $this->processRequest($body);
     }
 

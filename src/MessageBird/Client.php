@@ -35,9 +35,9 @@ class Client
     public $hlr;
 
     /**
-     * @var Resources\Otp
+     * @var Resources\Verify
      */
-    public $otp;
+    public $verify;
 
     /**
      * @var Resources\Balance
@@ -66,11 +66,12 @@ class Client
         if ($accessKey !== null) {
             $this->setAccessKey($accessKey);
         }
-        $this->messages = new Resources\Messages($this->HttpClient);
-        $this->hlr      = new Resources\Hlr($this->HttpClient);
-        $this->otp      = new Resources\Otp($this->HttpClient);
-        $this->balance  = new Resources\Balance($this->HttpClient);
-        $this->voicemessages      = new Resources\VoiceMessage($this->HttpClient);
+
+        $this->messages      = new Resources\Messages($this->HttpClient);
+        $this->hlr           = new Resources\Hlr($this->HttpClient);
+        $this->verify        = new Resources\Verify($this->HttpClient);
+        $this->balance       = new Resources\Balance($this->HttpClient);
+        $this->voicemessages = new Resources\VoiceMessage($this->HttpClient);
     }
 
     /**
