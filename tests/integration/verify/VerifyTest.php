@@ -30,7 +30,7 @@ class VerifyTest extends BaseTest
         $Verify->recipient = 31612345678;
         $Verify->reference = 'Yoloswag3000';
 
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'verify/onofao3f82f7u2fb2uf', ['token' => '123456']);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'verify/onofao3f82f7u2fb2uf', array('token' => '123456'));
 
         $this->client->verify->verify('onofao3f82f7u2fb2uf', 123456);
     }
