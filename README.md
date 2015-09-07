@@ -3,7 +3,7 @@ MessageBird's REST API for PHP
 This repository contains the open source PHP client for MessageBird's REST API. Documentation can be found at: https://www.messagebird.com/developers/php
 
 [![Build Status](https://travis-ci.org/messagebird/php-rest-api.svg?branch=master)](https://travis-ci.org/messagebird/php-rest-api)
-[![Latest Stable Version](https://poser.pugx.org/messagebird/php-rest-api/v/stable.svg)](https://packagist.org/packages/messagebird/php-rest-api) 
+[![Latest Stable Version](https://poser.pugx.org/messagebird/php-rest-api/v/stable.svg)](https://packagist.org/packages/messagebird/php-rest-api)
 [![License](https://poser.pugx.org/messagebird/php-rest-api/license.svg)](https://packagist.org/packages/messagebird/php-rest-api)
 
 Requirements
@@ -19,13 +19,13 @@ Installation
 ####Composer installation
 
 - [Download composer](https://getcomposer.org/doc/00-intro.md#installation-nix)
-- Add the `"messagebird/php-rest-api": "1.1.x"` into the `require` section of your `composer.json`.
+- Add the `"messagebird/php-rest-api": "1.2.x"` into the `require` section of your `composer.json`.
 - Run `composer install`.
 
 ```
 {
     "require": {
-        "messagebird/php-rest-api": "1.1.x"
+        "messagebird/php-rest-api": "1.2.x"
     }
 }
 ```
