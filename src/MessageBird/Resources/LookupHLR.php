@@ -7,11 +7,11 @@ use MessageBird\Common;
 use InvalidArgumentException;
 
 /**
- * Class LookupHLR 
+ * Class LookupHlr
  *
  * @package MessageBird\Resources
  */
-class LookupHLR extends Base
+class LookupHlr extends Base
 {
 
     /**

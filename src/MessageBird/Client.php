@@ -50,9 +50,9 @@ class Client
     public $lookup;
 
     /**
-     * @var Resources\LookupHLR
+     * @var Resources\LookupHlr
      */
-    public $lookupHLR;
+    public $lookupHlr;
 
     /**
      * @var Common\HttpClient
@@ -83,7 +83,7 @@ class Client
         $this->balance       = new Resources\Balance($this->HttpClient);
         $this->voicemessages = new Resources\VoiceMessage($this->HttpClient);
         $this->lookup        = new Resources\Lookup($this->HttpClient);
-        $this->lookupHLR     = new Resources\LookupHLR($this->HttpClient);
+        $this->lookupHlr     = new Resources\LookupHlr($this->HttpClient);
     }
 
     /**

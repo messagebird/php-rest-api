@@ -37,7 +37,7 @@ class LookupTest extends BaseTest
     /**
      * @expectedException     MessageBird\Exceptions\ServerException
        */
-    public function testCreateLookupHLR()
+    public function testCreateLookupHlr()
     {
         $Hlr             = new \MessageBird\Objects\Hlr();
         $Hlr->msisdn     = 31612345678;
@@ -45,23 +45,23 @@ class LookupTest extends BaseTest
 
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'lookup/'.$Hlr->msisdn.'/hlr', null, json_encode($Hlr));
 
-        $this->client->lookupHLR->create($Hlr);
+        $this->client->lookupHlr->create($Hlr);
     }
 
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testCreateLookupHLRWithEmptyNumber()
+    public function testCreateLookupHlrWithEmptyNumber()
     {
         $Hlr             = new \MessageBird\Objects\Hlr();
         $Hlr->msisdn     = null;
-        $this->client->lookupHLR->create($Hlr);
+        $this->client->lookupHlr->create($Hlr);
     }
 
     /**
      * @expectedException     MessageBird\Exceptions\ServerException
        */
-    public function testCreateLookupHLRWithCountryCode()
+    public function testCreateLookupHlrWithCountryCode()
     {
         $Hlr             = new \MessageBird\Objects\Hlr();
         $Hlr->msisdn     = 612345678;
@@ -71,34 +71,34 @@ class LookupTest extends BaseTest
 
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'lookup/'.$Hlr->msisdn.'/hlr', $params, json_encode($Hlr));
 
-        $this->client->lookupHLR->create($Hlr, $params["countryCode"]);
+        $this->client->lookupHlr->create($Hlr, $params["countryCode"]);
     }
 
     /**
      * @expectedException     MessageBird\Exceptions\ServerException
        */
-    public function testReadLookupHLR()
+    public function testReadLookupHlr()
     {
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'lookup/31612345678/hlr', null, null);
-        $this->client->lookupHLR->read(31612345678);
+        $this->client->lookupHlr->read(31612345678);
     }
 
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testReadLookupHLRWithEmptyNumber()
+    public function testReadLookupHlrWithEmptyNumber()
     {
-        $this->client->lookupHLR->read(null);
+        $this->client->lookupHlr->read(null);
     }
 
     /**
      * @expectedException     MessageBird\Exceptions\ServerException
        */
-    public function testReadLookupHLRWithCountryCode()
+    public function testReadLookupHlrWithCountryCode()
     {
         $params = array("countryCode" => "NL");
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'lookup/612345678/hlr', $params, null);
-        $this->client->lookupHLR->read(612345678, $params["countryCode"]);
+        $this->client->lookupHlr->read(612345678, $params["countryCode"]);
     }
 
 }

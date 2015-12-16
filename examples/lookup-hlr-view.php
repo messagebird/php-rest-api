@@ -10,13 +10,13 @@ try {
     $Hlr->reference  = "yoloswag3001";
 
     // create a new hlr request
-    $hlr = $MessageBird->lookupHLR->create($Hlr);
+    $hlr = $MessageBird->lookupHlr->create($Hlr);
     var_dump($hlr);
 
     // pool for the results
     $poolCount = 10;
     while($poolCount--) {
-        $hlr = $MessageBird->lookupHLR->read($Hlr->msisdn);
+        $hlr = $MessageBird->lookupHlr->read($Hlr->msisdn);
         if ($hlr->status != \MessageBird\Objects\Hlr::STATUS_SENT) {
             // we have something
             var_dump($hlr);
