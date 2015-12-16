@@ -4,6 +4,7 @@ namespace MessageBird\Resources;
 
 use MessageBird\Objects;
 use MessageBird\Common;
+use InvalidArgumentException;
 
 /**
  * Class Verify
@@ -33,8 +34,11 @@ class Lookup extends Base
      * @throws \MessageBird\Exceptions\RequestException
      * @throws \MessageBird\Exceptions\ServerException
      */
-    public function read($phoneNumber = null, $countryCode = null)
+    public function read($phoneNumber, $countryCode = null)
     {
+        if(empty($phoneNumber)) {
+            throw new InvalidArgumentException('The phone number cannot be empty.');
+        }
         $query = null; 
         if ($countryCode != null) {
             $query = array("countryCode" => $countryCode);

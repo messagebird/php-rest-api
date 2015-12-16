@@ -17,6 +17,14 @@ class LookupTest extends BaseTest
     }
 
     /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testReadLookupWithEmptyNumber()
+    {
+        $this->client->lookup->read(null);
+    }
+
+    /**
      * @expectedException     MessageBird\Exceptions\ServerException
        */
     public function testReadLookupWithCountryCode()
@@ -37,6 +45,16 @@ class LookupTest extends BaseTest
 
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'lookup/'.$Hlr->msisdn.'/hlr', null, json_encode($Hlr));
 
+        $this->client->lookupHLR->create($Hlr);
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testCreateLookupHLRWithEmptyNumber()
+    {
+        $Hlr             = new \MessageBird\Objects\Hlr();
+        $Hlr->msisdn     = null;
         $this->client->lookupHLR->create($Hlr);
     }
 
@@ -63,6 +81,14 @@ class LookupTest extends BaseTest
     {
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'lookup/31612345678/hlr', null, null);
         $this->client->lookupHLR->read(31612345678);
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testReadLookupHLRWithEmptyNumber()
+    {
+        $this->client->lookupHLR->read(null);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace MessageBird\Resources;
 
 use MessageBird\Objects;
 use MessageBird\Common;
+use InvalidArgumentException;
 
 /**
  * Class LookupHLR 
@@ -35,6 +36,10 @@ class LookupHLR extends Base
      */
     public function create($hlr, $countryCode = null)
     {
+        if(empty($hlr->msisdn)) {
+            throw new InvalidArgumentException('The phone number ($hlr->msisdn) cannot be empty.');
+        }
+
         $query = null;
         if ($countryCode != null) {
             $query = array("countryCode" => $countryCode);
@@ -53,8 +58,12 @@ class LookupHLR extends Base
      * @throws \MessageBird\Exceptions\RequestException
      * @throws \MessageBird\Exceptions\ServerException
      */
-    public function read($phoneNumber = null, $countryCode = null)
+    public function read($phoneNumber, $countryCode = null)
     {
+        if(empty($phoneNumber)) {
+            throw new InvalidArgumentException('The phone number cannot be empty.');
+        }
+
         $query = null;
         if ($countryCode != null) {
             $query = array("countryCode" => $countryCode);

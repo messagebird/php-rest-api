@@ -10,7 +10,6 @@ try {
 
     $Lookup = $MessageBird->lookup->read("624971134", "NL");
     var_dump($Lookup);
-
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'wrong login';
