@@ -34,7 +34,7 @@ class Lookup extends Base
      * @throws \MessageBird\Exceptions\RequestException
      * @throws \MessageBird\Exceptions\ServerException
      */
-    public function read($phoneNumber, $countryCode = null)
+    public function read($phoneNumber = null, $countryCode = null)
     {
         if(empty($phoneNumber)) {
             throw new InvalidArgumentException('The phone number cannot be empty.');
