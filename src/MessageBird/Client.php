@@ -12,7 +12,7 @@ class Client
 
     const ENDPOINT = 'https://rest.messagebird.com';
 
-    const CLIENT_VERSION = '1.2.0';
+    const CLIENT_VERSION = '1.3.0';
 
     /**
      * @var string
@@ -45,6 +45,16 @@ class Client
     public $balance;
 
     /**
+     * @var Resources\Lookup
+     */
+    public $lookup;
+
+    /**
+     * @var Resources\LookupHlr
+     */
+    public $lookupHlr;
+
+    /**
      * @var Common\HttpClient
      */
     protected $HttpClient;
@@ -72,6 +82,8 @@ class Client
         $this->verify        = new Resources\Verify($this->HttpClient);
         $this->balance       = new Resources\Balance($this->HttpClient);
         $this->voicemessages = new Resources\VoiceMessage($this->HttpClient);
+        $this->lookup        = new Resources\Lookup($this->HttpClient);
+        $this->lookupHlr     = new Resources\LookupHlr($this->HttpClient);
     }
 
     /**

@@ -89,7 +89,7 @@ class Message extends Base
     public $gateway;
 
     /**
-     * A hash with extra information. Is only used when a binary or premium
+     * An associative array with extra information. Is only used when a binary or premium
      * message is sent.
      *
      * @var array
