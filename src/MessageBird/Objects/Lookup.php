@@ -22,12 +22,6 @@ class Lookup extends Base
     const TYPE_VOICE_MAIL = "voice mail";
     const TYPE_UNKNOWN = "unknown";
        
-    const HRL_STATUS_SENT = "sent";
-    const HRL_STATUS_ABSENT = "absent";
-    const HRL_STATUS_ACTIVE = "active";
-    const HRL_STATUS_UNKNOWN = "unknown";
-    const HRL_STATUS_FALIED = "failed";
-
     /**
      * The URL of the created object.
      *

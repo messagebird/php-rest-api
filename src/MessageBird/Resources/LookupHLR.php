@@ -33,8 +33,12 @@ class LookupHLR extends Base
      * @throws \MessageBird\Exceptions\RequestException
      * @throws \MessageBird\Exceptions\ServerException
      */
-    public function create($hlr, $query = null)
+    public function create($hlr, $countryCode = null)
     {
+        $query = null;
+        if ($countryCode != null) {
+            $query = array("countryCode" => $countryCode);
+        }
         $ResourceName = $this->resourceName . '/' . ($hlr->msisdn) . '/hlr' ;
         list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_POST, $ResourceName, $query, json_encode($hlr));
         return $this->processRequest($body);
@@ -49,8 +53,12 @@ class LookupHLR extends Base
      * @throws \MessageBird\Exceptions\RequestException
      * @throws \MessageBird\Exceptions\ServerException
      */
-    public function read($phoneNumber = null, $query = null)
+    public function read($phoneNumber = null, $countryCode = null)
     {
+        $query = null;
+        if ($countryCode != null) {
+            $query = array("countryCode" => $countryCode);
+        }
         $ResourceName = $this->resourceName . '/' . $phoneNumber . '/hlr' ;
         list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $ResourceName, $query, null);
         return $this->processRequest($body);

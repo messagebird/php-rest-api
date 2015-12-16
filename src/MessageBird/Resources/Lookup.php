@@ -33,46 +33,14 @@ class Lookup extends Base
      * @throws \MessageBird\Exceptions\RequestException
      * @throws \MessageBird\Exceptions\ServerException
      */
-    public function read($phoneNumber = null)
+    public function read($phoneNumber = null, $countryCode = null)
     {
+        $query = null; 
+        if ($countryCode != null) {
+            $query = array("countryCode" => $countryCode);
+        }
         $ResourceName = $this->resourceName . '/' . $phoneNumber;
-        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $ResourceName);
+        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $ResourceName, $query);
         return $this->processRequest($body);
     }
-
-    private function hlr($phoneNumber, $method)
-    {
-        $ResourceName = $this->resourceName . '/' . $phoneNumber . '/hlr' ;
-        list(, , $body) = $this->HttpClient->performHttpRequest($method, $ResourceName);
-        return $this->processRequest($body);
-    }
-
-    /**
-     * @param $phoneNumber
-     *
-     * @return $this->Object
-     *
-     * @throws \MessageBird\Exceptions\HttpException
-     * @throws \MessageBird\Exceptions\RequestException
-     * @throws \MessageBird\Exceptions\ServerException
-     */
-    public function readHLR($phoneNumber)
-    {
-        return $this->hlr($phoneNumber, Common\HttpClient::REQUEST_GET);
-    }
-
-    /**
-     * @param $phoneNumber
-     *
-     * @return $this->Object
-     *
-     * @throws \MessageBird\Exceptions\HttpException
-     * @throws \MessageBird\Exceptions\RequestException
-     * @throws \MessageBird\Exceptions\ServerException
-     */
-    public function requestHLR($phoneNumber)
-    {
-        return $this->hlr($phoneNumber, Common\HttpClient::REQUEST_POST);
-    }
-
 }

@@ -2,12 +2,13 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
-$MessageBird = new \MessageBird\Client('live_q2rh0rCJPmmpbNrJLE8xUtdJv'); // Set your own API access key here.
+$MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 try {
+    $Lookup = $MessageBird->lookup->read(31624971134);
+    var_dump($Lookup);
 
-    $phoneNumber = 31624971134;
-    $Lookup = $MessageBird->lookup->read($phoneNumber);
+    $Lookup = $MessageBird->lookup->read("624971134", "NL");
     var_dump($Lookup);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
