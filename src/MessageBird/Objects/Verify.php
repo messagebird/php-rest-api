@@ -46,7 +46,7 @@ class Verify extends Base
     public $reference;
 
     /**
-     * A hash containing one href entry referring to the URL of the created object.
+     * An associative array containing one href entry referring to the URL of the created object.
      * The entry can either refer to either the messages or the voicemessages endpoint
      *
      * @var object

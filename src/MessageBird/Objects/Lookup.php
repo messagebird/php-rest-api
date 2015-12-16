@@ -56,9 +56,9 @@ class Lookup extends Base
     protected $type;
 
     /** 
-     * A hash containing references to this phone number in several different formats.
+     * An associative array containing references to this phone number in several different formats.
      *
-     * @var hash
+     * @var array
      *
      * e164: The phone number in E.164 format.
      * international: The phone number in international format.
@@ -68,9 +68,9 @@ class Lookup extends Base
     protected $formats;
 
     /**
-     * The most recent HLR object. If no such HLR objects exists, this hash won't be returned.
+     * The most recent HLR object. If no such HLR objects exists, this array won't be returned.
      *
-     * @var hash
+     * @var array 
      *
      * id(string): An unique random ID which is created on the MessageBird platform.
      * network(int): The MCCMNC code of the network provider.
