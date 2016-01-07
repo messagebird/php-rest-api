@@ -7,7 +7,8 @@ $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API a
 $Message             = new \MessageBird\Objects\Message();
 $Message->originator = 'MessageBird';
 $Message->recipients = array(31612345678);
-$Message->body       = 'This is a test message.';
+$Message->body       = 'This is a test message with a smiling emoji 😀.';
+$Message->datacoding = 'unicode';
 
 try {
     $MessageResult = $MessageBird->messages->create($Message);
