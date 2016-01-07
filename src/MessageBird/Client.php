@@ -12,7 +12,7 @@ class Client
 
     const ENDPOINT = 'https://rest.messagebird.com';
 
-    const CLIENT_VERSION = '1.3.0';
+    const CLIENT_VERSION = '1.3.1';
 
     /**
      * @var string
@@ -59,9 +59,9 @@ class Client
      */
     protected $HttpClient;
 
-
     /**
-     * @param $accessKey
+     * @param string            $accessKey
+     * @param Common\HttpClient $httpClient
      */
     public function __construct($accessKey = null, Common\HttpClient $httpClient = null)
     {
@@ -95,6 +95,9 @@ class Client
         $this->HttpClient->setAuthentication($Authentication);
     }
 
+    /**
+     * @return string
+     */
     private function getPhpVersion()
     {
         if (!defined('PHP_VERSION_ID')) {

@@ -19,7 +19,7 @@ class HttpClient
     const HTTP_NO_CONTENT = 204;
 
     /**
-     * @var
+     * @var string
      */
     protected $endpoint;
 
@@ -34,7 +34,7 @@ class HttpClient
     protected $Authentication;
 
     /**
-     * @param $endpoint
+     * @param string $endpoint
      */
     public function __construct($endpoint)
     {
