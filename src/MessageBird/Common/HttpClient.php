@@ -112,6 +112,13 @@ class HttpClient
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::REQUEST_DELETE);
         }
 
+        // Some servers have outdated or incorrect certificates, Use the included CA-bundle
+        $caFile = realpath(dirname(__FILE__) . "/../ca-bundle.crt");
+        if (!file_exists($caFile)) {
+            throw new Exceptions\HttpException('Unable to find CA-bundle file: ' . $caFile);
+        }
+        curl_setopt($curl, CURLOPT_CAINFO, $caFile);
+
         $response = curl_exec($curl);
 
         if ($response === false) {
