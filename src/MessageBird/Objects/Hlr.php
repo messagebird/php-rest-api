@@ -71,4 +71,44 @@ class Hlr extends Base
      * @var string
      */
     protected $statusDatetime;
+
+    /**
+     * Get the created id
+     *
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get the created href
+     *
+     * @return string
+     */
+    public function getHref()
+    {
+        return $this->href;
+    }
+
+    /**
+     * Get the date and time the resource was created
+     *
+     * @return string
+     */
+    public function getCreatedDatetime()
+    {
+        return $this->createdDatetime;
+    }
+
+    /**
+     * Get the date and time the resource was created
+     *
+     * @return string
+     */
+    public function getStatusDatetime()
+    {
+        return $this->statusDatetime;
+    }
 }
