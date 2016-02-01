@@ -16,7 +16,7 @@ class HlrTest extends BaseTest
         $Hlr->msisdn     = 'MessageBird';
         $Hlr->reference  = "yoloswag3000";
 
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'hlr', null, '{"msisdn":"MessageBird","network":null,"details":array(),"reference":"yoloswag3000","status":null}');
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'hlr', null, '{"msisdn":"MessageBird","network":null,"details":[],"reference":"yoloswag3000","status":null}');
         $this->client->hlr->create($Hlr);
     }
 
