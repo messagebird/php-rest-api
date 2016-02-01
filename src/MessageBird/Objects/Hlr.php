@@ -44,6 +44,14 @@ class Hlr extends Base
     public $network;
 
     /**
+     * A array with extra HLR information. Do note that the attributes in the array can change over time and
+     * can be null (not all information is availble for all countries and providers).
+     *
+     * @var array
+     */
+    public $details = array();
+
+    /**
      * A client reference. Here you can put your own reference,
      * like your internal reference.
      *
