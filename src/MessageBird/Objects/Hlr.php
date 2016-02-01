@@ -49,7 +49,7 @@ class Hlr extends Base
      *
      * @var array
      */
-    public $details;
+    public $details = [];
 
     /**
      * A client reference. Here you can put your own reference,
