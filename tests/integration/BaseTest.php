@@ -19,6 +19,6 @@ class BaseTest extends PHPUnit_Framework_TestCase
     public function testHttpClientMock()
     {
         $this->mockClient->expects($this->atLeastOnce())->method('addUserAgentString');
-        $client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
+        new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
     }
 }

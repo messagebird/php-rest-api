@@ -3,7 +3,7 @@ class MessageTest extends BaseTest
 {
     public function setUp()
     {
-        parent::setup();
+        parent::setUp();
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
     }
 
@@ -100,7 +100,7 @@ class MessageTest extends BaseTest
     public function testListMessage()
     {
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'messages', array ('offset' => 100, 'limit' => 30), null);
-        $MessageList = $this->client->messages->getList(array ('offset' => 100, 'limit' => 30));
+        $this->client->messages->getList(array ('offset' => 100, 'limit' => 30));
     }
 
     /**
@@ -109,7 +109,7 @@ class MessageTest extends BaseTest
     public function testReadMessage()
     {
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'messages/message_id', null, null);
-        $MessageList = $this->client->messages->read("message_id");
+        $this->client->messages->read("message_id");
     }
 
     /**
@@ -118,6 +118,6 @@ class MessageTest extends BaseTest
     public function testDeleteMessage()
     {
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'messages/message_id', null, null);
-        $MessageList = $this->client->messages->delete("message_id");
+        $this->client->messages->delete("message_id");
     }
 }

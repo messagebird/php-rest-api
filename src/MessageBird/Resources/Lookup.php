@@ -26,7 +26,8 @@ class Lookup extends Base
     }
 
     /**
-     * @param $phoneNumber
+     * @param string|int $phoneNumber
+     * @param string     $countryCode
      *
      * @return $this->Object
      *
@@ -39,7 +40,7 @@ class Lookup extends Base
         if(empty($phoneNumber)) {
             throw new InvalidArgumentException('The phone number cannot be empty.');
         }
-        $query = null; 
+        $query = null;
         if ($countryCode != null) {
             $query = array("countryCode" => $countryCode);
         }
