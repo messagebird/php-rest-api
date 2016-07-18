@@ -92,6 +92,9 @@ class Client
         $this->lookup        = new Resources\Lookup($this->HttpClient);
         $this->lookupHlr     = new Resources\LookupHlr($this->HttpClient);
         $this->chatmessages  = new Resources\ChatMessage($this->ChatAPIHttpClient);
+        $this->chatchannels  = new Resources\ChatChannel($this->ChatAPIHttpClient);
+        $this->chatplatforms = new Resources\ChatPlatform($this->ChatAPIHttpClient);
+        
     }
 
     /**

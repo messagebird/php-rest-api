@@ -15,7 +15,6 @@ class ChatChannel extends Base
 
     /**
      * @param Common\HttpClient $HttpClient
-     * @internal param $resourceName
      */
     public function __construct(Common\HttpClient $HttpClient)
     {
