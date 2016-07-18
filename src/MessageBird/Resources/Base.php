@@ -171,5 +171,17 @@ class Base
         throw new Exceptions\RequestException($ResponseError->getErrorString());
     }
 
-
+    /**
+     * @param array $parameters
+     *
+     * @return $this->Object
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
+     */
+    public function update($parameters = array ())
+    {
+        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_PUT, $this->resourceName, $parameters);
+        return $this->processRequest($body);
+    }
 }

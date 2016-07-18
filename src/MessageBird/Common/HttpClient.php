@@ -15,6 +15,7 @@ class HttpClient
     const REQUEST_GET = "GET";
     const REQUEST_POST = "POST";
     const REQUEST_DELETE = "DELETE";
+    const REQUEST_PUT = "PUT";
 
     const HTTP_NO_CONTENT = 204;
 
