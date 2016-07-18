@@ -71,12 +71,10 @@ class Client
      */
     public function __construct($accessKey = null, Common\HttpClient $httpClient = null)
     {
-        if ($httpClient == null) {
-            $this->ChatAPIHttpClient = new Common\HttpClient(self::CHATAPI_ENDPOINT);
-            $this->HttpClient = new Common\HttpClient(self::ENDPOINT);
-        } else {
-            $this->HttpClient = $httpClient;
-        }
+
+        $this->ChatAPIHttpClient = new Common\HttpClient(self::CHATAPI_ENDPOINT);
+        $this->HttpClient = new Common\HttpClient(self::ENDPOINT);
+
         $this->HttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
         $this->HttpClient->addUserAgentString($this->getPhpVersion());
 
@@ -94,7 +92,7 @@ class Client
         $this->chatmessages  = new Resources\ChatMessage($this->ChatAPIHttpClient);
         $this->chatchannels  = new Resources\ChatChannel($this->ChatAPIHttpClient);
         $this->chatplatforms = new Resources\ChatPlatform($this->ChatAPIHttpClient);
-        
+
     }
 
     /**
