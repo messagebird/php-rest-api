@@ -11,18 +11,8 @@ $ChatChannel = new \MessageBird\Objects\ChatChannel();
 $ChatChannel->name = 'Test Channel Telegram';
 $ChatChannel->platform_id = 'e82d332c5649a5f911e569n69040697';
 
-/*
- *
- * Channel details is a hash with name-value pairs indicating which channel details (and their respective data types)
- * are required when creating a channel for this platform.
- *
- * Template hashes are JSON objects which contain name-value pairs that indicate the parameter names
- * and respective data types which are required when creating a related object.
- * The contactTemplate relates to the contactDetails parameter of a contact object.
- * The channelTemplate relates to the channelDetails parameter of a channel object.
- * Hash names ending in |empty denote parameters which are optional.
- *
- */
+// Channel details is a hash with name-value pairs indicating which channel details (and their respective data types)
+// are required when creating a channel for this platform.
 
 $ChatChannel->channelDetails =
     array(

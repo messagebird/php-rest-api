@@ -78,9 +78,12 @@ class Client
             $this->ChatAPIHttpClient = $httpClient;
             $this->HttpClient = $httpClient;
         }
-        
+
         $this->HttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
         $this->HttpClient->addUserAgentString($this->getPhpVersion());
+
+        $this->ChatAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
+        $this->ChatAPIHttpClient->addUserAgentString($this->getPhpVersion());
 
         if ($accessKey !== null) {
             $this->setAccessKey($accessKey);
