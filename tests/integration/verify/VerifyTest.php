@@ -3,7 +3,7 @@ class VerifyTest extends BaseTest
 {
     public function setUp()
     {
-        parent::setup();
+        parent::setUp();
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
     }
 

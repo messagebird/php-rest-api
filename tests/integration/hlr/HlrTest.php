@@ -3,7 +3,7 @@ class HlrTest extends BaseTest
 {
     public function setUp()
     {
-        parent::setup();
+        parent::setUp();
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
     }
 
@@ -27,6 +27,6 @@ class HlrTest extends BaseTest
     public function testReadHlr()
     {
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'hlr/message_id', null, null);
-        $Hlr = $this->client->hlr->read("message_id");
+        $this->client->hlr->read("message_id");
     }
 }

@@ -19,14 +19,15 @@ class LookupHlr extends Base
      */
     public function __construct(Common\HttpClient $HttpClient)
     {
-        $this->setObject(new Objects\HLR);
+        $this->setObject(new Objects\Hlr);
         $this->setResourceName('lookup');
 
         parent::__construct($HttpClient);
     }
 
     /**
-     * @param $phoneNumber
+     * @param Objects\Hlr $hlr
+     * @param string|null $countryCode
      *
      * @return $this->Object
      *
@@ -51,6 +52,7 @@ class LookupHlr extends Base
 
     /**
      * @param $phoneNumber
+     * @param string|null  $countryCode
      *
      * @return $this->Object
      *

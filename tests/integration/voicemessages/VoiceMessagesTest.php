@@ -3,7 +3,7 @@ class VoiceMessagesTest extends BaseTest
 {
     public function setUp()
     {
-        parent::setup();
+        parent::setUp();
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
     }
 
@@ -28,7 +28,7 @@ class VoiceMessagesTest extends BaseTest
     public function testListMessage()
     {
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'voicemessages', array ('offset' => 100, 'limit' => 30), null);
-        $MessageList = $this->client->voicemessages->getList(array ('offset' => 100, 'limit' => 30));
+        $this->client->voicemessages->getList(array ('offset' => 100, 'limit' => 30));
     }
 
     /**
@@ -37,7 +37,7 @@ class VoiceMessagesTest extends BaseTest
     public function testReadMessage()
     {
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'voicemessages/message_id', null, null);
-        $MessageList = $this->client->voicemessages->read("message_id");
+        $this->client->voicemessages->read("message_id");
     }
 
     /**
@@ -46,6 +46,6 @@ class VoiceMessagesTest extends BaseTest
     public function testDeleteMessage()
     {
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'voicemessages/message_id', null, null);
-        $MessageList = $this->client->voicemessages->delete("message_id");
+        $this->client->voicemessages->delete("message_id");
     }
 }

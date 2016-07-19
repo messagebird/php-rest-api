@@ -3,7 +3,7 @@ class BalanceTest extends BaseTest
 {
     public function setUp()
     {
-        parent::setup();
+        parent::setUp();
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
     }
 
@@ -13,6 +13,6 @@ class BalanceTest extends BaseTest
     public function testReadBalance()
     {
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'balance', null, null);
-        $Hlr = $this->client->balance->read();
+        $this->client->balance->read();
     }
 }
