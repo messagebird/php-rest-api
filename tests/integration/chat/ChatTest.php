@@ -99,4 +99,31 @@ class ChatTest extends BaseTest
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'platforms/id', null, null);
         $Channel = $this->client->chatplatforms->read("id");
     }
+
+    /**
+     * @expectedException     MessageBird\Exceptions\ServerException
+     */
+    public function testListChatContacts()
+    {
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts', array ('offset' => 100, 'limit' => 30), null);
+        $ContactList = $this->client->chatcontacts->getList(array ('offset' => 100, 'limit' => 30));
+    }
+
+    /**
+     * @expectedException     MessageBird\Exceptions\ServerException
+     */
+    public function testReadChatContact()
+    {
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts/id', null, null);
+        $Contact = $this->client->chatcontacts->read("id");
+    }
+
+    /**
+     * @expectedException     MessageBird\Exceptions\ServerException
+     */
+    public function testDeleteContact()
+    {
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'contacts/id', null, null);
+        $contact = $this->client->chatcontacts->delete("id");
+    }
 }

@@ -99,6 +99,7 @@ class Client
         $this->chatmessages  = new Resources\ChatMessage($this->ChatAPIHttpClient);
         $this->chatchannels  = new Resources\ChatChannel($this->ChatAPIHttpClient);
         $this->chatplatforms = new Resources\ChatPlatform($this->ChatAPIHttpClient);
+        $this->chatcontacts  = new Resources\ChatContact($this->ChatAPIHttpClient);
 
     }
 
