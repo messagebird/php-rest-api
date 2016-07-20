@@ -172,16 +172,27 @@ class Base
     }
 
     /**
-     * @param array $parameters
+     * @param $object
+     * @param $id
+     * @return $this ->Object
+     * @internal param array $parameters
      *
-     * @return $this->Object
-     * @throws Exceptions\HttpException
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
      */
-    public function update($parameters = array ())
+    public function update($object, $id)
     {
-        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_PUT, $this->resourceName, $parameters);
+
+        $objVars = get_object_vars($object);
+        $body = array();
+        foreach ($objVars as $key => $value) {
+            if (!is_null($value)) {
+                $body[$key] = $value;
+            }
+        }
+
+        $ResourceName = $this->resourceName . (($id) ? '/' . $id : null);
+        $body = json_encode($body);
+
+        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_PUT, $ResourceName, false, $body);
         return $this->processRequest($body);
     }
 }

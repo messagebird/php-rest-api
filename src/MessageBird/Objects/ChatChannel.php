@@ -22,7 +22,7 @@ class ChatChannel extends Base
      *
      * @var string
      */
-    public $platform_id;
+    public $platformId;
 
     /**
      * A hash of values as defined in channel_template of a Platform
@@ -37,7 +37,6 @@ class ChatChannel extends Base
      * @var string
      */
     public $callbackUrl;
-
 
     /**
      * The endpoint of the action (platforms, messages, channels, contacts)
@@ -92,18 +91,5 @@ class ChatChannel extends Base
 
         return $this;
     }
-    
-    /**
-     * @param array $parameters
-     *
-     * @return $this->Object
-     * @throws Exceptions\HttpException
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
-     */
-    public function update($parameters = array ())
-    {
-        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_PUT, $this->resourceName, $parameters);
-        return $this->processRequest($body);
-    }
+
 }
