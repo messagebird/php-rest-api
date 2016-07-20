@@ -68,6 +68,11 @@ class ChatPlatform extends Base
     protected $updatedAt;
 
     /**
+     * @var array
+     */
+    protected $_links;
+
+    /**
      * @param $object
      *
      * @return $this|void

@@ -81,6 +81,11 @@ class ChatChannel extends Base
     protected $deletedAt;
 
     /**
+     * @var array
+     */
+    protected $_links = array();
+
+    /**
      * @param $object
      *
      * @return $this|void

@@ -76,6 +76,11 @@ class ChatMessage extends Base
     protected $mediaPath;
 
     /**
+     * @var array
+     */
+    protected $_links = array();
+
+    /**
      * @param $object
      *
      * @return $this|void
