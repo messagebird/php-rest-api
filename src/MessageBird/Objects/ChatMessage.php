@@ -91,4 +91,9 @@ class ChatMessage extends Base
 
         return $this;
     }
+
+    public function getId()
+    {
+        return $this->id;
+    }
 }
