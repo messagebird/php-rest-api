@@ -15,6 +15,7 @@ class HttpClient
     const REQUEST_GET = "GET";
     const REQUEST_POST = "POST";
     const REQUEST_DELETE = "DELETE";
+    const REQUEST_PUT = "PUT";
 
     const HTTP_NO_CONTENT = 204;
 
@@ -110,6 +111,9 @@ class HttpClient
             curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
         } elseif ($method === self::REQUEST_DELETE) {
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::REQUEST_DELETE);
+        } elseif ($method === self::REQUEST_PUT){
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::REQUEST_PUT);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
         }
 
         // Some servers have outdated or incorrect certificates, Use the included CA-bundle
