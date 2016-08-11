@@ -14,9 +14,10 @@ class BaseTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('MessageBird\Resources\Messages', $MessageBird->messages);
         $this->assertInstanceOf('MessageBird\Resources\VoiceMessage', $MessageBird->voicemessages);
         $this->assertInstanceOf('MessageBird\Resources\Verify', $MessageBird->verify);
-        $this->assertInstanceOf('MessageBird\Resources\ChatMessage', $MessageBird->chatmessages);
-        $this->assertInstanceOf('MessageBird\Resources\ChatPlatform', $MessageBird->chatplatforms);
-        $this->assertInstanceOf('MessageBird\Resources\ChatChannel', $MessageBird->chatchannels);
+        $this->assertInstanceOf('MessageBird\Resources\Chat\Message', $MessageBird->chatmessages);
+        $this->assertInstanceOf('MessageBird\Resources\Chat\Platform', $MessageBird->chatplatforms);
+        $this->assertInstanceOf('MessageBird\Resources\Chat\Channel', $MessageBird->chatchannels);
+        $this->assertInstanceOf('MessageBird\Resources\Chat\Contact', $MessageBird->chatcontacts);
 
     }
 

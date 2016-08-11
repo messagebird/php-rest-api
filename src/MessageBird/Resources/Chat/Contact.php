@@ -1,16 +1,17 @@
 <?php
 
-namespace MessageBird\Resources;
+namespace MessageBird\Resources\Chat;
 
 use MessageBird\Objects;
 use MessageBird\Common;
+use MessageBird\Resources\Base;
 
 /**
- * Class ChatPlatform
+ * Class Contact
  *
- * @package MessageBird\Resources
+ * @package MessageBird\Resources\Chat
  */
-class ChatPlatform extends Base
+class Contact extends Base
 {
 
     /**
@@ -19,8 +20,8 @@ class ChatPlatform extends Base
     public function __construct(Common\HttpClient $HttpClient)
     {
 
-        $this->setObject(new Objects\ChatPlatform());
-        $this->setResourceName('platforms');
+        $this->setObject(new Objects\Chat\Contact());
+        $this->setResourceName('contacts');
 
         parent::__construct($HttpClient);
     }
