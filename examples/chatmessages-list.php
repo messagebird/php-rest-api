@@ -4,7 +4,7 @@ require_once(__DIR__ . '/../autoload.php');
 
 $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY	'); // Set your own API access key here.
 
-$ChatMessage = new \MessageBird\Objects\ChatMessage();
+$ChatMessage = new \MessageBird\Objects\Chat\Message();
 
 
 try {
