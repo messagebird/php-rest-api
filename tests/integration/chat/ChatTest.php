@@ -9,7 +9,7 @@ class ChatTest extends BaseTest
 
     public function testCreateChatMessage()
     {
-        $ChatMessage             = new \MessageBird\Objects\ChatMessage();
+        $ChatMessage             = new \MessageBird\Objects\Chat\Message();
         $ChatMessage->contactId = '9d754dac577e3ff103cdf4n29856560';
         $ChatMessage->payload = 'This is a test message to test the Chat API';
         $ChatMessage->type = 'text';
@@ -40,7 +40,7 @@ class ChatTest extends BaseTest
 
     public function testCreateChatChannel()
     {
-        $ChatChannel = new \MessageBird\Objects\ChatChannel();
+        $ChatChannel = new \MessageBird\Objects\Chat\Channel();
         $ChatChannel->name = 'Test Channel Telegram';
         $ChatChannel->platformId = 'e84f332c5649a5f911e569n69330697';
 
@@ -84,7 +84,7 @@ class ChatTest extends BaseTest
 
     public function testUpdateChatChannel()
     {
-        $ChatChannel             = new \MessageBird\Objects\ChatChannel();
+        $ChatChannel             = new \MessageBird\Objects\Chat\Channel();
         $ChatChannel->name = '9d2345ac577e4f103cd3d4529856560';
         $ChatChannel->callbackUrl = 'http://testurl.dev';
 

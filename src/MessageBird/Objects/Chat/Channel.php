@@ -1,36 +1,44 @@
 <?php
 
-namespace MessageBird\Objects;
+namespace MessageBird\Objects\Chat;
+
+use MessageBird\Objects\Base;
 
 /**
- * Class ChatMessage
+ * Class Channel
  *
- * @package MessageBird\Objects
+ * @package MessageBird\Objects\Chat
  */
-class ChatMessage extends Base
+class Channel extends Base
 {
 
     /**
-     * The type of the messages. Possible values: text, image, audio, video, location
+     * The name of the Channel
      *
      * @var string
      */
-    public $type = 'text';
+    public $name;
 
     /**
-     * The contents of the message.
-     * Required when type is text or location, optional for the other multimedia types.
+     * The id of a valid Platform to base the Channel on.
      *
      * @var string
      */
-    public $payload;
+    public $platformId;
 
     /**
-     * The ID of the contact to send the message to.
+     * A hash of values as defined in channel_template of a Platform
      *
      * @var string
      */
-    public $contactId;
+    public $channelDetails;
+
+    /**
+     * The callback URL used for posting a webhook on message updates
+     *
+     * @var string
+     */
+    public $callbackUrl;
 
     /**
      * The endpoint of the action (platforms, messages, channels, contacts)
@@ -47,8 +55,7 @@ class ChatMessage extends Base
     protected $id;
 
     /**
-     * The status of the message.
-     * Possible values: pending, received, sent, delivered, unsupported, failed and pending_media.
+     * The status of the Channel. Possible values: registered, active, invalid, deleted
      *
      * @var string
      */
@@ -63,17 +70,17 @@ class ChatMessage extends Base
 
     /**
      * The date and time the object was last updated.
-     * 
+     *
      * @var string
      */
     protected $updatedAt;
 
     /**
-     * The URI of the media file contained in the message. Used when type is one of mage, audio or video.
+     * The date and time the object was deleted
      *
      * @var
      */
-    protected $mediaPath;
+    protected $deletedAt;
 
     /**
      * @var array
@@ -92,8 +99,4 @@ class ChatMessage extends Base
         return $this;
     }
 
-    public function getId()
-    {
-        return $this->id;
-    }
 }

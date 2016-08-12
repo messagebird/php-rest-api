@@ -1,13 +1,15 @@
 <?php
 
-namespace MessageBird\Objects;
+namespace MessageBird\Objects\Chat;
+
+use MessageBird\Objects\Base;
 
 /**
- * Class ChatPlatform
+ * Class Platform
  *
- * @package MessageBird\Objects
+ * @package MessageBird\Objects\Chat
  */
-class ChatPlatform extends Base
+class Platform extends Base
 {
 
     /**
