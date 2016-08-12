@@ -4,7 +4,7 @@ require_once(__DIR__ . '/../autoload.php');
 
 $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
-$ChatChannel = new \MessageBird\Objects\Channel();
+$ChatChannel = new \MessageBird\Objects\Chat\Channel();
 $ChatChannel->name = 'New name';
 $ChatChannel->callbackUrl = 'http://newurl.dev';
 
