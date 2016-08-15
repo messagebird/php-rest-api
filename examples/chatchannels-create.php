@@ -9,7 +9,7 @@ $ChatChannel = new \MessageBird\Objects\Chat\Channel();
 //Example for telegram channel
 
 $ChatChannel->name = 'Test Channel Telegram';
-$ChatChannel->platform_id = 'e82d332c5649a5f911e569n69040697';
+$ChatChannel->platformId = 'e82d332c5649a5f911e569n69040697';
 
 // Channel details is a hash with name-value pairs indicating which channel details (and their respective data types)
 // are required when creating a channel for this platform.
