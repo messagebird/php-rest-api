@@ -11,6 +11,7 @@ class Client
 {
 
     const ENDPOINT = 'https://rest.messagebird.com';
+    const CHATAPI_ENDPOINT = 'https://chat.messagebird.com/1';
 
     const CLIENT_VERSION = '1.4.1';
 
@@ -60,18 +61,29 @@ class Client
     protected $HttpClient;
 
     /**
+     * @var Common\HttpClient
+     */
+    protected $ChatAPIHttpClient;
+
+    /**
      * @param string            $accessKey
      * @param Common\HttpClient $httpClient
      */
     public function __construct($accessKey = null, Common\HttpClient $httpClient = null)
     {
         if ($httpClient == null) {
+            $this->ChatAPIHttpClient = new Common\HttpClient(self::CHATAPI_ENDPOINT);
             $this->HttpClient = new Common\HttpClient(self::ENDPOINT);
         } else {
+            $this->ChatAPIHttpClient = $httpClient;
             $this->HttpClient = $httpClient;
         }
+
         $this->HttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
         $this->HttpClient->addUserAgentString($this->getPhpVersion());
+
+        $this->ChatAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
+        $this->ChatAPIHttpClient->addUserAgentString($this->getPhpVersion());
 
         if ($accessKey !== null) {
             $this->setAccessKey($accessKey);
@@ -84,6 +96,11 @@ class Client
         $this->voicemessages = new Resources\VoiceMessage($this->HttpClient);
         $this->lookup        = new Resources\Lookup($this->HttpClient);
         $this->lookupHlr     = new Resources\LookupHlr($this->HttpClient);
+        $this->chatmessages  = new Resources\Chat\Message($this->ChatAPIHttpClient);
+        $this->chatchannels  = new Resources\Chat\Channel($this->ChatAPIHttpClient);
+        $this->chatplatforms = new Resources\Chat\Platform($this->ChatAPIHttpClient);
+        $this->chatcontacts  = new Resources\Chat\Contact($this->ChatAPIHttpClient);
+
     }
 
     /**
@@ -92,6 +109,8 @@ class Client
     public function setAccessKey ($accessKey)
     {
         $Authentication = new Common\Authentication($accessKey);
+
+        $this->ChatAPIHttpClient->setAuthentication($Authentication);
         $this->HttpClient->setAuthentication($Authentication);
     }
 
