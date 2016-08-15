@@ -6,7 +6,7 @@ $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API a
 
 try {
 
-    $deleted = $MessageBird->chatcontacts->delete('4affa2345d7fb22e373921n524df5409'); // Set a message id here
+    $deleted = $MessageBird->chatcontacts->delete('4affa2345d7fb22e373921n524df5409'); // Set a contact id
     var_dump('Deleted : ' . $deleted);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
