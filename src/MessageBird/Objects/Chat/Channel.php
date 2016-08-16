@@ -41,13 +41,6 @@ class Channel extends Base
     public $callbackUrl;
 
     /**
-     * The endpoint of the action (platforms, messages, channels, contacts)
-     *
-     * @var string
-     */
-    public $endpoint;
-
-    /**
      * A unique random ID which is created on the MessageBird platform and is returned upon creation of the object.
      *
      * @var string
@@ -86,17 +79,5 @@ class Channel extends Base
      * @var array
      */
     protected $_links = array();
-
-    /**
-     * @param $object
-     *
-     * @return $this|void
-     */
-    public function loadFromArray ($object)
-    {
-        parent::loadFromArray($object);
-
-        return $this;
-    }
 
 }

@@ -96,10 +96,10 @@ class Client
         $this->voicemessages = new Resources\VoiceMessage($this->HttpClient);
         $this->lookup        = new Resources\Lookup($this->HttpClient);
         $this->lookupHlr     = new Resources\LookupHlr($this->HttpClient);
-        $this->chatmessages  = new Resources\Chat\Message($this->ChatAPIHttpClient);
-        $this->chatchannels  = new Resources\Chat\Channel($this->ChatAPIHttpClient);
-        $this->chatplatforms = new Resources\Chat\Platform($this->ChatAPIHttpClient);
-        $this->chatcontacts  = new Resources\Chat\Contact($this->ChatAPIHttpClient);
+        $this->chatMessages  = new Resources\Chat\Message($this->ChatAPIHttpClient);
+        $this->chatChannels  = new Resources\Chat\Channel($this->ChatAPIHttpClient);
+        $this->chatPlatforms = new Resources\Chat\Platform($this->ChatAPIHttpClient);
+        $this->chatContacts  = new Resources\Chat\Contact($this->ChatAPIHttpClient);
 
     }
 
