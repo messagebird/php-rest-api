@@ -9,9 +9,8 @@ $ChatMessage->contactId = '9d754dac577e3ff103cdf4n29856560';
 $ChatMessage->payload = 'This is a test message to test the Chat API';
 $ChatMessage->type = 'text';
 
-
 try {
-    $ChatMessageResult = $MessageBird->chatmessages->create($ChatMessage);
+    $ChatMessageResult = $MessageBird->chatMessages->create($ChatMessage);
     var_dump($ChatMessageResult);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {

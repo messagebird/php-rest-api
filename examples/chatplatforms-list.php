@@ -7,8 +7,7 @@ $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API a
 $ChatPlatform = new \MessageBird\Objects\Chat\Channel();
 
 try {
-
-    $ChatPlatformResult = $MessageBird->chatplatforms->getList();
+    $ChatPlatformResult = $MessageBird->chatPlatforms->getList();
     var_dump($ChatPlatformResult);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {

@@ -21,7 +21,7 @@ $ChatChannel->channelDetails =
     );
 
 try {
-    $ChatChannelResult = $MessageBird->chatchannels->create($ChatChannel);
+    $ChatChannelResult = $MessageBird->chatChannels->create($ChatChannel);
     var_dump($ChatChannelResult);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {

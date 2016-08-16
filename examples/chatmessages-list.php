@@ -6,9 +6,8 @@ $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API a
 
 $ChatMessage = new \MessageBird\Objects\Chat\Message();
 
-
 try {
-    $ChatMessageResult = $MessageBird->chatmessages->getList();
+    $ChatMessageResult = $MessageBird->chatMessages->getList();
     var_dump($ChatMessageResult);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {

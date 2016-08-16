@@ -74,16 +74,4 @@ class Platform extends Base
      */
     protected $_links;
 
-    /**
-     * @param $object
-     *
-     * @return $this|void
-     */
-    public function loadFromArray($object)
-    {
-        parent::loadFromArray($object);
-
-        return $this;
-    }
-
 }

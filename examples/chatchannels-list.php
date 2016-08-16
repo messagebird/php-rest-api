@@ -5,7 +5,7 @@ require_once(__DIR__ . '/../autoload.php');
 $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 try {
-    $ChatChannelResult = $MessageBird->chatchannels->getList();
+    $ChatChannelResult = $MessageBird->chatChannels->getList();
     var_dump($ChatChannelResult);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
