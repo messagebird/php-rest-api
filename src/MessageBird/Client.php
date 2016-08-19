@@ -56,6 +56,23 @@ class Client
     public $lookupHlr;
 
     /**
+     * @var Resources\Chat\Message
+     */
+    public $chatMessages;
+    /**
+     * @var Resources\Chat\Channel
+     */
+    public $chatChannels;
+    /**
+     * @var Resources\Chat\Platform
+     */
+    public $chatPlatforms;
+    /**
+     * @var Resources\Chat\Contact
+     */
+    public $chatContacts;
+
+    /**
      * @var Common\HttpClient
      */
     protected $HttpClient;
