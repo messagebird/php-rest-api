@@ -68,16 +68,4 @@ class Contact extends Base
      */
     protected $updatedAt;
 
-    /**
-     * @param $object
-     *
-     * @return $this|void
-     */
-    public function loadFromArray ($object)
-    {
-        parent::loadFromArray($object);
-
-        return $this;
-    }
-
 }

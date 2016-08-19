@@ -13,7 +13,7 @@ class Client
     const ENDPOINT = 'https://rest.messagebird.com';
     const CHATAPI_ENDPOINT = 'https://chat.messagebird.com/1';
 
-    const CLIENT_VERSION = '1.4.1';
+    const CLIENT_VERSION = '1.5.0';
 
     /**
      * @var string
@@ -56,6 +56,23 @@ class Client
     public $lookupHlr;
 
     /**
+     * @var Resources\Chat\Message
+     */
+    public $chatMessages;
+    /**
+     * @var Resources\Chat\Channel
+     */
+    public $chatChannels;
+    /**
+     * @var Resources\Chat\Platform
+     */
+    public $chatPlatforms;
+    /**
+     * @var Resources\Chat\Contact
+     */
+    public $chatContacts;
+
+    /**
      * @var Common\HttpClient
      */
     protected $HttpClient;
@@ -96,10 +113,10 @@ class Client
         $this->voicemessages = new Resources\VoiceMessage($this->HttpClient);
         $this->lookup        = new Resources\Lookup($this->HttpClient);
         $this->lookupHlr     = new Resources\LookupHlr($this->HttpClient);
-        $this->chatmessages  = new Resources\Chat\Message($this->ChatAPIHttpClient);
-        $this->chatchannels  = new Resources\Chat\Channel($this->ChatAPIHttpClient);
-        $this->chatplatforms = new Resources\Chat\Platform($this->ChatAPIHttpClient);
-        $this->chatcontacts  = new Resources\Chat\Contact($this->ChatAPIHttpClient);
+        $this->chatMessages  = new Resources\Chat\Message($this->ChatAPIHttpClient);
+        $this->chatChannels  = new Resources\Chat\Channel($this->ChatAPIHttpClient);
+        $this->chatPlatforms = new Resources\Chat\Platform($this->ChatAPIHttpClient);
+        $this->chatContacts  = new Resources\Chat\Contact($this->ChatAPIHttpClient);
 
     }
 

@@ -8,10 +8,8 @@ $ChatChannel = new \MessageBird\Objects\Chat\Channel();
 $ChatChannel->name = 'New name';
 $ChatChannel->callbackUrl = 'http://newurl.dev';
 
-
 try {
-
-    $ChatChannelResult = $MessageBird->chatchannels->update($ChatChannel, '331af4c577e3asbbc3631455680736');
+    $ChatChannelResult = $MessageBird->chatChannels->update($ChatChannel, '331af4c577e3asbbc3631455680736');
     var_dump($ChatChannelResult);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {

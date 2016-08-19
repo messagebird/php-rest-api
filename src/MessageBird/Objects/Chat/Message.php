@@ -35,13 +35,6 @@ class Message extends Base
     public $contactId;
 
     /**
-     * The endpoint of the action (platforms, messages, channels, contacts)
-     *
-     * @var string
-     */
-    public $endpoint;
-
-    /**
      * A unique random ID which is created on the MessageBird platform and is returned upon creation of the object.
      *
      * @var string
@@ -82,17 +75,6 @@ class Message extends Base
      */
     protected $_links = array();
 
-    /**
-     * @param $object
-     *
-     * @return $this|void
-     */
-    public function loadFromArray ($object)
-    {
-        parent::loadFromArray($object);
-
-        return $this;
-    }
 
     public function getId()
     {
