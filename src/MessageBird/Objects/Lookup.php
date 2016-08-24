@@ -150,4 +150,15 @@ class Lookup extends Base
     {
         return $this->hlr;
     }
+
+    /**
+     * @param $object
+     *
+     * @return $this
+     */
+    public function loadFromArray($object)
+    {
+        unset($this->hlr);
+        return parent::loadFromArray($object);
+    }
 }
