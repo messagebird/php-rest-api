@@ -13,7 +13,6 @@ use MessageBird\Objects;
  */
 class Base
 {
-
     /**
      * @var \MessageBird\Common\HttpClient
      */
@@ -85,7 +84,6 @@ class Base
         return $this->processRequest($body);
     }
 
-
     public function getList($parameters = array ())
     {
         list($status, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $this->resourceName, $parameters);
@@ -108,9 +106,9 @@ class Base
                 $BaseList->items[] = $Message;
             }
             return $BaseList;
-        } else {
-            return $this->processRequest($body);
         }
+
+        return $this->processRequest($body);
     }
 
     /**
@@ -143,15 +141,16 @@ class Base
 
         if ($status === Common\HttpClient::HTTP_NO_CONTENT) {
             return true;
-        } else {
-            return $this->processRequest($body);
         }
+
+        return $this->processRequest($body);
     }
 
     /**
-     * @param      $body
+     * @param string $body
      *
      * @return $this
+     *
      * @throws \MessageBird\Exceptions\RequestException
      * @throws \MessageBird\Exceptions\ServerException
      */
@@ -174,22 +173,22 @@ class Base
     /**
      * @param $object
      * @param $id
-     * @return $this ->Object
-     * @internal param array $parameters
      *
+     * @return $this ->Object
+     *
+     * @internal param array $parameters
      */
     public function update($object, $id)
     {
-
         $objVars = get_object_vars($object);
         $body = array();
         foreach ($objVars as $key => $value) {
-            if (!is_null($value)) {
+            if (null !== $value) {
                 $body[$key] = $value;
             }
         }
 
-        $ResourceName = $this->resourceName . (($id) ? '/' . $id : null);
+        $ResourceName = $this->resourceName . ($id ? '/' . $id : null);
         $body = json_encode($body);
 
         list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_PUT, $ResourceName, false, $body);

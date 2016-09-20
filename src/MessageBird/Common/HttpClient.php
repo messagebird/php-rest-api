@@ -12,10 +12,10 @@ use MessageBird\Common;
  */
 class HttpClient
 {
-    const REQUEST_GET = "GET";
-    const REQUEST_POST = "POST";
-    const REQUEST_DELETE = "DELETE";
-    const REQUEST_PUT = "PUT";
+    const REQUEST_GET = 'GET';
+    const REQUEST_POST = 'POST';
+    const REQUEST_DELETE = 'DELETE';
+    const REQUEST_PUT = 'PUT';
 
     const HTTP_NO_CONTENT = 204;
 
@@ -27,7 +27,7 @@ class HttpClient
     /**
      * @var array
      */
-    protected $userAgent = array ();
+    protected $userAgent = array();
 
     /**
      * @var Common\Authentication
@@ -35,11 +35,43 @@ class HttpClient
     protected $Authentication;
 
     /**
-     * @param string $endpoint
+     * @var int
      */
-    public function __construct($endpoint)
+    private $timeout = 10;
+
+    /**
+     * @var int
+     */
+    private $connectionTimeout = 2;
+
+    /**
+     * @param string $endpoint
+     * @param int $timeout > 0
+     * @param int $connectionTimeout >= 0
+     *
+     * @throws \InvalidArgumentException if timeout settings are invalid
+     */
+    public function __construct($endpoint, $timeout = 10, $connectionTimeout = 2)
     {
         $this->endpoint = $endpoint;
+
+        if (!is_int($timeout) || $timeout < 1) {
+            throw new \InvalidArgumentException(sprintf(
+                'Timeout must be an int > 0, got "%s".',
+                is_object($timeout) ? get_class($timeout) : gettype($timeout).' '.var_export($timeout, true))
+            );
+        }
+
+        $this->timeout = $timeout;
+
+        if (!is_int($connectionTimeout) || $connectionTimeout < 0) {
+            throw new \InvalidArgumentException(sprintf(
+                'Connection timeout must be an int >= 0, got "%s".',
+                is_object($connectionTimeout) ? get_class($connectionTimeout) : gettype($connectionTimeout).' '.var_export($connectionTimeout, true))
+            );
+        }
+
+        $this->connectionTimeout = $connectionTimeout;
     }
 
     /**
@@ -59,8 +91,8 @@ class HttpClient
     }
 
     /**
-     * @param $resourceName
-     * @param $query
+     * @param string $resourceName
+     * @param mixed  $query
      *
      * @return string
      */
@@ -73,14 +105,15 @@ class HttpClient
             }
             $requestUrl .= '?' . $query;
         }
+
         return $requestUrl;
     }
 
     /**
-     * @param      $method
-     * @param      $resourceName
-     * @param null $query
-     * @param null $body
+     * @param string      $method
+     * @param string      $resourceName
+     * @param mixed       $query
+     * @param string|null $body
      *
      * @return array
      * @throws Exceptions\HttpException
@@ -92,17 +125,17 @@ class HttpClient
         $headers = array (
             'User-agent: ' . implode(' ', $this->userAgent),
             'Accepts: application/json',
-            "Content-Type: application/json",
-            "Accept-Charset: utf-8",
-            sprintf("Authorization: AccessKey %s", $this->Authentication->accessKey)
+            'Content-Type: application/json',
+            'Accept-Charset: utf-8',
+            sprintf('Authorization: AccessKey %s', $this->Authentication->accessKey)
         );
 
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_HEADER, true);
         curl_setopt($curl, CURLOPT_URL, $this->getRequestUrl($resourceName, $query));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_TIMEOUT, 10);
-        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 2);
+        curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $this->connectionTimeout);
 
         if ($method === self::REQUEST_GET) {
             curl_setopt($curl, CURLOPT_HTTPGET, true);
@@ -117,10 +150,11 @@ class HttpClient
         }
 
         // Some servers have outdated or incorrect certificates, Use the included CA-bundle
-        $caFile = realpath(dirname(__FILE__) . "/../ca-bundle.crt");
+        $caFile = realpath(__DIR__ . '/../ca-bundle.crt');
         if (!file_exists($caFile)) {
-            throw new Exceptions\HttpException('Unable to find CA-bundle file: ' . $caFile);
+            throw new Exceptions\HttpException(sprintf('Unable to find CA-bundle file "%s".', __DIR__ . '/../ca-bundle.crt'));
         }
+
         curl_setopt($curl, CURLOPT_CAINFO, $caFile);
 
         $response = curl_exec($curl);
@@ -133,11 +167,10 @@ class HttpClient
 
         // Split the header and body
         $parts = explode("\r\n\r\n", $response, 3);
-        list($responseHeader, $responseBody) = ($parts[0] == 'HTTP/1.1 100 Continue') ? array ($parts[1], $parts[2]) : array ($parts[0], $parts[1]);
+        list($responseHeader, $responseBody) = ($parts[0] === 'HTTP/1.1 100 Continue') ? array ($parts[1], $parts[2]) : array ($parts[0], $parts[1]);
 
         curl_close($curl);
 
         return array ($responseStatus, $responseHeader, $responseBody);
     }
-
 }
