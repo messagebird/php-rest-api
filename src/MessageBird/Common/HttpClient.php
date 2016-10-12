@@ -75,11 +75,11 @@ class HttpClient
     }
 
     /**
-     * @param $string
+     * @param string $userAgent
      */
-    public function addUserAgentString($string)
+    public function addUserAgentString($userAgent)
     {
-        $this->userAgent[] = $string;
+        $this->userAgent[] = $userAgent;
     }
 
     /**
@@ -116,11 +116,17 @@ class HttpClient
      * @param string|null $body
      *
      * @return array
+     *
+     * @throws Exceptions\AuthenticateException
      * @throws Exceptions\HttpException
      */
     public function performHttpRequest($method, $resourceName, $query = null, $body = null)
     {
         $curl = curl_init();
+
+        if ($this->Authentication === null) {
+            throw new Exceptions\AuthenticateException('Can not perform API Request without Authentication');
+        }
 
         $headers = array (
             'User-agent: ' . implode(' ', $this->userAgent),
