@@ -32,4 +32,17 @@ class HttpClientTest extends PHPUnit_Framework_TestCase
     {
         new HttpClient(Client::ENDPOINT, 10, new \stdClass());
     }
+
+    /**
+     * Test that requests can only be made when there is an Authentication set
+     *
+     * @test
+     * @expectedException \MessageBird\Exceptions\AuthenticateException
+     * @expectedExceptionMessageRegExp #Can not perform API Request without Authentication#
+     */
+    public function testHttpClientWithoutAuthenticationException()
+    {
+        $client = new HttpClient(Client::ENDPOINT);
+        $client->performHttpRequest('foo', 'bar');
+    }
 }
