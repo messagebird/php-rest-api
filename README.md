@@ -49,7 +49,7 @@ $Balance = $MessageBird->balance->read();
 Documentation
 ----
 Complete documentation, instructions, and examples are available at:
-[https://www.messagebird.com/developers/php](https://www.messagebird.com/developers/php)
+[https://developers.messagebird.com/](https://developers.messagebird.com/)
 
 
 License
