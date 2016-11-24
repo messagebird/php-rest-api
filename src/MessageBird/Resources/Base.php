@@ -72,7 +72,7 @@ class Base
      * @param       $object
      * @param array|null $query
      *
-     * @return $this->Object
+     * @return Objects\Hlr|Objects\Message|Objects\Balance|Objects\Verify
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
