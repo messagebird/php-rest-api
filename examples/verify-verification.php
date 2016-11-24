@@ -10,6 +10,8 @@ try {
 
     // Check if $VerifyResult->getStatus() === MessageBird\Objects\Verify::STATUS_VERIFIED
 
+} catch (\MessageBird\Exceptions\RequestException $e) {
+    // token was incorrect
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'wrong login';
