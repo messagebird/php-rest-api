@@ -24,7 +24,7 @@ class Base
     protected $resourceName;
 
     /**
-     * @var Objects\Hlr|Objects\Message|Objects\Balance|Objects\Verify
+     * @var Objects\Hlr|Objects\Message|Objects\Balance|Objects\Verify|Objects\Lookup|Objects\VoiceMessage
      */
     protected $Object;
 
@@ -61,7 +61,7 @@ class Base
     }
 
     /**
-     * @return Objects\Balance|Objects\Hlr|Objects\Message
+     * @return Objects\Hlr|Objects\Message|Objects\Balance|Objects\Verify|Objects\Lookup|Objects\VoiceMessage
      */
     public function getObject()
     {
@@ -72,7 +72,7 @@ class Base
      * @param       $object
      * @param array|null $query
      *
-     * @return $this->Object
+     * @return Objects\Hlr|Objects\Message|Objects\Balance|Objects\Verify|Objects\Lookup|Objects\VoiceMessage
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
