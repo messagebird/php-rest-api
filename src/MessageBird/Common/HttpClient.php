@@ -130,7 +130,7 @@ class HttpClient
 
         $headers = array (
             'User-agent: ' . implode(' ', $this->userAgent),
-            'Accepts: application/json',
+            'Accept: application/json',
             'Content-Type: application/json',
             'Accept-Charset: utf-8',
             sprintf('Authorization: AccessKey %s', $this->Authentication->accessKey)
