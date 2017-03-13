@@ -138,13 +138,19 @@ class Message extends Base
      * @param $keyword
      * @param $tariff
      * @param $mid
+     * @param $member
      */
-    public function setPremiumSms($shortcode, $keyword, $tariff, $mid)
+    public function setPremiumSms($shortcode, $keyword, $tariff, $mid = null, $member = null)
     {
         $this->typeDetails['shortcode'] = $shortcode;
         $this->typeDetails['keyword']   = $keyword;
         $this->typeDetails['tariff']    = $tariff;
-        $this->typeDetails['mid']       = $mid;
+        if ($mid != null) {
+            $this->typeDetails['mid'] = $mid;
+        }
+        if ($member != null) {
+            $this->typeDetails['member'] = $member;
+        }
 
         $this->type = self::TYPE_PREMIUM;
     }
