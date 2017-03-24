@@ -16,12 +16,12 @@ Requirements
 Installation
 -----
 
-####Composer installation
+#### Composer installation
 
 - [Download composer](https://getcomposer.org/doc/00-intro.md#installation-nix)
 - Run `composer require messagebird/php-rest-api`.
 
-####Manual installation
+#### Manual installation
 
 When you do not use Composer. You can git checkout or download [this repository](https://github.com/messagebird/php-rest-api/archive/master.zip) and include the MessageBird API client manually.
 
