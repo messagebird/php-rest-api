@@ -25,6 +25,14 @@ class HttpClientTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests a boundary condition (timeout == 1)
+     */
+    public function testHttpClientValidTimeoutBoundary()
+    {
+        new HttpClient(Client::ENDPOINT, 1);
+    }
+
+    /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessageRegExp #^Connection timeout must be an int >= 0, got "stdClass".$#
      */
@@ -34,9 +42,16 @@ class HttpClientTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests a boundary condition (connectionTimeout == 0)
+     */
+    public function testHttpClientValidConnectionTimeoutBoundary()
+    {
+        new HttpClient(Client::ENDPOINT, 10, 0);
+    }
+
+    /**
      * Test that requests can only be made when there is an Authentication set
      *
-     * @test
      * @expectedException \MessageBird\Exceptions\AuthenticateException
      * @expectedExceptionMessageRegExp #Can not perform API Request without Authentication#
      */
