@@ -130,6 +130,13 @@ class Message extends Base
      */
     public $recipients = array ();
 
+    /**
+     * The URL to send status delivery reports for the message to
+     *
+     * @var string
+     */
+    public $reportUrl;
+
 
     /**
      * Send a premium SMS
