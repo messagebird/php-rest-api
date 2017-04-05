@@ -82,6 +82,14 @@ class VoiceMessage extends Base
     public $ifMachine = 'continue';
 
     /**
+     * The time (in milliseconds) to analyze if a machine has picked up the phone. Used in combination with the delay
+     * and hangup values of the ifMachine attribute. Minimum: 400, maximum: 10000.
+     *
+     * @var int
+     */
+    public $machineTimeout = 7000;
+
+    /**
      * The scheduled date and time of the message in RFC3339 format (Y-m-d\TH:i:sP)
      *
      * @var string
