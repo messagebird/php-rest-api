@@ -18,7 +18,7 @@ class VoiceMessagesTest extends BaseTest
         $Message->body       = 'This is a test message.';
         $Message->language   = "nl";
         $Message->voice      = "male";
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'voicemessages', null, '{"originator":"MessageBird","body":"This is a test message.","reference":null,"language":"nl","voice":"male","repeat":1,"ifMachine":"continue","scheduledDatetime":null,"recipients":[31612345678]}');
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'voicemessages', null, '{"originator":"MessageBird","body":"This is a test message.","reference":null,"language":"nl","voice":"male","repeat":1,"ifMachine":"continue","scheduledDatetime":null,"recipients":[31612345678],"reportUrl":null}');
         $this->client->voicemessages->create($Message);
     }
 

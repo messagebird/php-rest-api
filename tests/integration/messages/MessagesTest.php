@@ -43,9 +43,10 @@ class MessageTest extends BaseTest
                         "statusDatetime":"2015-07-03T07:55:31+00:00"
                       }
                     ]
-                  }
+                  },
+                  "reportUrl":null
                 }'));
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'messages', null, '{"direction":"mt","type":"sms","originator":"MessageBird","body":"This is a test message.","reference":null,"validity":null,"gateway":null,"typeDetails":[],"datacoding":"plain","mclass":1,"scheduledDatetime":null,"recipients":[31612345678]}');
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'messages', null, '{"direction":"mt","type":"sms","originator":"MessageBird","body":"This is a test message.","reference":null,"validity":null,"gateway":null,"typeDetails":[],"datacoding":"plain","mclass":1,"scheduledDatetime":null,"recipients":[31612345678],"reportUrl":null}');
         $this->client->messages->create($Message);
     }
 
@@ -59,7 +60,7 @@ class MessageTest extends BaseTest
         $Message->recipients = array(31612345678);
         $Message->body       = 'This is a test message.';
         $Message->setPremiumSms(2002, 'mb', 1, 2);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'messages', null, '{"direction":"mt","type":"premium","originator":"MessageBird","body":"This is a test message.","reference":null,"validity":null,"gateway":null,"typeDetails":{"shortcode":2002,"keyword":"mb","tariff":1,"mid":2},"datacoding":"plain","mclass":1,"scheduledDatetime":null,"recipients":[31612345678]}');
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'messages', null, '{"direction":"mt","type":"premium","originator":"MessageBird","body":"This is a test message.","reference":null,"validity":null,"gateway":null,"typeDetails":{"shortcode":2002,"keyword":"mb","tariff":1,"mid":2},"datacoding":"plain","mclass":1,"scheduledDatetime":null,"recipients":[31612345678],"reportUrl":null}');
         $this->client->messages->create($Message);
     }
 
@@ -73,7 +74,7 @@ class MessageTest extends BaseTest
         $Message->recipients = array(31612345678);
         $Message->body       = 'This is a test message.';
         $Message->setBinarySms("HEADER", "test");
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'messages', null, '{"direction":"mt","type":"binary","originator":"MessageBird","body":"test","reference":null,"validity":null,"gateway":null,"typeDetails":{"udh":"HEADER"},"datacoding":"plain","mclass":1,"scheduledDatetime":null,"recipients":[31612345678]}');
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'messages', null, '{"direction":"mt","type":"binary","originator":"MessageBird","body":"test","reference":null,"validity":null,"gateway":null,"typeDetails":{"udh":"HEADER"},"datacoding":"plain","mclass":1,"scheduledDatetime":null,"recipients":[31612345678],"reportUrl":null}');
         $this->client->messages->create($Message);
     }
 
@@ -89,7 +90,7 @@ class MessageTest extends BaseTest
         $Message->body       = 'This is a test message.';
         $Message->setBinarySms("HEADER", "test");
         $Message->setFlash(true);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'messages', null, '{"direction":"mt","type":"binary","originator":"MessageBird","body":"test","reference":null,"validity":null,"gateway":null,"typeDetails":{"udh":"HEADER"},"datacoding":"plain","mclass":0,"scheduledDatetime":null,"recipients":[31612345678]}');
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'messages', null, '{"direction":"mt","type":"binary","originator":"MessageBird","body":"test","reference":null,"validity":null,"gateway":null,"typeDetails":{"udh":"HEADER"},"datacoding":"plain","mclass":0,"scheduledDatetime":null,"recipients":[31612345678],"reportUrl":null}');
         $this->client->messages->create($Message);
     }
 
