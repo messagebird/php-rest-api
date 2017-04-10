@@ -15,7 +15,7 @@ $Contact->custom4 = "custom-4b";
 
 
 try {
-    $GroupResult = $MessageBird->contacts->update($Contact, 'f02b824455881fbdf6279e3c34925579');
+    $GroupResult = $MessageBird->contacts->update($Contact, 'contact_id');
     var_dump($GroupResult);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {

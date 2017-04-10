@@ -5,13 +5,13 @@ require_once(__DIR__ . '/../autoload.php');
 $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 $Contact             = new \MessageBird\Objects\Contact();
-$Contact->msisdn = "31633632125";
-$Contact->firstName = "sdsaf555";
-$Contact->lastName = "sagagagtname667";
-$Contact->custom1 = "testcustom1";
-$Contact->custom2 = "testcustom2";
-$Contact->custom3 = "testcustom3";
-$Contact->custom4 = "testcusto4";
+$Contact->msisdn = "31123456780";
+$Contact->firstName = "FirstName";
+$Contact->lastName = "LastName";
+$Contact->custom1 = "test_custom1";
+$Contact->custom2 = "test_custom2";
+$Contact->custom3 = "test_custom3";
+$Contact->custom4 = "test_custom4";
 
 
 try {

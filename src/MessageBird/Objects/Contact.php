@@ -171,6 +171,11 @@ class Contact extends Base
         return parent::loadFromArray($object);
     }
 
+    /**
+     * @param $object
+     *
+     * @return $this ->Object
+     */
     public function loadFromArrayForGroups($object)
     {
         parent::loadFromArray($object);

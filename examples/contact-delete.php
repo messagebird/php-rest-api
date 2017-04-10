@@ -5,7 +5,7 @@ require_once(__DIR__ . '/../autoload.php');
 $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 try {
-    $deleted = $MessageBird->contacts->delete('5e1790a5558ea64f0cb6240c35997714'); // Set a contact id here
+    $deleted = $MessageBird->contacts->delete('123_contact_id'); // Set a contact id here
     var_dump('Deleted: ' . $deleted);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
