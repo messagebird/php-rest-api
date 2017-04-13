@@ -5,6 +5,7 @@ namespace MessageBird\Resources;
 use MessageBird\Objects;
 use MessageBird\Exceptions;
 use MessageBird\Common;
+use InvalidArgumentException;
 
 /**
  * Class Contacts
@@ -61,10 +62,8 @@ class Contacts extends Base
             throw new InvalidArgumentException('No contact id provided.');
         }
 
-        $ResourceName = $this->resourceName . '/' . $id . '/messages';
-        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $ResourceName);
-
-        return $this->processMessageRequest($body);
+        $this->setResourceName($this->resourceName . '/' . $id . '/messages');
+        return $this->getList();
     }
 
     /**
@@ -77,57 +76,7 @@ class Contacts extends Base
             throw new InvalidArgumentException('No contact id provided.');
         }
 
-        $ResourceName = $this->resourceName . '/' . $id . '/groups';
-        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $ResourceName);
-
-        return $this->processGroupRequest($body);
-    }
-
-    /**
-     * @param string $body
-     *
-     * @return $this
-     *
-     * @throws \MessageBird\Exceptions\RequestException
-     * @throws \MessageBird\Exceptions\ServerException
-     */
-    public function processMessageRequest($body)
-    {
-        $body = @json_decode($body);
-
-        if ($body === null or $body === false) {
-            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
-        }
-
-        if (empty($body->errors)) {
-            return $this->Object->loadFromArray($body);
-        }
-
-        $ResponseError = new Common\ResponseError($body);
-        throw new Exceptions\RequestException($ResponseError->getErrorString());
-    }
-
-    /**
-     * @param string $body
-     *
-     * @return $this
-     *
-     * @throws \MessageBird\Exceptions\RequestException
-     * @throws \MessageBird\Exceptions\ServerException
-     */
-    public function processGroupRequest($body)
-    {
-        $body = @json_decode($body);
-
-        if ($body === null or $body === false) {
-            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
-        }
-
-        if (empty($body->errors)) {
-            return $this->Object->loadFromArrayForGroups($body);
-        }
-
-        $ResponseError = new Common\ResponseError($body);
-        throw new Exceptions\RequestException($ResponseError->getErrorString());
+        $this->setResourceName($this->resourceName . '/' . $id . '/groups');
+        return $this->getList();
     }
 }
