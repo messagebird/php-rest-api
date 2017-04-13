@@ -5,6 +5,7 @@ namespace MessageBird\Resources;
 use MessageBird\Objects;
 use MessageBird\Common;
 use MessageBird\Exceptions;
+use InvalidArgumentException;
 
 /**
  * Class Groups
@@ -61,8 +62,7 @@ class Groups extends Base
     /**
      * @param string $id
      *
-     * @throws Exceptions\AuthenticateException
-     * @throws Exceptions\HttpException
+     * @throws InvalidArgumentException
      *
      * @return mixed
      */
@@ -72,13 +72,8 @@ class Groups extends Base
             throw new InvalidArgumentException('No group id provided.');
         }
 
-        $ResourceName = $this->resourceName . '/' . $id . '/contacts';
-        list(, , $body) = $this->HttpClient->performHttpRequest(
-            Common\HttpClient::REQUEST_GET,
-            $ResourceName
-        );
-
-        return $this->processRequest($body);
+        $this->setResourceName($this->resourceName . '/' . $id . '/contacts');
+        return $this->getList();
     }
 
     /**
@@ -87,13 +82,17 @@ class Groups extends Base
      *
      * @throws Exceptions\AuthenticateException
      * @throws Exceptions\HttpException
+     * @throws InvalidArgumentException
      *
      * @return mixed
      */
-    public function addContacts($contacts, $id)
+    public function addContacts($contacts, $id = null)
     {
         if (!is_array($contacts)) {
             throw new  InvalidArgumentException('No array with contacts provided.');
+        }
+        if (is_null($id)) {
+            throw new InvalidArgumentException('No group id provided.');
         }
 
         $ResourceName = $this->resourceName . ($id ? '/' . $id . '/contacts' : null);
@@ -115,13 +114,13 @@ class Groups extends Base
      *
      * @throws Exceptions\AuthenticateException
      * @throws Exceptions\HttpException
+     * @throws InvalidArgumentException;
      *
      * @return mixed
      */
-    public function removeContact($contact_id, $id)
+    public function removeContact($contact_id = null, $id = null)
     {
-        if (is_null($contact_id) || is_null($id))
-        {
+        if (is_null($contact_id) || is_null($id)) {
             throw new InvalidArgumentException('Null Contact or Group id.');
         }
         $ResourceName = $this->resourceName . ($id ? '/' . $id . '/contacts/' . $contact_id : null);
