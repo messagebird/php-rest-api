@@ -54,7 +54,7 @@ class HttpClient
     public function __construct($endpoint, $timeout = 10, $connectionTimeout = 2)
     {
         $this->assertValidTimeout($timeout);
-        $this->assertConnectionValidTimeout($connectionTimeout);
+        $this->assertValidConnectionTimeout($connectionTimeout);
 
         $this->endpoint = $endpoint;
         $this->timeout = $timeout;
@@ -90,7 +90,7 @@ class HttpClient
     /**
      * @param int $connectionTimeout
      */
-    private function assertConnectionValidTimeout($connectionTimeout)
+    private function assertValidConnectionTimeout($connectionTimeout)
     {
         if (!is_int($connectionTimeout) || $connectionTimeout < 0) {
             throw new \InvalidArgumentException(
