@@ -53,25 +53,53 @@ class HttpClient
      */
     public function __construct($endpoint, $timeout = 10, $connectionTimeout = 2)
     {
+        $this->assertValidTimeout($timeout);
+        $this->assertConnectionValidTimeout($connectionTimeout);
+
         $this->endpoint = $endpoint;
-
-        if (!is_int($timeout) || $timeout < 1) {
-            throw new \InvalidArgumentException(sprintf(
-                'Timeout must be an int > 0, got "%s".',
-                is_object($timeout) ? get_class($timeout) : gettype($timeout).' '.var_export($timeout, true))
-            );
-        }
-
         $this->timeout = $timeout;
+        $this->connectionTimeout = $connectionTimeout;
+    }
 
-        if (!is_int($connectionTimeout) || $connectionTimeout < 0) {
-            throw new \InvalidArgumentException(sprintf(
-                'Connection timeout must be an int >= 0, got "%s".',
-                is_object($connectionTimeout) ? get_class($connectionTimeout) : gettype($connectionTimeout).' '.var_export($connectionTimeout, true))
+    /**
+     * @param int $timeout
+     */
+    private function assertValidTimeout($timeout)
+    {
+        if (!is_int($timeout) || $timeout < 1) {
+            throw new \InvalidArgumentException(
+                sprintf('Timeout must be an int > 0, got "%s".', $this->getInvalidTimeoutString($timeout))
             );
         }
+    }
 
-        $this->connectionTimeout = $connectionTimeout;
+    /**
+     * @param mixed $invalidTimeout
+     *
+     * @return string
+     */
+    private function getInvalidTimeoutString($invalidTimeout)
+    {
+        if (is_object($invalidTimeout)) {
+            return get_class($invalidTimeout);
+        } else {
+            return gettype($invalidTimeout) . ' ' . var_export($invalidTimeout, true);
+        }
+    }
+
+    /**
+     * @param int $connectionTimeout
+     */
+    private function assertConnectionValidTimeout($connectionTimeout)
+    {
+        if (!is_int($connectionTimeout) || $connectionTimeout < 0) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Connection timeout must be an int >= 0, got "%s".',
+                    $this->getInvalidTimeoutString($connectionTimeout)
+                )
+            );
+        }
     }
 
     /**
@@ -88,25 +116,6 @@ class HttpClient
     public function setAuthentication(Common\Authentication $Authentication)
     {
         $this->Authentication = $Authentication;
-    }
-
-    /**
-     * @param string $resourceName
-     * @param mixed  $query
-     *
-     * @return string
-     */
-    public function getRequestUrl($resourceName, $query)
-    {
-        $requestUrl = $this->endpoint . '/' . $resourceName;
-        if ($query) {
-            if (is_array($query)) {
-                $query = http_build_query($query);
-            }
-            $requestUrl .= '?' . $query;
-        }
-
-        return $requestUrl;
     }
 
     /**
@@ -178,5 +187,24 @@ class HttpClient
         curl_close($curl);
 
         return array ($responseStatus, $responseHeader, $responseBody);
+    }
+
+    /**
+     * @param string $resourceName
+     * @param mixed  $query
+     *
+     * @return string
+     */
+    public function getRequestUrl($resourceName, $query)
+    {
+        $requestUrl = $this->endpoint . '/' . $resourceName;
+        if ($query) {
+            if (is_array($query)) {
+                $query = http_build_query($query);
+            }
+            $requestUrl .= '?' . $query;
+        }
+
+        return $requestUrl;
     }
 }

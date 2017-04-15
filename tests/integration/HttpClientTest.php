@@ -9,10 +9,10 @@ class HttpClientTest extends PHPUnit_Framework_TestCase
         $client = new HttpClient(Client::ENDPOINT);
 
         $url = $client->getRequestUrl('a', null);
-        $this->assertSame(Client::ENDPOINT.'/a', $url);
+        static::assertSame(Client::ENDPOINT.'/a', $url);
 
         $url = $client->getRequestUrl('a', array('b' => 1));
-        $this->assertSame(Client::ENDPOINT.'/a?b=1', $url);
+        static::assertSame(Client::ENDPOINT.'/a?b=1', $url);
     }
 
     /**
