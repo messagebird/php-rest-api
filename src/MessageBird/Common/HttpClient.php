@@ -66,7 +66,7 @@ class HttpClient
      */
     private function assertValidTimeout($timeout)
     {
-        if (!is_int($timeout) || $timeout < 1) {
+        if (!is_int($timeout) || $timeout <= 0) {
             throw new \InvalidArgumentException(
                 sprintf('Timeout must be an int > 0, got "%s".', $this->getInvalidTimeoutString($timeout))
             );
