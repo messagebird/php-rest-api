@@ -1,4 +1,5 @@
 language: php
+dist: trusty
 php:
     - 5.3
     - 5.4
@@ -11,8 +12,9 @@ php:
 
 matrix:
     allow_failures:
-        - php: 7.0
-        - php: 7.1
         - php: hhvm-nightly
+
+install:
+    - composer install
 
 script: phpunit --verbose
