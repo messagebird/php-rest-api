@@ -8,7 +8,7 @@ $Message             = new \MessageBird\Objects\Message();
 $Message->originator = 'MessageBird';
 $Message->recipients = array(31612345678);
 $Message->body       = 'This is a test message with a smiling emoji 😀.';
-$Message->datacoding = 'unicode';
+$Message->datacoding = \MessageBird\Objects\Message::DATACODING_UNICODE;
 
 try {
     $MessageResult = $MessageBird->messages->create($Message);
