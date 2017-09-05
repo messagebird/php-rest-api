@@ -45,13 +45,17 @@ class HttpClient
     private $connectionTimeout = 2;
 
     /**
-     * @param string $endpoint
-     * @param int $timeout > 0
-     * @param int $connectionTimeout >= 0
-     *
-     * @throws \InvalidArgumentException if timeout settings are invalid
+     * @var array
      */
-    public function __construct($endpoint, $timeout = 10, $connectionTimeout = 2)
+    private $headers = array();
+
+    /**
+     * @param string $endpoint
+     * @param int    $timeout           > 0
+     * @param int    $connectionTimeout >= 0
+     * @param array  $headers
+     */
+    public function __construct($endpoint, $timeout = 10, $connectionTimeout = 2, $headers = array())
     {
         $this->endpoint = $endpoint;
 
@@ -72,6 +76,7 @@ class HttpClient
         }
 
         $this->connectionTimeout = $connectionTimeout;
+        $this->headers = $headers;
     }
 
     /**
@@ -110,6 +115,14 @@ class HttpClient
     }
 
     /**
+     * @param array $headers
+     */
+    public function setHeaders(array $headers)
+    {
+        $this->headers = $headers;
+    }
+
+    /**
      * @param string      $method
      * @param string      $resourceName
      * @param mixed       $query
@@ -135,6 +148,8 @@ class HttpClient
             'Accept-Charset: utf-8',
             sprintf('Authorization: AccessKey %s', $this->Authentication->accessKey)
         );
+
+        $headers = array_merge($headers, $this->headers);
 
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_HEADER, true);
