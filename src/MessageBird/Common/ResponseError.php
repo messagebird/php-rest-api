@@ -49,6 +49,12 @@ class ResponseError
                     throw new Exceptions\AuthenticateException;
                 }
 
+                // Rewrite error for Voice API.
+                if (!empty($error->message)) {
+                    $error->description = $error->message;
+                    unset($error->message);
+                }
+
                 $this->errors[] = $error;
             }
         }
