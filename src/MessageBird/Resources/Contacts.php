@@ -62,6 +62,7 @@ class Contacts extends Base
             throw new InvalidArgumentException('No contact id provided.');
         }
 
+        $this->setObject(new Objects\Message());
         $this->setResourceName($this->resourceName . '/' . $id . '/messages');
         return $this->getList();
     }
@@ -76,6 +77,7 @@ class Contacts extends Base
             throw new InvalidArgumentException('No contact id provided.');
         }
 
+        $this->setObject(new Objects\Group());
         $this->setResourceName($this->resourceName . '/' . $id . '/groups');
         return $this->getList();
     }

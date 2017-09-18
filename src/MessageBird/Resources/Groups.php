@@ -97,13 +97,13 @@ class Groups extends Base
 
         $ResourceName = $this->resourceName . ($id ? '/' . $id . '/contacts' : null);
         $contacts = json_encode($contacts);
-        list($responceStatus, , $responseBody) = $this->HttpClient->performHttpRequest(
+        list($responseStatus, , $responseBody) = $this->HttpClient->performHttpRequest(
             Common\HttpClient::REQUEST_PUT,
             $ResourceName,
             false,
             $contacts
         );
-        if ($responceStatus !== Common\HttpClient::HTTP_NO_CONTENT) {
+        if ($responseStatus !== Common\HttpClient::HTTP_NO_CONTENT) {
             return json_decode($responseBody);
         }
     }
@@ -125,11 +125,11 @@ class Groups extends Base
         }
         $ResourceName = $this->resourceName . ($id ? '/' . $id . '/contacts/' . $contact_id : null);
 
-        list($responceStatus, , $responseBody) = $this->HttpClient->performHttpRequest(
+        list($responseStatus, , $responseBody) = $this->HttpClient->performHttpRequest(
             Common\HttpClient::REQUEST_DELETE,
             $ResourceName
         );
-        if ($responceStatus !== Common\HttpClient::HTTP_NO_CONTENT) {
+        if ($responseStatus !== Common\HttpClient::HTTP_NO_CONTENT) {
             return json_decode($responseBody);
         }
     }
