@@ -11,6 +11,9 @@ php:
     - hhvm-nightly
 
 matrix:
+    include:
+        - php: 'hhvm'
+          dist: trusty
     allow_failures:
         - php: 7.0
         - php: 7.1
