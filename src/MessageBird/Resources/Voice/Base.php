@@ -4,7 +4,7 @@ namespace MessageBird\Resources\Voice;
 
 use MessageBird\Common;
 use MessageBird\Exceptions;
-use MessageBird\Objects;
+use MessageBird\Objects\Voice\BaseList;
 
 /**
  * Class Base
@@ -25,10 +25,11 @@ class Base extends \MessageBird\Resources\Base
             $body = json_decode($body);
 
             $data = $body->data;
-            unset($body->items);
 
-            $baseList = new Objects\BaseList();
-            $baseList->loadFromArray($body);
+            $baseList = new BaseList();
+            if (property_exists($body, 'pagination')) {
+                $baseList->loadFromArray($body->pagination);
+            }
 
             $objectName = $this->Object;
 
