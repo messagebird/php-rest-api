@@ -7,9 +7,6 @@ class MmsTest extends BaseTest
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
     }
 
-    /**
-     * @group createMms
-     */
     public function testCreateMms()
     {
         $MmsMessage = new \MessageBird\Objects\MmsMessage();
@@ -54,7 +51,6 @@ class MmsTest extends BaseTest
 
     /**
      * @expectedException   MessageBird\Exceptions\ServerException
-     * @group listMms
      */
     public function testListMms()
     {
@@ -64,7 +60,6 @@ class MmsTest extends BaseTest
 
     /**
      * @expectedException   MessageBird\Exceptions\ServerException
-     * @group   deleteMms
      */
     public function testDeleteMms()
     {
@@ -74,14 +69,10 @@ class MmsTest extends BaseTest
 
     /**
      * @expectedException   MessageBird\Exceptions\ServerException
-     * @group   readMms
      */
     public function testReadMms()
     {
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'mms/message_id', null, null);
         $this->client->mmsMessages->read('message_id');
     }
-
-
-
 }
