@@ -14,7 +14,7 @@ class MmsTest extends BaseTest
         $MmsMessage->recipients = array(31612345678);
         $MmsMessage->subject = 'Check out this cool MMS';
         $MmsMessage->body = 'Have you seen this logo?';
-        $MmsMessage->mediaUrls = ['https://www.messagebird.com/assets/images/og/messagebird.gif'];
+        $MmsMessage->mediaUrls = array('https://www.messagebird.com/assets/images/og/messagebird.gif');
 
         $this->mockClient->method('performHttpRequest')->willReturn(array(200, '', '
             {
