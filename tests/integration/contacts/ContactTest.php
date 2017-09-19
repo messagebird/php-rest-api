@@ -71,4 +71,63 @@ class ContactTest extends BaseTest
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'contacts/contact_id', null, null);
         $this->client->contacts->delete("contact_id");
     }
+
+    public function testContactGetGroups()
+    {
+        $this->mockClient->method('performHttpRequest')
+            ->with(
+                $this->equalTo(MessageBird\Common\HttpClient::REQUEST_GET), $this->equalTo('contacts/contact_id/groups'), $this->anything(), $this->anything()
+            )
+            ->willReturn(array(
+                200,
+                '',
+                '{"offset":0,"limit":20,"count":1,"totalCount":1,"links":{"first":"","previous":null,"next":null,"last":""},"items":[{"id":"contact_id","href":"","name":"GroupName","contacts":{"totalCount":1,"href":""},"createdDatetime":"","updatedDatetime":""}]}'
+            ));
+
+        $ResultingGroupList = $this->client->contacts->getGroups("contact_id");
+
+        $GroupList = new \MessageBird\Objects\BaseList();
+        $GroupList->offset = 0;
+        $GroupList->count = 1;
+        $GroupList->totalCount = 1;
+        $GroupList->links = (object) array(
+            'first' => '',
+            'previous' => null,
+            'next' => null,
+            'last' => ''
+        );
+        $GroupList->items = array(
+            (object) array(
+                'id' => 'contact_id',
+                'href' => '',
+                'name' => 'GroupName',
+                'contacts' => (object) array(
+                    'totalCount' => 1,
+                    'href' => ''
+                ),
+                'createdDatetime' => '',
+                'updatedDatetime' => ''
+            )
+        );
+
+        $this->assertEquals($GroupList, $ResultingGroupList);
+    }
+
+    public function testContactGetMessages()
+    {
+        $this->mockClient->method('performHttpRequest')
+            ->with(
+                $this->equalTo(MessageBird\Common\HttpClient::REQUEST_GET), $this->equalTo('contacts/contact_id/messages'), $this->anything(), $this->anything()
+            )
+            ->willReturn(array(
+                200,
+                '',
+                '{"offset":0,"limit":20,"count":1,"totalCount":1,"links":{"first":"","previous":null,"next":null,"last":""},"items":[{"id":"contact_id","href":"","direction":"mt","type":"sms","originator":"MsgBird","body":"MessageBody","reference":null,"validity":null,"gateway":0,"typeDetails":{},"datacoding":"plain","mclass":1,"scheduledDatetime":null,"createdDatetime":"","recipients":{"totalCount":1,"totalSentCount":1,"totalDeliveredCount":1,"totalDeliveryFailedCount":0,"items":[{"recipient":12345678912,"status":"delivered","statusDatetime":""}]}}]}'
+            ));
+
+        $Messages = $this->client->contacts->getMessages("contact_id");
+        foreach($Messages->items as $Message) {
+            $this->assertInstanceOf('\MessageBird\Objects\Message', $Message);
+        }
+    }
 }
