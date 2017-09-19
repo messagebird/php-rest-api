@@ -5,6 +5,11 @@ namespace MessageBird\Resources;
 use MessageBird\Common;
 use MessageBird\Objects;
 
+/**
+ * Class MmsMessages
+ *
+ * @package MessageBird\Resources
+ */
 class MmsMessages extends Base {
 
     /**
