@@ -1,6 +1,7 @@
 <?php
 class MmsTest extends BaseTest
 {
+    /** @group createMms */
     public function testCreateMms()
     {
         $MmsMessage = new \MessageBird\Objects\MmsMessage();
@@ -47,6 +48,7 @@ class MmsTest extends BaseTest
 
         $this->assertAttributeSame('message_id', 'id', $MmsMessage);
         $this->assertAttributeSame('https://rest.messagebird.com/mms/message_id', 'href', $MmsMessage);
+        $this->assertAttributeSame('mt', 'direction', $MmsMessage);
     }
 
     public function testListMms()
