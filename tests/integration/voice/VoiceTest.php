@@ -280,14 +280,14 @@ class VoiceTest extends BaseTest
     {
         $callFlow = new \MessageBird\Objects\Voice\CallFlow();
         $callFlow->title = 'Foobar';
-        $callFlow->steps = [
-           [
+        $callFlow->steps = array(
+           array(
                'action' => 'transfer',
-               'options' => [
+               'options' => array(
                    'destination' => '31612345678',
-               ],
-           ] ,
-        ];
+               ),
+           ) ,
+        );
 
         $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn(array(201, '', '{
   "data": [
