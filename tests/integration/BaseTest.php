@@ -1,9 +1,16 @@
 <?php
 class BaseTest extends PHPUnit_Framework_TestCase
 {
+    /** @var \MessageBird\Client */
+    protected $client;
+
+    /** @var PHPUnit_Framework_MockObject_MockObject */
+    protected $mockClient;
+
     public function setUp()
     {
         $this->mockClient = $this->getMockBuilder("\MessageBird\Common\HttpClient")->setConstructorArgs(array("fake.messagebird.dev"))->getMock();
+        $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
     }
 
     public function testClientConstructor()
