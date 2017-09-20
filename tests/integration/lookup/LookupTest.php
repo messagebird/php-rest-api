@@ -1,15 +1,9 @@
 <?php
 class LookupTest extends BaseTest
 {
-    public function setUp()
-    {
-        parent::setUp();
-        $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
-    }
-
     /**
      * @expectedException     MessageBird\Exceptions\ServerException
-       */
+     */
     public function testReadLookup()
     {
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'lookup/31612345678', null, null);

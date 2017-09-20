@@ -1,12 +1,6 @@
 <?php
 class ChatTest extends BaseTest
 {
-    public function setUp()
-    {
-        parent::setUp();
-        $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
-    }
-
     public function testCreateChatMessage()
     {
         $ChatMessage = new \MessageBird\Objects\Chat\Message();
