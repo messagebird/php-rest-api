@@ -40,7 +40,7 @@ class MmsTest extends BaseTest
             ->with('GET', 'mms', array('offset' => '100', 'limit' => '30'), null)
             ->willReturn(array(200, '',
                 '{ 
-                    "offset": 0, "limit": 20, "count": 1, "totalCount": 1,
+                    "offset": 0, "limit": 20, "count": 1, "totalCount": 2,
                     "links": {
                         "first": "https://rest.messagebird.com/mms/?offset=0&type=mms",
                         "previous": null,
@@ -53,6 +53,10 @@ class MmsTest extends BaseTest
             ));
 
         $ResultMessages = $this->client->mmsMessages->getList(array('offset' => 100, 'limit' => 30));
+
+        $this->assertAttributeEquals(0, 'offset', $ResultMessages);
+        $this->assertAttributeEquals(1, 'count', $ResultMessages);
+        $this->assertAttributeEquals(2, 'totalCount', $ResultMessages);
 
         $this->assertEquals(2, count($ResultMessages->items));
         $this->assertMessagesAreEqual($dummyMessage, $ResultMessages->items[0], 'message_id');
@@ -109,6 +113,12 @@ class MmsTest extends BaseTest
         return $MmsMessage;
     }
 
+    /**
+     * Asserts if 2 messages are equal. They are equal if all the attributes have the same value.
+     * @param \MessageBird\Objects\MmsMessage $MmsMessage
+     * @param \MessageBird\Objects\MmsMessage $ResultMmsMessage
+     * @param $expectedId Since the id field cannot be manually set this the id of the message is checked against this expectedId value.
+     */
     private function assertMessagesAreEqual(\MessageBird\Objects\MmsMessage $MmsMessage, \MessageBird\Objects\MmsMessage $ResultMmsMessage, $expectedId)
     {
         $this->assertAttributeEquals($expectedId, 'id', $ResultMmsMessage);
