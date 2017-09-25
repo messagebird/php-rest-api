@@ -34,7 +34,7 @@ class MmsMessage extends Base {
     public $direction = 'mt';
 
     /**
-     * The sender of the message. This can be a telephone number
+     * The sender of the MMS message. This can be a telephone number
      * (including country code) or an alphanumeric string. In case
      * of an alphanumeric string, the maximum length is 11 characters.
      *
@@ -50,14 +50,14 @@ class MmsMessage extends Base {
     public $recipients = array();
 
     /**
-     * The subject of the message.
+     * The subject of MMS the message.
      *
      * @var string
      */
     public $subject;
 
     /**
-     * The body of the MmsMessage message.
+     * The body of the MMS message.
      *
      * @var string
      */
@@ -65,7 +65,7 @@ class MmsMessage extends Base {
 
     /**
      * The array of URL's to the media attachments that you want to
-     * send as part of the MmsMessage message.
+     * send as part of the MMS message.
      *
      * @var array
      */
