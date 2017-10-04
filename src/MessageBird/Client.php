@@ -12,7 +12,7 @@ class Client
     const ENDPOINT = 'https://rest.messagebird.com';
     const CHATAPI_ENDPOINT = 'https://chat.messagebird.com/1';
 
-    const CLIENT_VERSION = '1.6.6';
+    const CLIENT_VERSION = '1.7.0';
 
     /**
      * @var string
@@ -23,6 +23,16 @@ class Client
      * @var Resources\Messages
      */
     public $messages;
+
+    /**
+     * @var Resources\Contacts
+     */
+    public $contacts;
+
+    /**
+     * @var Resources\Groups
+     */
+    public $groups;
 
     /**
      * @var Resources\VoiceMessage
@@ -121,6 +131,8 @@ class Client
         $this->lookup        = new Resources\Lookup($this->HttpClient);
         $this->lookupHlr     = new Resources\LookupHlr($this->HttpClient);
         $this->mmsMessages   = new Resources\MmsMessages($this->HttpClient);
+        $this->contacts      = new Resources\Contacts($this->HttpClient);
+        $this->groups        = new Resources\Groups($this->HttpClient);
         $this->chatMessages  = new Resources\Chat\Message($this->ChatAPIHttpClient);
         $this->chatChannels  = new Resources\Chat\Channel($this->ChatAPIHttpClient);
         $this->chatPlatforms = new Resources\Chat\Platform($this->ChatAPIHttpClient);
