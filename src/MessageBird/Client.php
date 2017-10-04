@@ -65,6 +65,11 @@ class Client
     public $lookupHlr;
 
     /**
+     * @var Resources\MmsMessages
+     */
+    public $mmsMessages;
+
+    /**
      * @var Resources\Chat\Message
      */
     public $chatMessages;
@@ -125,6 +130,7 @@ class Client
         $this->voicemessages = new Resources\VoiceMessage($this->HttpClient);
         $this->lookup        = new Resources\Lookup($this->HttpClient);
         $this->lookupHlr     = new Resources\LookupHlr($this->HttpClient);
+        $this->mmsMessages   = new Resources\MmsMessages($this->HttpClient);
         $this->contacts      = new Resources\Contacts($this->HttpClient);
         $this->groups        = new Resources\Groups($this->HttpClient);
         $this->chatMessages  = new Resources\Chat\Message($this->ChatAPIHttpClient);
