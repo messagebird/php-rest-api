@@ -3,7 +3,6 @@
 namespace MessageBird\Resources;
 
 use MessageBird\Objects;
-use MessageBird\Exceptions;
 use MessageBird\Common;
 use InvalidArgumentException;
 
