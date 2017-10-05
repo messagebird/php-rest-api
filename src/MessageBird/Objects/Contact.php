@@ -3,8 +3,6 @@
 
 namespace MessageBird\Objects;
 
-use MessageBird\Resources\Groups;
-
 /**
  * Class Contact
  *

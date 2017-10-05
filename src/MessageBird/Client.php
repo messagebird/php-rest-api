@@ -93,11 +93,6 @@ class Client
     /**
      * @var Resources\Voice\Calls
      */
-    public $Voice;
-
-    /**
-     * @var Resources\Voice\Calls
-     */
     public $voiceCalls;
 
     /**
@@ -134,6 +129,11 @@ class Client
      * @var Common\HttpClient
      */
     protected $ChatAPIHttpClient;
+
+    /**
+     * @var Common\HttpClient
+     */
+    protected $VoiceAPIHttpClient;
 
     /**
      * @param string            $accessKey

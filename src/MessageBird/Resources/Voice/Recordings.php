@@ -2,7 +2,6 @@
 
 namespace MessageBird\Resources\Voice;
 
-use MessageBird\Client;
 use MessageBird\Common;
 use MessageBird\Exceptions;
 use MessageBird\Objects;
