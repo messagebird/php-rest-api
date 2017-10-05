@@ -16,6 +16,7 @@ class HttpClient
     const REQUEST_POST = 'POST';
     const REQUEST_DELETE = 'DELETE';
     const REQUEST_PUT = 'PUT';
+    const REQUEST_PATCH = "PATCH";
 
     const HTTP_NO_CONTENT = 204;
 
@@ -167,6 +168,9 @@ class HttpClient
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::REQUEST_DELETE);
         } elseif ($method === self::REQUEST_PUT){
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::REQUEST_PUT);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+        } elseif ($method === self::REQUEST_PATCH){
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::REQUEST_PATCH);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
         }
 

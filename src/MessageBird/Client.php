@@ -13,7 +13,7 @@ class Client
     const CHATAPI_ENDPOINT = 'https://chat.messagebird.com/1';
     const VOICEAPI_ENDPOINT = 'https://voice.messagebird.com';
 
-    const CLIENT_VERSION = '1.7.0';
+    const CLIENT_VERSION = '1.9.0';
 
     /**
      * @var string
@@ -24,6 +24,16 @@ class Client
      * @var Resources\Messages
      */
     public $messages;
+
+    /**
+     * @var Resources\Contacts
+     */
+    public $contacts;
+
+    /**
+     * @var Resources\Groups
+     */
+    public $groups;
 
     /**
      * @var Resources\VoiceMessage
@@ -56,6 +66,11 @@ class Client
     public $lookupHlr;
 
     /**
+     * @var Resources\MmsMessages
+     */
+    public $mmsMessages;
+
+    /**
      * @var Resources\Chat\Message
      */
     public $chatMessages;
@@ -81,9 +96,34 @@ class Client
     public $Voice;
 
     /**
+     * @var Resources\Voice\Calls
+     */
+    public $voiceCalls;
+
+    /**
+     * @var Resources\Voice\CallFlows
+     */
+    public $voiceCallFlows;
+
+    /**
      * @var Resources\Voice\Legs
      */
     public $voiceLegs;
+
+    /**
+     * @var Resources\Voice\Recordings
+     */
+    public $voiceRecordings;
+
+    /**
+     * @var Resources\Voice\Transcriptions
+     */
+    public $voiceTranscriptions;
+
+    /**
+     * @var Resources\Voice\Webhooks
+     */
+    public $voiceWebhooks;
 
     /**
      * @var Common\HttpClient
@@ -143,6 +183,9 @@ class Client
         $this->voiceRecordings     = new Resources\Voice\Recordings($this->VoiceAPIHttpClient);
         $this->voiceTranscriptions = new Resources\Voice\Transcriptions($this->VoiceAPIHttpClient);
         $this->voiceWebhooks       = new Resources\Voice\Webhooks($this->VoiceAPIHttpClient);
+        $this->mmsMessages         = new Resources\MmsMessages($this->HttpClient);
+        $this->contacts            = new Resources\Contacts($this->HttpClient);
+        $this->groups              = new Resources\Groups($this->HttpClient);
     }
 
     /**
