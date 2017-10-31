@@ -29,4 +29,12 @@ class Step extends Base
      * @var array
      */
     public $options;
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }
