@@ -53,9 +53,10 @@ class Contacts extends Base
 
     /**
      * @param $id
+     * @param array|null $parameters
      * @return $this ->Object
      */
-    public function getMessages($id)
+    public function getMessages($id, $parameters = array())
     {
         if (is_null($id)) {
             throw new InvalidArgumentException('No contact id provided.');
@@ -63,14 +64,15 @@ class Contacts extends Base
 
         $this->setObject(new Objects\Message());
         $this->setResourceName($this->resourceName . '/' . $id . '/messages');
-        return $this->getList();
+        return $this->getList($parameters);
     }
 
     /**
      * @param $id
+     * @param array|null $parameters
      * @return $this ->Object
      */
-    public function getGroups($id)
+    public function getGroups($id, $parameters = array())
     {
         if (is_null($id)) {
             throw new InvalidArgumentException('No contact id provided.');
@@ -78,6 +80,6 @@ class Contacts extends Base
 
         $this->setObject(new Objects\Group());
         $this->setResourceName($this->resourceName . '/' . $id . '/groups');
-        return $this->getList();
+        return $this->getList($parameters);
     }
 }
