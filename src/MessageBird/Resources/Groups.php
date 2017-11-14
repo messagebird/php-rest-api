@@ -61,19 +61,20 @@ class Groups extends Base
 
     /**
      * @param string $id
+     * @param array|null $parameters
      *
      * @throws InvalidArgumentException
      *
      * @return mixed
      */
-    public function getContacts($id = null)
+    public function getContacts($id = null, $parameters = array())
     {
         if (is_null($id)) {
             throw new InvalidArgumentException('No group id provided.');
         }
 
         $this->setResourceName($this->resourceName . '/' . $id . '/contacts');
-        return $this->getList();
+        return $this->getList($parameters);
     }
 
     /**
