@@ -87,6 +87,7 @@ class ContactTest extends BaseTest
         $ResultingGroupList = $this->client->contacts->getGroups("contact_id");
 
         $GroupList = new \MessageBird\Objects\BaseList();
+        $GroupList->limit = 20;
         $GroupList->offset = 0;
         $GroupList->count = 1;
         $GroupList->totalCount = 1;
