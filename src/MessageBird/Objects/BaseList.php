@@ -10,6 +10,7 @@ namespace MessageBird\Objects;
 class BaseList extends Base
 {
 
+    public $limit;
     public $offset;
     public $count;
     public $totalCount;
