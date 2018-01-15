@@ -60,4 +60,19 @@ class HttpClientTest extends PHPUnit_Framework_TestCase
         $client = new HttpClient(Client::ENDPOINT);
         $client->performHttpRequest('foo', 'bar');
     }
+
+    /**
+     * Test that it allows additional CURL options 
+     */
+     public function testHttpClientWithHttpOptions() 
+     {
+        $client = new HttpClient(Client::ENDPOINT);
+        $url = "127.0.0.1:8080";
+
+        $client->addHttpOption(CURLOPT_PROXY, $url);
+
+        $this->assertSame($client->getHttpOption(CURLOPT_PROXY), $url);
+
+     }
+     
 }
