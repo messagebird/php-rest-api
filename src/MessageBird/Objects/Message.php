@@ -5,6 +5,7 @@ namespace MessageBird\Objects;
 /**
  * Class Message
  *
+ * @property int $protocolId
  * @package MessageBird\Objects
  */
 class Message extends Base
