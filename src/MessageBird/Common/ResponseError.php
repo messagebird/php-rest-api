@@ -53,7 +53,7 @@ class ResponseError
      */
     private function rewriteVoiceApiErrors()
     {
-        $errors = [];
+        $errors = array();
 
         foreach ($this->errors AS $error) {
             if (!empty($error->message)) {
