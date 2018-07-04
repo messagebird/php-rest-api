@@ -6,10 +6,10 @@ use MessageBird\Objects\Base;
 
 class ResponseErrorTest extends BaseTest
 {
-    const EXCEPTION_MESSAGE = 'Got error response(s) from the server: %s';
+    const EXCEPTION_MESSAGE = 'Got error response from the server: %s';
 
     const SINGLE_ERROR_JSON = '{"errors":[{"code":25,"description":"foo"}]}';
-    const MULTIPLE_ERRORS_JSON = '{"errors":[{"code":2,"description":"foo"},{"code":25,"description":"bar"}]}';
+    const MULTIPLE_ERRORS_JSON = '{"errors":[{"code":9,"description":"foo"},{"code":25,"description":"bar"}]}';
 
     public function testSingleError()
     {
@@ -22,7 +22,7 @@ class ResponseErrorTest extends BaseTest
     public function testMultipleErrors()
     {
         $this->assertEquals(
-            sprintf(self::EXCEPTION_MESSAGE, 'foo, bar'),
+            sprintf(self::EXCEPTION_MESSAGE, 'bar'),
             $this->getExceptionMessageFromJson(self::MULTIPLE_ERRORS_JSON)
         );
     }

@@ -11,7 +11,7 @@ use MessageBird\Exceptions;
  */
 class ResponseError
 {
-    const EXCEPTION_MESSAGE = 'Got error response(s) from the server: %s';
+    const EXCEPTION_MESSAGE = 'Got error response from the server: %s';
 
     const SUCCESS = 1;
 
@@ -40,60 +40,37 @@ class ResponseError
     public function __construct($body)
     {
         if (!empty($body->errors)) {
-            $this->errors = $body->errors;
+            foreach ($body->errors AS $error) {
+                // Voice API returns errors with a "message" field instead of "description".
+                // This ensures all errors have a description set.
+                if (!empty($error->message)) {
+                    $error->description = $error->message;
+                    unset($error->message);
+                }
 
-            $this->rewriteVoiceApiErrors();
-            $this->throwExceptionIfNeeded();
-        }
-    }
+                if ($error->code === self::NOT_ENOUGH_CREDIT) {
+                    throw new Exceptions\BalanceException($this->getExceptionMessage($error));
+                } elseif ($error->code === self::REQUEST_NOT_ALLOWED) {
+                    throw new Exceptions\AuthenticateException($this->getExceptionMessage($error));
+                } elseif ($error->code === self::CHAT_API_AUTH_ERROR) {
+                    throw new Exceptions\AuthenticateException($this->getExceptionMessage($error));
+                }
 
-    /**
-     * Voice API returns errors with a "message" field instead of "description".
-     * This ensures all errors have a description set.
-     */
-    private function rewriteVoiceApiErrors()
-    {
-        $errors = array();
-
-        foreach ($this->errors AS $error) {
-            if (!empty($error->message)) {
-                $error->description = $error->message;
-                unset($error->message);
+                $this->errors[] = $error;
             }
-
-            $errors[] = $error;
         }
-
-        $this->errors = $errors;
     }
 
     /**
-     * Throw an exception when important errors are found.
+     * Get the exception message for the provided error.
      *
-     * @throws Exceptions\AuthenticateException
-     * @throws Exceptions\BalanceException
-     */
-    private function throwExceptionIfNeeded()
-    {
-        foreach ($this->errors AS $error) {
-            if ($error->code === self::NOT_ENOUGH_CREDIT) {
-                throw new Exceptions\BalanceException($this->getExceptionMessage());
-            } elseif ($error->code === self::REQUEST_NOT_ALLOWED) {
-                throw new Exceptions\AuthenticateException($this->getExceptionMessage());
-            } elseif ($error->code === self::CHAT_API_AUTH_ERROR) {
-                throw new Exceptions\AuthenticateException($this->getExceptionMessage());
-            }
-        }
-    }
-
-    /**
-     * Get the exception message for this response's errors.
+     * @param $error
      *
      * @return string
      */
-    private function getExceptionMessage()
+    private function getExceptionMessage($error)
     {
-        return sprintf(self::EXCEPTION_MESSAGE, $this->getErrorString());
+        return sprintf(self::EXCEPTION_MESSAGE, $error->description);
     }
 
     /**
