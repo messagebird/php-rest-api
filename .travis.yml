@@ -15,10 +15,6 @@ matrix:
           dist: precise
 
 before_script:
-    - if [[ "$TRAVIS_PHP_VERSION" == "hhvm"* ]]; then
-          # Use PHPUnit 5.7 for HHVM due to compatability issues between HHVM and PHP7
-          echo "Detected HHVM, installing PHPUnit 5.7..."
-          curl -sSfL -o ~/.phpenv/versions/hhvm/bin/phpunit https://phar.phpunit.de/phpunit-5.7.phar
-      fi
+    - if [[ "$TRAVIS_PHP_VERSION" == "hhvm"* ]]; then curl -sSfL -o ~/.phpenv/versions/hhvm/bin/phpunit https://phar.phpunit.de/phpunit-5.7.phar; fi
 
 script: phpunit --verbose
