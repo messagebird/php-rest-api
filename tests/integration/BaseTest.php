@@ -19,6 +19,16 @@ class BaseTest extends PHPUnit_Framework_TestCase
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
     }
 
+    /**
+     * Prevents a test that performs no assertions from being considered risky.
+     * The doesNotPerformAssertions annotation is not available in earlier PHPUnit
+     * versions, and hence can not be used.
+     */
+    protected function doAssertionToNotBeConsideredRiskyTest()
+    {
+        static::assertTrue(true);
+    }
+
     public function testClientConstructor()
     {
         $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY');

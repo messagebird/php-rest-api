@@ -30,6 +30,8 @@ class HttpClientTest extends BaseTest
     public function testHttpClientValidTimeoutBoundary()
     {
         new HttpClient(Client::ENDPOINT, 1);
+
+        $this->doAssertionToNotBeConsideredRiskyTest();
     }
 
     /**
@@ -47,6 +49,8 @@ class HttpClientTest extends BaseTest
     public function testHttpClientValidConnectionTimeoutBoundary()
     {
         new HttpClient(Client::ENDPOINT, 10, 0);
+
+        $this->doAssertionToNotBeConsideredRiskyTest();
     }
 
     /**
