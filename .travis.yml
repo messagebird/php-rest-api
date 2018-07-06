@@ -7,7 +7,11 @@ php:
     - 7.0
     - 7.1
     - hhvm
+        - before_script:
+            - curl -sSfL -o ~/.phpenv/versions/hhvm/bin/phpunit https://phar.phpunit.de/phpunit-5.7.phar
     - hhvm-nightly
+        - before_script:
+            - curl -sSfL -o ~/.phpenv/versions/hhvm/bin/phpunit https://phar.phpunit.de/phpunit-5.7.phar
 
 matrix:
     include:
