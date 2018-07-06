@@ -64,6 +64,9 @@ class MmsTest extends BaseTest
 
     }
 
+    /**
+     * @expectedException \MessageBird\Exceptions\RequestException
+     */
     public function testDeleteMms()
     {
         $this->mockClient->expects($this->exactly(2))
@@ -76,10 +79,13 @@ class MmsTest extends BaseTest
 
         $this->client->mmsMessages->delete('message_id');
 
-        $this->setExpectedException('\MessageBird\Exceptions\RequestException');
+        // Must throw \MessageBird\Exceptions\RequestException
         $this->client->mmsMessages->delete('message_id');
     }
 
+    /**
+     * @expectedException \MessageBird\Exceptions\RequestException
+     */
     public function testReadMms()
     {
         $dummyMessage = $this->generateDummyMessage();
@@ -95,7 +101,7 @@ class MmsTest extends BaseTest
         $ResultMmsMessage = $this->client->mmsMessages->read('message_id');
         $this->assertMessagesAreEqual($dummyMessage, $ResultMmsMessage, 'message_id');
 
-        $this->setExpectedException('\MessageBird\Exceptions\RequestException');
+        // Must throw \MessageBird\Exceptions\RequestException
         $this->client->mmsMessages->read('unknown_message_id');
     }
 
