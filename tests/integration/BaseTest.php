@@ -1,4 +1,10 @@
 <?php
+// Starting from PHPUnit 6, PHPUnit classes are namespaced. This alias ensures our tests still run
+// with PHPUnit >=6. See: https://github.com/sebastianbergmann/phpunit/wiki/Release-Announcement-for-PHPUnit-6.0.0
+if (!class_exists('PHPUnit_Framework_TestCase') && class_exists('\PHPUnit\Framework\TestCase')) {
+    class_alias('PHPUnit_Framework_TestCase', '\PHPUnit\Framework\TestCase');
+}
+
 class BaseTest extends PHPUnit_Framework_TestCase
 {
     /** @var \MessageBird\Client */
