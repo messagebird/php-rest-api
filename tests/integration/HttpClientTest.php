@@ -2,7 +2,7 @@
 use MessageBird\Client;
 use MessageBird\Common\HttpClient;
 
-class HttpClientTest extends PHPUnit_Framework_TestCase
+class HttpClientTest extends BaseTest
 {
     public function testHttpClient()
     {
