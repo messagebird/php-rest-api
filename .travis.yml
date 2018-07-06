@@ -11,8 +11,8 @@ php:
 
 matrix:
     allow_failures:
-        - hhvm
-        - hhvm-nightly
+        - php: hhvm
+        - php: hhvm-nightly
     include:
         - php: 5.3
           dist: precise
