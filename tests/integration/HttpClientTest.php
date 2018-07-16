@@ -2,7 +2,7 @@
 use MessageBird\Client;
 use MessageBird\Common\HttpClient;
 
-class HttpClientTest extends PHPUnit_Framework_TestCase
+class HttpClientTest extends BaseTest
 {
     public function testHttpClient()
     {
@@ -30,6 +30,8 @@ class HttpClientTest extends PHPUnit_Framework_TestCase
     public function testHttpClientValidTimeoutBoundary()
     {
         new HttpClient(Client::ENDPOINT, 1);
+
+        $this->doAssertionToNotBeConsideredRiskyTest();
     }
 
     /**
@@ -47,6 +49,8 @@ class HttpClientTest extends PHPUnit_Framework_TestCase
     public function testHttpClientValidConnectionTimeoutBoundary()
     {
         new HttpClient(Client::ENDPOINT, 10, 0);
+
+        $this->doAssertionToNotBeConsideredRiskyTest();
     }
 
     /**

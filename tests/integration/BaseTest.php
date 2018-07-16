@@ -1,4 +1,10 @@
 <?php
+// Starting from PHPUnit 6, PHPUnit classes are namespaced. This alias ensures our tests still run
+// with PHPUnit >=6. See: https://github.com/sebastianbergmann/phpunit/wiki/Release-Announcement-for-PHPUnit-6.0.0
+if (!class_exists('PHPUnit_Framework_TestCase') && class_exists('\PHPUnit\Framework\TestCase')) {
+    class_alias('\PHPUnit\Framework\TestCase', 'PHPUnit_Framework_TestCase');
+}
+
 class BaseTest extends PHPUnit_Framework_TestCase
 {
     /** @var \MessageBird\Client */
@@ -11,6 +17,16 @@ class BaseTest extends PHPUnit_Framework_TestCase
     {
         $this->mockClient = $this->getMockBuilder("\MessageBird\Common\HttpClient")->setConstructorArgs(array("fake.messagebird.dev"))->getMock();
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
+    }
+
+    /**
+     * Prevents a test that performs no assertions from being considered risky.
+     * The doesNotPerformAssertions annotation is not available in earlier PHPUnit
+     * versions, and hence can not be used.
+     */
+    protected function doAssertionToNotBeConsideredRiskyTest()
+    {
+        static::assertTrue(true);
     }
 
     public function testClientConstructor()
