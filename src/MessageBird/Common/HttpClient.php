@@ -50,6 +50,12 @@ class HttpClient
      */
     private $headers = array();
 
+
+    /**
+     * @var array
+     */
+    private $httpOptions = array();
+
     /**
      * @param string $endpoint
      * @param int    $timeout           > 0
@@ -123,6 +129,15 @@ class HttpClient
         $this->headers = $headers;
     }
 
+
+    public function addHttpOption($key, $value) {
+        $this->httpOptions[$key] = $value;
+    }
+
+    public function getHttpOption( $key) {
+        return isset($this->httpOptions[$key]) ? $this->httpOptions[$key] : null;
+    }
+
     /**
      * @param string      $method
      * @param string      $resourceName
@@ -158,6 +173,10 @@ class HttpClient
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $this->connectionTimeout);
+
+        foreach( $this->httpOptions as $key=>$value) {
+            curl_setopt($curl, $key, $value);
+        }
 
         if ($method === self::REQUEST_GET) {
             curl_setopt($curl, CURLOPT_HTTPGET, true);

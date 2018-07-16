@@ -212,4 +212,10 @@ class Client
 
         return 'PHP/' . PHP_VERSION_ID;
     }
+
+    public function addHttpOption($key, $value) {
+        $this->ChatAPIHttpClient->addHttpOption($key, $value);
+        $this->HttpClient->addHttpOption($key, $value);
+        $this->VoiceAPIHttpClient->addHttpOption($key, $value);
+    }
 }
