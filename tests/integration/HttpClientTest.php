@@ -72,7 +72,7 @@ class HttpClientTest extends BaseTest
     public function testHttpClientWithHttpOptions()
     {
         $client = new HttpClient(Client::ENDPOINT);
-        $url = "127.0.0.1:8080";
+        $url = '127.0.0.1:8080';
 
         $client->addHttpOption(CURLOPT_PROXY, $url);
 
