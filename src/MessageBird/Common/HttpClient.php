@@ -2,8 +2,8 @@
 
 namespace MessageBird\Common;
 
-use MessageBird\Exceptions;
 use MessageBird\Common;
+use MessageBird\Exceptions;
 
 /**
  * Class HttpClient
@@ -49,6 +49,11 @@ class HttpClient
      * @var array
      */
     private $headers = array();
+
+    /**
+     * @var array
+     */
+    private $httpOptions = array();
 
     /**
      * @param string $endpoint
@@ -124,6 +129,24 @@ class HttpClient
     }
 
     /**
+     * @param $key
+     * @param $value
+     */
+    public function addHttpOption($option, $value)
+    {
+        $this->httpOptions[$option] = $value;
+    }
+
+    /**
+     * @param $option
+     * @return mixed|null
+     */
+    public function getHttpOption($option)
+    {
+        return isset($this->httpOptions[$option]) ? $this->httpOptions[$option] : null;
+    }
+
+    /**
      * @param string      $method
      * @param string      $resourceName
      * @param mixed       $query
@@ -158,6 +181,10 @@ class HttpClient
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $this->connectionTimeout);
+
+        foreach ($this->httpOptions as $option => $value) {
+            curl_setopt($curl, $option, $value);
+        }
 
         if ($method === self::REQUEST_GET) {
             curl_setopt($curl, CURLOPT_HTTPGET, true);
