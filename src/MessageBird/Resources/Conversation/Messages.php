@@ -158,8 +158,10 @@ class Messages
             return $this->object->loadFromArray($body);
         }
 
+        $responseError = new ResponseError($body);
+
         throw new RequestException(
-            (new ResponseError($body))->getErrorString()
+            $responseError->getErrorString()
         );
     }
 }
