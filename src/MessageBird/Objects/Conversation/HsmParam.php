@@ -74,8 +74,8 @@ class HsmParam extends Base
         $instance = new static();
         $instance->default = $default;
         $instance->currency = array(
-            'currency_code' => $code,
-            'amount_1000' => $amount,
+            'currencyCode' => $code,
+            'amount' => $amount,
         );
 
         return $instance;

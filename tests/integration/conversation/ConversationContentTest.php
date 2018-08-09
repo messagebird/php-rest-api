@@ -51,7 +51,7 @@ class ConversationContentTest extends BaseTest
         $message->type = 'hsm';
 
         $this->assertEquals($message, $this->messageFromJson(
-            '{"type":"hsm","content":{"hsm":{"params":[{"default":"EUR 12,34","currency":{"currency_code":"EUR","amount_1000":12340}},{"default":"can not localize","dateTime":"2018-08-09T11:54:40+00:00"},{"default":"Hello world"}]}}}'
+            '{"type":"hsm","content":{"hsm":{"params":[{"default":"EUR 12,34","currency":{"currencyCode":"EUR","amount":12340}},{"default":"can not localize","dateTime":"2018-08-09T11:54:40+00:00"},{"default":"Hello world"}]}}}'
         ));
     }
 

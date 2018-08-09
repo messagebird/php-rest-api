@@ -54,8 +54,8 @@ class ConversationMessageTest extends BaseTest
                             {
                                 "default": "EUR 13,37",
                                 "currency": {
-                                    "currency_code": "EUR",
-                                    "amount_1000": 13370
+                                    "currencyCode": "EUR",
+                                    "amount": 13370
                                 }
                             },
                             {
@@ -161,7 +161,7 @@ class ConversationMessageTest extends BaseTest
     {
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
-            ->with('POST', 'conversations/id/messages', null, '{"type":"hsm","content":{"hsm":{"namespace":"foons","templateName":"welcome","language":{"code":"en_US","policy":"deterministic"},"params":[{"default":"EUR 13.37","currency":{"currency_code":"EUR","amount_1000":13370},"dateTime":null},{"default":"can not localize","currency":null,"dateTime":"2018-08-09T11:44:40+00:00"}]}}}')
+            ->with('POST', 'conversations/id/messages', null, '{"type":"hsm","content":{"hsm":{"namespace":"foons","templateName":"welcome","language":{"code":"en_US","policy":"deterministic"},"params":[{"default":"EUR 13.37","currency":{"currencyCode":"EUR","amount":13370},"dateTime":null},{"default":"can not localize","currency":null,"dateTime":"2018-08-09T11:44:40+00:00"}]}}}')
             ->willReturn(array(200, '', '{}'));
 
         $hsm = new Hsm();
