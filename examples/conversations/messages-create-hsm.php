@@ -12,7 +12,7 @@ $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API a
 $hsm = new \MessageBird\Objects\Conversation\Hsm();
 $hsm->namespace = 'NAMESPACE';
 $hsm->templateName = 'TEMPLATE';
-$hsm->setLanguage('en_US', Hsm::LANGUAGE_POLICY_DETERMINISTIC);
+$hsm->setLanguage('en_US', \MessageBird\Objects\Conversation\Hsm::LANGUAGE_POLICY_DETERMINISTIC);
 $hsm->setCurrencyParam('EUR', 13370, 'EUR 13.37');
 
 $message = new \MessageBird\Objects\Conversation\Message();
