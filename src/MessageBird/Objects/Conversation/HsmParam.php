@@ -4,6 +4,11 @@ namespace MessageBird\Objects\Conversation;
 
 use MessageBird\Objects\Base;
 
+/**
+ * HsmParam sets parameters for a WhatsApp HSM message. Using the static
+ * factories is advised. See:
+ * https://developers.messagebird.com/docs/conversations#hsm-localizable-parameters-object
+ */
 class HsmParam extends Base
 {
     /**
