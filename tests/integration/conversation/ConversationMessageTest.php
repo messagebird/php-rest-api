@@ -3,6 +3,7 @@
 use MessageBird\Client;
 use MessageBird\Objects\Conversation\Content;
 use MessageBird\Objects\Conversation\Hsm;
+use MessageBird\Objects\Conversation\HsmParam;
 use MessageBird\Objects\Conversation\Message;
 
 class ConversationMessageTest extends BaseTest
@@ -48,13 +49,19 @@ class ConversationMessageTest extends BaseTest
                             "code": "en_US",
                             "policy": "deterministic"
                         },
-                        "params": {
-                            "default": "13.37",
-                            "currency": {
-                                "currency_code": "EUR",
-                                "amount_1000": 13370
+                        "params":
+                        [
+                            {
+                                "default": "EUR 13,37",
+                                "currency": {
+                                    "currency_code": "EUR",
+                                    "amount_1000": 13370
+                                }
+                            },
+                            {
+                                "default": "Hello world"
                             }
-                        }
+                        ]
                     }
                 },
                 "conversationId": "conid",
@@ -154,32 +161,21 @@ class ConversationMessageTest extends BaseTest
     {
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
-            ->with('POST', 'conversations/id/messages', null, '{"type":"hsm","content":{"hsm":{"namespace":"foons","templateName":"welcome","language":{"code":"en_US","policy":"deterministic"},"params":{"default":"EUR 13.37","currency":{"amount_1000":13370,"currency_code":"EUR"}}}}}')
+            ->with('POST', 'conversations/id/messages', null, '{"type":"hsm","content":{"hsm":{"namespace":"foons","templateName":"welcome","language":{"code":"en_US","policy":"deterministic"},"params":[{"default":"EUR 13.37","currency":{"currency_code":"EUR","amount_1000":13370},"dateTime":null},{"default":"can not localize","currency":null,"dateTime":"2018-08-09T11:44:40+00:00"}]}}}')
             ->willReturn(array(200, '', '{}'));
 
         $hsm = new Hsm();
         $hsm->namespace = 'foons';
         $hsm->templateName = 'welcome';
         $hsm->setLanguage('en_US', Hsm::LANGUAGE_POLICY_DETERMINISTIC);
-        $hsm->setCurrencyParam('EUR', 13370, 'EUR 13.37');
+        $hsm->addParam(HsmParam::currency('EUR 13.37', 'EUR', 13370));
+        $hsm->addParam(HsmParam::dateTime('can not localize', '2018-08-09T11:44:40+00:00'));
 
         $message = new Message();
         $message->type = Content::TYPE_HSM;
         $message->content = $hsm->toContent();
 
         $this->client->conversationMessages->create('id', $message);
-    }
-
-    public function testCreateHsmWithCurrencyAndDateTime()
-    {
-        $hsm = new Hsm();
-        $hsm->setCurrencyParam('EUR', 13370, 'EUR 13.37');
-        $this->assertTrue(isset($hsm->params['currency']['amount_1000']));
-
-        $hsm->setDateTimeParam('2018-08-09T09:07:30+00:00', 'Unknown datetime');
-        $this->assertFalse(isset($hsm->params['currency']['amount_1000']));
-        $this->assertTrue(isset($hsm->params['dateTime']));
-        $this->assertTrue(isset($hsm->params['default']));
     }
 
     public function testListPagination()
@@ -237,7 +233,8 @@ class ConversationMessageTest extends BaseTest
         $hsm->namespace = 'foons';
         $hsm->templateName = 'welcome';
         $hsm->setLanguage('en_US', 'deterministic');
-        $hsm->setCurrencyParam('EUR', 13370, '13.37');
+        $hsm->addParam(HsmParam::currency('EUR 13,37', 'EUR', 13370));
+        $hsm->addParam(HsmParam::text('Hello world'));
 
         // Can also use $hsm->toContent()
         $expectedContent = new Content();

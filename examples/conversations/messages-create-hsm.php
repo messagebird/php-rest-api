@@ -13,13 +13,14 @@ $hsm = new \MessageBird\Objects\Conversation\Hsm();
 $hsm->namespace = 'NAMESPACE';
 $hsm->templateName = 'TEMPLATE';
 $hsm->setLanguage('en_US', \MessageBird\Objects\Conversation\Hsm::LANGUAGE_POLICY_DETERMINISTIC);
-$hsm->setCurrencyParam('EUR', 13370, 'EUR 13.37');
+$hsm->addParam(\MessageBird\Objects\Conversation\HsmParam::currency('EUR 12,34', 'EUR', 12340));
+$hsm->addParam(\MessageBird\Objects\Conversation\HsmParam::dateTime('can not localize', 'RFC3339_DATETIME'));
 
 $message = new \MessageBird\Objects\Conversation\Message();
 $message->channelId = 'CHANNEL_ID';
 $message->content = $hsm->toContent();
 $message->to = 'RECIPIENT';
-$message->type = \MessageBird\Objects\Conversation\Content::TYPE_TEXT;
+$message->type = \MessageBird\Objects\Conversation\Content::TYPE_HSM;
 
 try {
     $conversation = $messageBird->conversationMessages->create(
