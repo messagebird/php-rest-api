@@ -45,7 +45,7 @@ class Hsm extends Base
      * 
      * Using one of the setters in this class is advised to set this.
      * 
-     * @var array
+     * @var HsmParam[]
      */
     public $params;
 
@@ -58,12 +58,22 @@ class Hsm extends Base
     {
         parent::loadFromArray($object);
 
-        // Cast stdObjects to associative arrays.
-        $this->language = (array) $this->language;
-        $this->params = (array) $this->params;
+        // Cast stdObject to associative array.
+        if (!empty($this->language)) {
+            $this->language = (array) $this->language;
+        }
+        
+        if (!empty($this->params)) {
+            $hsmParams = array();
 
-        if (isset($this->params['currency'])) {
-            $this->params['currency'] = (array) $this->params['currency'];
+            foreach ($this->params as $param) {
+                $hsmParam = new HsmParam();
+                $hsmParam->loadFromArray($param);
+
+                $hsmParams[] = $hsmParam;
+            }
+
+            $this->params = $hsmParams;
         }
      
         return $this;
@@ -91,43 +101,13 @@ class Hsm extends Base
     }
 
     /**
-     * Set a localized currency. Code must be ISO 4217 compliant, and the
-     * amount should be multiplied by 1000. The default is used when
-     * localization fails.
-     * Currency can only be set if datetime is not present.
+     * Adds a HSM param to this message.
      * 
-     * Example:
-     * $hsmContent->setCurrencyParam('EUR', 13370, 'EUR 13,37');
-     * 
-     * @param string $code
-     * @param int $amount
-     * @param string $default
+     * @param HsmParam $param
      */
-    public function setCurrencyParam($code, $amount, $default)
+    public function addParam($param)
     {
-        $this->params = array(
-            'default' => $default,
-            'currency' => array(
-                'amount_1000' => $amount,
-                'currency_code' => $code,
-            ),
-        );
-    }
-
-    /**
-     * RFC 3339 compliant string representation of a datetime. The default is
-     * used when localization fails.
-     * Datetime can only be set if currency is not present.
-     * 
-     * @param string $dateTime
-     * @param string $default
-     */
-    public function setDateTimeParam($dateTime, $default)
-    {
-        $this->params = array(
-            'default' => $default,
-            'dateTime' => $dateTime,
-        );
+        $this->params[] = $param;
     }
 
     /**
