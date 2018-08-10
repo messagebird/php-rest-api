@@ -11,7 +11,7 @@ use MessageBird\Objects\Conversation\MessageReference;
 
 class ConversationTest extends BaseTest
 {
-    const START_REQUEST = '{"channelId":"channel-id","type":"location","content":{"location":{"latitude":"37.778326","longitude":"-122.394648"}},"to":"31612345678"}';
+    const START_REQUEST = '{"id":null,"conversationId":null,"channelId":"channel-id","direction":null,"status":null,"type":"location","content":{"audio":null,"file":null,"hsm":null,"image":null,"location":{"latitude":"37.778326","longitude":"-122.394648"},"text":null,"video":null},"to":"31612345678","createdDatetime":null,"updatedDatetime":null}';
     const CREATE_REQUEST = '{"contactId":"some-contact-id"}';
 
     const LIST_RESPONSE = '{
