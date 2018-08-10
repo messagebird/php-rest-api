@@ -12,6 +12,7 @@ class Content extends Base implements JsonSerializable
 {
     const TYPE_AUDIO = 'audio';
     const TYPE_FILE = 'file';
+    const TYPE_HSM = 'hsm';
     const TYPE_IMAGE = 'image';
     const TYPE_LOCATION = 'location';
     const TYPE_TEXT = 'text';
@@ -26,6 +27,11 @@ class Content extends Base implements JsonSerializable
      * @var string[]
      */
     public $file;
+
+    /**
+     * @var Hsm
+     */
+    public $hsm;
 
     /**
      * @var string[]
@@ -57,10 +63,24 @@ class Content extends Base implements JsonSerializable
         // Text is already properly set if available due to the response's structure.
         parent::loadFromArray($object);
         
+        $this->loadHsmIfNeeded();
         $this->loadLocationIfNeeded();
         $this->loadMediaIfNeeded();
 
         return $this;
+    }
+
+    /**
+     * Sets the HSM on this object if available.
+     */
+    public function loadHsmIfNeeded()
+    {
+        if (!empty($this->hsm)) {
+            $hsm = new Hsm();
+            $hsm->loadFromArray($this->hsm);
+
+            $this->hsm = $hsm;
+        }
     }
 
     /**

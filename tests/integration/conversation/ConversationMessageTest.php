@@ -2,6 +2,8 @@
 
 use MessageBird\Client;
 use MessageBird\Objects\Conversation\Content;
+use MessageBird\Objects\Conversation\Hsm;
+use MessageBird\Objects\Conversation\HsmParam;
 use MessageBird\Objects\Conversation\Message;
 
 class ConversationMessageTest extends BaseTest
@@ -26,6 +28,48 @@ class ConversationMessageTest extends BaseTest
                 "id": "genid",
                 "status": "delivered",
                 "type": "video"
+            }
+        ]
+    }';
+
+    const LIST_RESPONSE_WITH_HSM = '{
+        "count": 1,
+        "totalCount": 1,
+        "limit": 25,
+        "offset": 0,
+        "items": [
+            {
+                "channelId": "chid",
+                "contactId": "conid",
+                "content": {
+                    "hsm": {
+                        "namespace": "foons",
+                        "templateName": "welcome",
+                        "language": {
+                            "code": "en_US",
+                            "policy": "deterministic"
+                        },
+                        "params":
+                        [
+                            {
+                                "default": "EUR 13,37",
+                                "currency": {
+                                    "currencyCode": "EUR",
+                                    "amount": 13370
+                                }
+                            },
+                            {
+                                "default": "Hello world"
+                            }
+                        ]
+                    }
+                },
+                "conversationId": "conid",
+                "createdDatetime": "2002-10-02T16:00:00Z",
+                "direction": "received",
+                "id": "genid",
+                "status": "delivered",
+                "type": "hsm"
             }
         ]
     }';
@@ -113,6 +157,27 @@ class ConversationMessageTest extends BaseTest
         $this->client->conversationMessages->create('genid', $message);
     }
 
+    public function testCreateHsm()
+    {
+        $this->mockClient
+            ->expects($this->once())->method('performHttpRequest')
+            ->with('POST', 'conversations/id/messages', null, '{"type":"hsm","content":{"hsm":{"namespace":"foons","templateName":"welcome","language":{"code":"en_US","policy":"deterministic"},"params":[{"default":"EUR 13.37","currency":{"currencyCode":"EUR","amount":13370},"dateTime":null},{"default":"can not localize","currency":null,"dateTime":"2018-08-09T11:44:40+00:00"}]}}}')
+            ->willReturn(array(200, '', '{}'));
+
+        $hsm = new Hsm();
+        $hsm->namespace = 'foons';
+        $hsm->templateName = 'welcome';
+        $hsm->setLanguage('en_US', Hsm::LANGUAGE_POLICY_DETERMINISTIC);
+        $hsm->addParam(HsmParam::currency('EUR 13.37', 'EUR', 13370));
+        $hsm->addParam(HsmParam::dateTime('can not localize', '2018-08-09T11:44:40+00:00'));
+
+        $message = new Message();
+        $message->type = Content::TYPE_HSM;
+        $message->content = $hsm->toContent();
+
+        $this->client->conversationMessages->create('id', $message);
+    }
+
     public function testListPagination()
     {
         $this->mockClient
@@ -148,6 +213,39 @@ class ConversationMessageTest extends BaseTest
         $expectedMessage->conversationId = 'conid';
         $expectedMessage->content = $expectedContent;
         $expectedMessage->type = 'video';
+        $expectedMessage->direction = 'received';
+        $expectedMessage->status = 'delivered';
+        $expectedMessage->createdDatetime = '2002-10-02T16:00:00Z';
+
+        $this->assertEquals($expectedMessage, $message);
+    }
+
+    public function testListWithHsm()
+    {
+        $this->mockClient
+            ->expects($this->once())->method('performHttpRequest')
+            ->with('GET', 'conversations/genid/messages', array(), null)
+            ->willReturn(array(200, '', self::LIST_RESPONSE_WITH_HSM));
+
+        $message = $this->client->conversationMessages->getList('genid')->items[0];
+
+        $hsm = new Hsm();
+        $hsm->namespace = 'foons';
+        $hsm->templateName = 'welcome';
+        $hsm->setLanguage('en_US', 'deterministic');
+        $hsm->addParam(HsmParam::currency('EUR 13,37', 'EUR', 13370));
+        $hsm->addParam(HsmParam::text('Hello world'));
+
+        // Can also use $hsm->toContent()
+        $expectedContent = new Content();
+        $expectedContent->hsm = $hsm;
+
+        $expectedMessage = new Message();
+        $expectedMessage->id = 'genid';
+        $expectedMessage->channelId = 'chid';
+        $expectedMessage->conversationId = 'conid';
+        $expectedMessage->content = $expectedContent;
+        $expectedMessage->type = 'hsm';
         $expectedMessage->direction = 'received';
         $expectedMessage->status = 'delivered';
         $expectedMessage->createdDatetime = '2002-10-02T16:00:00Z';

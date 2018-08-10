@@ -1,6 +1,8 @@
 <?php
 
 use MessageBird\Objects\Conversation\Content;
+use MessageBird\Objects\Conversation\Hsm;
+use MessageBird\Objects\Conversation\HsmParam;
 use MessageBird\Objects\Conversation\Message;
 
 /**
@@ -34,6 +36,22 @@ class ConversationContentTest extends BaseTest
 
         $this->assertEquals($message, $this->messageFromJson(
             '{"type":"audio","content":{"audio":{"url":"https://example.com/audio.mp3"}}}'
+        ));
+    }
+
+    public function testHsmContent()
+    {
+        $hsm = new Hsm();
+        $hsm->addParam(HsmParam::currency('EUR 12,34', 'EUR', 12340));
+        $hsm->addParam(HsmParam::dateTime('can not localize', '2018-08-09T11:54:40+00:00'));
+        $hsm->addParam(HsmParam::text('Hello world'));
+
+        $message = new Message();
+        $message->content = $hsm->toContent();
+        $message->type = 'hsm';
+
+        $this->assertEquals($message, $this->messageFromJson(
+            '{"type":"hsm","content":{"hsm":{"params":[{"default":"EUR 12,34","currency":{"currencyCode":"EUR","amount":12340}},{"default":"can not localize","dateTime":"2018-08-09T11:54:40+00:00"},{"default":"Hello world"}]}}}'
         ));
     }
 
