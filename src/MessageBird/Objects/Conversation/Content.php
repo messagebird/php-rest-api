@@ -2,12 +2,13 @@
 
 namespace MessageBird\Objects\Conversation;
 
+use JsonSerializable;
 use MessageBird\Objects\Base;
 
 /**
  * Represents a Message object's actual content. Formatted depending on type.
  */
-class Content extends Base
+class Content extends Base implements JsonSerializable
 {
     const TYPE_AUDIO = 'audio';
     const TYPE_FILE = 'file';
@@ -115,5 +116,21 @@ class Content extends Base
         if (!empty($this->video->url)) {
             $this->video = array('url' => $this->video->url);
         }
+    }
+
+    /**
+     * Serialize only non empty fields.
+     */
+    public function jsonSerialize()
+    {
+        $json = array();
+        
+        foreach (get_object_vars($this) as $key => $value) {
+            if (!empty($value)) {
+                $json[$key] = $value;
+            }
+        }
+
+        return $json;
     }
 }

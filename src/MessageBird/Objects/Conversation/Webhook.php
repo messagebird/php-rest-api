@@ -2,6 +2,7 @@
 
 namespace MessageBird\Objects\Conversation;
 
+use JsonSerializable;
 use MessageBird\Objects\Base;
 
 /**
@@ -11,7 +12,7 @@ use MessageBird\Objects\Base;
  * It's possible to create multiple webhooks with different URLs to listen to
  * one or more events each.
  */
-class Webhook extends Base
+class Webhook extends Base implements JsonSerializable
 {
     const EVENT_CONVERSATION_CREATED = 'conversation.created';
     const EVENT_CONVERSATION_UPDATED = 'conversation.updated';
@@ -70,4 +71,20 @@ class Webhook extends Base
      * @var string
      */
     public $updatedDatetime;
+
+    /**
+     * Serialize only non empty fields.
+     */
+    public function jsonSerialize()
+    {
+        $json = array();
+        
+        foreach (get_object_vars($this) as $key => $value) {
+            if (!empty($value)) {
+                $json[$key] = $value;
+            }
+        }
+
+        return $json;
+    }
 }
