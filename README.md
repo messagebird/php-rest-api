@@ -51,16 +51,6 @@ Documentation
 Complete documentation, instructions, and examples are available at:
 [https://developers.messagebird.com/](https://developers.messagebird.com/)
 
-Conversations API
-----
-This client offers support for the [Conversations API](https://developers.messagebird.com/docs/conversations).
-Please note this is still in beta, so it will likely change - not necessarily in a backwards compatible manner.
-
-To install the beta version, run:
-```
-composer require messagebird/php-rest-api "1.12.0-beta"
-```
-
 
 License
 ----
