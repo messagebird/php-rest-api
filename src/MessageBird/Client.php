@@ -13,7 +13,7 @@ class Client
     const CHATAPI_ENDPOINT = 'https://chat.messagebird.com/1';
     const VOICEAPI_ENDPOINT = 'https://voice.messagebird.com';
 
-    const CLIENT_VERSION = '1.10.0';
+    const CLIENT_VERSION = '1.13.0';
 
     /**
      * @var string
