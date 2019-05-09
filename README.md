@@ -11,7 +11,7 @@ Requirements
 
 - [Sign up](https://www.messagebird.com/en/signup) for a free MessageBird account
 - Create a new access_key in the developers sections
-- MessageBird API client for PHP requires PHP >= 5.3.
+- MessageBird API client for PHP requires PHP >= 5.4.
 
 Installation
 -----
