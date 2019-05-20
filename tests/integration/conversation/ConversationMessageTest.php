@@ -30,6 +30,22 @@ class ConversationMessageTest extends BaseTest
         ]
     }';
 
+    const READ_RESPONSE = '{
+        "channelId": "chid",
+        "contactId": "conid",
+        "content": {
+            "video": {
+                "url": "https://developers.messagebird.com/assets/videos/foo.mp4"
+            }
+        },
+        "conversationId": "conid",
+        "createdDatetime": "2002-10-02T16:00:00Z",
+        "direction": "received",
+        "id": "genid",
+        "status": "delivered",
+        "type": "video"
+    }';
+
     public function setUp()
     {
         parent::setUp();
@@ -142,6 +158,33 @@ class ConversationMessageTest extends BaseTest
             'url' => 'https://developers.messagebird.com/assets/videos/foo.mp4'
         );
 
+        $expectedMessage = new Message();
+        $expectedMessage->id = 'genid';
+        $expectedMessage->channelId = 'chid';
+        $expectedMessage->conversationId = 'conid';
+        $expectedMessage->content = $expectedContent;
+        $expectedMessage->type = 'video';
+        $expectedMessage->direction = 'received';
+        $expectedMessage->status = 'delivered';
+        $expectedMessage->createdDatetime = '2002-10-02T16:00:00Z';
+
+        $this->assertEquals($expectedMessage, $message);
+    }
+
+    public function testReadMessage()
+    {
+        $this->mockClient
+            ->expects($this->once())->method('performHttpRequest')
+            ->with('GET', 'messages/message-id', array(), null)
+            ->willReturn(array(200, '', self::READ_RESPONSE));
+
+
+        $message = $this->client->conversationMessages->read('message-id');
+
+        $expectedContent = new Content();
+        $expectedContent->video = array(
+            'url' => 'https://developers.messagebird.com/assets/videos/foo.mp4'
+        );
         $expectedMessage = new Message();
         $expectedMessage->id = 'genid';
         $expectedMessage->channelId = 'chid';
