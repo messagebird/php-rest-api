@@ -4,6 +4,7 @@ namespace MessageBird\Objects\Conversation;
 
 use JsonSerializable;
 use MessageBird\Objects\Base;
+use MessageBird\Objects\Conversation\HSM\Message as HSMMessage;
 
 /**
  * Represents a Message object's actual content. Formatted depending on type.
@@ -16,6 +17,7 @@ class Content extends Base implements JsonSerializable
     const TYPE_LOCATION = 'location';
     const TYPE_TEXT = 'text';
     const TYPE_VIDEO = 'video';
+    const TYPE_HSM = 'hsm';
 
     /**
      * @var string[]
@@ -46,6 +48,11 @@ class Content extends Base implements JsonSerializable
      * @var string[]
      */
     public $video;
+
+    /**
+     * @var HSMMessage
+     */
+    public $hsm;
 
     /**
      * @param $object
