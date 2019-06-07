@@ -14,7 +14,7 @@ class Client
     const CONVERSATIONSAPI_ENDPOINT = 'https://conversations.messagebird.com/v1';
     const VOICEAPI_ENDPOINT = 'https://voice.messagebird.com';
 
-    const CLIENT_VERSION = '1.14.0';
+    const CLIENT_VERSION = '1.14.1';
 
     /**
      * @var string
