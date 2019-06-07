@@ -179,16 +179,16 @@ class Client
             $this->VoiceAPIHttpClient = $httpClient;
         }
 
-        $this->HttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
+        $this->HttpClient->addUserAgentString('MessageBird/ApiClient/' . $this->getClientVersion());
         $this->HttpClient->addUserAgentString($this->getPhpVersion());
 
-        $this->ChatAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
+        $this->ChatAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . $this->getClientVersion());
         $this->ChatAPIHttpClient->addUserAgentString($this->getPhpVersion());
 
-        $this->ConversationsAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
+        $this->ConversationsAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . $this->getClientVersion());
         $this->ConversationsAPIHttpClient->addUserAgentString($this->getPhpVersion());
 
-        $this->VoiceAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
+        $this->VoiceAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . $this->getClientVersion());
         $this->VoiceAPIHttpClient->addUserAgentString($this->getPhpVersion());
 
         if ($accessKey !== null) {
