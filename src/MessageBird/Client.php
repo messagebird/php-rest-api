@@ -2,6 +2,8 @@
 
 namespace MessageBird;
 
+use PackageVersions\Versions;
+
 /**
  * Class Client
  *
@@ -15,6 +17,7 @@ class Client
     const VOICEAPI_ENDPOINT = 'https://voice.messagebird.com';
 
     const CLIENT_VERSION = '1.14.1';
+    const PACKAGE_NAME = 'messagebird/php-rest-api';
 
     /**
      * @var string
@@ -241,5 +244,26 @@ class Client
         }
 
         return 'PHP/' . PHP_VERSION_ID;
+    }
+
+    /**
+     * Get the current version of this package without hash or v-prefix
+     * If this reposistory is checked out on a non-version-branch it will
+     * have a format like dev-[branch]. (e.g. dev-master for the master branch)
+     *
+     * @return string
+     */
+    private function getClientVersion()
+    {
+        $fullVersion = Versions::getVersion(static::PACKAGE_NAME);
+        $splitVersion = explode('@', $fullVersion, 2);
+
+        if (strlen($splitVersion[0]) > 1 && $splitVersion[0]{0} == 'v') {
+            // some tags ar v1.x.y, some are not (?)
+            $versionWithoutVPrefix = substr($splitVersion[0], 1);
+        } else {
+            $versionWithoutVPrefix = $splitVersion[0];
+        }
+        return $versionWithoutVPrefix;
     }
 }
