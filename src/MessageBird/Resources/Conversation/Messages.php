@@ -20,6 +20,7 @@ class Messages
     const HTTP_STATUS_OK = 200;
 
     const RESOURCE_NAME = 'conversations/%s/messages';
+    const MESSAGE_RESOURCE_NAME = 'messages/%s';
 
     /**
      * @var HttpClient
@@ -121,6 +122,28 @@ class Messages
         }
 
         return $this->processRequest($body);
+    }
+
+    public function read($messageId, $parameters = array()) {
+        list($status, , $body) = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_GET,
+            sprintf(self::MESSAGE_RESOURCE_NAME, $messageId),
+            $parameters
+        );
+
+        if ($status !== self::HTTP_STATUS_OK) {
+            return $this->processRequest($body);
+        }
+
+        $body = json_decode($body);
+        if (empty($body)) {
+            return $this->processRequest($body);
+        }
+
+        $message = new Message();
+        $message->loadFromArray($body);
+
+        return $message;
     }
 
     /**
