@@ -52,7 +52,7 @@ class SignedRequest extends Base
         $body = file_get_contents('php://input');
         $queryParameters = $_GET;
         $requestTimestamp = isset($_SERVER['HTTP_MESSAGEBIRD_REQUEST_TIMESTAMP']) ?
-            $_SERVER['HTTP_MESSAGEBIRD_REQUEST_TIMESTAMP'] : null;
+            (int)$_SERVER['HTTP_MESSAGEBIRD_REQUEST_TIMESTAMP'] : null;
         $signature = isset($_SERVER['HTTP_MESSAGEBIRD_SIGNATURE']) ?
             $_SERVER['HTTP_MESSAGEBIRD_SIGNATURE'] : null;
 
