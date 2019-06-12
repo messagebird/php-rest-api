@@ -18,7 +18,7 @@ $message->to = 'RECIPIENT'; // Channel-specific, e.g. MSISDN for SMS.
 $message->type = 'text';
 
 try {
-    $conversation = $messageBird->conversations->create($message);
+    $conversation = $messageBird->conversations->start($message);
 
     var_dump($conversation);
 } catch (\Exception $e) {
