@@ -10,13 +10,13 @@ require(__DIR__ . '/../../autoload.php');
 // Create a client with WhatsApp sandbox enabled.
 $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY', null, [\MessageBird\Client::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX]);
 
-// Continue using whatsapp channel as normal. 
+// Use WhatsApp sandbox channel as normal. 
 
 $content = new \MessageBird\Objects\Conversation\Content();
 $content->text = 'Hello world';
 
 $message = new \MessageBird\Objects\Conversation\Message();
-$message->channelId = 'CHANNEL_ID';
+$message->channelId = 'WHATSAPP_SANDBOX_CHANNEL_ID';
 $message->content = $content;
 $message->to = 'RECIPIENT'; // Channel-specific, e.g. MSISDN for SMS.
 $message->type = 'text';
