@@ -14,6 +14,9 @@ class Client
     const CONVERSATIONSAPI_ENDPOINT = 'https://conversations.messagebird.com/v1';
     const VOICEAPI_ENDPOINT = 'https://voice.messagebird.com';
 
+    const ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX = 'ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX';
+    const CONVERSATIONSAPI_WHATSAPP_SANDBOX_ENDPOINT = 'https://whatsapp-sandbox.messagebird.com/v1';
+
     const CLIENT_VERSION = '1.15.0';
 
     /**
@@ -160,11 +163,11 @@ class Client
      * @param string            $accessKey
      * @param Common\HttpClient $httpClient
      */
-    public function __construct($accessKey = null, Common\HttpClient $httpClient = null)
+    public function __construct($accessKey = null, Common\HttpClient $httpClient = null, array $config = [])
     {
         if ($httpClient === null) {
             $this->ChatAPIHttpClient = new Common\HttpClient(self::CHATAPI_ENDPOINT);
-            $this->ConversationsAPIHttpClient = new Common\HttpClient(self::CONVERSATIONSAPI_ENDPOINT);
+            $this->ConversationsAPIHttpClient = new Common\HttpClient(in_array(self::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX, $config) ? self::CONVERSATIONSAPI_WHATSAPP_SANDBOX_ENDPOINT : self::CONVERSATIONSAPI_ENDPOINT);
             $this->HttpClient = new Common\HttpClient(self::ENDPOINT);
             $this->VoiceAPIHttpClient = new Common\HttpClient(self::VOICEAPI_ENDPOINT, 10, 2, array(
                 'X-MessageBird-Version' => '20170314',
