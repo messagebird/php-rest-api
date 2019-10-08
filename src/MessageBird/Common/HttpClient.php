@@ -219,7 +219,8 @@ class HttpClient
 
         // Split the header and body
         $parts = explode("\r\n\r\n", $response, 3);
-        list($responseHeader, $responseBody) = (strpos($parts[0], "\n") == false && strpos($parts[0], 'HTTP/1.') == 0) ? array ($parts[1], $parts[2]) : array ($parts[0], $parts[1]);
+        $isThreePartResponse = (strpos($parts[0], "\n") === false && strpos($parts[0], 'HTTP/1.') === 0);
+        list($responseHeader, $responseBody) = $isThreePartResponse ? array ($parts[1], $parts[2]) : array ($parts[0], $parts[1]);
 
         curl_close($curl);
 
