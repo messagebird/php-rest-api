@@ -35,4 +35,28 @@ class Recipient extends Base
      * @var string
      */
     public $statusDatetime;
+
+    /**
+     * @return int
+     */
+    public function getRecipient()
+    {
+        return $this->recipient;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatusDatetime()
+    {
+        return $this->statusDatetime;
+    }
 }
