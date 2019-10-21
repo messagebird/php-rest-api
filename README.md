@@ -34,7 +34,7 @@ We have put some self-explanatory examples in the *examples* directory, but here
 ```php
 require 'autoload.php';
 
-$MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY');
+$messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY');
 
 ```
 
@@ -42,7 +42,7 @@ That's easy enough. Now we can query the server for information. Lets use gettin
 
 ```php
 // Get your balance
-$Balance = $MessageBird->balance->read();
+$balance = $messageBird->balance->read();
 ```
 
 
