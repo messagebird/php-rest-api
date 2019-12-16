@@ -13,6 +13,7 @@ class Client
     const CHATAPI_ENDPOINT = 'https://chat.messagebird.com/1';
     const CONVERSATIONSAPI_ENDPOINT = 'https://conversations.messagebird.com/v1';
     const VOICEAPI_ENDPOINT = 'https://voice.messagebird.com';
+    const PARTNER_ACCOUNT_ENDPOINT = 'https://partner-accounts.messagebird.com';
 
     const ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX = 'ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX';
     const CONVERSATIONSAPI_WHATSAPP_SANDBOX_ENDPOINT = 'https://whatsapp-sandbox.messagebird.com/v1';
@@ -140,6 +141,11 @@ class Client
     public $conversationWebhooks;
 
     /**
+     * @var Resources\PartnerAccount\Accounts;
+     */
+    public $partnerAccounts;
+
+    /**
      * @var Common\HttpClient
      */
     protected $HttpClient;
@@ -160,6 +166,11 @@ class Client
     protected $VoiceAPIHttpClient;
 
     /**
+     * @var Common\HttpClient
+     */
+    protected $partnerAccountClient;
+
+    /**
      * @param string            $accessKey
      * @param Common\HttpClient $httpClient
      */
@@ -172,11 +183,13 @@ class Client
             $this->VoiceAPIHttpClient = new Common\HttpClient(self::VOICEAPI_ENDPOINT, 10, 2, array(
                 'X-MessageBird-Version' => '20170314',
            ));
+            $this->partnerAccountClient = new Common\HttpClient(self::PARTNER_ACCOUNT_ENDPOINT);
         } else {
             $this->ChatAPIHttpClient = $httpClient;
             $this->ConversationsAPIHttpClient = $httpClient;
             $this->HttpClient = $httpClient;
             $this->VoiceAPIHttpClient = $httpClient;
+            $this->partnerAccountClient = $httpClient;
         }
 
         $this->HttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
@@ -190,6 +203,9 @@ class Client
 
         $this->VoiceAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
         $this->VoiceAPIHttpClient->addUserAgentString($this->getPhpVersion());
+
+        $this->partnerAccountClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
+        $this->partnerAccountClient->addUserAgentString($this->getPhpVersion());
 
         if ($accessKey !== null) {
             $this->setAccessKey($accessKey);
@@ -218,6 +234,7 @@ class Client
         $this->conversations        = new Resources\Conversation\Conversations($this->ConversationsAPIHttpClient);
         $this->conversationMessages = new Resources\Conversation\Messages($this->ConversationsAPIHttpClient);
         $this->conversationWebhooks = new Resources\Conversation\Webhooks($this->ConversationsAPIHttpClient);
+        $this->partnerAccounts      = new Resources\PartnerAccount\Accounts($this->partnerAccountClient);
     }
 
     /**
@@ -231,6 +248,7 @@ class Client
         $this->ConversationsAPIHttpClient->setAuthentication($Authentication);
         $this->HttpClient->setAuthentication($Authentication);
         $this->VoiceAPIHttpClient->setAuthentication($Authentication);
+        $this->partnerAccountClient->setAuthentication($Authentication);
     }
 
     /**
