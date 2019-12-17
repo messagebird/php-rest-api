@@ -12,7 +12,6 @@ class AccountTest extends BaseTest
     {
         $account = new \MessageBird\Objects\PartnerAccount\Account();
         $account->name = 'MessageBird';
-        $account->email = 'test@messagebird.com';
 
         $this->mockClient
             ->expects($this->atLeastOnce())
@@ -45,7 +44,7 @@ class AccountTest extends BaseTest
                 'POST',
                 'child-accounts',
                 null,
-                '{"name":"MessageBird","email":"test@messagebird.com"}'
+                '{"name":"MessageBird"}'
             );
 
         $response = $this->client->partnerAccounts->create($account);
@@ -131,23 +130,46 @@ class AccountTest extends BaseTest
     public function testDeleteSubAccount()
     {
         $this->mockClient
-            ->expects($this->atLeastOnce())
-            ->method('performHttpRequest')
-            ->willReturn([
-                204,
-                '',
-                ''
-            ]);
-        $this->mockClient
             ->expects($this->once())
             ->method('performHttpRequest')
             ->with(
                 'DELETE',
                 'child-accounts/1'
-            );
+            )
+            ->willReturn([
+                204,
+                '',
+                ''
+            ]);
 
         $response = $this->client->partnerAccounts->delete(1);
 
         $this->assertTrue($response);
+    }
+
+    public function testEditSubAccount()
+    {
+        $account = new \MessageBird\Objects\PartnerAccount\Account();
+        $account->name = 'MessageBird';
+
+        $this->mockClient
+            ->expects($this->once())
+            ->method('performHttpRequest')
+            ->with(
+                'PATCH',
+                'child-accounts/1',
+                null,
+                '{"name":"MessageBird"}'
+            )
+            ->willReturn([
+                204,
+                '',
+                '{
+                  "id": 6249799,
+                  "name": "Partner Account Sub 1"
+                }'
+            ]);
+
+        $this->client->partnerAccounts->update($account,1);
     }
 }
