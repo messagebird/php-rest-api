@@ -8,7 +8,7 @@ $account = new \MessageBird\Objects\PartnerAccount\Account();
 $account->name = 'Name Test';
 
 try {
-    $partnerAccountResult = $messageBird->partnerAccounts->create($account);
+    $partnerAccountResult = $messageBird->partnerAccounts->update($account, 1);
     var_dump($partnerAccountResult);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {

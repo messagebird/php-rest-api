@@ -20,16 +20,12 @@ class Accounts extends Base
 
     public function create($object, $query = null)
     {
-
-        list($status, , $body) = $this->HttpClient->performHttpRequest(
+        list(, , $body) = $this->HttpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
             self::RESOURCE_NAME,
             null,
             $object->loadToJson()
         );
-
-        var_dump($status);
-        var_dump($body);
 
         return $this->processRequest($body);
     }
@@ -54,5 +50,17 @@ class Accounts extends Base
         }
 
         return $response;
+    }
+
+    public function update($object, $id)
+    {
+        list(, , $body) = $this->HttpClient->performHttpRequest(
+            HttpClient::REQUEST_PATCH,
+            sprintf('%s/%s', self::RESOURCE_NAME, $id),
+            null,
+            $object->loadToJson()
+        );
+
+        return $this->processRequest($body);
     }
 }
