@@ -16,12 +16,10 @@ class HttpClientTest extends BaseTest
         $this->assertSame(Client::ENDPOINT.'/a?b=1', $url);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessageRegExp #^Timeout must be an int > 0, got "integer 0".$#
-     */
     public function testHttpClientInvalidTimeout()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessageRegExp('/^Timeout must be an int > 0, got "integer 0".$/');
         new HttpClient(Client::ENDPOINT, 0);
     }
 

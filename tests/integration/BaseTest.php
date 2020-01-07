@@ -1,11 +1,8 @@
 <?php
-// Starting from PHPUnit 6, PHPUnit classes are namespaced. This alias ensures our tests still run
-// with PHPUnit >=6. See: https://github.com/sebastianbergmann/phpunit/wiki/Release-Announcement-for-PHPUnit-6.0.0
-if (!class_exists('PHPUnit_Framework_TestCase') && class_exists('\PHPUnit\Framework\TestCase')) {
-    class_alias('\PHPUnit\Framework\TestCase', 'PHPUnit_Framework_TestCase');
-}
 
-class BaseTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class BaseTest extends TestCase
 {
     /** @var \MessageBird\Client */
     protected $client;
@@ -13,7 +10,7 @@ class BaseTest extends PHPUnit_Framework_TestCase
     /** @var PHPUnit_Framework_MockObject_MockObject */
     protected $mockClient;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->mockClient = $this->getMockBuilder("\MessageBird\Common\HttpClient")->setConstructorArgs(array("fake.messagebird.dev"))->getMock();
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
@@ -43,6 +40,8 @@ class BaseTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('MessageBird\Resources\Chat\Platform', $MessageBird->chatPlatforms);
         $this->assertInstanceOf('MessageBird\Resources\Chat\Channel', $MessageBird->chatChannels);
         $this->assertInstanceOf('MessageBird\Resources\Chat\Contact', $MessageBird->chatContacts);
+        $this->assertInstanceOf('MessageBird\Resources\AvailableNumbers', $MessageBird->availableNumbers);
+        $this->assertInstanceOf('MessageBird\Resources\PurchasedNumbers', $MessageBird->purchasedNumbers);
 
     }
 

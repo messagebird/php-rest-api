@@ -5,7 +5,7 @@ class VoiceTest extends BaseTest
     /** @var \MessageBird\Client client */
     public $client;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
