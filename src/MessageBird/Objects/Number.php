@@ -16,47 +16,47 @@ class Number extends Base
      * The phone number in E.164 format without the prefixed plus-sign.
      * @var string
      */
-    protected $number;
+    public $number;
 
     /**
      * The Number's country
      * @var string
      */
-    protected $country;
+    public $country;
 
     /**
      * The country code for this number in ISO 3166-1 alpha-2 format.
      * @var string
      */
-    protected $region;
+    public $region;
 
     /**
      * Finer-grained locality for this Number
      * @var string
      */
-    protected $locality;
+    public $locality;
 
     /**
      * The available features for this Number
      * @var array
      */
-    protected $features = array();
+    public $features = array();
 
     /**
      * Additional user-provided tags for this Number
      * @var array
      */
-    protected $tags = array();
+    public $tags = array();
 
     /**
      * Number type (example: landline, mobile).
      * @var string
      */
-    protected $type;
+    public $type;
 
     /**
      * Number availability and current activated status
      * @var string
      */
-    protected $status;
+    public $status;
 }

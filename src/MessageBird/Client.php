@@ -67,6 +67,11 @@ class Client
     public $lookup;
 
     /**
+     * @var Resources\AvailableNumbers
+     */
+    public $availableNumbers;
+
+    /**
      * @var Resources\LookupHlr
      */
     public $lookupHlr;
@@ -180,7 +185,6 @@ class Client
      * @var Common\HttpClient
      */
     protected $partnerAccountClient;
-
 
     /**
      * @param string            $accessKey

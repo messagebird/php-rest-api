@@ -10,7 +10,7 @@ use MessageBird\Common;
  *
  * @package MessageBird\Resources
  */
-class PhoneNumbers
+class PhoneNumbers extends Base
 {
 
     /**
@@ -24,66 +24,33 @@ class PhoneNumbers
     public function __construct(Common\HttpClient $HttpClient)
     {
         $this->HttpClient = $HttpClient;
+        $this->setResourceName('phone-numbers');
     }
 
     /**
-     * @param string $countryCode
-     * @param array $parameters
+     * @param $object
+     * @param $id
      *
-     * @return Objects\BaseList
-     * @throws \MessageBird\Exceptions\RequestException
-     * @throws \MessageBird\Exceptions\ServerException
+     * @return $this ->Object
+     *
+     * @internal param array $parameters
      */
-    public function getList($countryCode, $parameters = array())
+    public function update($object, $id)
     {
-        list($status, , $body) = $this->HttpClient->performHttpRequest(
-            Common\HttpClient::REQUEST_GET,
-            "phone-numbers/$countryCode",
-            $parameters
-        );
-
-        if ($status === 200) {
-            $body = json_decode($body);
-
-            $items = $body->data;
-            unset($body->data);
-
-            $baseList = new Objects\BaseList();
-            $baseList->loadFromArray($body);
-
-            foreach ($items as $item) {
-                $object = new Objects\Number($this->HttpClient);
-
-                $itemObject = $object->loadFromArray($item);
-                $baseList->items[] = $itemObject;
+        $objVars = get_object_vars($object);
+        $body = array();
+        foreach ($objVars as $key => $value) {
+            if (null !== $value) {
+                $body[$key] = $value;
             }
-            return $baseList;
         }
 
+        $ResourceName = $this->resourceName . ($id ? '/' . $id : null);
+        $body = json_encode($body);
+
+        // This override is only needed to use the PATCH http method
+        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_PATCH, $ResourceName, false, $body);
         return $this->processRequest($body);
-    }
-
-    /**
-     * @param string $body
-     *
-     * @return Objects\Number
-     * @throws \MessageBird\Exceptions\RequestException
-     * @throws \MessageBird\Exceptions\ServerException
-     */
-    private function processRequest($body)
-    {
-        $body = @json_decode($body);
-
-        if ($body === null or $body === false) {
-            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
-        }
-
-        if (empty($body->errors)) {
-            return Objects\Number.loadFromArray($body->data[0]);
-        }
-
-        $ResponseError = new Common\ResponseError($body);
-        throw new Exceptions\RequestException($ResponseError->getErrorString());
     }
 }
 ?>

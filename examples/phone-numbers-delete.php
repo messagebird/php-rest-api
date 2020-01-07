@@ -5,15 +5,12 @@ require_once(__DIR__ . '/../autoload.php');
 $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 try {
-    $phoneNumbers = $MessageBird->phoneNumbers->getList();
-    var_dump($phoneNumbers);
-
+    $deleted = $MessageBird->phoneNumbers->delete('31612345678');
+    var_dump('Deleted: ' . $deleted);
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     print("wrong login\n");
 
 } catch (\Exception $e) {
-    var_dump($e->getMessage());
-
+    echo $e->getMessage();
 }
-?>
