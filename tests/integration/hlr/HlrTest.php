@@ -7,11 +7,9 @@ class HlrTest extends BaseTest
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
     }
 
-    /**
-     * @expectedException     MessageBird\Exceptions\ServerException
-     */
     public function testCreateHlr()
     {
+        $this->expectException('MessageBird\Exceptions\ServerException');
         $Hlr             = new \MessageBird\Objects\Hlr();
         $Hlr->msisdn     = 'MessageBird';
         $Hlr->reference  = "yoloswag3000";
@@ -21,11 +19,9 @@ class HlrTest extends BaseTest
     }
 
 
-    /**
-     * @expectedException     MessageBird\Exceptions\ServerException
-     */
     public function testReadHlr()
     {
+        $this->expectException('MessageBird\Exceptions\ServerException');
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'hlr/message_id', null, null);
         $this->client->hlr->read("message_id");
     }

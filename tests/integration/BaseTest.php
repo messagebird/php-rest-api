@@ -40,9 +40,6 @@ class BaseTest extends TestCase
         $this->assertInstanceOf('MessageBird\Resources\Chat\Platform', $MessageBird->chatPlatforms);
         $this->assertInstanceOf('MessageBird\Resources\Chat\Channel', $MessageBird->chatChannels);
         $this->assertInstanceOf('MessageBird\Resources\Chat\Contact', $MessageBird->chatContacts);
-        $this->assertInstanceOf('MessageBird\Resources\AvailableNumbers', $MessageBird->availableNumbers);
-        $this->assertInstanceOf('MessageBird\Resources\PurchasedNumbers', $MessageBird->purchasedNumbers);
-
     }
 
     public function testHttpClientMock()

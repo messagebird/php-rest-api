@@ -7,11 +7,9 @@ class VerifyTest extends BaseTest
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
     }
 
-    /**
-     * @expectedException     MessageBird\Exceptions\ServerException
-       */
     public function testGenerateOtp()
     {
+        $this->expectException('MessageBird\Exceptions\ServerException');
         $Verify             = new \MessageBird\Objects\Verify();
         $Verify->recipient  = 31612345678;
         $Verify->reference  = "Yoloswag3000";
@@ -21,11 +19,9 @@ class VerifyTest extends BaseTest
         $this->client->verify->create($Verify);
     }
 
-    /**
-     * @expectedException     MessageBird\Exceptions\ServerException
-       */
     public function testVerifyOtp()
     {
+        $this->expectException('MessageBird\Exceptions\ServerException');
         $Verify            = new \MessageBird\Objects\Verify();
         $Verify->recipient = 31612345678;
         $Verify->reference = 'Yoloswag3000';
