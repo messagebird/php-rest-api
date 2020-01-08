@@ -24,6 +24,7 @@ class PhoneNumbers extends Base
     public function __construct(Common\HttpClient $HttpClient)
     {
         $this->HttpClient = $HttpClient;
+        $this->setObject(new Objects\Number());
         $this->setResourceName('phone-numbers');
     }
 

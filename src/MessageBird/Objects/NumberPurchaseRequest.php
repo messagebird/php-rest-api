@@ -19,10 +19,11 @@ class NumberPurchaseRequest extends Base
     public $number;
 
     /**
-     * The Number's country
+     * The country code for this number in ISO 3166-1 alpha-2 format.
+     *
      * @var string
      */
-    public $country;
+    public $countryCode;
 
     /**
      * The interval in months that this number will be billed by

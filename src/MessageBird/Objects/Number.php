@@ -40,7 +40,7 @@ class Number extends Base
      * The available features for this Number
      * @var array
      */
-    public $features = array();
+    public $features;
 
     /**
      * Additional user-provided tags for this Number
