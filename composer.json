@@ -11,9 +11,8 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "ext-curl": "*",
-        "symfony/polyfill-php56": "^1.10"
+        "php": ">=7.2.0",
+        "ext-curl": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^8"
