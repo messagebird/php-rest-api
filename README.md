@@ -35,7 +35,11 @@ We have put some self-explanatory examples in the *examples* directory, but here
 require 'autoload.php';
 
 $MessageBird = new \MessageBird\Client(getenv('MESSAGEBIRD_API_KEY'));
+```
 
+Run your script with:
+```sh
+MESSAGEBIRD_API_KEY={your API key here} php your-script.php
 ```
 
 That's easy enough. Now we can query the server for information. Lets use getting your balance overview as an example:
