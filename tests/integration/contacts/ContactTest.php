@@ -47,21 +47,21 @@ class ContactTest extends BaseTest
 
     public function testListContacts()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts', array ('offset' => 100, 'limit' => 30), null);
         $this->client->contacts->getList(array ('offset' => 100, 'limit' => 30));
     }
 
     public function testViewContact()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts/contact_id', null, null);
         $this->client->contacts->read("contact_id");
     }
 
     public function testDeleteContact()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'contacts/contact_id', null, null);
         $this->client->contacts->delete("contact_id");
     }

@@ -35,8 +35,8 @@ class HttpClientTest extends BaseTest
 
     public function testHttpClientInvalidConnectionTimeout()
     {
-        $this->expectException('InvalidArgumentException');
-        $this->expectExceptionMessageRegExp('#^Connection timeout must be an int >= 0, got "stdClass".$#');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageRegExp('/^Connection timeout must be an int >= 0, got "stdClass".$/');
         new HttpClient(Client::ENDPOINT, 10, new \stdClass());
     }
 
@@ -55,8 +55,8 @@ class HttpClientTest extends BaseTest
      */
     public function testHttpClientWithoutAuthenticationException()
     {
-        $this->expectException('MessageBird\Exceptions\AuthenticateException');
-        $this->expectExceptionMessageRegExp('#Can not perform API Request without Authentication#');
+        $this->expectException(\MessageBird\Exceptions\AuthenticateException::class);
+        $this->expectExceptionMessageRegExp('/Can not perform API Request without Authentication/');
         $client = new HttpClient(Client::ENDPOINT);
         $client->performHttpRequest('foo', 'bar');
     }

@@ -59,7 +59,7 @@ class SignedRequestTest extends TestCase
 
     public function testLoadInvalidQuery()
     {
-        $this->expectException('MessageBird\Exceptions\ValidationException');
+        $this->expectException(\MessageBird\Exceptions\ValidationException::class);
         $this->expectExceptionMessage('query');
         $query = null;
         $signature = '2bl+38H4oHVg03pC3bk2LvCB0IHFgfC4cL5HPQ0LdmI=';
@@ -77,7 +77,7 @@ class SignedRequestTest extends TestCase
 
     public function testLoadInvalidSignature()
     {
-        $this->expectException('MessageBird\Exceptions\ValidationException');
+        $this->expectException(\MessageBird\Exceptions\ValidationException::class);
         $this->expectExceptionMessage('signature');
         $query = array(
             'recipient'      => '31612345678',
@@ -103,7 +103,7 @@ class SignedRequestTest extends TestCase
 
     public function testLoadInvalidTimestamp()
     {
-        $this->expectException('MessageBird\Exceptions\ValidationException');
+        $this->expectException(\MessageBird\Exceptions\ValidationException::class);
         $this->expectExceptionMessage('requestTimestamp');
         $query = array(
             'recipient'      => '31612345678',
@@ -129,7 +129,7 @@ class SignedRequestTest extends TestCase
 
     public function testLoadInvalidBody()
     {
-        $this->expectException('MessageBird\Exceptions\ValidationException');
+        $this->expectException(\MessageBird\Exceptions\ValidationException::class);
         $this->expectExceptionMessage('body');
         $query = array(
             'recipient'      => '31612345678',

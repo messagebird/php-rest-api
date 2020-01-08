@@ -3,7 +3,7 @@ class MmsTest extends BaseTest
 {
     public function testCreateMmsFail()
     {
-        $this->expectException('MessageBird\Exceptions\RequestException');
+        $this->expectException(\MessageBird\Exceptions\RequestException::class);
         $MmsMessage = new \MessageBird\Objects\MmsMessage();
 
         $this->mockClient->expects($this->once())
@@ -64,7 +64,7 @@ class MmsTest extends BaseTest
 
     public function testDeleteMms()
     {
-        $this->expectException('MessageBird\Exceptions\RequestException');
+        $this->expectException(\MessageBird\Exceptions\RequestException::class);
         $this->mockClient->expects($this->exactly(2))
             ->method('performHttpRequest')
             ->with('DELETE', 'mms/message_id', null, null)
@@ -81,7 +81,7 @@ class MmsTest extends BaseTest
 
     public function testReadMms()
     {
-        $this->expectException('MessageBird\Exceptions\RequestException');
+        $this->expectException(\MessageBird\Exceptions\RequestException::class);
         $dummyMessage = $this->generateDummyMessage();
 
         $this->mockClient->expects($this->exactly(2))

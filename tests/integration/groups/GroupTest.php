@@ -29,21 +29,21 @@ class GroupTest extends BaseTest
 
     public function testListGroups()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'groups', array ('offset' => 100, 'limit' => 30), null);
         $this->client->groups->getList(array ('offset' => 100, 'limit' => 30));
     }
 
     public function testViewGroup()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'groups/group_id', null, null);
         $this->client->groups->read("group_id");
     }
 
     public function testDeleteGroup()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'groups/group_id', null, null);
         $this->client->groups->delete("group_id");
     }

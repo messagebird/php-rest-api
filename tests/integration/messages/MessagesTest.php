@@ -52,7 +52,7 @@ class MessageTest extends BaseTest
 
     public function testPremiumSmsMessage()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $Message             = new \MessageBird\Objects\Message();
         $Message->originator = 'MessageBird';
         $Message->recipients = array(31612345678);
@@ -64,7 +64,7 @@ class MessageTest extends BaseTest
 
     public function testBinarySmsMessage()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $Message             = new \MessageBird\Objects\Message();
         $Message->originator = 'MessageBird';
         $Message->recipients = array(31612345678);
@@ -77,7 +77,7 @@ class MessageTest extends BaseTest
 
     public function testFlashSmsMessage()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $Message             = new \MessageBird\Objects\Message();
         $Message->originator = 'MessageBird';
         $Message->recipients = array(31612345678);
@@ -91,21 +91,21 @@ class MessageTest extends BaseTest
 
     public function testListMessage()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'messages', array ('offset' => 100, 'limit' => 30), null);
         $this->client->messages->getList(array ('offset' => 100, 'limit' => 30));
     }
 
     public function testReadMessage()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'messages/message_id', null, null);
         $this->client->messages->read("message_id");
     }
 
     public function testDeleteMessage()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'messages/message_id', null, null);
         $this->client->messages->delete("message_id");
     }

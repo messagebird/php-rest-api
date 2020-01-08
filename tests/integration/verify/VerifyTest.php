@@ -9,7 +9,7 @@ class VerifyTest extends BaseTest
 
     public function testGenerateOtp()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $Verify             = new \MessageBird\Objects\Verify();
         $Verify->recipient  = 31612345678;
         $Verify->reference  = "Yoloswag3000";
@@ -21,7 +21,7 @@ class VerifyTest extends BaseTest
 
     public function testVerifyOtp()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $Verify            = new \MessageBird\Objects\Verify();
         $Verify->recipient = 31612345678;
         $Verify->reference = 'Yoloswag3000';

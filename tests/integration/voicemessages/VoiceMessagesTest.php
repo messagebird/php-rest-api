@@ -9,7 +9,7 @@ class VoiceMessagesTest extends BaseTest
 
     public function testVoiceMessageCreate()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $Message             = new \MessageBird\Objects\VoiceMessage();
         $Message->originator = 'MessageBird';
         $Message->recipients = array(31612345678);
@@ -22,21 +22,21 @@ class VoiceMessagesTest extends BaseTest
 
     public function testListMessage()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'voicemessages', array ('offset' => 100, 'limit' => 30), null);
         $this->client->voicemessages->getList(array ('offset' => 100, 'limit' => 30));
     }
 
     public function testReadMessage()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'voicemessages/message_id', null, null);
         $this->client->voicemessages->read("message_id");
     }
 
     public function testDeleteMessage()
     {
-        $this->expectException('MessageBird\Exceptions\ServerException');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'voicemessages/message_id', null, null);
         $this->client->voicemessages->delete("message_id");
     }
