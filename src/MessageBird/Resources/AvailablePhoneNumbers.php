@@ -75,7 +75,7 @@ class AvailablePhoneNumbers
         $body = @json_decode($body);
 
         if ($body === null or $body === false) {
-            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
+            throw new \MessageBird\Exceptions\ServerException('Got an invalid JSON response from the server.');
         }
 
         if (empty($body->errors)) {
@@ -83,7 +83,7 @@ class AvailablePhoneNumbers
         }
 
         $ResponseError = new Common\ResponseError($body);
-        throw new Exceptions\RequestException($ResponseError->getErrorString());
+        throw new \MessageBird\Exceptions\RequestException($ResponseError->getErrorString());
     }
 }
 ?>
