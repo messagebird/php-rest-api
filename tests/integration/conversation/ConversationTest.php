@@ -94,7 +94,7 @@ class ConversationTest extends BaseTest
         "lastUsedChannelId": "channel-id"
     }';
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

@@ -2,8 +2,9 @@
 
 use MessageBird\Objects\SignedRequest;
 use MessageBird\RequestValidator;
+use PHPUnit\Framework\TestCase;
 
-class RequestValidatorTest extends PHPUnit_Framework_TestCase
+class RequestValidatorTest extends TestCase
 {
     public function testVerify()
     {

@@ -1,7 +1,7 @@
 <?php
 class ContactTest extends BaseTest
 {
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
@@ -45,29 +45,23 @@ class ContactTest extends BaseTest
         $this->client->contacts->create($Contact);
     }
 
-    /**
-     * @expectedException     MessageBird\Exceptions\ServerException
-     */
     public function testListContacts()
     {
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts', array ('offset' => 100, 'limit' => 30), null);
         $this->client->contacts->getList(array ('offset' => 100, 'limit' => 30));
     }
 
-    /**
-     * @expectedException     MessageBird\Exceptions\ServerException
-     */
     public function testViewContact()
     {
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts/contact_id', null, null);
         $this->client->contacts->read("contact_id");
     }
 
-    /**
-     * @expectedException     MessageBird\Exceptions\ServerException
-     */
     public function testDeleteContact()
     {
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'contacts/contact_id', null, null);
         $this->client->contacts->delete("contact_id");
     }

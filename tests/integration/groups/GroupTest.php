@@ -1,7 +1,7 @@
 <?php
 class GroupTest extends BaseTest
 {
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
@@ -27,29 +27,23 @@ class GroupTest extends BaseTest
         $this->client->groups->create($Group);
     }
 
-    /**
-     * @expectedException     MessageBird\Exceptions\ServerException
-     */
     public function testListGroups()
     {
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'groups', array ('offset' => 100, 'limit' => 30), null);
         $this->client->groups->getList(array ('offset' => 100, 'limit' => 30));
     }
 
-    /**
-     * @expectedException     MessageBird\Exceptions\ServerException
-     */
     public function testViewGroup()
     {
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'groups/group_id', null, null);
         $this->client->groups->read("group_id");
     }
 
-    /**
-     * @expectedException     MessageBird\Exceptions\ServerException
-     */
     public function testDeleteGroup()
     {
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'groups/group_id', null, null);
         $this->client->groups->delete("group_id");
     }

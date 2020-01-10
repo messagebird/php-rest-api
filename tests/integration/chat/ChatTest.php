@@ -1,7 +1,7 @@
 <?php
 class ChatTest extends BaseTest
 {
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
@@ -19,20 +19,16 @@ class ChatTest extends BaseTest
         $this->client->chatMessages->create($ChatMessage);
     }
 
-    /**
-     * @expectedException MessageBird\Exceptions\ServerException
-     */
     public function testListChatMessage()
     {
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'messages', array ('offset' => 100, 'limit' => 30), null);
         $ChatMessageList = $this->client->chatMessages->getList(array ('offset' => 100, 'limit' => 30));
     }
 
-    /**
-     * @expectedException MessageBird\Exceptions\ServerException
-     */
     public function testReadChatMessage()
     {
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'messages/id', null, null);
         $ChatMessageList = $this->client->chatMessages->read("id");
     }
@@ -55,29 +51,23 @@ class ChatTest extends BaseTest
         $this->client->chatChannels->create($ChatChannel);
     }
 
-    /**
-     * @expectedException MessageBird\Exceptions\ServerException
-     */
     public function testListChatChannels()
     {
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'channels', array ('offset' => 100, 'limit' => 30), null);
         $ChannelList = $this->client->chatChannels->getList(array ('offset' => 100, 'limit' => 30));
     }
 
-    /**
-     * @expectedException MessageBird\Exceptions\ServerException
-     */
     public function testReadChatChannel()
     {
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'channels/id', null, null);
         $Channel = $this->client->chatChannels->read("id");
     }
 
-    /**
-     * @expectedException MessageBird\Exceptions\ServerException
-     */
     public function testDeleteChannel()
     {
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'channels/id', null, null);
         $Channel = $this->client->chatChannels->delete("id");
     }
@@ -93,47 +83,37 @@ class ChatTest extends BaseTest
         $this->client->chatChannels->update($ChatChannel,'234agfgADFH2974gaADFH3hudf9h');
     }
 
-    /**
-     * @expectedException MessageBird\Exceptions\ServerException
-     */
     public function testListChatPlatforms()
     {
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'platforms', array ('offset' => 100, 'limit' => 30), null);
         $ChannelList = $this->client->chatPlatforms->getList(array ('offset' => 100, 'limit' => 30));
     }
 
-    /**
-     * @expectedException MessageBird\Exceptions\ServerException
-     */
     public function testReadChatPlatform()
     {
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'platforms/id', null, null);
         $Channel = $this->client->chatPlatforms->read("id");
     }
 
-    /**
-     * @expectedException MessageBird\Exceptions\ServerException
-     */
     public function testListChatContacts()
     {
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts', array ('offset' => 100, 'limit' => 30), null);
         $ContactList = $this->client->chatContacts->getList(array ('offset' => 100, 'limit' => 30));
     }
 
-    /**
-     * @expectedException MessageBird\Exceptions\ServerException
-     */
     public function testReadChatContact()
     {
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts/id', null, null);
         $Contact = $this->client->chatContacts->read("id");
     }
 
-    /**
-     * @expectedException MessageBird\Exceptions\ServerException
-     */
     public function testDeleteContact()
     {
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'contacts/id', null, null);
         $contact = $this->client->chatContacts->delete("id");
     }

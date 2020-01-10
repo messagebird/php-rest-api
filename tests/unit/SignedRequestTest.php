@@ -1,8 +1,9 @@
 <?php
 
 use MessageBird\Objects\SignedRequest;
+use PHPUnit\Framework\TestCase;
 
-class SignedRequestTest extends PHPUnit_Framework_TestCase
+class SignedRequestTest extends TestCase
 {
     public function testCreate()
     {
@@ -56,12 +57,10 @@ class SignedRequestTest extends PHPUnit_Framework_TestCase
         self::assertEquals($signature, $request->signature);
     }
 
-    /**
-     * @expectedException \MessageBird\Exceptions\ValidationException
-     * @expectedExceptionMessage query
-     */
     public function testLoadInvalidQuery()
     {
+        $this->expectException(\MessageBird\Exceptions\ValidationException::class);
+        $this->expectExceptionMessage('query');
         $query = null;
         $signature = '2bl+38H4oHVg03pC3bk2LvCB0IHFgfC4cL5HPQ0LdmI=';
         $requestTimestamp = 1547198231;
@@ -76,12 +75,10 @@ class SignedRequestTest extends PHPUnit_Framework_TestCase
         ));
     }
 
-    /**
-     * @expectedException \MessageBird\Exceptions\ValidationException
-     * @expectedExceptionMessage signature
-     */
     public function testLoadInvalidSignature()
     {
+        $this->expectException(\MessageBird\Exceptions\ValidationException::class);
+        $this->expectExceptionMessage('signature');
         $query = array(
             'recipient'      => '31612345678',
             'reference'      => 'FOO',
@@ -104,12 +101,10 @@ class SignedRequestTest extends PHPUnit_Framework_TestCase
         ));
     }
 
-    /**
-     * @expectedException \MessageBird\Exceptions\ValidationException
-     * @expectedExceptionMessage requestTimestamp
-     */
     public function testLoadInvalidTimestamp()
     {
+        $this->expectException(\MessageBird\Exceptions\ValidationException::class);
+        $this->expectExceptionMessage('requestTimestamp');
         $query = array(
             'recipient'      => '31612345678',
             'reference'      => 'FOO',
@@ -132,12 +127,10 @@ class SignedRequestTest extends PHPUnit_Framework_TestCase
         ));
     }
 
-    /**
-     * @expectedException \MessageBird\Exceptions\ValidationException
-     * @expectedExceptionMessage body
-     */
     public function testLoadInvalidBody()
     {
+        $this->expectException(\MessageBird\Exceptions\ValidationException::class);
+        $this->expectExceptionMessage('body');
         $query = array(
             'recipient'      => '31612345678',
             'reference'      => 'FOO',
