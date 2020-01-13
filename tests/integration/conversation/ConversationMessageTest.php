@@ -46,7 +46,7 @@ class ConversationMessageTest extends BaseTest
         "type": "video"
     }';
 
-    protected function setUp(): void
+    protected function setUp()
     {
         parent::setUp();
 

@@ -46,7 +46,7 @@ class Number extends Base
      * Additional user-provided tags for this Number
      * @var array
      */
-    public $tags = array();
+    public $tags = [];
 
     /**
      * Number type (example: landline, mobile).

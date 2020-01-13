@@ -32,14 +32,14 @@ class PhoneNumbers extends Base
      * @param $object
      * @param $id
      *
-     * @return $this ->Object
+     * @return Objects\Number
      *
      * @internal param array $parameters
      */
-    public function update($object, $id)
+    public function update($object, $id): Objects\Number
     {
         $objVars = get_object_vars($object);
-        $body = array();
+        $body = [];
         foreach ($objVars as $key => $value) {
             if (null !== $value) {
                 $body[$key] = $value;
