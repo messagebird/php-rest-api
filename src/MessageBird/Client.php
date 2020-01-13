@@ -232,31 +232,31 @@ class Client
             $this->setAccessKey($accessKey);
         }
 
-        $this->messages              = new Resources\Messages($this->HttpClient);
-        $this->hlr                   = new Resources\Hlr($this->HttpClient);
-        $this->verify                = new Resources\Verify($this->HttpClient);
-        $this->balance               = new Resources\Balance($this->HttpClient);
-        $this->voicemessages         = new Resources\VoiceMessage($this->HttpClient);
-        $this->lookup                = new Resources\Lookup($this->HttpClient);
-        $this->lookupHlr             = new Resources\LookupHlr($this->HttpClient);
-        $this->chatMessages          = new Resources\Chat\Message($this->ChatAPIHttpClient);
-        $this->chatChannels          = new Resources\Chat\Channel($this->ChatAPIHttpClient);
-        $this->chatPlatforms         = new Resources\Chat\Platform($this->ChatAPIHttpClient);
-        $this->chatContacts          = new Resources\Chat\Contact($this->ChatAPIHttpClient);
-        $this->voiceCallFlows        = new Resources\Voice\CallFlows($this->VoiceAPIHttpClient);
-        $this->voiceCalls            = new Resources\Voice\Calls($this->VoiceAPIHttpClient);
-        $this->voiceLegs             = new Resources\Voice\Legs($this->VoiceAPIHttpClient);
-        $this->voiceRecordings       = new Resources\Voice\Recordings($this->VoiceAPIHttpClient);
-        $this->voiceTranscriptions   = new Resources\Voice\Transcriptions($this->VoiceAPIHttpClient);
-        $this->voiceWebhooks         = new Resources\Voice\Webhooks($this->VoiceAPIHttpClient);
-        $this->mmsMessages           = new Resources\MmsMessages($this->HttpClient);
-        $this->contacts              = new Resources\Contacts($this->HttpClient);
-        $this->groups                = new Resources\Groups($this->HttpClient);
-        $this->conversations         = new Resources\Conversation\Conversations($this->ConversationsAPIHttpClient);
-        $this->conversationMessages  = new Resources\Conversation\Messages($this->ConversationsAPIHttpClient);
-        $this->conversationWebhooks  = new Resources\Conversation\Webhooks($this->ConversationsAPIHttpClient);
-        $this->partnerAccounts       = new Resources\PartnerAccount\Accounts($this->partnerAccountClient);
-        $this->phoneNumbers          = new Resources\PhoneNumbers($this->numbersAPIClient);
+        $this->messages = new Resources\Messages($this->HttpClient);
+        $this->hlr = new Resources\Hlr($this->HttpClient);
+        $this->verify = new Resources\Verify($this->HttpClient);
+        $this->balance = new Resources\Balance($this->HttpClient);
+        $this->voicemessages = new Resources\VoiceMessage($this->HttpClient);
+        $this->lookup = new Resources\Lookup($this->HttpClient);
+        $this->lookupHlr = new Resources\LookupHlr($this->HttpClient);
+        $this->chatMessages = new Resources\Chat\Message($this->ChatAPIHttpClient);
+        $this->chatChannels = new Resources\Chat\Channel($this->ChatAPIHttpClient);
+        $this->chatPlatforms = new Resources\Chat\Platform($this->ChatAPIHttpClient);
+        $this->chatContacts = new Resources\Chat\Contact($this->ChatAPIHttpClient);
+        $this->voiceCallFlows = new Resources\Voice\CallFlows($this->VoiceAPIHttpClient);
+        $this->voiceCalls = new Resources\Voice\Calls($this->VoiceAPIHttpClient);
+        $this->voiceLegs = new Resources\Voice\Legs($this->VoiceAPIHttpClient);
+        $this->voiceRecordings = new Resources\Voice\Recordings($this->VoiceAPIHttpClient);
+        $this->voiceTranscriptions = new Resources\Voice\Transcriptions($this->VoiceAPIHttpClient);
+        $this->voiceWebhooks = new Resources\Voice\Webhooks($this->VoiceAPIHttpClient);
+        $this->mmsMessages = new Resources\MmsMessages($this->HttpClient);
+        $this->contacts = new Resources\Contacts($this->HttpClient);
+        $this->groups = new Resources\Groups($this->HttpClient);
+        $this->conversations = new Resources\Conversation\Conversations($this->ConversationsAPIHttpClient);
+        $this->conversationMessages = new Resources\Conversation\Messages($this->ConversationsAPIHttpClient);
+        $this->conversationWebhooks = new Resources\Conversation\Webhooks($this->ConversationsAPIHttpClient);
+        $this->partnerAccounts = new Resources\PartnerAccount\Accounts($this->partnerAccountClient);
+        $this->phoneNumbers = new Resources\PhoneNumbers($this->numbersAPIClient);
         $this->availablePhoneNumbers = new Resources\AvailablePhoneNumbers($this->numbersAPIClient);
     }
 
