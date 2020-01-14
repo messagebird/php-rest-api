@@ -1,7 +1,7 @@
 <?php
 class ContactTest extends BaseTest
 {
-    protected function setUp(): void
+    protected function setUp()
     {
         parent::setUp();
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);

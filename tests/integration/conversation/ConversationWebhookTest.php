@@ -37,7 +37,7 @@ class ConversationWebhookTest extends BaseTest
         "updatedDatetime": "2018-07-20T12:13:51+00:00"
     }';
 
-    protected function setUp(): void
+    protected function setUp()
     {
         parent::setUp();
 
