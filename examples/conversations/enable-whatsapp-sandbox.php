@@ -8,7 +8,7 @@ require(__DIR__ . '/../../autoload.php');
 
 // Set your own API access key here.
 // Create a client with WhatsApp sandbox enabled.
-$messageBird = new \MessageBird\Client(getenv('MESSAGEBIRD_API_KEY'), null, [\MessageBird\Client::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX]);
+$messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY', null, [\MessageBird\Client::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX]);
 
 // Use WhatsApp sandbox channel as normal. 
 

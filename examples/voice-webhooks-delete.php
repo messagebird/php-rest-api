@@ -2,7 +2,7 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
-$messageBird = new \MessageBird\Client(getenv('MESSAGEBIRD_API_KEY')); // Set your own API access key here.
+$messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 try {
     $deleted = $messageBird->voiceWebhooks->delete('e5f56d49-4fa2-4802-895d-b0a306f73f76'); // Set a webhook id here

@@ -29,17 +29,13 @@ When you do not use Composer. You can git checkout or download [this repository]
 Usage
 -----
 
-We have put some self-explanatory examples in the *examples* directory, but here is a quick breakdown on how it works. The examples expect the api key to be available in the env var MESSAGEBIRD_API_KEY. So make sure to set it when running the example.
+We have put some self-explanatory examples in the *examples* directory, but here is a quick breakdown on how it works. First, you need to set up a **MessageBird\Client**. Be sure to replace **YOUR_ACCESS_KEY** with something real.
 
 ```php
 require 'autoload.php';
 
-$MessageBird = new \MessageBird\Client(getenv('MESSAGEBIRD_API_KEY'));
-```
+$MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY');
 
-Run your script with:
-```sh
-MESSAGEBIRD_API_KEY={your API key here} php your-script.php
 ```
 
 That's easy enough. Now we can query the server for information. Lets use getting your balance overview as an example:
@@ -53,10 +49,10 @@ $Balance = $MessageBird->balance->read();
 Conversations Whatsapp Sandbox
 -------------
 
-To use the whatsapp sandbox you need to add `\MessageBird\Client::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX` to the list of features you want enabled. Don't forget to set the env var MESSAGEBIRD_API_KEY when running the example.
+To use the whatsapp sandbox you need to add `\MessageBird\Client::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX` to the list of features you want enabled. Don't forget to replace `YOUR_ACCESS_KEY` with your actual access key.
 
 ```php
-$messageBird = new \MessageBird\Client(getenv('MESSAGEBIRD_API_KEY'), null, [\MessageBird\Client::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX]);
+$messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY', null, [\MessageBird\Client::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX]);
 ```
 
 If you use a custom `HttpClient` you will have to manually direct Conversation API request to the WhatsApp sandbox endpoint.
