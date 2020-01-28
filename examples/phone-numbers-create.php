@@ -2,7 +2,7 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
-$MessageBird = new \MessageBird\Client(getenv('MESSAGEBIRD_API_KEY')); // Set your own API access key here.
+$MessageBird = new \MessageBird\Client('MESSAGEBIRD_API_KEY'); // Set your own API access key here.
 $NumberPurchaseRequest = new \MessageBird\Objects\NumberPurchaseRequest();
 $NumberPurchaseRequest->number = '31612345678';
 $NumberPurchaseRequest->countryCode = 'NL';

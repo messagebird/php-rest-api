@@ -2,7 +2,7 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
-$MessageBird = new \MessageBird\Client(getenv('MESSAGEBIRD_API_KEY')); // Set your own API access key here.
+$MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 $ChatMessage = new \MessageBird\Objects\Chat\Message();
 $ChatMessage->contactId = '9d754dac577e3ff103cdf4n29856560';
