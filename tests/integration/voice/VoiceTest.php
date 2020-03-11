@@ -96,6 +96,13 @@ class VoiceTest extends BaseTest
         $this->client->voiceRecordings->read('foo', 'bar', 'baz');
     }
 
+    public function testDeleteVoiceRecording()
+    {
+       $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn(array(204, '', null));
+       $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'calls/foo/legs/bar/recordings/baz', null, '');
+       $this->client->voiceRecordings->delete('baz');
+    }
+
 
     public function testDownloadVoiceRecording()
     {
