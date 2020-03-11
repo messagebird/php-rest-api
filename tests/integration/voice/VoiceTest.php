@@ -100,7 +100,7 @@ class VoiceTest extends BaseTest
     {
        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn(array(204, '', null));
        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'calls/foo/legs/bar/recordings/baz', null, '');
-       $this->client->voiceRecordings->delete('for','bar','baz');
+       $this->client->voiceRecordings->delete('foo','bar','baz');
     }
 
 
