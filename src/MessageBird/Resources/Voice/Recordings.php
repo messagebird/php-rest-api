@@ -107,7 +107,6 @@ class Recordings
      */
     public function delete($callId, $legId, $recordingId)
     {
-        var_dump($callId)
         list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_DELETE, "calls/$callId/legs/$legId/recordings/$recordingId");
         return $this->processRequest($body);
     }
