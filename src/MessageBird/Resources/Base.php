@@ -194,4 +194,12 @@ class Base
         list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_PUT, $ResourceName, false, $body);
         return $this->processRequest($body);
     }
+
+    /**
+     * @return Common\HttpClient
+     */
+    public function getHttpClient(): Common\HttpClient
+    {
+        return $this->HttpClient;
+    }
 }
