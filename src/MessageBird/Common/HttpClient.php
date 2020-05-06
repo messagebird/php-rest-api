@@ -226,4 +226,25 @@ class HttpClient
 
         return array ($responseStatus, $responseHeader, $responseBody);
     }
+
+    /**
+     * @param int $timeout
+     * @return $this
+     */
+    public function setTimeout(int $timeout)
+    {
+        $this->timeout = $timeout;
+        return $this;
+    }
+
+    /**
+     * @param int $connectionTimeout
+     * @return $this
+     */
+    public function setConnectionTimeout(int $connectionTimeout)
+    {
+        $this->connectionTimeout = $connectionTimeout;
+        return $this;
+    }
+
 }
