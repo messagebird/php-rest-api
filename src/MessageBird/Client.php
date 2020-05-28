@@ -67,11 +67,6 @@ class Client
     public $lookup;
 
     /**
-     * @var Resources\AvailableNumbers
-     */
-    public $availableNumbers;
-
-    /**
      * @var Resources\LookupHlr
      */
     public $lookupHlr;
@@ -150,6 +145,11 @@ class Client
      * @var Resources\Conversation\Messages;
      */
     public $conversationMessages;
+
+    /**
+     * @var Resources\Conversation\Send;
+     */
+    public $conversationSend;
 
     /**
      * @var Resources\Conversation\Webhooks;
@@ -254,6 +254,7 @@ class Client
         $this->groups = new Resources\Groups($this->HttpClient);
         $this->conversations = new Resources\Conversation\Conversations($this->ConversationsAPIHttpClient);
         $this->conversationMessages = new Resources\Conversation\Messages($this->ConversationsAPIHttpClient);
+        $this->conversationSend = new Resources\Conversation\Send($this->ConversationsAPIHttpClient);
         $this->conversationWebhooks = new Resources\Conversation\Webhooks($this->ConversationsAPIHttpClient);
         $this->partnerAccounts = new Resources\PartnerAccount\Accounts($this->partnerAccountClient);
         $this->phoneNumbers = new Resources\PhoneNumbers($this->numbersAPIClient);

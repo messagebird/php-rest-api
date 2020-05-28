@@ -3,6 +3,7 @@
 namespace MessageBird\Resources\Conversation;
 
 use MessageBird\Common\HttpClient;
+use MessageBird\Exceptions;
 use MessageBird\Objects\Conversation\Conversation;
 use MessageBird\Objects\Conversation\Message;
 use MessageBird\Resources\Base;
@@ -25,7 +26,7 @@ class Conversations extends Base
      * @param Message $object
      * @param array|null $query
      *
-     * @return Message
+     * @return Conversation
      * 
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
@@ -58,7 +59,7 @@ class Conversations extends Base
      * 
      * @param int $contactId
      * 
-     * @return Message
+     * @return Conversation
      * 
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
