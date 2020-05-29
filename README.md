@@ -34,7 +34,7 @@ We have put some self-explanatory examples in the *examples* directory, but here
 ```php
 require 'autoload.php';
 
-$MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY');
+$messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY');
 
 ```
 
@@ -42,14 +42,14 @@ That's easy enough. Now we can query the server for information. Lets use gettin
 
 ```php
 // Get your balance
-$Balance = $MessageBird->balance->read();
+$balance = $messageBird->balance->read();
 ```
 
 
-Conversations Whatsapp Sandbox
+Conversations WhatsApp Sandbox
 -------------
 
-To use the whatsapp sandbox you need to add `\MessageBird\Client::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX` to the list of features you want enabled. Don't forget to replace `YOUR_ACCESS_KEY` with your actual access key.
+To use the WhatsApp sandbox you need to add `\MessageBird\Client::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX` to the list of features you want enabled. Don't forget to replace `YOUR_ACCESS_KEY` with your actual access key.
 
 ```php
 $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY', null, [\MessageBird\Client::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX]);
