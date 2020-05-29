@@ -11,16 +11,16 @@ $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API a
 $content = new \MessageBird\Objects\Conversation\Content();
 $content->text = 'Hello world';
 
-$message = new \MessageBird\Objects\Conversation\SendMessage();
-$message->from = 'CHANNEL_ID';
-$message->to = 'RECIPIENT'; // Channel-specific, e.g. MSISDN for SMS.
-$message->content = $content;
-$message->type = 'text';
+$sendMessage = new \MessageBird\Objects\Conversation\SendMessage();
+$sendMessage->from = 'CHANNEL_ID';
+$sendMessage->to = 'RECIPIENT'; // Channel-specific, e.g. MSISDN for SMS.
+$sendMessage->content = $content;
+$sendMessage->type = 'text';
 
 try {
-    $sendMessage = $messageBird->conversationSend->send($message);
+    $sendResult = $messageBird->conversationSend->send($sendMessage);
 
-    var_dump($sendMessage);
+    var_dump($sendResult);
 } catch (\Exception $e) {
     echo sprintf("%s: %s", get_class($e), $e->getMessage());
 }
