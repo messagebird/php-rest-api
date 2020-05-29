@@ -10,7 +10,7 @@ use MessageBird\Resources\Base;
 
 class Send extends Base
 {
-    const RESOURCE_NAME = 'conversations/send';
+    const RESOURCE_NAME = 'send';
 
     public function __construct(HttpClient $httpClient)
     {
@@ -36,13 +36,13 @@ class Send extends Base
     {
         $body = json_encode($object);
 
-        list(, , $body) = $this->HttpClient->performHttpRequest(
+        list(, , $resultBody) = $this->HttpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
             $this->getResourceName(),
             $query,
             $body
         );
 
-        return $this->processRequest($body);
+        return $this->processRequest($resultBody);
     }
 }
