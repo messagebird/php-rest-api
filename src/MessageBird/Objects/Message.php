@@ -127,9 +127,9 @@ class Message extends Base
     /**
      * An array of recipients
      *
-     * @var array
+     * @var Recipients
      */
-    public $recipients = array ();
+    public $recipients;
 
     /**
      * The URL to send status delivery reports for the message to
@@ -225,14 +225,8 @@ class Message extends Base
     {
         parent::loadFromArray($object);
 
-        if (!empty($this->recipients->items)) {
-            foreach($this->recipients->items AS &$item) {
-                $Recipient = new Recipient();
-                $Recipient->loadFromArray($item);
-
-                $item = $Recipient;
-            }
-        }
+        $recipients = new Recipients();
+        $this->recipients = $recipients->loadFromArray($this->recipients);
 
         return $this;
     }
