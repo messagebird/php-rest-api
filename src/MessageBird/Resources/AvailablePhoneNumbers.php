@@ -48,8 +48,8 @@ class AvailablePhoneNumbers
         }
         $body = json_decode($body);
 
-        $items = $body->data;
-        unset($body->data);
+        $items = $body->items;
+        unset($body->items);
 
         $baseList = new Objects\BaseList();
         $baseList->loadFromArray($body);
