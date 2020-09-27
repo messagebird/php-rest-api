@@ -1,0 +1,1 @@
+verify = client.verify_create(+5511986480101, :originator => '+5511986480101', :type => 'tts')
