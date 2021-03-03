@@ -42,7 +42,7 @@ class Groups extends Base
         $objVars = get_object_vars($object);
         $body = array();
         foreach ($objVars as $key => $value) {
-            if (null !== $value) {
+            if ($value !== null) {
                 $body[$key] = $value;
             }
         }
@@ -69,7 +69,7 @@ class Groups extends Base
      */
     public function getContacts($id = null, $parameters = array())
     {
-        if (is_null($id)) {
+        if ($id === null) {
             throw new InvalidArgumentException('No group id provided.');
         }
 
@@ -92,7 +92,7 @@ class Groups extends Base
         if (!is_array($contacts)) {
             throw new  InvalidArgumentException('No array with contacts provided.');
         }
-        if (is_null($id)) {
+        if ($id === null) {
             throw new InvalidArgumentException('No group id provided.');
         }
 
@@ -121,7 +121,7 @@ class Groups extends Base
      */
     public function removeContact($contact_id = null, $id = null)
     {
-        if (is_null($contact_id) || is_null($id)) {
+        if ($contact_id === null || $id === null) {
             throw new InvalidArgumentException('Null Contact or Group id.');
         }
         $ResourceName = $this->resourceName . ($id ? '/' . $id . '/contacts/' . $contact_id : null);

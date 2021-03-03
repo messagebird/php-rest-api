@@ -38,7 +38,7 @@ class Contacts extends Base
         $objVars = get_object_vars($object);
         $body = array();
         foreach ($objVars as $key => $value) {
-            if (null !== $value) {
+            if ($value !== null) {
                 $body[$key] = $value;
             }
         }
@@ -58,7 +58,7 @@ class Contacts extends Base
      */
     public function getMessages($id, $parameters = array())
     {
-        if (is_null($id)) {
+        if ($id === null) {
             throw new InvalidArgumentException('No contact id provided.');
         }
 
@@ -74,7 +74,7 @@ class Contacts extends Base
      */
     public function getGroups($id, $parameters = array())
     {
-        if (is_null($id)) {
+        if ($id === null) {
             throw new InvalidArgumentException('No contact id provided.');
         }
 

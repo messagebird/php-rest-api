@@ -41,7 +41,7 @@ class PhoneNumbers extends Base
         $objVars = get_object_vars($object);
         $body = [];
         foreach ($objVars as $key => $value) {
-            if (null !== $value) {
+            if ($value !== null) {
                 $body[$key] = $value;
             }
         }
