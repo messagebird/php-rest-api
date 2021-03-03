@@ -10,6 +10,11 @@
             "email": "info@messagebird.com"
         }
     ],
+    "support": {
+        "docs": "https://developers.messagebird.com/api",
+        "issues": "https://github.com/messagebird/php-rest-api/issues",
+        "source": "https://github.com/messagebird/php-rest-api"
+    },
     "require": {
         "php": ">=7.0",
         "ext-curl": "*",
