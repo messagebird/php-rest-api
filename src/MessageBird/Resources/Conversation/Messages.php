@@ -92,7 +92,7 @@ class Messages
      * @param string $conversationId
      * @param string[] $parameters
      */
-    public function getList($conversationId, $parameters = array())
+    public function getList($conversationId, $parameters = [])
     {
         list($status, , $body) = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_GET,
@@ -124,7 +124,7 @@ class Messages
         return $this->processRequest($body);
     }
 
-    public function read($messageId, $parameters = array()) {
+    public function read($messageId, $parameters = []) {
         list($status, , $body) = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_GET,
             sprintf(self::MESSAGE_RESOURCE_NAME, $messageId),

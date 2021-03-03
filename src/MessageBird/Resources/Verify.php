@@ -37,7 +37,7 @@ class Verify extends Base
     public function verify($id, $token)
     {
         $ResourceName = $this->resourceName . (($id) ? '/' . $id : null);
-        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $ResourceName, array('token' => $token));
+        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $ResourceName, ['token' => $token]);
         return $this->processRequest($body);
     }
 }

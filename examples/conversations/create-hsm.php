@@ -20,7 +20,7 @@ $hsmLanguage->code = 'YOUR LANGUAGE CODE';
 $hsm = new \MessageBird\Objects\Conversation\HSM\Message();
 $hsm->templateName = 'YOUR TEMPLATE NAME';
 $hsm->namespace = 'YOUR NAMESPACE';
-$hsm->params = array($hsmParam1, $hsmParam2);
+$hsm->params = [$hsmParam1, $hsmParam2];
 $hsm->language = $hsmLanguage;
 
 $content = new \MessageBird\Objects\Conversation\Content();

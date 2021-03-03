@@ -47,7 +47,7 @@ class MmsMessage extends Base {
      *
      * @var array
      */
-    public $recipients = array();
+    public $recipients = [];
 
     /**
      * The subject of MMS the message.
@@ -69,7 +69,7 @@ class MmsMessage extends Base {
      *
      * @var array
      */
-    public $mediaUrls = array();
+    public $mediaUrls = [];
 
     /**
      * A client reference.

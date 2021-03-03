@@ -40,7 +40,7 @@ class Groups extends Base
     public function update($object, $id)
     {
         $objVars = get_object_vars($object);
-        $body = array();
+        $body = [];
         foreach ($objVars as $key => $value) {
             if (null !== $value) {
                 $body[$key] = $value;
@@ -67,7 +67,7 @@ class Groups extends Base
      *
      * @return mixed
      */
-    public function getContacts($id = null, $parameters = array())
+    public function getContacts($id = null, $parameters = [])
     {
         if (is_null($id)) {
             throw new InvalidArgumentException('No group id provided.');

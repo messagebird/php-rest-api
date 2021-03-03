@@ -15,10 +15,10 @@ $ChatChannel->platformId = 'e82d332c5649a5f911e569n69040697';
 // are required when creating a channel for this platform.
 
 $ChatChannel->channelDetails =
-    array(
+    [
         'botName' => 'testBot',
         'token' => '1234566778:A34JT44Yr4amk234352et5hvRnHeAEHA'
-    );
+    ];
 
 try {
     $ChatChannelResult = $MessageBird->chatChannels->create($ChatChannel);

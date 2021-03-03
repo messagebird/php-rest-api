@@ -7,7 +7,7 @@ class SignedRequestTest extends TestCase
 {
     public function testCreate()
     {
-        $query = array(
+        $query = [
             'recipient'      => '31612345678',
             'reference'      => 'FOO',
             'statusDatetime' => '2019-01-11T09:17:11+00:00',
@@ -15,7 +15,7 @@ class SignedRequestTest extends TestCase
             'status'         => 'delivered',
             'mccmnc'         => '20408',
             'ported'         => '1',
-        );
+        ];
         $signature = '2bl+38H4oHVg03pC3bk2LvCB0IHFgfC4cL5HPQ0LdmI=';
         $requestTimestamp = 1547198231;
         $body = '{"foo":"bar"}';
@@ -30,7 +30,7 @@ class SignedRequestTest extends TestCase
 
     public function testLoadFromArray()
     {
-        $query = array(
+        $query = [
             'recipient' => '31612345678',
             'reference' => 'FOO',
             'statusDatetime' => '2019-01-11T09:17:11+00:00',
@@ -38,18 +38,18 @@ class SignedRequestTest extends TestCase
             'status' => 'delivered',
             'mccmnc' => '20408',
             'ported' => '1',
-        );
+        ];
         $signature = '2bl+38H4oHVg03pC3bk2LvCB0IHFgfC4cL5HPQ0LdmI=';
         $requestTimestamp = 1547198231;
         $body = '{"foo":"bar"}';
 
         $request = new SignedRequest();
-        $request->loadFromArray(array(
+        $request->loadFromArray([
             'queryParameters' => $query,
             'signature' => $signature,
             'requestTimestamp' => $requestTimestamp,
             'body' => $body
-        ));
+        ]);
 
         self::assertEquals($requestTimestamp, $request->requestTimestamp);
         self::assertEquals($body, $request->body);
@@ -67,19 +67,19 @@ class SignedRequestTest extends TestCase
         $body = '{"foo":"bar"}';
 
         $request = new SignedRequest();
-        $request->loadFromArray(array(
+        $request->loadFromArray([
             'queryParameters' => $query,
             'signature' => $signature,
             'requestTimestamp' => $requestTimestamp,
             'body' => $body
-        ));
+        ]);
     }
 
     public function testLoadInvalidSignature()
     {
         $this->expectException(\MessageBird\Exceptions\ValidationException::class);
         $this->expectExceptionMessage('signature');
-        $query = array(
+        $query = [
             'recipient'      => '31612345678',
             'reference'      => 'FOO',
             'statusDatetime' => '2019-01-11T09:17:11+00:00',
@@ -87,25 +87,25 @@ class SignedRequestTest extends TestCase
             'status'         => 'delivered',
             'mccmnc'         => '20408',
             'ported'         => '1',
-        );
+        ];
         $signature = null;
         $requestTimestamp = 1547198231;
         $body = '{"foo":"bar"}';
 
         $request = new SignedRequest();
-        $request->loadFromArray(array(
+        $request->loadFromArray([
             'queryParameters' => $query,
             'signature' => $signature,
             'requestTimestamp' => $requestTimestamp,
             'body' => $body
-        ));
+        ]);
     }
 
     public function testLoadInvalidTimestamp()
     {
         $this->expectException(\MessageBird\Exceptions\ValidationException::class);
         $this->expectExceptionMessage('requestTimestamp');
-        $query = array(
+        $query = [
             'recipient'      => '31612345678',
             'reference'      => 'FOO',
             'statusDatetime' => '2019-01-11T09:17:11+00:00',
@@ -113,25 +113,25 @@ class SignedRequestTest extends TestCase
             'status'         => 'delivered',
             'mccmnc'         => '20408',
             'ported'         => '1',
-        );
+        ];
         $signature = '2bl+38H4oHVg03pC3bk2LvCB0IHFgfC4cL5HPQ0LdmI=';
         $requestTimestamp = null;
         $body = '{"foo":"bar"}';
 
         $request = new SignedRequest();
-        $request->loadFromArray(array(
+        $request->loadFromArray([
             'queryParameters' => $query,
             'signature' => $signature,
             'requestTimestamp' => $requestTimestamp,
             'body' => $body
-        ));
+        ]);
     }
 
     public function testLoadInvalidBody()
     {
         $this->expectException(\MessageBird\Exceptions\ValidationException::class);
         $this->expectExceptionMessage('body');
-        $query = array(
+        $query = [
             'recipient'      => '31612345678',
             'reference'      => 'FOO',
             'statusDatetime' => '2019-01-11T09:17:11+00:00',
@@ -139,17 +139,17 @@ class SignedRequestTest extends TestCase
             'status'         => 'delivered',
             'mccmnc'         => '20408',
             'ported'         => '1',
-        );
+        ];
         $signature = '2bl+38H4oHVg03pC3bk2LvCB0IHFgfC4cL5HPQ0LdmI=';
         $requestTimestamp = 1547198231;
         $body = null;
 
         $request = new SignedRequest();
-        $request->loadFromArray(array(
+        $request->loadFromArray([
             'queryParameters' => $query,
             'signature' => $signature,
             'requestTimestamp' => $requestTimestamp,
             'body' => $body
-        ));
+        ]);
     }
 }

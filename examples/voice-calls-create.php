@@ -10,12 +10,12 @@ $callFlow = new \MessageBird\Objects\Voice\CallFlow();
 $callFlow->title = 'Say message';
 $step = new \MessageBird\Objects\Voice\Step();
 $step->action = 'say';
-$step->options = array(
+$step->options = [
     'payload' => 'This is a journey into sound.',
     'language' => 'en-GB',
     'voice' => 'male',
-);
-$callFlow->steps = array($step);
+];
+$callFlow->steps = [$step];
 $call->callFlow = $callFlow;
 
 try {

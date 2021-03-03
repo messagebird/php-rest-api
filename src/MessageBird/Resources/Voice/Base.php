@@ -13,7 +13,7 @@ use MessageBird\Objects\Voice\BaseList;
  */
 class Base extends \MessageBird\Resources\Base
 {
-    public function getList($parameters = array())
+    public function getList($parameters = [])
     {
         list($status, , $body) = $this->HttpClient->performHttpRequest(
             Common\HttpClient::REQUEST_GET,

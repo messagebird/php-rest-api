@@ -32,7 +32,7 @@ class Platform extends Base
      *
      * @var array
      */
-    protected $contactTemplate = array();
+    protected $contactTemplate = [];
 
     /**
      * The name of the channel details parameter that uniquely identifies a channel on this platform.

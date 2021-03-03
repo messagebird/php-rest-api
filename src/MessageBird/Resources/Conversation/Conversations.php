@@ -67,7 +67,7 @@ class Conversations extends Base
      */
     public function create($contactId, $query = null)
     {
-        $body = json_encode(array('contactId' => $contactId));
+        $body = json_encode(['contactId' => $contactId]);
 
         list(, , $body) = $this->HttpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
@@ -90,7 +90,7 @@ class Conversations extends Base
     public function update($object, $id)
     {
         $objVars = get_object_vars($object);
-        $body = array();
+        $body = [];
 
         foreach ($objVars as $key => $value) {
             if (null !== $value) {

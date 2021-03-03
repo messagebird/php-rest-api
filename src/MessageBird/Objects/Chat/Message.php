@@ -73,7 +73,7 @@ class Message extends Base
     /**
      * @var array
      */
-    protected $_links = array();
+    protected $_links = [];
 
 
     public function getId()

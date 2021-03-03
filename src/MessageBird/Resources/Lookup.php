@@ -42,7 +42,7 @@ class Lookup extends Base
         }
         $query = null;
         if ($countryCode != null) {
-            $query = array("countryCode" => $countryCode);
+            $query = ["countryCode" => $countryCode];
         }
         $ResourceName = $this->resourceName . '/' . $phoneNumber;
         list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $ResourceName, $query);

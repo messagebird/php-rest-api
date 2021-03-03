@@ -36,7 +36,7 @@ class Contacts extends Base
     public function update($object, $id)
     {
         $objVars = get_object_vars($object);
-        $body = array();
+        $body = [];
         foreach ($objVars as $key => $value) {
             if (null !== $value) {
                 $body[$key] = $value;
@@ -56,7 +56,7 @@ class Contacts extends Base
      * @param array|null $parameters
      * @return $this ->Object
      */
-    public function getMessages($id, $parameters = array())
+    public function getMessages($id, $parameters = [])
     {
         if (is_null($id)) {
             throw new InvalidArgumentException('No contact id provided.');
@@ -72,7 +72,7 @@ class Contacts extends Base
      * @param array|null $parameters
      * @return $this ->Object
      */
-    public function getGroups($id, $parameters = array())
+    public function getGroups($id, $parameters = [])
     {
         if (is_null($id)) {
             throw new InvalidArgumentException('No contact id provided.');

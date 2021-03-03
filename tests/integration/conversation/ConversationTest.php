@@ -106,13 +106,13 @@ class ConversationTest extends BaseTest
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
             ->with('POST', 'conversations/start', null, self::START_REQUEST)
-            ->willReturn(array(200, '', '{}'));
+            ->willReturn([200, '', '{}']);
 
         $content = new Content();
-        $content->location = array(
+        $content->location = [
             'latitude' => '37.778326',
             'longitude' => '-122.394648',
-        );
+        ];
 
         $message = new Message();
         $message->channelId = 'channel-id';
@@ -131,7 +131,7 @@ class ConversationTest extends BaseTest
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
             ->with('POST', 'conversations', null, self::CREATE_REQUEST)
-            ->willReturn(array(200, '', '{}'));
+            ->willReturn([200, '', '{}']);
         
         $this->client->conversations->create('some-contact-id');
     }
@@ -140,15 +140,15 @@ class ConversationTest extends BaseTest
     {
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
-            ->with('GET', 'conversations', array(), null)
-            ->willReturn(array(200, '', self::LIST_RESPONSE));
+            ->with('GET', 'conversations', [], null)
+            ->willReturn([200, '', self::LIST_RESPONSE]);
 
         $list = new BaseList();
         $list->limit = 10;
         $list->offset = 0;
         $list->count = 1;
         $list->totalCount = 1;
-        $list->items = array($this->getConversation());
+        $list->items = [$this->getConversation()];
 
         $this->assertEquals(
             $list,
@@ -161,7 +161,7 @@ class ConversationTest extends BaseTest
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
             ->with('GET', 'conversations/conversation-id', null, null)
-            ->willReturn(array(200, '', self::READ_RESPONSE));
+            ->willReturn([200, '', self::READ_RESPONSE]);
 
         $this->assertEquals(
             $this->getConversation(),
@@ -174,10 +174,10 @@ class ConversationTest extends BaseTest
         $this->mockClient
             ->expects($this->exactly(2))->method('performHttpRequest')
             ->withConsecutive(
-                array('PATCH', 'conversations/conversation-id', null, '{"status":"archived"}'),
-                array('PATCH', 'conversations/conversation-id', null, '{"status":"active"}')                
+                ['PATCH', 'conversations/conversation-id', null, '{"status":"archived"}'],
+                ['PATCH', 'conversations/conversation-id', null, '{"status":"active"}']                
             )
-            ->willReturn(array(200, '', '{}'));
+            ->willReturn([200, '', '{}']);
 
         $conversation = new Conversation();
         
@@ -201,9 +201,9 @@ class ConversationTest extends BaseTest
         $contact->msisdn = '31612345678';
         $contact->firstName = 'Foo';
         $contact->lastName = 'Bar';
-        $contact->customDetails = array(
+        $contact->customDetails = [
             'custom1' => 'Baz',
-        );
+        ];
         $contact->createdDatetime = '2018-07-20T12:13:41+00:00';
         $contact->updatedDatetime = '2018-07-20T12:13:51+00:00';
 
@@ -221,7 +221,7 @@ class ConversationTest extends BaseTest
 
         $conversation = new Conversation();
         $conversation->contact = $contact;
-        $conversation->channels = array($channel);
+        $conversation->channels = [$channel];
         $conversation->id = 'conversation-id';
         $conversation->href = 'https://conversations.messagebird.com/v1/conversations/conversation-id';
         $conversation->messages = $messages;

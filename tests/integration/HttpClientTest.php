@@ -12,7 +12,7 @@ class HttpClientTest extends BaseTest
         $url = $client->getRequestUrl('a', null);
         $this->assertSame(Client::ENDPOINT.'/a', $url);
 
-        $url = $client->getRequestUrl('a', array('b' => 1));
+        $url = $client->getRequestUrl('a', ['b' => 1]);
         $this->assertSame(Client::ENDPOINT.'/a?b=1', $url);
     }
 

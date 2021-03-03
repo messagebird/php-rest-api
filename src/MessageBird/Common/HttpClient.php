@@ -28,7 +28,7 @@ class HttpClient
     /**
      * @var array
      */
-    protected $userAgent = array();
+    protected $userAgent = [];
 
     /**
      * @var Common\Authentication
@@ -48,12 +48,12 @@ class HttpClient
     /**
      * @var array
      */
-    private $headers = array();
+    private $headers = [];
 
     /**
      * @var array
      */
-    private $httpOptions = array();
+    private $httpOptions = [];
 
     /**
      * @param string $endpoint
@@ -61,7 +61,7 @@ class HttpClient
      * @param int    $connectionTimeout >= 0
      * @param array  $headers
      */
-    public function __construct($endpoint, $timeout = 10, $connectionTimeout = 2, $headers = array())
+    public function __construct($endpoint, $timeout = 10, $connectionTimeout = 2, $headers = [])
     {
         $this->endpoint = $endpoint;
 
@@ -165,13 +165,13 @@ class HttpClient
             throw new Exceptions\AuthenticateException('Can not perform API Request without Authentication');
         }
 
-        $headers = array (
+        $headers =  [
             'User-agent: ' . implode(' ', $this->userAgent),
             'Accept: application/json',
             'Content-Type: application/json',
             'Accept-Charset: utf-8',
             sprintf('Authorization: AccessKey %s', $this->Authentication->accessKey)
-        );
+        ];
 
         $headers = array_merge($headers, $this->headers);
 
@@ -220,11 +220,11 @@ class HttpClient
         // Split the header and body
         $parts = explode("\r\n\r\n", $response, 3);
         $isThreePartResponse = (strpos($parts[0], "\n") === false && strpos($parts[0], 'HTTP/1.') === 0);
-        list($responseHeader, $responseBody) = $isThreePartResponse ? array ($parts[1], $parts[2]) : array ($parts[0], $parts[1]);
+        list($responseHeader, $responseBody) = $isThreePartResponse ?  [$parts[1], $parts[2]] :  [$parts[0], $parts[1]];
 
         curl_close($curl);
 
-        return array ($responseStatus, $responseHeader, $responseBody);
+        return  [$responseStatus, $responseHeader, $responseBody];
     }
 
     /**

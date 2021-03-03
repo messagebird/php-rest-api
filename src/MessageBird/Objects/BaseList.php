@@ -14,12 +14,12 @@ class BaseList extends Base
     public $offset;
     public $count;
     public $totalCount;
-    public $links = array (
+    public $links =  [
         'first'    => null,
         'previous' => null,
         'next'     => null,
         'last'     => null,
-    );
+    ];
 
-    public $items = array ();
+    public $items =  [];
 }

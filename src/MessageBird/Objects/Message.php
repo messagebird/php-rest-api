@@ -95,7 +95,7 @@ class Message extends Base
      *
      * @var array
      */
-    public $typeDetails = array ();
+    public $typeDetails =  [];
 
     /**
      * The datacoding used, can be plain or unicode
@@ -129,7 +129,7 @@ class Message extends Base
      *
      * @var array
      */
-    public $recipients = array ();
+    public $recipients =  [];
 
     /**
      * The URL to send status delivery reports for the message to

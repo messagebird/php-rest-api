@@ -5,7 +5,7 @@ require_once(__DIR__ . '/../autoload.php');
 $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 try {
-    $ContactList = $MessageBird->contacts->getList(array ());
+    $ContactList = $MessageBird->contacts->getList( []);
     var_dump($ContactList);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {

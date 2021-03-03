@@ -38,7 +38,7 @@ class Contact extends Base
      *
      * @var array
      */
-    public $contactDetails = array();
+    public $contactDetails = [];
 
     /**
      * Channel ID.

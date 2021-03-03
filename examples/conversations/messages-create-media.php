@@ -8,9 +8,9 @@ require(__DIR__ . '/../../autoload.php');
 $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 $content = new \MessageBird\Objects\Conversation\Content();
-$content->image = array(
+$content->image = [
     'url' => 'https://cdn-gc.messagebird.com/assets/images/logo.png'
-);
+];
 
 $message = new \MessageBird\Objects\Conversation\Message();
 $message->channelId = 'CHANNEL_ID';

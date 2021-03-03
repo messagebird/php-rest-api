@@ -49,7 +49,7 @@ class RequestValidator
 
     private function buildPayloadFromRequest(SignedRequest $request)
     {
-        $parts = array();
+        $parts = [];
 
         // Add request timestamp
         $parts[] = $request->requestTimestamp;

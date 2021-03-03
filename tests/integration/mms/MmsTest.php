@@ -9,7 +9,7 @@ class MmsTest extends BaseTest
         $this->mockClient->expects($this->once())
             ->method('performHttpRequest')
             ->with('POST', 'mms', null, json_encode($MmsMessage))
-            ->willReturn(array(422, '', '{"errors":[{"code":9,"description":"no (correct) recipients found","parameter":"recipients"}]}'));
+            ->willReturn([422, '', '{"errors":[{"code":9,"description":"no (correct) recipients found","parameter":"recipients"}]}']);
 
         $this->client->mmsMessages->create($MmsMessage);
     }
@@ -22,7 +22,7 @@ class MmsTest extends BaseTest
         $this->mockClient->expects($this->once())
             ->method('performHttpRequest')
             ->with('POST', 'mms', null, json_encode($MmsMessage))
-            ->willReturn(array(200, '', $this->generateMmsServerResponse($MmsMessage, $dummyMessageId)));
+            ->willReturn([200, '', $this->generateMmsServerResponse($MmsMessage, $dummyMessageId)]);
 
         $ResultMmsMessage = $this->client->mmsMessages->create($MmsMessage);
 
@@ -35,8 +35,8 @@ class MmsTest extends BaseTest
 
         $this->mockClient->expects($this->once())
             ->method('performHttpRequest')
-            ->with('GET', 'mms', array('offset' => '100', 'limit' => '30'), null)
-            ->willReturn(array(200, '',
+            ->with('GET', 'mms', ['offset' => '100', 'limit' => '30'], null)
+            ->willReturn([200, '',
                 '{ 
                     "offset": 0, "limit": 20, "count": 1, "totalCount": 2,
                     "links": {
@@ -48,9 +48,9 @@ class MmsTest extends BaseTest
                     "items": [ ' . $this->generateMmsServerResponse($dummyMessage, 'message_id') . ',
                                ' . $this->generateMmsServerResponse($dummyMessage, 'message_id_2') . ']
                 }'
-            ));
+            ]);
 
-        $ResultMessages = $this->client->mmsMessages->getList(array('offset' => 100, 'limit' => 30));
+        $ResultMessages = $this->client->mmsMessages->getList(['offset' => 100, 'limit' => 30]);
 
         $this->assertAttributeEquals(0, 'offset', $ResultMessages);
         $this->assertAttributeEquals(1, 'count', $ResultMessages);
@@ -69,8 +69,8 @@ class MmsTest extends BaseTest
             ->method('performHttpRequest')
             ->with('DELETE', 'mms/message_id', null, null)
             ->will($this->onConsecutiveCalls(
-                array(204, '', ''),
-                array(404, '', '{"errors":[{"code":20,"description":"message not found","parameter":null}]}')
+                [204, '', ''],
+                [404, '', '{"errors":[{"code":20,"description":"message not found","parameter":null}]}']
             ));
 
         $this->client->mmsMessages->delete('message_id');
@@ -88,8 +88,8 @@ class MmsTest extends BaseTest
             ->method('performHttpRequest')
             ->with('GET', $this->logicalOr('mms/message_id', 'mms/unknown_message_id'), null, null)
             ->will($this->onConsecutiveCalls(
-                array('200', '', $this->generateMmsServerResponse($dummyMessage, 'message_id')),
-                array('404', '', '{"errors":[{"code":20,"description":"message not found","parameter":null}]}')
+                ['200', '', $this->generateMmsServerResponse($dummyMessage, 'message_id')],
+                ['404', '', '{"errors":[{"code":20,"description":"message not found","parameter":null}]}']
             ));
 
         $ResultMmsMessage = $this->client->mmsMessages->read('message_id');
@@ -107,9 +107,9 @@ class MmsTest extends BaseTest
         $MmsMessage = new \MessageBird\Objects\MmsMessage();
         $MmsMessage->originator = "MessageBird";
         $MmsMessage->direction = 'ot';
-        $MmsMessage->recipients = array(31621938645);
+        $MmsMessage->recipients = [31621938645];
         $MmsMessage->body = 'Have you seen this logo?';
-        $MmsMessage->mediaUrls = array('https://www.messagebird.com/assets/images/og/messagebird.gif');
+        $MmsMessage->mediaUrls = ['https://www.messagebird.com/assets/images/og/messagebird.gif'];
         return $MmsMessage;
     }
 
@@ -131,7 +131,7 @@ class MmsTest extends BaseTest
         $this->assertAttributeEquals($MmsMessage->reference, 'reference', $ResultMmsMessage);
 
         foreach($ResultMmsMessage->recipients->items as $item) {
-            $this->assertArraySubset(array($item->recipient), $MmsMessage->recipients);
+            $this->assertArraySubset([$item->recipient], $MmsMessage->recipients);
         }
     }
 

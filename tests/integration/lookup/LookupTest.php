@@ -23,7 +23,7 @@ class LookupTest extends BaseTest
     public function testReadLookupWithCountryCode()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $params = array("countryCode" => "NL");
+        $params = ["countryCode" => "NL"];
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'lookup/612345678', $params, null);
         $this->client->lookup->read(612345678, $params["countryCode"]);
     }
@@ -55,7 +55,7 @@ class LookupTest extends BaseTest
         $Hlr->msisdn     = 612345678;
         $Hlr->reference  = "CoolReference";
 
-        $params = array("countryCode" => "NL");
+        $params = ["countryCode" => "NL"];
 
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'lookup/'.$Hlr->msisdn.'/hlr', $params, json_encode($Hlr));
 
@@ -78,7 +78,7 @@ class LookupTest extends BaseTest
     public function testReadLookupHlrWithCountryCode()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $params = array("countryCode" => "NL");
+        $params = ["countryCode" => "NL"];
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'lookup/612345678/hlr', $params, null);
         $this->client->lookupHlr->read(612345678, $params["countryCode"]);
     }
