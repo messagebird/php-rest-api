@@ -150,7 +150,7 @@ class Transcriptions
     {
         $body = @json_decode($body);
 
-        if ($body === null or $body === false) {
+        if ($body === null || $body === false) {
             throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
         }
 
