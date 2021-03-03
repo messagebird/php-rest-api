@@ -42,7 +42,7 @@ class LookupHlr extends Base
         }
 
         $query = null;
-        if ($countryCode != null) {
+        if ($countryCode !== null) {
             $query = array("countryCode" => $countryCode);
         }
         $ResourceName = $this->resourceName . '/' . ($hlr->msisdn) . '/hlr' ;
@@ -67,7 +67,7 @@ class LookupHlr extends Base
         }
 
         $query = null;
-        if ($countryCode != null) {
+        if ($countryCode !== null) {
             $query = array("countryCode" => $countryCode);
         }
         $ResourceName = $this->resourceName . '/' . $phoneNumber . '/hlr' ;

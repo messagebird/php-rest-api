@@ -41,7 +41,7 @@ class Lookup extends Base
             throw new InvalidArgumentException('The phone number cannot be empty.');
         }
         $query = null;
-        if ($countryCode != null) {
+        if ($countryCode !== null) {
             $query = array("countryCode" => $countryCode);
         }
         $ResourceName = $this->resourceName . '/' . $phoneNumber;
