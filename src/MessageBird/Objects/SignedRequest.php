@@ -32,7 +32,7 @@ class SignedRequest extends Base
      *
      * @var array
      */
-    public $queryParameters = array();
+    public $queryParameters = [];
 
     /**
      * The signature passed in the MessageBird-Signature header of the request.
@@ -75,7 +75,7 @@ class SignedRequest extends Base
     public static function create($query, $signature, $requestTimestamp, $body)
     {
         if (is_string($query)) {
-            $queryParameters = array();
+            $queryParameters = [];
             parse_str($query, $queryParameters);
         } else {
             $queryParameters = $query;

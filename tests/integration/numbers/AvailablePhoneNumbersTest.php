@@ -10,7 +10,7 @@ class AvailablePhoneNumbersTest extends BaseTest
     public function testListAvailablePhoneNumbers()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with('GET', 'available-phone-numbers/nl', array (), null);
-        $this->client->availablePhoneNumbers->getList("nl", array());
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with('GET', 'available-phone-numbers/nl',  [], null);
+        $this->client->availablePhoneNumbers->getList("nl", []);
     }
 }

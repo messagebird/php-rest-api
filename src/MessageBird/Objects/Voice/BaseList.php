@@ -17,5 +17,5 @@ class BaseList extends Base
     public $currentPage;
     public $perPage;
 
-    public $items = array ();
+    public $items =  [];
 }

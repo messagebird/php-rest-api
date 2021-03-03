@@ -58,12 +58,12 @@ class ConversationMessageTest extends BaseTest
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
             ->with('POST', 'conversations/some-conversation-id/messages', null, '{"channelId":"abcd1234","type":"image","content":{"image":{"url":"https:\/\/developers.messagebird.com\/assets\/images\/glyph.svg"}}}')
-            ->willReturn(array(200, '', '{}'));
+            ->willReturn([200, '', '{}']);
 
         $content = new Content();
-        $content->image = array(
+        $content->image = [
             'url' => 'https://developers.messagebird.com/assets/images/glyph.svg'
-        );
+        ];
 
         $message = new Message();
         $message->channelId = 'abcd1234';
@@ -78,13 +78,13 @@ class ConversationMessageTest extends BaseTest
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
             ->with('POST', 'conversations/some-contact-id/messages', null, '{"channelId":"abcd1234","type":"location","content":{"location":{"latitude":"52.379112","longitude":"4.900384"}}}')
-            ->willReturn(array(200, '', '{}'));
+            ->willReturn([200, '', '{}']);
 
         $content = new Content();
-        $content->location = array(
+        $content->location = [
             'latitude' => '52.379112',
             'longitude' => '4.900384'
-        );
+        ];
 
         $message = new Message();
         $message->channelId = 'abcd1234';
@@ -99,7 +99,7 @@ class ConversationMessageTest extends BaseTest
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
             ->with('POST', 'conversations/some-other-contact-id/messages', null, '{"channelId":"abcd1234","type":"text","content":{"text":"Hello world"}}')
-            ->willReturn(array(200, '', '{}'));
+            ->willReturn([200, '', '{}']);
 
         $content = new Content();
         $content->text = 'Hello world';
@@ -117,7 +117,7 @@ class ConversationMessageTest extends BaseTest
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
             ->with('POST', 'conversations/genid/messages', null, '{"type":"text","content":{"text":"Hello world"}}')
-            ->willReturn(array(200, '', '{}'));
+            ->willReturn([200, '', '{}']);
 
         $content = new Content();
         $content->text = 'Hello world';
@@ -133,8 +133,8 @@ class ConversationMessageTest extends BaseTest
     {
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
-            ->with('GET', 'conversations/genid/messages', array(), null)
-            ->willReturn(array(200, '', self::LIST_RESPONSE));
+            ->with('GET', 'conversations/genid/messages', [], null)
+            ->willReturn([200, '', self::LIST_RESPONSE]);
 
         $messages = $this->client->conversationMessages->getList('genid');
 
@@ -148,15 +148,15 @@ class ConversationMessageTest extends BaseTest
     {
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
-            ->with('GET', 'conversations/genid/messages', array(), null)
-            ->willReturn(array(200, '', self::LIST_RESPONSE));
+            ->with('GET', 'conversations/genid/messages', [], null)
+            ->willReturn([200, '', self::LIST_RESPONSE]);
 
         $message = $this->client->conversationMessages->getList('genid')->items[0];
 
         $expectedContent = new Content();
-        $expectedContent->video = array(
+        $expectedContent->video = [
             'url' => 'https://developers.messagebird.com/assets/videos/foo.mp4'
-        );
+        ];
 
         $expectedMessage = new Message();
         $expectedMessage->id = 'genid';
@@ -175,16 +175,16 @@ class ConversationMessageTest extends BaseTest
     {
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
-            ->with('GET', 'messages/message-id', array(), null)
-            ->willReturn(array(200, '', self::READ_RESPONSE));
+            ->with('GET', 'messages/message-id', [], null)
+            ->willReturn([200, '', self::READ_RESPONSE]);
 
 
         $message = $this->client->conversationMessages->read('message-id');
 
         $expectedContent = new Content();
-        $expectedContent->video = array(
+        $expectedContent->video = [
             'url' => 'https://developers.messagebird.com/assets/videos/foo.mp4'
-        );
+        ];
         $expectedMessage = new Message();
         $expectedMessage->id = 'genid';
         $expectedMessage->channelId = 'chid';

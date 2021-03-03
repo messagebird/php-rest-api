@@ -54,7 +54,7 @@ class Legs
      *
      * @return Objects\Voice\Leg
      */
-    public function getList($callId, $parameters = array())
+    public function getList($callId, $parameters = [])
     {
         list($status, , $body) = $this->HttpClient->performHttpRequest(
             Common\HttpClient::REQUEST_GET,

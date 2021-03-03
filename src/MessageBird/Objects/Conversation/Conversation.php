@@ -112,7 +112,7 @@ class Conversation extends Base
         }
 
         if (!empty($this->channels)) {
-            $channels = array();
+            $channels = [];
 
             foreach ($this->channels as $channel) {
                 $newChannel = new Channel();

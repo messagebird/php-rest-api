@@ -49,7 +49,7 @@ class ConversationWebhookTest extends BaseTest
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
             ->with('DELETE', 'webhooks/some-id', null, null)
-            ->willReturn(array(204, '', null));
+            ->willReturn([204, '', null]);
 
         $this->client->conversationWebhooks->delete('some-id');
     }
@@ -59,15 +59,15 @@ class ConversationWebhookTest extends BaseTest
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
             ->with('POST', 'webhooks', null, '{"channelId":"chid","events":["conversation.created","message.created"],"url":"https:\/\/messagebird.com\/webhook-receiver"}')
-            ->willReturn(array(200, '', '{}'));
+            ->willReturn([200, '', '{}']);
 
         $webhook = new Webhook();
         $webhook->channelId = 'chid';
         $webhook->url = 'https://messagebird.com/webhook-receiver';
-        $webhook->events = array(
+        $webhook->events = [
             Webhook::EVENT_CONVERSATION_CREATED,
             Webhook::EVENT_MESSAGE_CREATED,
-        );
+        ];
 
         $this->client->conversationWebhooks->create($webhook);
     }
@@ -76,8 +76,8 @@ class ConversationWebhookTest extends BaseTest
     {
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
-            ->with('GET', 'webhooks', array(), null)
-            ->willReturn(array(200, '', self::LIST_RESPONSE));
+            ->with('GET', 'webhooks', [], null)
+            ->willReturn([200, '', self::LIST_RESPONSE]);
 
         $webhooks = $this->client->conversationWebhooks->getList();
 
@@ -91,13 +91,13 @@ class ConversationWebhookTest extends BaseTest
     {
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
-            ->with('GET', 'webhooks', array(), null)
-            ->willReturn(array(200, '', self::LIST_RESPONSE));
+            ->with('GET', 'webhooks', [], null)
+            ->willReturn([200, '', self::LIST_RESPONSE]);
 
         $expectedWebhook = new Webhook();
         $expectedWebhook->id = 'some-id';
         $expectedWebhook->channelId = 'chid';
-        $expectedWebhook->events = array('conversation.created', 'message.created');
+        $expectedWebhook->events = ['conversation.created', 'message.created'];
         $expectedWebhook->url = 'https://example.com/webhook';
         $expectedWebhook->createdDatetime = '2018-07-31T12:12:43Z';
 
@@ -112,17 +112,17 @@ class ConversationWebhookTest extends BaseTest
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
             ->with('GET', 'webhooks/some-id', null, null)
-            ->willReturn(array(200, '', self::READ_RESPONSE));
+            ->willReturn([200, '', self::READ_RESPONSE]);
 
         $webhook = new Webhook();
         $webhook->id = 'some-id';
         $webhook->href = 'https://conversations.messagebird.com/v1/webhooks/some-id';
         $webhook->channelId = 'chid';
         $webhook->url = 'https://messagebird.com/webhook-receiver';
-        $webhook->events = array(
+        $webhook->events = [
             Webhook::EVENT_CONVERSATION_UPDATED,
             Webhook::EVENT_MESSAGE_UPDATED,
-        );
+        ];
         $webhook->createdDatetime = '2018-07-20T12:13:41+00:00';
         $webhook->updatedDatetime = '2018-07-20T12:13:51+00:00';
 

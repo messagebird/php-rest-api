@@ -5,7 +5,7 @@ require_once(__DIR__ . '/../autoload.php');
 $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 try {
-    $GroupsList = $MessageBird->groups->getList(array ());
+    $GroupsList = $MessageBird->groups->getList( []);
     var_dump($GroupsList);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {

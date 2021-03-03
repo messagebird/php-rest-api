@@ -11,10 +11,10 @@ class MessageTest extends BaseTest
     {
         $Message             = new \MessageBird\Objects\Message();
         $Message->originator = 'MessageBird';
-        $Message->recipients = array(31612345678);
+        $Message->recipients = [31612345678];
         $Message->body       = 'This is a test message.';
 
-        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn(array(200, '', '{
+        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([200, '', '{
                   "id":"e8077d803532c0b5937c639b60216938",
                   "href":"https://rest.messagebird.com/messages/e8077d803532c0b5937c639b60216938",
                   "direction":"mt",
@@ -45,7 +45,7 @@ class MessageTest extends BaseTest
                     ]
                   },
                   "reportUrl":null
-                }'));
+                }']);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'messages', null, '{"direction":"mt","type":"sms","originator":"MessageBird","body":"This is a test message.","reference":null,"validity":null,"gateway":null,"typeDetails":[],"datacoding":"plain","mclass":1,"scheduledDatetime":null,"recipients":[31612345678],"reportUrl":null}');
         $this->client->messages->create($Message);
     }
@@ -55,7 +55,7 @@ class MessageTest extends BaseTest
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $Message             = new \MessageBird\Objects\Message();
         $Message->originator = 'MessageBird';
-        $Message->recipients = array(31612345678);
+        $Message->recipients = [31612345678];
         $Message->body       = 'This is a test message.';
         $Message->setPremiumSms(2002, 'mb', 1, 2);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'messages', null, '{"direction":"mt","type":"premium","originator":"MessageBird","body":"This is a test message.","reference":null,"validity":null,"gateway":null,"typeDetails":{"shortcode":2002,"keyword":"mb","tariff":1,"mid":2},"datacoding":"plain","mclass":1,"scheduledDatetime":null,"recipients":[31612345678],"reportUrl":null}');
@@ -67,7 +67,7 @@ class MessageTest extends BaseTest
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $Message             = new \MessageBird\Objects\Message();
         $Message->originator = 'MessageBird';
-        $Message->recipients = array(31612345678);
+        $Message->recipients = [31612345678];
         $Message->body       = 'This is a test message.';
         $Message->setBinarySms("HEADER", "test");
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'messages', null, '{"direction":"mt","type":"binary","originator":"MessageBird","body":"test","reference":null,"validity":null,"gateway":null,"typeDetails":{"udh":"HEADER"},"datacoding":"plain","mclass":1,"scheduledDatetime":null,"recipients":[31612345678],"reportUrl":null}');
@@ -80,7 +80,7 @@ class MessageTest extends BaseTest
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $Message             = new \MessageBird\Objects\Message();
         $Message->originator = 'MessageBird';
-        $Message->recipients = array(31612345678);
+        $Message->recipients = [31612345678];
         $Message->body       = 'This is a test message.';
         $Message->setBinarySms("HEADER", "test");
         $Message->setFlash(true);
@@ -92,8 +92,8 @@ class MessageTest extends BaseTest
     public function testListMessage()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'messages', array ('offset' => 100, 'limit' => 30), null);
-        $this->client->messages->getList(array ('offset' => 100, 'limit' => 30));
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'messages',  ['offset' => 100, 'limit' => 30], null);
+        $this->client->messages->getList( ['offset' => 100, 'limit' => 30]);
     }
 
     public function testReadMessage()

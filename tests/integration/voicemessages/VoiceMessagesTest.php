@@ -12,7 +12,7 @@ class VoiceMessagesTest extends BaseTest
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
         $Message             = new \MessageBird\Objects\VoiceMessage();
         $Message->originator = 'MessageBird';
-        $Message->recipients = array(31612345678);
+        $Message->recipients = [31612345678];
         $Message->body       = 'This is a test message.';
         $Message->language   = "nl";
         $Message->voice      = "male";
@@ -23,8 +23,8 @@ class VoiceMessagesTest extends BaseTest
     public function testListMessage()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'voicemessages', array ('offset' => 100, 'limit' => 30), null);
-        $this->client->voicemessages->getList(array ('offset' => 100, 'limit' => 30));
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'voicemessages',  ['offset' => 100, 'limit' => 30], null);
+        $this->client->voicemessages->getList( ['offset' => 100, 'limit' => 30]);
     }
 
     public function testReadMessage()

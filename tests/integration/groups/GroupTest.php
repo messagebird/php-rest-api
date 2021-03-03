@@ -13,7 +13,7 @@ class GroupTest extends BaseTest
         $Group->name  = "Home";
 
 
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->willReturn(array(200, '', '{
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->willReturn([200, '', '{
             "id": "61afc0531573b08ddbe36e1c85602827",
             "href": "https://rest.messagebird.com/groups/61afc0531573b08ddbe36e1c85602827",
             "name": "Home",
@@ -23,15 +23,15 @@ class GroupTest extends BaseTest
             },
             "createdDatetime": "2016-04-29T09:42:26+00:00",
             "updatedDatetime": "2016-04-29T09:42:26+00:00"
-        }'));
+        }']);
         $this->client->groups->create($Group);
     }
 
     public function testListGroups()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'groups', array ('offset' => 100, 'limit' => 30), null);
-        $this->client->groups->getList(array ('offset' => 100, 'limit' => 30));
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'groups',  ['offset' => 100, 'limit' => 30], null);
+        $this->client->groups->getList( ['offset' => 100, 'limit' => 30]);
     }
 
     public function testViewGroup()

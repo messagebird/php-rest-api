@@ -77,7 +77,7 @@ class Webhook extends Base implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        $json = array();
+        $json = [];
         
         foreach (get_object_vars($this) as $key => $value) {
             if (!empty($value)) {

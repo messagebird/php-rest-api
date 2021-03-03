@@ -107,7 +107,7 @@ class VoiceMessage extends Base
      *
      * @var array
      */
-    public $recipients = array ();
+    public $recipients =  [];
 
     /**
      * The URL to send status delivery reports for the voice message to

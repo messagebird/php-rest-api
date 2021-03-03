@@ -6,10 +6,10 @@ $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API a
 
 $MmsMessage = new \MessageBird\Objects\MmsMessage();
 $MmsMessage->originator = 'MessageBird';
-$MmsMessage->recipients = array(31612345678);
+$MmsMessage->recipients = [31612345678];
 $MmsMessage->subject = "Check out this cool MMS";
 $MmsMessage->body = 'Have you seen this logo?';
-$MmsMessage->mediaUrls = array('https://www.messagebird.com/assets/images/og/messagebird.gif');
+$MmsMessage->mediaUrls = ['https://www.messagebird.com/assets/images/og/messagebird.gif'];
 
 try {
     $MmsMessageResult = $MessageBird->mmsMessages->create($MmsMessage);

@@ -84,7 +84,7 @@ class Base
         return $this->processRequest($body);
     }
 
-    public function getList($parameters = array ())
+    public function getList($parameters =  [])
     {
         list($status, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $this->resourceName, $parameters);
 
@@ -181,7 +181,7 @@ class Base
     public function update($object, $id)
     {
         $objVars = get_object_vars($object);
-        $body = array();
+        $body = [];
         foreach ($objVars as $key => $value) {
             if (null !== $value) {
                 $body[$key] = $value;

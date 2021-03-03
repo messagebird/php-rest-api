@@ -55,7 +55,7 @@ class Recordings
      *
      * @return Objects\Voice\Recording
      */
-    public function getList($callId, $legId, $parameters = array())
+    public function getList($callId, $legId, $parameters = [])
     {
         list($status, , $body) = $this->HttpClient->performHttpRequest(
             Common\HttpClient::REQUEST_GET,

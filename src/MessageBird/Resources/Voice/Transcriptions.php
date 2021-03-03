@@ -72,7 +72,7 @@ class Transcriptions
      *
      * @return Objects\Voice\Transcription
      */
-    public function getList($callId, $legId, $recordingId, $parameters = array())
+    public function getList($callId, $legId, $recordingId, $parameters = [])
     {
         list($status, , $body) = $this->HttpClient->performHttpRequest(
             Common\HttpClient::REQUEST_GET,

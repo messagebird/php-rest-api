@@ -43,7 +43,7 @@ class LookupHlr extends Base
 
         $query = null;
         if ($countryCode !== null) {
-            $query = array("countryCode" => $countryCode);
+            $query = ["countryCode" => $countryCode];
         }
         $ResourceName = $this->resourceName . '/' . ($hlr->msisdn) . '/hlr' ;
         list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_POST, $ResourceName, $query, json_encode($hlr));
@@ -68,7 +68,7 @@ class LookupHlr extends Base
 
         $query = null;
         if ($countryCode !== null) {
-            $query = array("countryCode" => $countryCode);
+            $query = ["countryCode" => $countryCode];
         }
         $ResourceName = $this->resourceName . '/' . $phoneNumber . '/hlr' ;
         list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $ResourceName, $query, null);

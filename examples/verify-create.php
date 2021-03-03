@@ -7,10 +7,10 @@ $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API a
 $Verify             = new \MessageBird\Objects\Verify();
 $Verify->recipient = 31612345678;
 
-$extraOptions = array(
+$extraOptions = [
     'originator' => 'MessageBird',
     'timeout' => 60,
-);
+];
 
 try {
     $VerifyResult = $MessageBird->verify->create($Verify, $extraOptions);

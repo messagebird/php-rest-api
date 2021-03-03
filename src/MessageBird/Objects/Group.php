@@ -37,7 +37,7 @@ class Group extends Base
      *
      * @var array
      */
-    protected $contacts = array ();
+    protected $contacts =  [];
 
     /**
      * The date and time of the creation of the group in RFC3339 format (Y-m-d\TH:i:sP)

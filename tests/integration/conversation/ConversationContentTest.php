@@ -26,7 +26,7 @@ class ConversationContentTest extends BaseTest
     public function testAudioContent()
     {
         $content = new Content();
-        $content->audio = array('url' => 'https://example.com/audio.mp3');
+        $content->audio = ['url' => 'https://example.com/audio.mp3'];
 
         $message = new Message();
         $message->content = $content;
@@ -40,7 +40,7 @@ class ConversationContentTest extends BaseTest
     public function testFileContent()
     {
         $content = new Content();
-        $content->file = array('url' => 'https://example.com/file.pdf');
+        $content->file = ['url' => 'https://example.com/file.pdf'];
 
         $message = new Message();
         $message->content = $content;
@@ -54,7 +54,7 @@ class ConversationContentTest extends BaseTest
     public function testImageContent()
     {
         $content = new Content();
-        $content->image = array('url' => 'https://example.com/image.png');
+        $content->image = ['url' => 'https://example.com/image.png'];
 
         $message = new Message();
         $message->content = $content;
@@ -68,10 +68,10 @@ class ConversationContentTest extends BaseTest
     public function testLocationContent()
     {
         $content = new Content();
-        $content->location = array(
+        $content->location = [
             'latitude' => '37.778326',
             'longitude' => '-122.394648',
-        );
+        ];
 
         $message = new Message();
         $message->content = $content;
@@ -99,7 +99,7 @@ class ConversationContentTest extends BaseTest
     public function testVideoContent()
     {
         $content = new Content();
-        $content->video = array('url' => 'https://example.com/video.mp4');
+        $content->video = ['url' => 'https://example.com/video.mp4'];
 
         $message = new Message();
         $message->content = $content;

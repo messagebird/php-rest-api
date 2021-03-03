@@ -7,10 +7,10 @@ require(__DIR__ . '/../../autoload.php');
 $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 $content = new \MessageBird\Objects\Conversation\Content();
-$content->location = array(
+$content->location = [
     'latitude' => 52.379112,
     'longitude' => 4.900384,
-);
+];
 
 $message = new \MessageBird\Objects\Conversation\Message();
 $message->channelId = 'CHANNEL_ID';

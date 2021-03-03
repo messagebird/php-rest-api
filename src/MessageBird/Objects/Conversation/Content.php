@@ -76,10 +76,10 @@ class Content extends Base implements JsonSerializable
     private function loadLocationIfNeeded()
     {
         if (!empty($this->location->latitude) && !empty($this->location->longitude)) {
-            $this->location = array(
+            $this->location = [
                 'latitude' => $this->location->latitude,
                 'longitude' => $this->location->longitude,
-            );
+            ];
         }
     }
 
@@ -89,19 +89,19 @@ class Content extends Base implements JsonSerializable
     private function loadMediaIfNeeded()
     {
         if (!empty($this->audio->url)) {
-            $this->audio = array('url' => $this->audio->url);
+            $this->audio = ['url' => $this->audio->url];
         }
 
         if (!empty($this->file->url)) {
-            $this->file = array('url' => $this->file->url);
+            $this->file = ['url' => $this->file->url];
         }
 
         if (!empty($this->image->url)) {
-            $this->image = array('url' => $this->image->url);
+            $this->image = ['url' => $this->image->url];
         }
 
         if (!empty($this->video->url)) {
-            $this->video = array('url' => $this->video->url);
+            $this->video = ['url' => $this->video->url];
         }
     }
 
@@ -110,7 +110,7 @@ class Content extends Base implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        $json = array();
+        $json = [];
         
         foreach (get_object_vars($this) as $key => $value) {
             if (!empty($value)) {

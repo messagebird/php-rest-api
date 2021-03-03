@@ -51,7 +51,7 @@ class Contact extends Base
      *
      * @var array
      */
-    protected $customDetails = array();
+    protected $customDetails = [];
 
     /**
      * @var string
@@ -78,14 +78,14 @@ class Contact extends Base
      *
      * @var array
      */
-    protected $groups = array();
+    protected $groups = [];
 
     /**
      * The hash with messages sent to contact.
      *
      * @var array
      */
-    protected $messages = array();
+    protected $messages = [];
 
     /**
      * The date and time of the creation of the contact in RFC3339 format (Y-m-d\TH:i:sP)

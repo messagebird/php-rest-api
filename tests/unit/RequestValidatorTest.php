@@ -8,7 +8,7 @@ class RequestValidatorTest extends TestCase
 {
     public function testVerify()
     {
-        $query = array(
+        $query = [
             'recipient' => '31612345678',
             'reference' => 'FOO',
             'statusDatetime' => '2019-01-11T09:17:11+00:00',
@@ -16,7 +16,7 @@ class RequestValidatorTest extends TestCase
             'status' => 'delivered',
             'mccmnc' => '20408',
             'ported' => '1',
-        );
+        ];
         $signature = 'KVBdcVdz2lYMwcBLZCRITgxUfA/WkwSi+T3Wxl2HL6w=';
         $requestTimestamp = 1547198231;
         $body = '';
@@ -29,7 +29,7 @@ class RequestValidatorTest extends TestCase
 
     public function testVerifyWithBody()
     {
-        $query = array(
+        $query = [
             'recipient' => '31612345678',
             'reference' => 'FOO',
             'statusDatetime' => '2019-01-11T09:17:11+00:00',
@@ -37,7 +37,7 @@ class RequestValidatorTest extends TestCase
             'status' => 'delivered',
             'mccmnc' => '20408',
             'ported' => '1',
-        );
+        ];
         $signature = '2bl+38H4oHVg03pC3bk2LvCB0IHFgfC4cL5HPQ0LdmI=';
         $requestTimestamp = 1547198231;
         $body = '{"foo":"bar"}';
@@ -50,7 +50,7 @@ class RequestValidatorTest extends TestCase
 
     public function testVerificationFails()
     {
-        $query = array(
+        $query = [
             'recipient' => '31612345678',
             'reference' => 'BAR',
             'statusDatetime' => '2019-01-11T09:17:11+00:00',
@@ -58,7 +58,7 @@ class RequestValidatorTest extends TestCase
             'status' => 'delivered',
             'mccmnc' => '20408',
             'ported' => '1',
-        );
+        ];
         $signature = 'KVBdcVdz2lYMwcBLZCRITgxUfA/WkwSi+T3Wxl2HL6w=';
         $requestTimestamp = 1547198231;
         $body = '';
@@ -71,7 +71,7 @@ class RequestValidatorTest extends TestCase
 
     public function testRecentRequest()
     {
-        $query = array();
+        $query = [];
         $signature = 'KVBdcVdz2lYMwcBLZCRITgxUfA/WkwSi+T3Wxl2HL6w=';
         $requestTimestamp = time() - 1;
         $body = '';
@@ -84,7 +84,7 @@ class RequestValidatorTest extends TestCase
 
     public function testExpiredRequest()
     {
-        $query = array();
+        $query = [];
         $signature = 'KVBdcVdz2lYMwcBLZCRITgxUfA/WkwSi+T3Wxl2HL6w=';
         $requestTimestamp = time() - 100;
         $body = '';
