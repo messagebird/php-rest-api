@@ -56,7 +56,7 @@ class MmsTest extends BaseTest
         $this->assertAttributeEquals(1, 'count', $ResultMessages);
         $this->assertAttributeEquals(2, 'totalCount', $ResultMessages);
 
-        $this->assertEquals(2, count($ResultMessages->items));
+        $this->assertCount(2, $ResultMessages->items);
         $this->assertMessagesAreEqual($dummyMessage, $ResultMessages->items[0], 'message_id');
         $this->assertMessagesAreEqual($dummyMessage, $ResultMessages->items[1], 'message_id_2');
 
