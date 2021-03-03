@@ -143,7 +143,7 @@ class HttpClient
      */
     public function getHttpOption($option)
     {
-        return isset($this->httpOptions[$option]) ? $this->httpOptions[$option] : null;
+        return $this->httpOptions[$option] ?? null;
     }
 
     /**

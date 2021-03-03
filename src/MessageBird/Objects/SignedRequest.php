@@ -53,8 +53,7 @@ class SignedRequest extends Base
         $queryParameters = $_GET;
         $requestTimestamp = isset($_SERVER['HTTP_MESSAGEBIRD_REQUEST_TIMESTAMP']) ?
             (int)$_SERVER['HTTP_MESSAGEBIRD_REQUEST_TIMESTAMP'] : null;
-        $signature = isset($_SERVER['HTTP_MESSAGEBIRD_SIGNATURE']) ?
-            $_SERVER['HTTP_MESSAGEBIRD_SIGNATURE'] : null;
+        $signature = $_SERVER['HTTP_MESSAGEBIRD_SIGNATURE'] ?? null;
 
         $signedRequest = new SignedRequest();
         $signedRequest->loadFromArray(compact('body', 'queryParameters', 'requestTimestamp', 'signature'));
