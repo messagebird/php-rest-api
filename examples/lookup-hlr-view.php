@@ -17,7 +17,7 @@ try {
     $poolCount = 10;
     while($poolCount--) {
         $hlr = $MessageBird->lookupHlr->read($Hlr->msisdn);
-        if ($hlr->status != \MessageBird\Objects\Hlr::STATUS_SENT) {
+        if ($hlr->status !== \MessageBird\Objects\Hlr::STATUS_SENT) {
             // we have something
             var_dump($hlr);
             break;

@@ -153,10 +153,10 @@ class Message extends Base
         $this->typeDetails['shortcode'] = $shortcode;
         $this->typeDetails['keyword']   = $keyword;
         $this->typeDetails['tariff']    = $tariff;
-        if ($mid != null) {
+        if ($mid !== null) {
             $this->typeDetails['mid'] = $mid;
         }
-        if ($member != null) {
+        if ($member !== null) {
             $this->typeDetails['member'] = $member;
         }
 
