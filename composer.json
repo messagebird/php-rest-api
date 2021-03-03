@@ -12,7 +12,8 @@
     ],
     "require": {
         "php": ">=7.0",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0|^7.5"
