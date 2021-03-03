@@ -2,10 +2,10 @@
 
 namespace MessageBird\Resources;
 
-use MessageBird\Objects;
+use InvalidArgumentException;
 use MessageBird\Common;
 use MessageBird\Exceptions;
-use InvalidArgumentException;
+use MessageBird\Objects;
 
 /**
  * Class Groups
