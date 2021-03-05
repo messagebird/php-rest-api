@@ -172,7 +172,7 @@ class Contact extends Base
     /**
      * @param $object
      *
-     * @return $this ->Object
+     * @return $this ->object
      */
     public function loadFromArrayForGroups($object)
     {
@@ -180,10 +180,10 @@ class Contact extends Base
 
         if (!empty($object->items)) {
             foreach($object->items AS &$item) {
-                $Group = new Group();
-                $Group->loadFromArray($item);
+                $group = new Group();
+                $group->loadFromArray($item);
 
-                $item = $Group;
+                $item = $group;
             }
         }
         return $object;

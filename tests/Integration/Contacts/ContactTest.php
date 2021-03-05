@@ -14,14 +14,14 @@ class ContactTest extends BaseTest
 
     public function testCreateContact()
     {
-        $Contact             = new \MessageBird\Objects\Contact();
-        $Contact->firstName  = "John";
-        $Contact->lastName   = "Doe";
-        $Contact->msisdn     = "31612345678";
-        $Contact->custom1 = "Customfield1";
-        $Contact->custom2 = "Customfield2";
-        $Contact->custom3 = "Customfield3";
-        $Contact->custom4 = "Customfield4";
+        $contact             = new \MessageBird\Objects\Contact();
+        $contact->firstName  = "John";
+        $contact->lastName   = "Doe";
+        $contact->msisdn     = "31612345678";
+        $contact->custom1 = "Customfield1";
+        $contact->custom2 = "Customfield2";
+        $contact->custom3 = "Customfield3";
+        $contact->custom4 = "Customfield4";
 
 
         $this->mockClient->expects($this->once())->method('performHttpRequest')->willReturn([200, '', '{
@@ -47,7 +47,7 @@ class ContactTest extends BaseTest
             "createdDatetime": "2016-04-29T09:42:26+00:00",
             "updatedDatetime": "2016-04-29T09:42:26+00:00"
         }']);
-        $this->client->contacts->create($Contact);
+        $this->client->contacts->create($contact);
     }
 
     public function testListContacts()
@@ -83,20 +83,20 @@ class ContactTest extends BaseTest
                 '{"offset":0,"limit":20,"count":1,"totalCount":1,"links":{"first":"","previous":null,"next":null,"last":""},"items":[{"id":"contact_id","href":"","name":"GroupName","contacts":{"totalCount":1,"href":""},"createdDatetime":"","updatedDatetime":""}]}'
             ]);
 
-        $ResultingGroupList = $this->client->contacts->getGroups("contact_id");
+        $resultingGroupList = $this->client->contacts->getGroups("contact_id");
 
-        $GroupList = new \MessageBird\Objects\BaseList();
-        $GroupList->limit = 20;
-        $GroupList->offset = 0;
-        $GroupList->count = 1;
-        $GroupList->totalCount = 1;
-        $GroupList->links = (object) [
+        $groupList = new \MessageBird\Objects\BaseList();
+        $groupList->limit = 20;
+        $groupList->offset = 0;
+        $groupList->count = 1;
+        $groupList->totalCount = 1;
+        $groupList->links = (object) [
             'first' => '',
             'previous' => null,
             'next' => null,
             'last' => ''
         ];
-        $GroupList->items = [
+        $groupList->items = [
             (object) [
                 'id' => 'contact_id',
                 'href' => '',
@@ -110,7 +110,7 @@ class ContactTest extends BaseTest
             ]
         ];
 
-        $this->assertEquals($GroupList, $ResultingGroupList);
+        $this->assertEquals($groupList, $resultingGroupList);
     }
 
     public function testContactGetMessages()
@@ -125,9 +125,9 @@ class ContactTest extends BaseTest
                 '{"offset":0,"limit":20,"count":1,"totalCount":1,"links":{"first":"","previous":null,"next":null,"last":""},"items":[{"id":"contact_id","href":"","direction":"mt","type":"sms","originator":"MsgBird","body":"MessageBody","reference":null,"validity":null,"gateway":0,"typeDetails":{},"datacoding":"plain","mclass":1,"scheduledDatetime":null,"createdDatetime":"","recipients":{"totalCount":1,"totalSentCount":1,"totalDeliveredCount":1,"totalDeliveryFailedCount":0,"items":[{"recipient":12345678912,"status":"delivered","statusDatetime":""}]}}]}'
             ]);
 
-        $Messages = $this->client->contacts->getMessages("contact_id");
-        foreach($Messages->items as $Message) {
-            $this->assertInstanceOf('\MessageBird\Objects\Message', $Message);
+        $messages = $this->client->contacts->getMessages("contact_id");
+        foreach($messages->items as $message) {
+            $this->assertInstanceOf('\MessageBird\Objects\Message', $message);
         }
     }
 }

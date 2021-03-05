@@ -22,12 +22,12 @@ class Conversations extends Base
 
     /**
      * Starts a conversation by sending an initial message.
-     * 
+     *
      * @param Message $object
      * @param array|null $query
      *
      * @return Conversation
-     * 
+     *
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
@@ -35,8 +35,8 @@ class Conversations extends Base
     public function start($object, $query = null)
     {
         $body = json_encode($object);
-        
-        list(, , $body) = $this->HttpClient->performHttpRequest(
+
+        list(, , $body) = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
             $this->getStartUrl(),
             $query,
@@ -56,11 +56,11 @@ class Conversations extends Base
 
     /**
      * Starts a conversation without sending an initial message.
-     * 
+     *
      * @param int $contactId
-     * 
+     *
      * @return Conversation
-     * 
+     *
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
@@ -69,7 +69,7 @@ class Conversations extends Base
     {
         $body = json_encode(['contactId' => $contactId]);
 
-        list(, , $body) = $this->HttpClient->performHttpRequest(
+        list(, , $body) = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
             $this->resourceName,
             $query,
@@ -83,7 +83,7 @@ class Conversations extends Base
      * @param $object
      * @param $id
      *
-     * @return $this ->Object
+     * @return $this ->object
      *
      * @internal param array $parameters
      */
@@ -101,7 +101,7 @@ class Conversations extends Base
         $resourceName = $this->resourceName . ($id ? '/' . $id : null);
         $body = json_encode($body);
 
-        list(, , $body) = $this->HttpClient->performHttpRequest(HttpClient::REQUEST_PATCH, $resourceName, false, $body);
+        list(, , $body) = $this->httpClient->performHttpRequest(HttpClient::REQUEST_PATCH, $resourceName, false, $body);
 
         return $this->processRequest($body);
     }

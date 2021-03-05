@@ -28,26 +28,26 @@ class PhoneNumbersTest extends BaseTest
 
     public function testUpdatePhoneNumber()
     {
-        $Number = new \MessageBird\Objects\Number();
-        $Number->tags = ['tag1'];
+        $number = new \MessageBird\Objects\Number();
+        $number->tags = ['tag1'];
 
         $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([200, '', '{"tags":["tag1"]}']);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with('PATCH', 'phone-numbers/31612345678', null, '{"tags":["tag1"]}');
-        $this->client->phoneNumbers->update($Number, '31612345678');
+        $this->client->phoneNumbers->update($number, '31612345678');
     }
 
     public function testPurchasePhoneNumber()
     {
-        $NumberPurchaseRequest                        = new \MessageBird\Objects\NumberPurchaseRequest();
-        $NumberPurchaseRequest->number                = '31612345678';
-        $NumberPurchaseRequest->countryCode           = 'NL';
-        $NumberPurchaseRequest->billingIntervalMonths = 1;
+        $numberPurchaseRequest                        = new \MessageBird\Objects\NumberPurchaseRequest();
+        $numberPurchaseRequest->number                = '31612345678';
+        $numberPurchaseRequest->countryCode           = 'NL';
+        $numberPurchaseRequest->billingIntervalMonths = 1;
 
-        $NumberJSON = '{"number":"31612345678","countryCode":"NL","billingIntervalMonths":1}';
+        $numberJSON = '{"number":"31612345678","countryCode":"NL","billingIntervalMonths":1}';
 
-        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([201, '', "[$NumberJSON]"]);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with('POST', 'phone-numbers', null, $NumberJSON);
-        $this->client->phoneNumbers->create($NumberPurchaseRequest);
+        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([201, '', "[$numberJSON]"]);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with('POST', 'phone-numbers', null, $numberJSON);
+        $this->client->phoneNumbers->create($numberPurchaseRequest);
     }
 
     public function testCancelPhoneNumber()

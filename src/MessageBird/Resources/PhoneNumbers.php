@@ -16,14 +16,14 @@ class PhoneNumbers extends Base
     /**
      * @var \MessageBird\Common\HttpClient
      */
-    protected $HttpClient;
+    protected $httpClient;
 
     /**
-     * @param Common\HttpClient $HttpClient
+     * @param Common\HttpClient $httpClient
      */
-    public function __construct(Common\HttpClient $HttpClient)
+    public function __construct(Common\HttpClient $httpClient)
     {
-        $this->HttpClient = $HttpClient;
+        $this->httpClient = $httpClient;
         $this->setObject(new Objects\Number());
         $this->setResourceName('phone-numbers');
     }
@@ -46,11 +46,11 @@ class PhoneNumbers extends Base
             }
         }
 
-        $ResourceName = $this->resourceName . ($id ? '/' . $id : null);
+        $resourceName = $this->resourceName . ($id ? '/' . $id : null);
         $body = json_encode($body);
 
         // This override is only needed to use the PATCH http method
-        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_PATCH, $ResourceName, false, $body);
+        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_PATCH, $resourceName, false, $body);
         return $this->processRequest($body);
     }
 }

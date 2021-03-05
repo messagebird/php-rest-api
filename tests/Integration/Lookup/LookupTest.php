@@ -36,35 +36,35 @@ class LookupTest extends BaseTest
     public function testCreateLookupHlr()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $Hlr             = new \MessageBird\Objects\Hlr();
-        $Hlr->msisdn     = 31612345678;
-        $Hlr->reference  = 'Yoloswag3007';
+        $hlr             = new \MessageBird\Objects\Hlr();
+        $hlr->msisdn     = 31612345678;
+        $hlr->reference  = 'Yoloswag3007';
 
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'lookup/'.$Hlr->msisdn.'/hlr', null, json_encode($Hlr));
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'lookup/'.$hlr->msisdn.'/hlr', null, json_encode($hlr));
 
-        $this->client->lookupHlr->create($Hlr);
+        $this->client->lookupHlr->create($hlr);
     }
 
     public function testCreateLookupHlrWithEmptyNumber()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $Hlr             = new \MessageBird\Objects\Hlr();
-        $Hlr->msisdn     = null;
-        $this->client->lookupHlr->create($Hlr);
+        $hlr             = new \MessageBird\Objects\Hlr();
+        $hlr->msisdn     = null;
+        $this->client->lookupHlr->create($hlr);
     }
 
     public function testCreateLookupHlrWithCountryCode()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $Hlr             = new \MessageBird\Objects\Hlr();
-        $Hlr->msisdn     = 612345678;
-        $Hlr->reference  = "CoolReference";
+        $hlr             = new \MessageBird\Objects\Hlr();
+        $hlr->msisdn     = 612345678;
+        $hlr->reference  = "CoolReference";
 
         $params = ["countryCode" => "NL"];
 
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'lookup/'.$Hlr->msisdn.'/hlr', $params, json_encode($Hlr));
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'lookup/'.$hlr->msisdn.'/hlr', $params, json_encode($hlr));
 
-        $this->client->lookupHlr->create($Hlr, $params["countryCode"]);
+        $this->client->lookupHlr->create($hlr, $params["countryCode"]);
     }
 
     public function testReadLookupHlr()

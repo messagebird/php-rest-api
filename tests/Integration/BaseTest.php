@@ -30,18 +30,18 @@ class BaseTest extends TestCase
 
     public function testClientConstructor()
     {
-        $MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY');
-        $this->assertInstanceOf('MessageBird\Resources\Balance', $MessageBird->balance);
-        $this->assertInstanceOf('MessageBird\Resources\Hlr', $MessageBird->hlr);
-        $this->assertInstanceOf('MessageBird\Resources\Messages', $MessageBird->messages);
-        $this->assertInstanceOf('MessageBird\Resources\Contacts', $MessageBird->contacts);
-        $this->assertInstanceOf('MessageBird\Resources\Groups', $MessageBird->groups);
-        $this->assertInstanceOf('MessageBird\Resources\VoiceMessage', $MessageBird->voicemessages);
-        $this->assertInstanceOf('MessageBird\Resources\Verify', $MessageBird->verify);
-        $this->assertInstanceOf('MessageBird\Resources\Chat\Message', $MessageBird->chatMessages);
-        $this->assertInstanceOf('MessageBird\Resources\Chat\Platform', $MessageBird->chatPlatforms);
-        $this->assertInstanceOf('MessageBird\Resources\Chat\Channel', $MessageBird->chatChannels);
-        $this->assertInstanceOf('MessageBird\Resources\Chat\Contact', $MessageBird->chatContacts);
+        $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY');
+        $this->assertInstanceOf('MessageBird\Resources\Balance', $messageBird->balance);
+        $this->assertInstanceOf('MessageBird\Resources\Hlr', $messageBird->hlr);
+        $this->assertInstanceOf('MessageBird\Resources\Messages', $messageBird->messages);
+        $this->assertInstanceOf('MessageBird\Resources\Contacts', $messageBird->contacts);
+        $this->assertInstanceOf('MessageBird\Resources\Groups', $messageBird->groups);
+        $this->assertInstanceOf('MessageBird\Resources\VoiceMessage', $messageBird->voicemessages);
+        $this->assertInstanceOf('MessageBird\Resources\Verify', $messageBird->verify);
+        $this->assertInstanceOf('MessageBird\Resources\Chat\Message', $messageBird->chatMessages);
+        $this->assertInstanceOf('MessageBird\Resources\Chat\Platform', $messageBird->chatPlatforms);
+        $this->assertInstanceOf('MessageBird\Resources\Chat\Channel', $messageBird->chatChannels);
+        $this->assertInstanceOf('MessageBird\Resources\Chat\Contact', $messageBird->chatContacts);
     }
 
     public function testHttpClientMock()

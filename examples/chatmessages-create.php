@@ -2,16 +2,16 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
-$MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
+$messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
-$ChatMessage = new \MessageBird\Objects\Chat\Message();
-$ChatMessage->contactId = '9d754dac577e3ff103cdf4n29856560';
-$ChatMessage->payload = 'This is a test message to test the Chat API';
-$ChatMessage->type = 'text';
+$chatMessage = new \MessageBird\Objects\Chat\Message();
+$chatMessage->contactId = '9d754dac577e3ff103cdf4n29856560';
+$chatMessage->payload = 'This is a test message to test the Chat API';
+$chatMessage->type = 'text';
 
 try {
-    $ChatMessageResult = $MessageBird->chatMessages->create($ChatMessage);
-    var_dump($ChatMessageResult);
+    $chatMessageResult = $messageBird->chatMessages->create($chatMessage);
+    var_dump($chatMessageResult);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown

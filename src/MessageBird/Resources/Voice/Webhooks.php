@@ -14,14 +14,14 @@ class Webhooks extends Base
 {
 
     /**
-     * @param Common\HttpClient $HttpClient
+     * @param Common\HttpClient $httpClient
      */
-    public function __construct(Common\HttpClient $HttpClient)
+    public function __construct(Common\HttpClient $httpClient)
     {
 
         $this->setObject(new Objects\Voice\Webhook());
         $this->setResourceName('webhooks');
 
-        parent::__construct($HttpClient);
+        parent::__construct($httpClient);
     }
 }
