@@ -262,7 +262,7 @@ class Client
     }
 
     /**
-     * @param $accessKey
+     * @param mixed $accessKey
      */
     public function setAccessKey ($accessKey)
     {

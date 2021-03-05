@@ -10,7 +10,7 @@ namespace MessageBird\Objects;
 class Base
 {
     /**
-     * @param $object
+     * @param mixed $object
      *
      * @return $this
      */

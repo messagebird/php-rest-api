@@ -37,7 +37,7 @@ class Base
     }
 
     /**
-     * @param $resourceName
+     * @param mixed $resourceName
      */
     public function setResourceName($resourceName)
     {
@@ -53,7 +53,7 @@ class Base
     }
 
     /**
-     * @param $Object
+     * @param mixed $Object
      */
     public function setObject($Object)
     {
@@ -69,7 +69,7 @@ class Base
     }
 
     /**
-     * @param       $object
+     * @param mixed $object
      * @param array|null $query
      *
      * @return Objects\Hlr|Objects\Message|Objects\Balance|Objects\Verify|Objects\Lookup|Objects\VoiceMessage
@@ -112,7 +112,7 @@ class Base
     }
 
     /**
-     * @param $id
+     * @param mixed $id
      *
      * @return $this->Object
      *
@@ -127,7 +127,7 @@ class Base
     }
 
     /**
-     * @param $id
+     * @param mixed $id
      *
      * @return bool
      *
@@ -171,8 +171,8 @@ class Base
     }
 
     /**
-     * @param $object
-     * @param $id
+     * @param mixed $object
+     * @param mixed $id
      *
      * @return $this ->Object
      *

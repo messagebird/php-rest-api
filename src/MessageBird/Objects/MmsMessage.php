@@ -120,7 +120,7 @@ class MmsMessage extends Base {
     }
 
     /**
-     * @param $object
+     * @param mixed $object
      *
      * @return $this|void
      */

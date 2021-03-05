@@ -129,8 +129,8 @@ class HttpClient
     }
 
     /**
-     * @param $key
-     * @param $value
+     * @param mixed $option
+     * @param mixed $value
      */
     public function addHttpOption($option, $value)
     {
@@ -138,7 +138,7 @@ class HttpClient
     }
 
     /**
-     * @param $option
+     * @param mixed $option
      * @return mixed|null
      */
     public function getHttpOption($option)

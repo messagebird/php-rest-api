@@ -71,7 +71,7 @@ class Channel extends Base
     /**
      * The date and time the object was deleted
      *
-     * @var
+     * @var string
      */
     protected $deletedAt;
 

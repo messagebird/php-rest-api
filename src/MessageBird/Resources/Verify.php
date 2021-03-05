@@ -25,8 +25,8 @@ class Verify extends Base
     }
 
     /**
-     * @param $id
-     * @param $token
+     * @param mixed $id
+     * @param mixed $token
      *
      * @return $this->Object
      *

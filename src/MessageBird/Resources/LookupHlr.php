@@ -51,7 +51,7 @@ class LookupHlr extends Base
     }
 
     /**
-     * @param $phoneNumber
+     * @param mixed $phoneNumber
      * @param string|null  $countryCode
      *
      * @return $this->Object
