@@ -74,6 +74,6 @@ class RequestValidator
      */
     public function isRecent(SignedRequest $request, $offset = 10)
     {
-        return (\time() - $request->requestTimestamp) < $offset;
+        return (\time() - (int) $request->requestTimestamp) < $offset;
     }
 }
