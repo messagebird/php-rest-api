@@ -54,7 +54,7 @@ class AvailablePhoneNumbers
         $baseList->loadFromArray($body);
 
         foreach ($items as $item) {
-            $object = new Objects\Number($this->HttpClient);
+            $object = new Objects\Number();
 
             $itemObject = $object->loadFromArray($item);
             $baseList->items[] = $itemObject;
@@ -82,7 +82,7 @@ class AvailablePhoneNumbers
             throw new \MessageBird\Exceptions\RequestException($ResponseError->getErrorString());
         }
 
-        return Objects\Number.loadFromArray($body->data[0]);
+        return (new Objects\Number())->loadFromArray($body->data[0]);
     }
 }
 ?>
