@@ -24,7 +24,7 @@ class BaseTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     protected $mockClient;
 
-    protected function setUp()
+    protected function setUp():void
     {
         parent::setUp();
 
