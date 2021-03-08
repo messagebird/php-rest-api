@@ -93,7 +93,7 @@ class Conversations extends Base
         $body = [];
 
         foreach ($objVars as $key => $value) {
-            if (null !== $value) {
+            if ($value !== null) {
                 $body[$key] = $value;
             }
         }
