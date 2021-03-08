@@ -4,7 +4,6 @@ namespace Tests\Integration;
 
 use MessageBird\Common\ResponseError;
 use MessageBird\Exceptions\MessageBirdException;
-use MessageBird\Objects\Base;
 
 class ResponseErrorTest extends BaseTest
 {

@@ -2,8 +2,8 @@
 
 namespace MessageBird\Resources\Chat;
 
-use MessageBird\Objects;
 use MessageBird\Common;
+use MessageBird\Objects;
 use MessageBird\Resources\Base;
 
 /**

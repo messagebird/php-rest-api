@@ -2,8 +2,8 @@
 
 namespace MessageBird\Resources;
 
-use MessageBird\Objects;
 use MessageBird\Common;
+use MessageBird\Objects;
 
 /**
  * Class Messages
