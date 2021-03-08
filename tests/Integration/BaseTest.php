@@ -14,6 +14,8 @@ class BaseTest extends TestCase
 
     protected function setUp()
     {
+        parent::setUp();
+
         $this->mockClient = $this->getMockBuilder("\MessageBird\Common\HttpClient")->setConstructorArgs(["fake.messagebird.dev"])->getMock();
         $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
     }

@@ -97,13 +97,6 @@ class ConversationTest extends BaseTest
         "lastUsedChannelId": "channel-id"
     }';
 
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->client = new Client('YOUR_ACCESS_KEY', $this->mockClient);
-    }
-
     public function testStart()
     {
         $this->mockClient
@@ -122,7 +115,7 @@ class ConversationTest extends BaseTest
         $message->to = '31612345678';
         $message->type = 'location';
         $message->content = $content;
-        
+
         $this->client->conversations->start($message);
     }
 
@@ -135,10 +128,10 @@ class ConversationTest extends BaseTest
             ->expects($this->once())->method('performHttpRequest')
             ->with('POST', 'conversations', null, self::CREATE_REQUEST)
             ->willReturn([200, '', '{}']);
-        
+
         $this->client->conversations->create('some-contact-id');
     }
-    
+
     public function testList()
     {
         $this->mockClient
@@ -178,12 +171,12 @@ class ConversationTest extends BaseTest
             ->expects($this->exactly(2))->method('performHttpRequest')
             ->withConsecutive(
                 ['PATCH', 'conversations/conversation-id', null, '{"status":"archived"}'],
-                ['PATCH', 'conversations/conversation-id', null, '{"status":"active"}']                
+                ['PATCH', 'conversations/conversation-id', null, '{"status":"active"}']
             )
             ->willReturn([200, '', '{}']);
 
         $conversation = new Conversation();
-        
+
         $conversation->status = Conversation::STATUS_ARCHIVED;
         $this->client->conversations->update($conversation, 'conversation-id');
 

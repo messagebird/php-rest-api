@@ -40,13 +40,6 @@ class ConversationWebhookTest extends BaseTest
         "updatedDatetime": "2018-07-20T12:13:51+00:00"
     }';
 
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
-    }
-
     public function testDelete()
     {
         $this->mockClient
