@@ -4,7 +4,7 @@ namespace Tests\Integration\Messages;
 
 use Tests\Integration\BaseTest;
 
-class MessageTest extends BaseTest
+class MessagesTest extends BaseTest
 {
     public function testCreateMessage()
     {
