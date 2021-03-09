@@ -187,6 +187,11 @@ class Client
     protected $partnerAccountClient;
 
     /**
+     * @var \MessageBird\Common\HttpClient
+     */
+    protected $numbersAPIClient;
+
+    /**
      * @param string            $accessKey
      * @param Common\HttpClient $httpClient
      */
