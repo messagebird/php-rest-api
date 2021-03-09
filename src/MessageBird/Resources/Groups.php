@@ -27,8 +27,8 @@ class Groups extends Base
     }
 
     /**
-     * @param $object
-     * @param $id
+     * @param mixed $object
+     * @param mixed $id
      *
      * @throws Exceptions\AuthenticateException
      * @throws Exceptions\HttpException

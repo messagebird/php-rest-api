@@ -142,11 +142,11 @@ class Message extends Base
     /**
      * Send a premium SMS
      *
-     * @param $shortcode
-     * @param $keyword
-     * @param $tariff
-     * @param $mid
-     * @param $member
+     * @param mixed $shortcode
+     * @param mixed $keyword
+     * @param mixed $tariff
+     * @param mixed $mid
+     * @param mixed $member
      */
     public function setPremiumSms($shortcode, $keyword, $tariff, $mid = null, $member = null)
     {
@@ -164,8 +164,8 @@ class Message extends Base
     }
 
     /**
-     * @param $header
-     * @param $body
+     * @param mixed $header
+     * @param mixed $body
      */
     public function setBinarySms($header, $body)
     {
@@ -175,7 +175,7 @@ class Message extends Base
     }
 
     /**
-     * @param $bool
+     * @param mixed $bool
      */
     public function setFlash($bool)
     {
@@ -217,7 +217,7 @@ class Message extends Base
     }
 
     /**
-     * @param $object
+     * @param mixed $object
      *
      * @return $this|void
      */

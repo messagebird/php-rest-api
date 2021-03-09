@@ -33,7 +33,7 @@ class Legs
     }
 
     /**
-     * @param $object
+     * @param mixed $object
      */
     public function setObject($object)
     {

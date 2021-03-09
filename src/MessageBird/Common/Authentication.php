@@ -13,7 +13,7 @@ class Authentication
     public $accessKey;
 
     /**
-     * @param $accessKey
+     * @param mixed $accessKey
      */
     public function __construct($accessKey)
     {

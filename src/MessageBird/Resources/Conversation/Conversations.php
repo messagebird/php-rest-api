@@ -80,8 +80,8 @@ class Conversations extends Base
     }
 
     /**
-     * @param $object
-     * @param $id
+     * @param mixed $object
+     * @param mixed $id
      *
      * @return $this ->object
      *

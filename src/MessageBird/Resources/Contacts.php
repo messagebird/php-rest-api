@@ -26,8 +26,8 @@ class Contacts extends Base
     }
 
     /**
-     * @param $object
-     * @param $id
+     * @param mixed $object
+     * @param mixed $id
      *
      * @return $this ->object
      *
@@ -52,7 +52,7 @@ class Contacts extends Base
     }
 
     /**
-     * @param $id
+     * @param mixed $id
      * @param array|null $parameters
      * @return $this ->object
      */
@@ -68,7 +68,7 @@ class Contacts extends Base
     }
 
     /**
-     * @param $id
+     * @param mixed $id
      * @param array|null $parameters
      * @return $this ->object
      */

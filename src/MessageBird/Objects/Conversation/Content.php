@@ -55,7 +55,7 @@ class Content extends Base implements JsonSerializable
     public $hsm;
 
     /**
-     * @param $object
+     * @param mixed $object
      *
      * @return $this
      */
@@ -63,7 +63,7 @@ class Content extends Base implements JsonSerializable
     {
         // Text is already properly set if available due to the response's structure.
         parent::loadFromArray($object);
-        
+
         $this->loadLocationIfNeeded();
         $this->loadMediaIfNeeded();
 
@@ -111,7 +111,7 @@ class Content extends Base implements JsonSerializable
     public function jsonSerialize()
     {
         $json = [];
-        
+
         foreach (get_object_vars($this) as $key => $value) {
             if (!empty($value)) {
                 $json[$key] = $value;

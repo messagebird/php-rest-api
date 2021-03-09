@@ -24,7 +24,7 @@ class Account extends Base
     }
 
     /**
-     * @param $object
+     * @param mixed $object
      *
      * @return $this|void
      */

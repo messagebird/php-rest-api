@@ -158,7 +158,7 @@ class Contact extends Base
     }
 
     /**
-     * @param $object
+     * @param mixed $object
      *
      * @return $this
      */
@@ -170,7 +170,7 @@ class Contact extends Base
     }
 
     /**
-     * @param $object
+     * @param mixed $object
      *
      * @return $this ->object
      */

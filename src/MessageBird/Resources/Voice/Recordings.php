@@ -33,7 +33,7 @@ class Recordings
     }
 
     /**
-     * @param $object
+     * @param mixed $object
      */
     public function setObject($object)
     {

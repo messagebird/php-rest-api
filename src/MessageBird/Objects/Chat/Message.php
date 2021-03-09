@@ -58,7 +58,7 @@ class Message extends Base
 
     /**
      * The date and time the object was last updated.
-     * 
+     *
      * @var string
      */
     protected $updatedAt;
@@ -66,7 +66,7 @@ class Message extends Base
     /**
      * The URI of the media file contained in the message. Used when type is one of mage, audio or video.
      *
-     * @var
+     * @var string
      */
     protected $mediaPath;
 
