@@ -14,8 +14,8 @@ class GroupTest extends BaseTest
 
     public function testCreateGroup()
     {
-        $Group             = new \MessageBird\Objects\Group();
-        $Group->name  = "Home";
+        $group             = new \MessageBird\Objects\Group();
+        $group->name  = "Home";
 
 
         $this->mockClient->expects($this->once())->method('performHttpRequest')->willReturn([200, '', '{
@@ -29,7 +29,7 @@ class GroupTest extends BaseTest
             "createdDatetime": "2016-04-29T09:42:26+00:00",
             "updatedDatetime": "2016-04-29T09:42:26+00:00"
         }']);
-        $this->client->groups->create($Group);
+        $this->client->groups->create($group);
     }
 
     public function testListGroups()

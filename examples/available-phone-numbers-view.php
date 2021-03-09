@@ -2,10 +2,10 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
-$MessageBird = new \MessageBird\Client('MESSAGEBIRD_API_KEY');
+$messageBird = new \MessageBird\Client('MESSAGEBIRD_API_KEY');
 
 try {
-    $phoneNumbers = $MessageBird->availablePhoneNumbers->getList("nl", []);
+    $phoneNumbers = $messageBird->availablePhoneNumbers->getList("nl", []);
     var_dump($phoneNumbers);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {

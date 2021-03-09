@@ -2,15 +2,15 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
-$MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
+$messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
-$Hlr            = new \MessageBird\Objects\Hlr();
-$Hlr->msisdn    = 31612345678;
-$Hlr->reference = "Custom reference";
+$hlr            = new \MessageBird\Objects\Hlr();
+$hlr->msisdn    = 31612345678;
+$hlr->reference = "Custom reference";
 
 try {
-    $HlrResult = $MessageBird->hlr->create($Hlr);
-    var_export($HlrResult);
+    $hlrResult = $messageBird->hlr->create($hlr);
+    var_export($hlrResult);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown

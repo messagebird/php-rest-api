@@ -16,14 +16,14 @@ class AvailablePhoneNumbers
     /**
      * @var \MessageBird\Common\HttpClient
      */
-    protected $HttpClient;
+    protected $httpClient;
 
     /**
-     * @param Common\HttpClient $HttpClient
+     * @param Common\HttpClient $httpClient
      */
-    public function __construct(Common\HttpClient $HttpClient)
+    public function __construct(Common\HttpClient $httpClient)
     {
-        $this->HttpClient = $HttpClient;
+        $this->httpClient = $httpClient;
     }
 
     /**
@@ -36,7 +36,7 @@ class AvailablePhoneNumbers
      */
     public function getList($countryCode, $parameters = []): Objects\BaseList
     {
-        list($status, , $body) = $this->HttpClient->performHttpRequest(
+        list($status, , $body) = $this->httpClient->performHttpRequest(
             Common\HttpClient::REQUEST_GET,
             "available-phone-numbers/$countryCode",
             $parameters
@@ -54,7 +54,7 @@ class AvailablePhoneNumbers
         $baseList->loadFromArray($body);
 
         foreach ($items as $item) {
-            $object = new Objects\Number($this->HttpClient);
+            $object = new Objects\Number($this->httpClient);
 
             $itemObject = $object->loadFromArray($item);
             $baseList->items[] = $itemObject;
@@ -78,8 +78,8 @@ class AvailablePhoneNumbers
         }
 
         if (!empty($body->errors)) {
-            $ResponseError = new Common\ResponseError($body);
-            throw new \MessageBird\Exceptions\RequestException($ResponseError->getErrorString());
+            $responseError = new Common\ResponseError($body);
+            throw new \MessageBird\Exceptions\RequestException($responseError->getErrorString());
         }
 
         return Objects\Number.loadFromArray($body->data[0]);
