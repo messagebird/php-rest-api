@@ -2,13 +2,13 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
-$MessageBird = new \MessageBird\Client('MESSAGEBIRD_API_KEY'); // Set your own API access key here.
-$Number = new \MessageBird\Objects\Number();
-$Number->tags = ['tag1'];
+$messageBird = new \MessageBird\Client('MESSAGEBIRD_API_KEY'); // Set your own API access key here.
+$number = new \MessageBird\Objects\Number();
+$number->tags = ['tag1'];
 
 try {
-    $NumberResult = $MessageBird->phoneNumbers->update($Number, '31612345678');
-    var_dump($NumberResult);
+    $numberResult = $messageBird->phoneNumbers->update($number, '31612345678');
+    var_dump($numberResult);
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     print("wrong login\n");

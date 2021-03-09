@@ -16,28 +16,28 @@ class Recordings
     /**
      * @var \MessageBird\Common\HttpClient
      */
-    protected $HttpClient;
+    protected $httpClient;
 
     /**
      * @var Objects\Voice\Recording
      */
-    protected $Object;
+    protected $object;
 
     /**
-     * @param Common\HttpClient $HttpClient
+     * @param Common\HttpClient $httpClient
      */
-    public function __construct(Common\HttpClient $HttpClient)
+    public function __construct(Common\HttpClient $httpClient)
     {
-        $this->HttpClient = $HttpClient;
+        $this->httpClient = $httpClient;
         $this->setObject(new Objects\Voice\Recording());
     }
 
     /**
-     * @param mixed $Object
+     * @param mixed $object
      */
-    public function setObject($Object)
+    public function setObject($object)
     {
-        $this->Object = $Object;
+        $this->object = $object;
     }
 
     /**
@@ -45,7 +45,7 @@ class Recordings
      */
     public function getObject()
     {
-        return $this->Object;
+        return $this->object;
     }
 
     /**
@@ -57,7 +57,7 @@ class Recordings
      */
     public function getList($callId, $legId, $parameters = [])
     {
-        list($status, , $body) = $this->HttpClient->performHttpRequest(
+        list($status, , $body) = $this->httpClient->performHttpRequest(
             Common\HttpClient::REQUEST_GET,
             "calls/$callId/legs/$legId/recordings",
             $parameters
@@ -72,10 +72,10 @@ class Recordings
             $baseList = new Objects\BaseList();
             $baseList->loadFromArray($body);
 
-            $objectName = $this->Object;
+            $objectName = $this->object;
 
             foreach ($items as $item) {
-                $object = new $objectName($this->HttpClient);
+                $object = new $objectName($this->httpClient);
 
                 $itemObject = $object->loadFromArray($item);
                 $baseList->items[] = $itemObject;
@@ -90,11 +90,11 @@ class Recordings
      * @param string $callId
      * @param string $legId
      *
-     * @return $this->Object
+     * @return $this->object
      */
     public function read($callId, $legId, $recordingId)
     {
-        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, "calls/$callId/legs/$legId/recordings/$recordingId");
+        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, "calls/$callId/legs/$legId/recordings/$recordingId");
 
         return $this->processRequest($body);
     }
@@ -103,11 +103,11 @@ class Recordings
      * @param string $callId
      * @param string $legId
      * @param string $recordingId
-     * @return $this->Object
+     * @return $this->object
      */
     public function delete($callId, $legId, $recordingId)
     {
-        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_DELETE, "calls/$callId/legs/$legId/recordings/$recordingId");
+        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_DELETE, "calls/$callId/legs/$legId/recordings/$recordingId");
         return $this->processRequest($body);
     }
 
@@ -120,7 +120,7 @@ class Recordings
      */
     public function download($callId, $legId, $recordingId)
     {
-        list($status, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, "calls/$callId/legs/$legId/recordings/$recordingId.wav");
+        list($status, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, "calls/$callId/legs/$legId/recordings/$recordingId.wav");
 
         if ($status !== 200) {
             return $this->processRequest($body);
@@ -145,10 +145,10 @@ class Recordings
         }
 
         if (empty($body->errors)) {
-            return $this->Object->loadFromArray($body->data[0]);
+            return $this->object->loadFromArray($body->data[0]);
         }
 
-        $ResponseError = new Common\ResponseError($body);
-        throw new Exceptions\RequestException($ResponseError->getErrorString());
+        $responseError = new Common\ResponseError($body);
+        throw new Exceptions\RequestException($responseError->getErrorString());
     }
 }

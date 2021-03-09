@@ -2,10 +2,10 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
-$MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
+$messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 try {
-    $deleted = $MessageBird->mmsMessages->delete('mms_message_id'); // id here
+    $deleted = $messageBird->mmsMessages->delete('mms_message_id'); // id here
     var_dump('Deleted: ' . $deleted);
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown

@@ -130,10 +130,10 @@ class MmsMessage extends Base {
 
         if (!empty($this->recipients->items)) {
             foreach($this->recipients->items as &$item) {
-                $Recipient = new Recipient();
-                $Recipient->loadFromArray($item);
+                $recipient = new Recipient();
+                $recipient->loadFromArray($item);
 
-                $item = $Recipient;
+                $item = $recipient;
             }
         }
 

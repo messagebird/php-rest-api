@@ -2,18 +2,18 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
-$MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
+$messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
-$MmsMessage = new \MessageBird\Objects\MmsMessage();
-$MmsMessage->originator = 'MessageBird';
-$MmsMessage->recipients = [31612345678];
-$MmsMessage->subject = "Check out this cool MMS";
-$MmsMessage->body = 'Have you seen this logo?';
-$MmsMessage->mediaUrls = ['https://www.messagebird.com/assets/images/og/messagebird.gif'];
+$mmsMessage = new \MessageBird\Objects\MmsMessage();
+$mmsMessage->originator = 'MessageBird';
+$mmsMessage->recipients = [31612345678];
+$mmsMessage->subject = "Check out this cool MMS";
+$mmsMessage->body = 'Have you seen this logo?';
+$mmsMessage->mediaUrls = ['https://www.messagebird.com/assets/images/og/messagebird.gif'];
 
 try {
-    $MmsMessageResult = $MessageBird->mmsMessages->create($MmsMessage);
-    var_dump($MmsMessageResult);
+    $mmsMessageResult = $messageBird->mmsMessages->create($mmsMessage);
+    var_dump($mmsMessageResult);
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'wrong login';

@@ -2,9 +2,9 @@
 
 namespace MessageBird\Resources;
 
-use MessageBird\Objects;
-use MessageBird\Common;
 use InvalidArgumentException;
+use MessageBird\Common;
+use MessageBird\Objects;
 
 /**
  * Class Verify
@@ -15,21 +15,21 @@ class Lookup extends Base
 {
 
     /**
-     * @param Common\HttpClient $HttpClient
+     * @param Common\HttpClient $httpClient
      */
-    public function __construct(Common\HttpClient $HttpClient)
+    public function __construct(Common\HttpClient $httpClient)
     {
         $this->setObject(new Objects\Lookup);
         $this->setResourceName('lookup');
 
-        parent::__construct($HttpClient);
+        parent::__construct($httpClient);
     }
 
     /**
      * @param string|int $phoneNumber
      * @param string     $countryCode
      *
-     * @return $this->Object
+     * @return $this->object
      *
      * @throws \MessageBird\Exceptions\HttpException
      * @throws \MessageBird\Exceptions\RequestException
@@ -44,8 +44,8 @@ class Lookup extends Base
         if ($countryCode !== null) {
             $query = ["countryCode" => $countryCode];
         }
-        $ResourceName = $this->resourceName . '/' . $phoneNumber;
-        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $ResourceName, $query);
+        $resourceName = $this->resourceName . '/' . $phoneNumber;
+        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $resourceName, $query);
         return $this->processRequest($body);
     }
 }

@@ -104,10 +104,10 @@ class Group extends Base
 
         if (!empty($object->items)) {
             foreach($object->items AS &$item) {
-                $Contact = new Contact();
-                $Contact->loadFromArray($item);
+                $contact = new Contact();
+                $contact->loadFromArray($item);
 
-                $item = $Contact;
+                $item = $contact;
             }
         }
 
