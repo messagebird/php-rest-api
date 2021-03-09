@@ -11,7 +11,6 @@ use MessageBird\Objects\Base;
  */
 class BaseList extends Base
 {
-
     public $totalCount;
     public $pageCount;
     public $currentPage;

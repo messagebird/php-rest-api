@@ -95,6 +95,4 @@ class Recording extends Base
     {
         return $this->updatedAt;
     }
-
-
 }

@@ -18,7 +18,6 @@ class Calls extends Base
      */
     public function __construct(Common\HttpClient $httpClient)
     {
-
         $this->setObject(new Objects\Voice\Call());
         $this->setResourceName('calls');
 

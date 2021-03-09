@@ -113,8 +113,10 @@ class Transcriptions
      */
     public function read($callId, $legId, $recordingId, $transcriptionId)
     {
-        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET,
-            "calls/$callId/legs/$legId/recordings/$recordingId/transcriptions/$transcriptionId");
+        list(, , $body) = $this->httpClient->performHttpRequest(
+            Common\HttpClient::REQUEST_GET,
+            "calls/$callId/legs/$legId/recordings/$recordingId/transcriptions/$transcriptionId"
+        );
 
         return $this->processRequest($body);
     }
@@ -129,8 +131,10 @@ class Transcriptions
      */
     public function download($callId, $legId, $recordingId, $transcriptionId)
     {
-        list($status, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET,
-            "calls/$callId/legs/$legId/recordings/$recordingId/transcriptions/$transcriptionId.txt");
+        list($status, , $body) = $this->httpClient->performHttpRequest(
+            Common\HttpClient::REQUEST_GET,
+            "calls/$callId/legs/$legId/recordings/$recordingId/transcriptions/$transcriptionId.txt"
+        );
 
         if ($status !== 200) {
             return $this->processRequest($body);

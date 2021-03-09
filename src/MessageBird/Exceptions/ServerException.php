@@ -9,5 +9,4 @@ namespace MessageBird\Exceptions;
  */
 class ServerException extends MessageBirdException
 {
-
 }

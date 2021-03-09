@@ -84,4 +84,3 @@ class AvailablePhoneNumbers
         return (new Objects\Number())->loadFromArray($body->data[0]);
     }
 }
-?>

@@ -221,12 +221,12 @@ class Message extends Base
      *
      * @return $this|void
      */
-    public function loadFromArray ($object)
+    public function loadFromArray($object)
     {
         parent::loadFromArray($object);
 
         if (!empty($this->recipients->items)) {
-            foreach($this->recipients->items AS &$item) {
+            foreach ($this->recipients->items as &$item) {
                 $recipient = new Recipient();
                 $recipient->loadFromArray($item);
 

@@ -16,7 +16,7 @@ class PhoneNumbersTest extends BaseTest
     public function testListPhoneNumbers()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with('GET', 'phone-numbers',  [], null);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with('GET', 'phone-numbers', [], null);
         $this->client->phoneNumbers->getList();
     }
 

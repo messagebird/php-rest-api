@@ -10,7 +10,8 @@ use MessageBird\Objects;
  *
  * @package MessageBird\Resources
  */
-class MmsMessages extends Base {
+class MmsMessages extends Base
+{
 
     /**
      * @param Common\HttpClient $httpClient

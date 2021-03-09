@@ -17,7 +17,7 @@ class Base
     public function loadFromArray($object)
     {
         if ($object) {
-            foreach ($object AS $key => $value) {
+            foreach ($object as $key => $value) {
                 if (property_exists($this, $key)) {
                     $this->$key = $value;
                 }

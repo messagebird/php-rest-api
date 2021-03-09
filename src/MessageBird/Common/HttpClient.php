@@ -66,18 +66,22 @@ class HttpClient
         $this->endpoint = $endpoint;
 
         if (!is_int($timeout) || $timeout < 1) {
-            throw new \InvalidArgumentException(sprintf(
+            throw new \InvalidArgumentException(
+                sprintf(
                 'Timeout must be an int > 0, got "%s".',
-                is_object($timeout) ? get_class($timeout) : gettype($timeout).' '.var_export($timeout, true))
+                is_object($timeout) ? get_class($timeout) : gettype($timeout).' '.var_export($timeout, true)
+            )
             );
         }
 
         $this->timeout = $timeout;
 
         if (!is_int($connectionTimeout) || $connectionTimeout < 0) {
-            throw new \InvalidArgumentException(sprintf(
+            throw new \InvalidArgumentException(
+                sprintf(
                 'Connection timeout must be an int >= 0, got "%s".',
-                is_object($connectionTimeout) ? get_class($connectionTimeout) : gettype($connectionTimeout).' '.var_export($connectionTimeout, true))
+                is_object($connectionTimeout) ? get_class($connectionTimeout) : gettype($connectionTimeout).' '.var_export($connectionTimeout, true)
+            )
             );
         }
 
@@ -193,10 +197,10 @@ class HttpClient
             curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
         } elseif ($method === self::REQUEST_DELETE) {
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::REQUEST_DELETE);
-        } elseif ($method === self::REQUEST_PUT){
+        } elseif ($method === self::REQUEST_PUT) {
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::REQUEST_PUT);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-        } elseif ($method === self::REQUEST_PATCH){
+        } elseif ($method === self::REQUEST_PATCH) {
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::REQUEST_PATCH);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
         }
@@ -246,5 +250,4 @@ class HttpClient
         $this->connectionTimeout = $connectionTimeout;
         return $this;
     }
-
 }

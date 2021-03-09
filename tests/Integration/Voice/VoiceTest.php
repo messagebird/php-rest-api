@@ -93,9 +93,9 @@ class VoiceTest extends BaseTest
 
     public function testDeleteVoiceRecording()
     {
-       $this->expectException(\MessageBird\Exceptions\ServerException::class);
-       $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([204, '', null]);
-       $this->client->voiceRecordings->delete('foo','bar','baz');
+        $this->expectException(\MessageBird\Exceptions\ServerException::class);
+        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([204, '', null]);
+        $this->client->voiceRecordings->delete('foo', 'bar', 'baz');
     }
 
 

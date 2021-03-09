@@ -37,7 +37,7 @@ class LookupHlr extends Base
      */
     public function create($hlr, $countryCode = null)
     {
-        if(empty($hlr->msisdn)) {
+        if (empty($hlr->msisdn)) {
             throw new InvalidArgumentException('The phone number ($hlr->msisdn) cannot be empty.');
         }
 
@@ -62,7 +62,7 @@ class LookupHlr extends Base
      */
     public function read($phoneNumber = null, $countryCode = null)
     {
-        if(empty($phoneNumber)) {
+        if (empty($phoneNumber)) {
             throw new InvalidArgumentException('The phone number cannot be empty.');
         }
 
@@ -74,6 +74,4 @@ class LookupHlr extends Base
         list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $resourceName, $query, null);
         return $this->processRequest($body);
     }
-
-
 }

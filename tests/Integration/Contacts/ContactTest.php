@@ -48,8 +48,8 @@ class ContactTest extends BaseTest
     public function testListContacts()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts',  ['offset' => 100, 'limit' => 30], null);
-        $this->client->contacts->getList( ['offset' => 100, 'limit' => 30]);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts', ['offset' => 100, 'limit' => 30], null);
+        $this->client->contacts->getList(['offset' => 100, 'limit' => 30]);
     }
 
     public function testViewContact()
@@ -70,7 +70,10 @@ class ContactTest extends BaseTest
     {
         $this->mockClient->method('performHttpRequest')
             ->with(
-                $this->equalTo(\MessageBird\Common\HttpClient::REQUEST_GET), $this->equalTo('contacts/contact_id/groups'), $this->anything(), $this->anything()
+                $this->equalTo(\MessageBird\Common\HttpClient::REQUEST_GET),
+                $this->equalTo('contacts/contact_id/groups'),
+                $this->anything(),
+                $this->anything()
             )
             ->willReturn([
                 200,
@@ -112,7 +115,10 @@ class ContactTest extends BaseTest
     {
         $this->mockClient->method('performHttpRequest')
             ->with(
-                $this->equalTo(\MessageBird\Common\HttpClient::REQUEST_GET), $this->equalTo('contacts/contact_id/messages'), $this->anything(), $this->anything()
+                $this->equalTo(\MessageBird\Common\HttpClient::REQUEST_GET),
+                $this->equalTo('contacts/contact_id/messages'),
+                $this->anything(),
+                $this->anything()
             )
             ->willReturn([
                 200,
@@ -121,6 +127,7 @@ class ContactTest extends BaseTest
             ]);
 
         $messages = $this->client->contacts->getMessages("contact_id");
+
         foreach($messages->items as $message) {
             $this->assertInstanceOf(Message::class, $message);
         }

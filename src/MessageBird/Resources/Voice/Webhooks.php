@@ -18,7 +18,6 @@ class Webhooks extends Base
      */
     public function __construct(Common\HttpClient $httpClient)
     {
-
         $this->setObject(new Objects\Voice\Webhook());
         $this->setResourceName('webhooks');
 

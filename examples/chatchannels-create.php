@@ -23,11 +23,9 @@ $chatChannel->channelDetails =
 try {
     $chatChannelResult = $messageBird->chatChannels->create($chatChannel);
     var_dump($chatChannelResult);
-
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'wrong login';
-
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

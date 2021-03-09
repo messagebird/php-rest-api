@@ -269,7 +269,7 @@ class Client
     /**
      * @param mixed $accessKey
      */
-    public function setAccessKey ($accessKey)
+    public function setAccessKey($accessKey)
     {
         $authentication = new Common\Authentication($accessKey);
 

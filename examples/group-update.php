@@ -10,11 +10,9 @@ $group->name = 'New group name';
 try {
     $groupResult = $messageBird->groups->update($group, 'group_id');
     var_dump($groupResult);
-
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'Wrong login';
-
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

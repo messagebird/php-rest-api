@@ -15,7 +15,7 @@ try {
 
     // pool for the results
     $poolCount = 10;
-    while($poolCount--) {
+    while ($poolCount--) {
         $hlr = $messageBird->lookupHlr->read($hlrObject->msisdn);
         if ($hlr->status !== \MessageBird\Objects\Hlr::STATUS_SENT) {
             // we have something
@@ -24,12 +24,9 @@ try {
         }
         sleep(0.5);
     }
-
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'wrong login';
-
 } catch (\Exception $e) {
     var_dump($e->getMessage());
-
 }

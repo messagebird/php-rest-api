@@ -29,8 +29,8 @@ class GroupTest extends BaseTest
     public function testListGroups()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'groups',  ['offset' => 100, 'limit' => 30], null);
-        $this->client->groups->getList( ['offset' => 100, 'limit' => 30]);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'groups', ['offset' => 100, 'limit' => 30], null);
+        $this->client->groups->getList(['offset' => 100, 'limit' => 30]);
     }
 
     public function testViewGroup()

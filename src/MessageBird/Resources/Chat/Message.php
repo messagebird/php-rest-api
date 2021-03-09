@@ -19,7 +19,6 @@ class Message extends Base
      */
     public function __construct(Common\HttpClient $httpClient)
     {
-
         $this->setObject(new Objects\Chat\Message());
         $this->setResourceName('messages');
 

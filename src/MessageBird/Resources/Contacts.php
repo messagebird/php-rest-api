@@ -46,8 +46,12 @@ class Contacts extends Base
         $resourceName = $this->resourceName . ($id ? '/' . $id : null);
         $body = json_encode($body);
 
-        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_PATCH, $resourceName, false,
-            $body);
+        list(, , $body) = $this->httpClient->performHttpRequest(
+            Common\HttpClient::REQUEST_PATCH,
+            $resourceName,
+            false,
+            $body
+        );
         return $this->processRequest($body);
     }
 

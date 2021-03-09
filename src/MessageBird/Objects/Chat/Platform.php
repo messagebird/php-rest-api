@@ -73,5 +73,4 @@ class Platform extends Base
      * @var array
      */
     protected $_links;
-
 }

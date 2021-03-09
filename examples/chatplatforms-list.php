@@ -9,11 +9,9 @@ $chatPlatform = new \MessageBird\Objects\Chat\Channel();
 try {
     $chatPlatformResult = $messageBird->chatPlatforms->getList();
     var_dump($chatPlatformResult);
-
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'wrong login';
-
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

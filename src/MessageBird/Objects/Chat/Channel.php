@@ -79,5 +79,4 @@ class Channel extends Base
      * @var array
      */
     protected $_links = [];
-
 }

@@ -36,7 +36,7 @@ class Account extends Base
             return $this;
         }
 
-        foreach($this->accessKeys as &$item) {
+        foreach ($this->accessKeys as &$item) {
             $accessKey = new AccessKey();
             $item = $accessKey->loadFromArray($item);
         }
