@@ -16,28 +16,28 @@ class Legs
     /**
      * @var \MessageBird\Common\HttpClient
      */
-    protected $HttpClient;
+    protected $httpClient;
 
     /**
      * @var Objects\Voice\Leg
      */
-    protected $Object;
+    protected $object;
 
     /**
-     * @param Common\HttpClient $HttpClient
+     * @param Common\HttpClient $httpClient
      */
-    public function __construct(Common\HttpClient $HttpClient)
+    public function __construct(Common\HttpClient $httpClient)
     {
-        $this->HttpClient = $HttpClient;
+        $this->httpClient = $httpClient;
         $this->setObject(new Objects\Voice\Leg());
     }
 
     /**
-     * @param $Object
+     * @param $object
      */
-    public function setObject($Object)
+    public function setObject($object)
     {
-        $this->Object = $Object;
+        $this->object = $object;
     }
 
     /**
@@ -45,7 +45,7 @@ class Legs
      */
     public function getObject()
     {
-        return $this->Object;
+        return $this->object;
     }
 
     /**
@@ -56,7 +56,7 @@ class Legs
      */
     public function getList($callId, $parameters = [])
     {
-        list($status, , $body) = $this->HttpClient->performHttpRequest(
+        list($status, , $body) = $this->httpClient->performHttpRequest(
             Common\HttpClient::REQUEST_GET,
             "calls/$callId/legs",
             $parameters
@@ -71,10 +71,10 @@ class Legs
             $baseList = new Objects\BaseList();
             $baseList->loadFromArray($body);
 
-            $objectName = $this->Object;
+            $objectName = $this->object;
 
             foreach ($items as $item) {
-                $object = new $objectName($this->HttpClient);
+                $object = new $objectName($this->httpClient);
 
                 $itemObject = $object->loadFromArray($item);
                 $baseList->items[] = $itemObject;
@@ -89,11 +89,11 @@ class Legs
      * @param string $callId
      * @param string $legId
      *
-     * @return $this->Object
+     * @return $this->object
      */
     public function read($callId, $legId)
     {
-        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, "calls/$callId/legs/$legId");
+        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, "calls/$callId/legs/$legId");
 
         return $this->processRequest($body);
     }
@@ -114,10 +114,10 @@ class Legs
         }
 
         if (empty($body->errors)) {
-            return $this->Object->loadFromArray($body->data[0]);
+            return $this->object->loadFromArray($body->data[0]);
         }
 
-        $ResponseError = new Common\ResponseError($body);
-        throw new Exceptions\RequestException($ResponseError->getErrorString());
+        $responseError = new Common\ResponseError($body);
+        throw new Exceptions\RequestException($responseError->getErrorString());
     }
 }

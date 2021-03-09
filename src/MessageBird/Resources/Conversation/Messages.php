@@ -9,7 +9,6 @@ use MessageBird\Exceptions\RequestException;
 use MessageBird\Exceptions\ServerException;
 use MessageBird\Objects\BaseList;
 use MessageBird\Objects\Conversation\Message;
-use MessageBird\Resources\Base;
 
 /**
  * Messages does not extend Base because PHP won't let us add parameters to the

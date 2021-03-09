@@ -2,9 +2,9 @@
 
 namespace MessageBird\Resources;
 
-use MessageBird\Objects;
-use MessageBird\Common;
 use InvalidArgumentException;
+use MessageBird\Common;
+use MessageBird\Objects;
 
 /**
  * Class LookupHlr
@@ -15,21 +15,21 @@ class LookupHlr extends Base
 {
 
     /**
-     * @param Common\HttpClient $HttpClient
+     * @param Common\HttpClient $httpClient
      */
-    public function __construct(Common\HttpClient $HttpClient)
+    public function __construct(Common\HttpClient $httpClient)
     {
         $this->setObject(new Objects\Hlr);
         $this->setResourceName('lookup');
 
-        parent::__construct($HttpClient);
+        parent::__construct($httpClient);
     }
 
     /**
      * @param Objects\Hlr $hlr
      * @param string|null $countryCode
      *
-     * @return $this->Object
+     * @return $this->object
      *
      * @throws \MessageBird\Exceptions\HttpException
      * @throws \MessageBird\Exceptions\RequestException
@@ -45,8 +45,8 @@ class LookupHlr extends Base
         if ($countryCode !== null) {
             $query = ["countryCode" => $countryCode];
         }
-        $ResourceName = $this->resourceName . '/' . ($hlr->msisdn) . '/hlr' ;
-        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_POST, $ResourceName, $query, json_encode($hlr));
+        $resourceName = $this->resourceName . '/' . ($hlr->msisdn) . '/hlr' ;
+        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_POST, $resourceName, $query, json_encode($hlr));
         return $this->processRequest($body);
     }
 
@@ -54,7 +54,7 @@ class LookupHlr extends Base
      * @param $phoneNumber
      * @param string|null  $countryCode
      *
-     * @return $this->Object
+     * @return $this->object
      *
      * @throws \MessageBird\Exceptions\HttpException
      * @throws \MessageBird\Exceptions\RequestException
@@ -70,8 +70,8 @@ class LookupHlr extends Base
         if ($countryCode !== null) {
             $query = ["countryCode" => $countryCode];
         }
-        $ResourceName = $this->resourceName . '/' . $phoneNumber . '/hlr' ;
-        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $ResourceName, $query, null);
+        $resourceName = $this->resourceName . '/' . $phoneNumber . '/hlr' ;
+        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $resourceName, $query, null);
         return $this->processRequest($body);
     }
 

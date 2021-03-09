@@ -2,9 +2,9 @@
 
 namespace MessageBird\Resources;
 
-use MessageBird\Objects;
-use MessageBird\Common;
 use InvalidArgumentException;
+use MessageBird\Common;
+use MessageBird\Objects;
 
 /**
  * Class Contacts
@@ -15,21 +15,21 @@ class Contacts extends Base
 {
 
     /**
-     * @param Common\HttpClient $HttpClient
+     * @param Common\HttpClient $httpClient
      */
-    public function __construct(Common\HttpClient $HttpClient)
+    public function __construct(Common\HttpClient $httpClient)
     {
         $this->setObject(new Objects\Contact());
         $this->setResourceName('contacts');
 
-        parent::__construct($HttpClient);
+        parent::__construct($httpClient);
     }
 
     /**
      * @param $object
      * @param $id
      *
-     * @return $this ->Object
+     * @return $this ->object
      *
      * @internal param array $parameters
      */
@@ -38,15 +38,15 @@ class Contacts extends Base
         $objVars = get_object_vars($object);
         $body = [];
         foreach ($objVars as $key => $value) {
-            if (null !== $value) {
+            if ($value !== null) {
                 $body[$key] = $value;
             }
         }
 
-        $ResourceName = $this->resourceName . ($id ? '/' . $id : null);
+        $resourceName = $this->resourceName . ($id ? '/' . $id : null);
         $body = json_encode($body);
 
-        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_PATCH, $ResourceName, false,
+        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_PATCH, $resourceName, false,
             $body);
         return $this->processRequest($body);
     }
@@ -54,11 +54,11 @@ class Contacts extends Base
     /**
      * @param $id
      * @param array|null $parameters
-     * @return $this ->Object
+     * @return $this ->object
      */
     public function getMessages($id, $parameters = [])
     {
-        if (is_null($id)) {
+        if ($id === null) {
             throw new InvalidArgumentException('No contact id provided.');
         }
 
@@ -70,11 +70,11 @@ class Contacts extends Base
     /**
      * @param $id
      * @param array|null $parameters
-     * @return $this ->Object
+     * @return $this ->object
      */
     public function getGroups($id, $parameters = [])
     {
-        if (is_null($id)) {
+        if ($id === null) {
             throw new InvalidArgumentException('No contact id provided.');
         }
 

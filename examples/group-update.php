@@ -2,14 +2,14 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
-$MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
+$messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
-$Group = new \MessageBird\Objects\Group();
-$Group->name = 'New group name';
+$group = new \MessageBird\Objects\Group();
+$group->name = 'New group name';
 
 try {
-    $GroupResult = $MessageBird->groups->update($Group, 'group_id');
-    var_dump($GroupResult);
+    $groupResult = $messageBird->groups->update($group, 'group_id');
+    var_dump($groupResult);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown

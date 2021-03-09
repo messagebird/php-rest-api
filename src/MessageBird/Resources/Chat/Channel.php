@@ -2,8 +2,8 @@
 
 namespace MessageBird\Resources\Chat;
 
-use MessageBird\Objects;
 use MessageBird\Common;
+use MessageBird\Objects;
 use MessageBird\Resources\Base;
 
 /**
@@ -15,14 +15,14 @@ class Channel extends Base
 {
 
     /**
-     * @param Common\HttpClient $HttpClient
+     * @param Common\HttpClient $httpClient
      */
-    public function __construct(Common\HttpClient $HttpClient)
+    public function __construct(Common\HttpClient $httpClient)
     {
 
         $this->setObject(new Objects\Chat\Channel());
         $this->setResourceName('channels');
 
-        parent::__construct($HttpClient);
+        parent::__construct($httpClient);
     }
 }

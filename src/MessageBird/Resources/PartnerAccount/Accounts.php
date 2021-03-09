@@ -20,7 +20,7 @@ class Accounts extends Base
 
     public function create($object, $query = null)
     {
-        list(, , $body) = $this->HttpClient->performHttpRequest(
+        list(, , $body) = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
             self::RESOURCE_NAME,
             null,
@@ -32,7 +32,7 @@ class Accounts extends Base
 
     public function getList($parameters = [])
     {
-        list($status, , $body) = $this->HttpClient->performHttpRequest(
+        list($status, , $body) = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_GET,
             self::RESOURCE_NAME,
             $parameters
@@ -54,7 +54,7 @@ class Accounts extends Base
 
     public function update($object, $id)
     {
-        list(, , $body) = $this->HttpClient->performHttpRequest(
+        list(, , $body) = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_PATCH,
             sprintf('%s/%s', self::RESOURCE_NAME, $id),
             null,

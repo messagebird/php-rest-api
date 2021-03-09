@@ -2,10 +2,10 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
-$MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
+$messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
-$Verify             = new \MessageBird\Objects\Verify();
-$Verify->recipient = 31612345678;
+$verify             = new \MessageBird\Objects\Verify();
+$verify->recipient = 31612345678;
 
 $extraOptions = [
     'originator' => 'MessageBird',
@@ -13,8 +13,8 @@ $extraOptions = [
 ];
 
 try {
-    $VerifyResult = $MessageBird->verify->create($Verify, $extraOptions);
-    var_dump($VerifyResult);
+    $verifyResult = $messageBird->verify->create($verify, $extraOptions);
+    var_dump($verifyResult);
 
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown

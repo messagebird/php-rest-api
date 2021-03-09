@@ -2,8 +2,8 @@
 
 namespace MessageBird\Resources;
 
-use MessageBird\Objects;
 use MessageBird\Common;
+use MessageBird\Objects;
 
 /**
  * Class Verify
@@ -14,21 +14,21 @@ class Verify extends Base
 {
 
     /**
-     * @param Common\HttpClient $HttpClient
+     * @param Common\HttpClient $httpClient
      */
-    public function __construct(Common\HttpClient $HttpClient)
+    public function __construct(Common\HttpClient $httpClient)
     {
         $this->setObject(new Objects\Verify);
         $this->setResourceName('verify');
 
-        parent::__construct($HttpClient);
+        parent::__construct($httpClient);
     }
 
     /**
      * @param $id
      * @param $token
      *
-     * @return $this->Object
+     * @return $this->object
      *
      * @throws \MessageBird\Exceptions\HttpException
      * @throws \MessageBird\Exceptions\RequestException
@@ -36,8 +36,8 @@ class Verify extends Base
      */
     public function verify($id, $token)
     {
-        $ResourceName = $this->resourceName . (($id) ? '/' . $id : null);
-        list(, , $body) = $this->HttpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $ResourceName, ['token' => $token]);
+        $resourceName = $this->resourceName . (($id) ? '/' . $id : null);
+        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $resourceName, ['token' => $token]);
         return $this->processRequest($body);
     }
 }

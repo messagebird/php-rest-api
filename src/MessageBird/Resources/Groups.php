@@ -2,10 +2,10 @@
 
 namespace MessageBird\Resources;
 
-use MessageBird\Objects;
+use InvalidArgumentException;
 use MessageBird\Common;
 use MessageBird\Exceptions;
-use InvalidArgumentException;
+use MessageBird\Objects;
 
 /**
  * Class Groups
@@ -16,14 +16,14 @@ class Groups extends Base
 {
 
     /**
-     * @param Common\HttpClient $HttpClient
+     * @param Common\HttpClient $httpClient
      */
-    public function __construct(Common\HttpClient $HttpClient)
+    public function __construct(Common\HttpClient $httpClient)
     {
         $this->setObject(new Objects\Group());
         $this->setResourceName('groups');
 
-        parent::__construct($HttpClient);
+        parent::__construct($httpClient);
     }
 
     /**
@@ -33,7 +33,7 @@ class Groups extends Base
      * @throws Exceptions\AuthenticateException
      * @throws Exceptions\HttpException
      *
-     * @return $this ->Object
+     * @return $this ->object
      *
      * @internal param array $parameters
      */
@@ -42,17 +42,17 @@ class Groups extends Base
         $objVars = get_object_vars($object);
         $body = [];
         foreach ($objVars as $key => $value) {
-            if (null !== $value) {
+            if ($value !== null) {
                 $body[$key] = $value;
             }
         }
 
-        $ResourceName = $this->resourceName . ($id ? '/' . $id : null);
+        $resourceName = $this->resourceName . ($id ? '/' . $id : null);
         $body = json_encode($body);
 
-        list(, , $body) = $this->HttpClient->performHttpRequest(
+        list(, , $body) = $this->httpClient->performHttpRequest(
             Common\HttpClient::REQUEST_PATCH,
-            $ResourceName,
+            $resourceName,
             false,
             $body
         );
@@ -69,7 +69,7 @@ class Groups extends Base
      */
     public function getContacts($id = null, $parameters = [])
     {
-        if (is_null($id)) {
+        if ($id === null) {
             throw new InvalidArgumentException('No group id provided.');
         }
 
@@ -92,15 +92,15 @@ class Groups extends Base
         if (!is_array($contacts)) {
             throw new  InvalidArgumentException('No array with contacts provided.');
         }
-        if (is_null($id)) {
+        if ($id === null) {
             throw new InvalidArgumentException('No group id provided.');
         }
 
-        $ResourceName = $this->resourceName . ($id ? '/' . $id . '/contacts' : null);
+        $resourceName = $this->resourceName . ($id ? '/' . $id . '/contacts' : null);
         $contacts = json_encode($contacts);
-        list($responseStatus, , $responseBody) = $this->HttpClient->performHttpRequest(
+        list($responseStatus, , $responseBody) = $this->httpClient->performHttpRequest(
             Common\HttpClient::REQUEST_PUT,
-            $ResourceName,
+            $resourceName,
             false,
             $contacts
         );
@@ -121,14 +121,14 @@ class Groups extends Base
      */
     public function removeContact($contact_id = null, $id = null)
     {
-        if (is_null($contact_id) || is_null($id)) {
+        if ($contact_id === null || $id === null) {
             throw new InvalidArgumentException('Null Contact or Group id.');
         }
-        $ResourceName = $this->resourceName . ($id ? '/' . $id . '/contacts/' . $contact_id : null);
+        $resourceName = $this->resourceName . ($id ? '/' . $id . '/contacts/' . $contact_id : null);
 
-        list($responseStatus, , $responseBody) = $this->HttpClient->performHttpRequest(
+        list($responseStatus, , $responseBody) = $this->httpClient->performHttpRequest(
             Common\HttpClient::REQUEST_DELETE,
-            $ResourceName
+            $resourceName
         );
         if ($responseStatus !== Common\HttpClient::HTTP_NO_CONTENT) {
             return json_decode($responseBody);

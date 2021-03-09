@@ -2,21 +2,21 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
-$MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
+$messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 try {
-    $Hlr             = new \MessageBird\Objects\Hlr();
-    $Hlr->msisdn     = '31624971134';
-    $Hlr->reference  = "yoloswag3001";
+    $hlrObject             = new \MessageBird\Objects\Hlr();
+    $hlrObject->msisdn     = '31624971134';
+    $hlrObject->reference  = "yoloswag3001";
 
     // create a new hlr request
-    $hlr = $MessageBird->lookupHlr->create($Hlr);
+    $hlr = $messageBird->lookupHlr->create($hlrObject);
     var_dump($hlr);
 
     // pool for the results
     $poolCount = 10;
     while($poolCount--) {
-        $hlr = $MessageBird->lookupHlr->read($Hlr->msisdn);
+        $hlr = $messageBird->lookupHlr->read($hlrObject->msisdn);
         if ($hlr->status !== \MessageBird\Objects\Hlr::STATUS_SENT) {
             // we have something
             var_dump($hlr);

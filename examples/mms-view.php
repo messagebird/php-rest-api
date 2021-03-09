@@ -2,11 +2,11 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
-$MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
+$messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 try {
-    $MmsResult = $MessageBird->mmsMessages->read('mms_message_id'); // Set a MMS Message id
-    var_dump($MmsResult);
+    $mmsResult = $messageBird->mmsMessages->read('mms_message_id'); // Set a MMS Message id
+    var_dump($mmsResult);
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'wrong login';

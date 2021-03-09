@@ -33,7 +33,7 @@ class HttpClient
     /**
      * @var Common\Authentication
      */
-    protected $Authentication;
+    protected $authentication;
 
     /**
      * @var int
@@ -94,11 +94,11 @@ class HttpClient
     }
 
     /**
-     * @param Common\Authentication $Authentication
+     * @param Common\Authentication $authentication
      */
-    public function setAuthentication(Common\Authentication $Authentication)
+    public function setAuthentication(Common\Authentication $authentication)
     {
-        $this->Authentication = $Authentication;
+        $this->authentication = $authentication;
     }
 
     /**
@@ -143,7 +143,7 @@ class HttpClient
      */
     public function getHttpOption($option)
     {
-        return isset($this->httpOptions[$option]) ? $this->httpOptions[$option] : null;
+        return $this->httpOptions[$option] ?? null;
     }
 
     /**
@@ -161,7 +161,7 @@ class HttpClient
     {
         $curl = curl_init();
 
-        if ($this->Authentication === null) {
+        if ($this->authentication === null) {
             throw new Exceptions\AuthenticateException('Can not perform API Request without Authentication');
         }
 
@@ -170,7 +170,7 @@ class HttpClient
             'Accept: application/json',
             'Content-Type: application/json',
             'Accept-Charset: utf-8',
-            sprintf('Authorization: AccessKey %s', $this->Authentication->accessKey)
+            sprintf('Authorization: AccessKey %s', $this->authentication->accessKey)
         ];
 
         $headers = array_merge($headers, $this->headers);

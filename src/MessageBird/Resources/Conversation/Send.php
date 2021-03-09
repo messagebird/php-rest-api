@@ -36,7 +36,7 @@ class Send extends Base
     {
         $body = json_encode($object);
 
-        list(, , $resultBody) = $this->HttpClient->performHttpRequest(
+        list(, , $resultBody) = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
             $this->getResourceName(),
             $query,

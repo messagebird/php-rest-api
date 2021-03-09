@@ -157,10 +157,10 @@ class VoiceMessage extends Base
 
         if (!empty($this->recipients->items)) {
             foreach($this->recipients->items AS &$item) {
-                $Recipient = new Recipient();
-                $Recipient->loadFromArray($item);
+                $recipient = new Recipient();
+                $recipient->loadFromArray($item);
 
-                $item = $Recipient;
+                $item = $recipient;
             }
         }
 

@@ -2,14 +2,14 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
-$MessageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
+$messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 try {
-    $Lookup = $MessageBird->lookup->read(31624971134);
-    var_dump($Lookup);
+    $lookup = $messageBird->lookup->read(31624971134);
+    var_dump($lookup);
 
-    $Lookup = $MessageBird->lookup->read("624971134", "NL");
-    var_dump($Lookup);
+    $lookup = $messageBird->lookup->read("624971134", "NL");
+    var_dump($lookup);
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'wrong login';
