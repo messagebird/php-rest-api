@@ -6,12 +6,6 @@ use Tests\Integration\BaseTest;
 
 class ContactTest extends BaseTest
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
-    }
-
     public function testCreateContact()
     {
         $contact             = new \MessageBird\Objects\Contact();

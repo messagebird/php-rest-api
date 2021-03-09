@@ -49,13 +49,6 @@ class ConversationMessageTest extends BaseTest
         "type": "video"
     }';
 
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->client = new Client('YOUR_ACCESS_KEY', $this->mockClient);
-    }
-
     public function testCreateImage()
     {
         $this->mockClient

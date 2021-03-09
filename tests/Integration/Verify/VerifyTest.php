@@ -6,12 +6,6 @@ use Tests\Integration\BaseTest;
 
 class VerifyTest extends BaseTest
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->client = new \MessageBird\Client('YOUR_ACCESS_KEY', $this->mockClient);
-    }
-
     public function testGenerateOtp()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
