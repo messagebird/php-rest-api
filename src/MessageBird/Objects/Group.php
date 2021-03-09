@@ -98,12 +98,12 @@ class Group extends Base
      *
      * @return $this|void
      */
-    public function loadFromArray ($object)
+    public function loadFromArray($object)
     {
         parent::loadFromArray($object);
 
         if (!empty($object->items)) {
-            foreach($object->items AS &$item) {
+            foreach ($object->items as &$item) {
                 $contact = new Contact();
                 $contact->loadFromArray($item);
 

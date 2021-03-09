@@ -13,7 +13,7 @@ class ConversationContentTest extends BaseTest
 {
     /**
      * @param string $json
-     * 
+     *
      * @return Message
      */
     private function messageFromJson($json)
@@ -50,7 +50,7 @@ class ConversationContentTest extends BaseTest
         $message->type = 'file';
 
         $this->assertEquals($message, $this->messageFromJson(
-            '{"type":"file","content":{"file":{"url":"https://example.com/file.pdf"}}}'   
+            '{"type":"file","content":{"file":{"url":"https://example.com/file.pdf"}}}'
         ));
     }
 

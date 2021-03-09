@@ -81,5 +81,4 @@ class LookupTest extends BaseTest
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'lookup/612345678/hlr', $params, null);
         $this->client->lookupHlr->read(612345678, $params["countryCode"]);
     }
-
 }

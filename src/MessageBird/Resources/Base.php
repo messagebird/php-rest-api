@@ -99,7 +99,7 @@ class Base
 
             $objectName = $this->object;
 
-            foreach ($items AS $item) {
+            foreach ($items as $item) {
                 $object = new $objectName($this->httpClient);
 
                 $message           = $object->loadFromArray($item);

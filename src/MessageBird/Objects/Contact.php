@@ -179,7 +179,7 @@ class Contact extends Base
         parent::loadFromArray($object);
 
         if (!empty($object->items)) {
-            foreach($object->items AS &$item) {
+            foreach ($object->items as &$item) {
                 $group = new Group();
                 $group->loadFromArray($item);
 

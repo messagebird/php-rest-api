@@ -10,7 +10,6 @@ try {
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     print("wrong login\n");
-
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

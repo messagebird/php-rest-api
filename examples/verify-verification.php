@@ -9,13 +9,11 @@ try {
     var_dump($verifyResult);
 
     // Check if $verifyResult->getStatus() === MessageBird\Objects\Verify::STATUS_VERIFIED
-
 } catch (\MessageBird\Exceptions\RequestException $e) {
     echo 'token incorrect';
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'wrong login';
-
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

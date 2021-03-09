@@ -22,8 +22,8 @@ class VoiceMessagesTest extends BaseTest
     public function testListMessage()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'voicemessages',  ['offset' => 100, 'limit' => 30], null);
-        $this->client->voicemessages->getList( ['offset' => 100, 'limit' => 30]);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'voicemessages', ['offset' => 100, 'limit' => 30], null);
+        $this->client->voicemessages->getList(['offset' => 100, 'limit' => 30]);
     }
 
     public function testReadMessage()

@@ -9,7 +9,6 @@ namespace MessageBird\Common;
  */
 class Authentication
 {
-
     public $accessKey;
 
     /**

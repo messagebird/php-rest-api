@@ -59,13 +59,13 @@ class Messages
 
     /**
      * Send a message to a conversation.
-     * 
+     *
      * @param string $conversationId
      * @param Message $object
      * @param string[]|null $query
      *
      * @return Message
-     * 
+     *
      * @throws HttpException
      * @throws RequestException
      * @throws ServerException
@@ -87,7 +87,7 @@ class Messages
     /**
      * Retrieves all the messages form the conversation based on its
      * conversationId.
-     * 
+     *
      * @param string $conversationId
      * @param string[] $parameters
      */
@@ -123,7 +123,8 @@ class Messages
         return $this->processRequest($body);
     }
 
-    public function read($messageId, $parameters = []) {
+    public function read($messageId, $parameters = [])
+    {
         list($status, , $body) = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_GET,
             sprintf(self::MESSAGE_RESOURCE_NAME, $messageId),
@@ -148,9 +149,9 @@ class Messages
     /**
      * Formats a URL for the Conversation API's messages endpoint based on the
      * conversationId.
-     * 
+     *
      * @param string $id
-     * 
+     *
      * @return string
      */
     private function getResourceNameWithId($id)
@@ -160,7 +161,7 @@ class Messages
 
     /**
      * Throws an exception if the request if the request has any errors.
-     * 
+     *
      * @param string $body
      *
      * @return self

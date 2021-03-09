@@ -21,8 +21,8 @@ class ChatTest extends BaseTest
     public function testListChatMessage()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'messages',  ['offset' => 100, 'limit' => 30], null);
-        $chatMessageList = $this->client->chatMessages->getList( ['offset' => 100, 'limit' => 30]);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'messages', ['offset' => 100, 'limit' => 30], null);
+        $chatMessageList = $this->client->chatMessages->getList(['offset' => 100, 'limit' => 30]);
     }
 
     public function testReadChatMessage()
@@ -53,8 +53,8 @@ class ChatTest extends BaseTest
     public function testListChatChannels()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'channels',  ['offset' => 100, 'limit' => 30], null);
-        $channelList = $this->client->chatChannels->getList( ['offset' => 100, 'limit' => 30]);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'channels', ['offset' => 100, 'limit' => 30], null);
+        $channelList = $this->client->chatChannels->getList(['offset' => 100, 'limit' => 30]);
     }
 
     public function testReadChatChannel()
@@ -79,14 +79,14 @@ class ChatTest extends BaseTest
 
         $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([200, '', '{"name":"9d2345ac577e4f103cd3d4529856560","callbackUrl":"http:\/\/testurl.dev"}']);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("PUT", 'channels/234agfgADFH2974gaADFH3hudf9h', null, '{"name":"9d2345ac577e4f103cd3d4529856560","callbackUrl":"http:\/\/testurl.dev"}');
-        $this->client->chatChannels->update($chatChannel,'234agfgADFH2974gaADFH3hudf9h');
+        $this->client->chatChannels->update($chatChannel, '234agfgADFH2974gaADFH3hudf9h');
     }
 
     public function testListChatPlatforms()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'platforms',  ['offset' => 100, 'limit' => 30], null);
-        $channelList = $this->client->chatPlatforms->getList( ['offset' => 100, 'limit' => 30]);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'platforms', ['offset' => 100, 'limit' => 30], null);
+        $channelList = $this->client->chatPlatforms->getList(['offset' => 100, 'limit' => 30]);
     }
 
     public function testReadChatPlatform()
@@ -99,8 +99,8 @@ class ChatTest extends BaseTest
     public function testListChatContacts()
     {
         $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts',  ['offset' => 100, 'limit' => 30], null);
-        $contactList = $this->client->chatContacts->getList( ['offset' => 100, 'limit' => 30]);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts', ['offset' => 100, 'limit' => 30], null);
+        $contactList = $this->client->chatContacts->getList(['offset' => 100, 'limit' => 30]);
     }
 
     public function testReadChatContact()

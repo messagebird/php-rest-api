@@ -9,11 +9,9 @@ try {
     $group_id = 'group_id';
     $groupAddContact = $messageBird->groups->removeContact($contact_id, $group_id);
     var_dump($groupAddContact);
-
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'Wrong login';
-
 } catch (\Exception $e) {
     var_dump($e->getMessage());
 }

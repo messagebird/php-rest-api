@@ -64,7 +64,6 @@ class MmsTest extends BaseTest
         $this->assertCount(2, $resultMessages->items);
         $this->assertMessagesAreEqual($dummyMessage, $resultMessages->items[0], 'message_id');
         $this->assertMessagesAreEqual($dummyMessage, $resultMessages->items[1], 'message_id_2');
-
     }
 
     public function testDeleteMms()
@@ -135,7 +134,7 @@ class MmsTest extends BaseTest
         $this->assertAttributeEquals($mmsMessage->mediaUrls, 'mediaUrls', $resultMmsMessage);
         $this->assertAttributeEquals($mmsMessage->reference, 'reference', $resultMmsMessage);
 
-        foreach($resultMmsMessage->recipients->items as $item) {
+        foreach ($resultMmsMessage->recipients->items as $item) {
             $this->assertArraySubset([$item->recipient], $mmsMessage->recipients);
         }
     }

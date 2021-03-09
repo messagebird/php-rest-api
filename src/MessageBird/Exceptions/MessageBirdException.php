@@ -8,5 +8,4 @@ namespace MessageBird\Exceptions;
  */
 abstract class MessageBirdException extends \Exception
 {
-
 }

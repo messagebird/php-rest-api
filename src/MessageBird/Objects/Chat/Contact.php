@@ -67,5 +67,4 @@ class Contact extends Base
      * @var string
      */
     protected $updatedAt;
-
 }

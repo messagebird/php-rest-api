@@ -7,7 +7,8 @@ namespace MessageBird\Objects;
  *
  * @package MessageBird\Objects
  */
-class MmsMessage extends Base {
+class MmsMessage extends Base
+{
 
     /**
      * An unique random ID which is created on the MessageBird
@@ -97,7 +98,8 @@ class MmsMessage extends Base {
      *
      * @return string
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -106,7 +108,8 @@ class MmsMessage extends Base {
      *
      * @return string
      */
-    public function getHref() {
+    public function getHref()
+    {
         return $this->href;
     }
 
@@ -115,7 +118,8 @@ class MmsMessage extends Base {
      *
      * @return string
      */
-    public function getCreatedDatetime() {
+    public function getCreatedDatetime()
+    {
         return $this->createdDatetime;
     }
 
@@ -129,7 +133,7 @@ class MmsMessage extends Base {
         parent::loadFromArray($object);
 
         if (!empty($this->recipients->items)) {
-            foreach($this->recipients->items as &$item) {
+            foreach ($this->recipients->items as &$item) {
                 $recipient = new Recipient();
                 $recipient->loadFromArray($item);
 

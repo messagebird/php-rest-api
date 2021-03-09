@@ -37,7 +37,7 @@ class Lookup extends Base
      */
     public function read($phoneNumber = null, $countryCode = null)
     {
-        if(empty($phoneNumber)) {
+        if (empty($phoneNumber)) {
             throw new InvalidArgumentException('The phone number cannot be empty.');
         }
         $query = null;

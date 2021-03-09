@@ -17,11 +17,9 @@ $contact->custom4 = "test_custom4";
 try {
     $contactResult = $messageBird->contacts->create($contact);
     var_dump($contactResult);
-
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'Wrong login';
-
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

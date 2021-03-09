@@ -40,7 +40,7 @@ class ResponseError
     public function __construct($body)
     {
         if (!empty($body->errors)) {
-            foreach ($body->errors AS $error) {
+            foreach ($body->errors as $error) {
                 // Voice API returns errors with a "message" field instead of "description".
                 // This ensures all errors have a description set.
                 if (!empty($error->message)) {
@@ -82,7 +82,7 @@ class ResponseError
     {
         $errorDescriptions = [];
 
-        foreach ($this->errors AS $error) {
+        foreach ($this->errors as $error) {
             $errorDescriptions[] = $error->description;
         }
 

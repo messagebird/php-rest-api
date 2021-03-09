@@ -11,11 +11,9 @@ $chatChannel->callbackUrl = 'http://newurl.dev';
 try {
     $chatChannelResult = $messageBird->chatChannels->update($chatChannel, '331af4c577e3asbbc3631455680736');
     var_dump($chatChannelResult);
-
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown
     echo 'wrong login';
-
 } catch (\Exception $e) {
     echo $e->getMessage();
 }
