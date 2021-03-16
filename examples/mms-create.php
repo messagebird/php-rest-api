@@ -5,7 +5,7 @@ require_once(__DIR__ . '/../autoload.php');
 $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 $mmsMessage = new \MessageBird\Objects\MmsMessage();
-$mmsMessage->originator = 'MessageBird';
+$mmsMessage->originator = 'YourNumber';
 $mmsMessage->recipients = [31612345678];
 $mmsMessage->subject = "Check out this cool MMS";
 $mmsMessage->body = 'Have you seen this logo?';

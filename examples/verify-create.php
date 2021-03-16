@@ -8,7 +8,7 @@ $verify             = new \MessageBird\Objects\Verify();
 $verify->recipient = 31612345678;
 
 $extraOptions = [
-    'originator' => 'MessageBird',
+    'originator' => 'YourBrand',
     'timeout' => 60,
 ];
 

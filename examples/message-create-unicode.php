@@ -5,7 +5,7 @@ require_once(__DIR__ . '/../autoload.php');
 $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
 $message             = new \MessageBird\Objects\Message();
-$message->originator = 'MessageBird';
+$message->originator = 'YourBrand';
 $message->recipients = [31612345678];
 $message->body       = 'This is a test message with a smiling emoji 😀.';
 $message->datacoding = 'unicode';
