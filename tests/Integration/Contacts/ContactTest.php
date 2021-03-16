@@ -3,6 +3,7 @@
 namespace Tests\Integration\Contacts;
 
 use Tests\Integration\BaseTest;
+use MessageBird\Objects\Message;
 
 class ContactTest extends BaseTest
 {
@@ -121,7 +122,7 @@ class ContactTest extends BaseTest
 
         $messages = $this->client->contacts->getMessages("contact_id");
         foreach($messages->items as $message) {
-            $this->assertInstanceOf('\MessageBird\Objects\Message', $message);
+            $this->assertInstanceOf(Message::class, $message);
         }
     }
 }
