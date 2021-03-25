@@ -76,13 +76,13 @@ class Base
      * @param mixed $object
      * @param array|null $query
      *
-     * @return static
+     * @return Objects\Balance|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      *
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
      */
-    public function create($object, $query = null): self
+    public function create($object, $query = null)
     {
         $body = json_encode($object);
         list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_POST, $this->resourceName, $query, $body);
@@ -92,7 +92,7 @@ class Base
     /**
      * @param array|null $parameters
      *
-     * @return Objects\BaseList|static
+     * @return Objects\Balance|Objects\BaseList|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      */
     public function getList(?array $parameters =  [])
     {
@@ -124,7 +124,7 @@ class Base
     /**
      * @param mixed $id
      *
-     * @return static
+     * @return Objects\Balance|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      *
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
@@ -139,7 +139,7 @@ class Base
     /**
      * @param mixed $id
      *
-     * @return static|true
+     * @return Objects\Balance|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null|true
      *
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
@@ -184,7 +184,7 @@ class Base
      * @param mixed $object
      * @param mixed $id
      *
-     * @return $this ->object
+     * @return Objects\Balance|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
      *
      * @internal param array $parameters
      */

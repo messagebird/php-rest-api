@@ -26,13 +26,13 @@ class Conversations extends Base
      * @param Message $object
      * @param array|null $query
      *
-     * @return static
+     * @return \MessageBird\Objects\Balance|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
      *
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
      */
-    public function start($object, $query = null): self
+    public function start($object, $query = null)
     {
         $body = json_encode($object);
 
@@ -61,13 +61,13 @@ class Conversations extends Base
      *
      * @param int $contactId
      *
-     * @return static
+     * @return \MessageBird\Objects\Balance|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
      *
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
      */
-    public function create($contactId, $query = null): self
+    public function create($contactId, $query = null)
     {
         $body = json_encode(['contactId' => $contactId]);
 
@@ -85,7 +85,7 @@ class Conversations extends Base
      * @param mixed $object
      * @param mixed $id
      *
-     * @return $this ->object
+     * @return \MessageBird\Objects\Balance|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null ->object
      *
      * @internal param array $parameters
      */

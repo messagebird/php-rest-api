@@ -14,7 +14,7 @@ use MessageBird\Objects\Voice\BaseList;
 class Base extends \MessageBird\Resources\Base
 {
     /**
-     * @return BaseList|static
+     * @return BaseList|\MessageBird\Objects\Balance|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
      */
     public function getList($parameters = [])
     {

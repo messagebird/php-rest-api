@@ -66,13 +66,13 @@ class Messages
      * @param Message $object
      * @param string[]|null $query
      *
-     * @return self
+     * @return Message
      *
      * @throws HttpException
      * @throws RequestException
      * @throws ServerException
      */
-    public function create($conversationId, $object, $query = null): self
+    public function create($conversationId, $object, $query = null): Message
     {
         $body = json_encode($object);
 
@@ -93,7 +93,7 @@ class Messages
      * @param string $conversationId
      * @param string[] $parameters
      *
-     * @return BaseList|self
+     * @return BaseList|Message
      */
     public function getList($conversationId, $parameters = [])
     {

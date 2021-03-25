@@ -19,9 +19,9 @@ class Accounts extends Base
     }
 
     /**
-     * @return static
+     * @return \MessageBird\Objects\Balance|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
      */
-    public function create($object, $query = null): self
+    public function create($object, $query = null)
     {
         list(, , $body) = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
@@ -55,6 +55,9 @@ class Accounts extends Base
         return $response;
     }
 
+    /**
+     * @return \MessageBird\Objects\Balance|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
+     */
     public function update($object, $id)
     {
         list(, , $body) = $this->httpClient->performHttpRequest(

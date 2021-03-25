@@ -29,7 +29,7 @@ class Contacts extends Base
      * @param mixed $object
      * @param mixed $id
      *
-     * @return $this ->object
+     * @return Objects\Balance|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
      *
      * @internal param array $parameters
      */
