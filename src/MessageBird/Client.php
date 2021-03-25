@@ -19,7 +19,7 @@ class Client
     const ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX = 'ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX';
     const CONVERSATIONSAPI_WHATSAPP_SANDBOX_ENDPOINT = 'https://whatsapp-sandbox.messagebird.com/v1';
 
-    const CLIENT_VERSION = '1.20.0';
+    const CLIENT_VERSION = '2.0.0-prerelease';
 
     /**
      * @var string
