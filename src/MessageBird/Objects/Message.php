@@ -147,8 +147,10 @@ class Message extends Base
      * @param mixed $tariff
      * @param mixed $mid
      * @param mixed $member
+     *
+     * @return void
      */
-    public function setPremiumSms($shortcode, $keyword, $tariff, $mid = null, $member = null)
+    public function setPremiumSms($shortcode, $keyword, $tariff, $mid = null, $member = null): void
     {
         $this->typeDetails['shortcode'] = $shortcode;
         $this->typeDetails['keyword']   = $keyword;
@@ -166,8 +168,10 @@ class Message extends Base
     /**
      * @param mixed $header
      * @param mixed $body
+     *
+     * @return void
      */
-    public function setBinarySms($header, $body)
+    public function setBinarySms($header, $body): void
     {
         $this->typeDetails['udh'] = $header;
         $this->body               = $body;
@@ -176,8 +180,10 @@ class Message extends Base
 
     /**
      * @param mixed $bool
+     *
+     * @return void
      */
-    public function setFlash($bool)
+    public function setFlash($bool): void
     {
         if ($bool === true) {
             $this->mclass = 0;

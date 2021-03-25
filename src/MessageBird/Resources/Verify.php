@@ -28,7 +28,7 @@ class Verify extends Base
      * @param mixed $id
      * @param mixed $token
      *
-     * @return $this->object
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      *
      * @throws \MessageBird\Exceptions\HttpException
      * @throws \MessageBird\Exceptions\RequestException

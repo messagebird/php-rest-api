@@ -32,11 +32,11 @@ class PhoneNumbers extends Base
      * @param mixed $object
      * @param mixed $id
      *
-     * @return Objects\Number
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      *
      * @internal param array $parameters
      */
-    public function update($object, $id): Objects\Number
+    public function update($object, $id)
     {
         $objVars = get_object_vars($object);
         $body = [];

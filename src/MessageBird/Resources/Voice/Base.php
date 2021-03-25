@@ -13,6 +13,9 @@ use MessageBird\Objects\Voice\BaseList;
  */
 class Base extends \MessageBird\Resources\Base
 {
+    /**
+     * @return BaseList|\MessageBird\Objects\Balance|\MessageBird\Objects\Conversation\Conversation|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
+     */
     public function getList($parameters = [])
     {
         list($status, , $body) = $this->httpClient->performHttpRequest(
@@ -34,6 +37,7 @@ class Base extends \MessageBird\Resources\Base
             $objectName = $this->object;
 
             foreach ($data as $item) {
+                /** @psalm-suppress UndefinedClass */
                 $itemObject = new $objectName($this->httpClient);
 
                 $message = $itemObject->loadFromArray($item);
@@ -47,6 +51,8 @@ class Base extends \MessageBird\Resources\Base
 
     /**
      * @inheritdoc
+     *
+     * @return \MessageBird\Objects\Balance|\MessageBird\Objects\Conversation\Conversation|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
      */
     public function processRequest($body)
     {

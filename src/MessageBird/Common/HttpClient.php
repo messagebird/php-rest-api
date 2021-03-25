@@ -91,16 +91,20 @@ class HttpClient
 
     /**
      * @param string $userAgent
+     *
+     * @return void
      */
-    public function addUserAgentString($userAgent)
+    public function addUserAgentString($userAgent): void
     {
         $this->userAgent[] = $userAgent;
     }
 
     /**
      * @param Common\Authentication $authentication
+     *
+     * @return void
      */
-    public function setAuthentication(Common\Authentication $authentication)
+    public function setAuthentication(Common\Authentication $authentication): void
     {
         $this->authentication = $authentication;
     }
@@ -126,8 +130,10 @@ class HttpClient
 
     /**
      * @param array $headers
+     *
+     * @return void
      */
-    public function setHeaders(array $headers)
+    public function setHeaders(array $headers): void
     {
         $this->headers = $headers;
     }
@@ -135,8 +141,10 @@ class HttpClient
     /**
      * @param mixed $option
      * @param mixed $value
+     *
+     * @return void
      */
-    public function addHttpOption($option, $value)
+    public function addHttpOption($option, $value): void
     {
         $this->httpOptions[$option] = $value;
     }

@@ -47,7 +47,7 @@ class RequestValidator
         return \hash_equals($expectedSignature, $calculatedSignature);
     }
 
-    private function buildPayloadFromRequest(SignedRequest $request)
+    private function buildPayloadFromRequest(SignedRequest $request): string
     {
         $parts = [];
 

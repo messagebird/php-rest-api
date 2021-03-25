@@ -18,6 +18,9 @@ class Accounts extends Base
         $this->setResourceName(self::RESOURCE_NAME);
     }
 
+    /**
+     * @return \MessageBird\Objects\Balance|\MessageBird\Objects\Conversation\Conversation|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
+     */
     public function create($object, $query = null)
     {
         list(, , $body) = $this->httpClient->performHttpRequest(
@@ -52,6 +55,9 @@ class Accounts extends Base
         return $response;
     }
 
+    /**
+     * @return \MessageBird\Objects\Balance|\MessageBird\Objects\Conversation\Conversation|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
+     */
     public function update($object, $id)
     {
         list(, , $body) = $this->httpClient->performHttpRequest(

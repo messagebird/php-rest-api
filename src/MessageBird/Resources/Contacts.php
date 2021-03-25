@@ -29,7 +29,7 @@ class Contacts extends Base
      * @param mixed $object
      * @param mixed $id
      *
-     * @return $this ->object
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
      *
      * @internal param array $parameters
      */
@@ -58,7 +58,8 @@ class Contacts extends Base
     /**
      * @param mixed $id
      * @param array|null $parameters
-     * @return $this ->object
+     *
+     * @return Objects\Balance|Objects\BaseList|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
      */
     public function getMessages($id, $parameters = [])
     {
@@ -74,7 +75,8 @@ class Contacts extends Base
     /**
      * @param mixed $id
      * @param array|null $parameters
-     * @return $this ->object
+     *
+     * @return Objects\Balance|Objects\BaseList|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
      */
     public function getGroups($id, $parameters = [])
     {

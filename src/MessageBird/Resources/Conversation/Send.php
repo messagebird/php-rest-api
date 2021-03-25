@@ -26,7 +26,7 @@ class Send extends Base
      * @param SendMessage $object
      * @param array|null $query
      *
-     * @return SendMessageResult
+     * @return \MessageBird\Objects\Balance|\MessageBird\Objects\Conversation\Conversation|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
      *
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException

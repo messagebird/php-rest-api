@@ -29,7 +29,7 @@ class LookupHlr extends Base
      * @param Objects\Hlr $hlr
      * @param string|null $countryCode
      *
-     * @return $this->object
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      *
      * @throws \MessageBird\Exceptions\HttpException
      * @throws \MessageBird\Exceptions\RequestException
@@ -51,10 +51,12 @@ class LookupHlr extends Base
     }
 
     /**
+     * @no-named-arguments
+     *
      * @param mixed $phoneNumber
      * @param string|null  $countryCode
      *
-     * @return $this->object
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      *
      * @throws \MessageBird\Exceptions\HttpException
      * @throws \MessageBird\Exceptions\RequestException
