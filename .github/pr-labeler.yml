@@ -1,0 +1,3 @@
+feature: ['feature/*', 'feat/*', 'feature-*']
+fix: ['fix/*', 'fix-*', 'bugfix/*', 'bugfix-', 'hotfix-', 'hotfix-']
+chore: ['chore/*', 'chore-*']
