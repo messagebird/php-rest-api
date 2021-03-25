@@ -51,8 +51,10 @@ class Messages
 
     /**
      * @param Message $object
+     *
+     * @return void
      */
-    public function setObject($object)
+    public function setObject($object): void
     {
         $this->object = $object;
     }
@@ -70,7 +72,7 @@ class Messages
      * @throws RequestException
      * @throws ServerException
      */
-    public function create($conversationId, $object, $query = null)
+    public function create($conversationId, $object, $query = null): Message
     {
         $body = json_encode($object);
 
@@ -90,6 +92,8 @@ class Messages
      *
      * @param string $conversationId
      * @param string[] $parameters
+     *
+     * @return BaseList|Message
      */
     public function getList($conversationId, $parameters = [])
     {
@@ -111,6 +115,7 @@ class Messages
             $objectName = $this->object;
 
             foreach ($items as $item) {
+                /** @psalm-suppress UndefinedClass */
                 $message = new $objectName($this->httpClient);
                 $message->loadFromArray($item);
 
@@ -123,6 +128,9 @@ class Messages
         return $this->processRequest($body);
     }
 
+    /**
+     * @return Message|self
+     */
     public function read($messageId, $parameters = [])
     {
         list($status, , $body) = $this->httpClient->performHttpRequest(
@@ -164,12 +172,12 @@ class Messages
      *
      * @param string $body
      *
-     * @return self
+     * @return Message
      *
      * @throws RequestException
      * @throws ServerException
      */
-    public function processRequest($body)
+    public function processRequest($body): Message
     {
         $body = @json_decode($body);
 

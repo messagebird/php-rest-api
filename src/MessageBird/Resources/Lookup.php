@@ -26,10 +26,12 @@ class Lookup extends Base
     }
 
     /**
+     * @no-named-arguments
+     *
      * @param string|int $phoneNumber
      * @param string     $countryCode
      *
-     * @return $this->object
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      *
      * @throws \MessageBird\Exceptions\HttpException
      * @throws \MessageBird\Exceptions\RequestException

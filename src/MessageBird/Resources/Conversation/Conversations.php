@@ -26,7 +26,7 @@ class Conversations extends Base
      * @param Message $object
      * @param array|null $query
      *
-     * @return Conversation
+     * @return Conversation|\MessageBird\Objects\Balance|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
      *
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
@@ -48,8 +48,10 @@ class Conversations extends Base
 
     /**
      * Conversations API uses a special URL scheme for starting a conversation.
+     *
+     * @return string
      */
-    private function getStartUrl()
+    private function getStartUrl(): string
     {
         return $this->resourceName . '/start';
     }
@@ -59,7 +61,7 @@ class Conversations extends Base
      *
      * @param int $contactId
      *
-     * @return Conversation
+     * @return Conversation|\MessageBird\Objects\Balance|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
      *
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
@@ -83,7 +85,7 @@ class Conversations extends Base
      * @param mixed $object
      * @param mixed $id
      *
-     * @return $this ->object
+     * @return Conversation|\MessageBird\Objects\Balance|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null ->object
      *
      * @internal param array $parameters
      */

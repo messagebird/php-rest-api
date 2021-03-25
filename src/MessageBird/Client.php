@@ -268,8 +268,10 @@ class Client
 
     /**
      * @param mixed $accessKey
+     *
+     * @return void
      */
-    public function setAccessKey($accessKey)
+    public function setAccessKey($accessKey): void
     {
         $authentication = new Common\Authentication($accessKey);
 
@@ -287,7 +289,7 @@ class Client
     private function getPhpVersion()
     {
         if (!defined('PHP_VERSION_ID')) {
-            $version = array_map('int', explode('.', PHP_VERSION));
+            $version = array_map('intval', explode('.', PHP_VERSION));
             define('PHP_VERSION_ID', $version[0] * 10000 + $version[1] * 100 + $version[2]);
         }
 

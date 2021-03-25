@@ -118,17 +118,17 @@ class Contact extends Base
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getGroups()
+    public function getGroups(): array
     {
         return $this->groups;
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getMessages()
+    public function getMessages(): array
     {
         return $this->messages;
     }

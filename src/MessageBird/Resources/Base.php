@@ -24,7 +24,7 @@ class Base
     protected $resourceName;
 
     /**
-     * @var Objects\Hlr|Objects\Message|Objects\Balance|Objects\Verify|Objects\Lookup|Objects\VoiceMessage
+     * @var Objects\Hlr|Objects\Message|Objects\Balance|Objects\Verify|Objects\Lookup|Objects\VoiceMessage|Objects\Conversation\Conversation
      */
     protected $object;
 
@@ -38,8 +38,10 @@ class Base
 
     /**
      * @param mixed $resourceName
+     *
+     * @return void
      */
-    public function setResourceName($resourceName)
+    public function setResourceName($resourceName): void
     {
         $this->resourceName = $resourceName;
     }
@@ -54,14 +56,16 @@ class Base
 
     /**
      * @param mixed $object
+     *
+     * @return void
      */
-    public function setObject($object)
+    public function setObject($object): void
     {
         $this->object = $object;
     }
 
     /**
-     * @return Objects\Hlr|Objects\Message|Objects\Balance|Objects\Verify|Objects\Lookup|Objects\VoiceMessage
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage
      */
     public function getObject()
     {
@@ -69,10 +73,13 @@ class Base
     }
 
     /**
+     * @no-named-arguments
+     *
      * @param mixed $object
      * @param array|null $query
      *
-     * @return Objects\Hlr|Objects\Message|Objects\Balance|Objects\Verify|Objects\Lookup|Objects\VoiceMessage
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
+     *
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
@@ -84,7 +91,12 @@ class Base
         return $this->processRequest($body);
     }
 
-    public function getList($parameters =  [])
+    /**
+     * @param array|null $parameters
+     *
+     * @return Objects\Balance|Objects\BaseList|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
+     */
+    public function getList(?array $parameters =  [])
     {
         list($status, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $this->resourceName, $parameters);
 
@@ -100,6 +112,7 @@ class Base
             $objectName = $this->object;
 
             foreach ($items as $item) {
+                /** @psalm-suppress UndefinedClass */
                 $object = new $objectName($this->httpClient);
 
                 $message           = $object->loadFromArray($item);
@@ -112,9 +125,11 @@ class Base
     }
 
     /**
+     * @no-named-arguments
+     *
      * @param mixed $id
      *
-     * @return $this->object
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      *
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
@@ -129,7 +144,7 @@ class Base
     /**
      * @param mixed $id
      *
-     * @return bool
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null|true
      *
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
@@ -149,7 +164,7 @@ class Base
     /**
      * @param string $body
      *
-     * @return $this
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      *
      * @throws \MessageBird\Exceptions\RequestException
      * @throws \MessageBird\Exceptions\ServerException
@@ -174,7 +189,7 @@ class Base
      * @param mixed $object
      * @param mixed $id
      *
-     * @return $this ->object
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
      *
      * @internal param array $parameters
      */

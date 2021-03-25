@@ -34,8 +34,10 @@ class Recordings
 
     /**
      * @param mixed $object
+     *
+     * @return void
      */
-    public function setObject($object)
+    public function setObject($object): void
     {
         $this->object = $object;
     }
@@ -53,7 +55,7 @@ class Recordings
      * @param string $legId
      * @param array  $parameters
      *
-     * @return Objects\Voice\Recording
+     * @return Objects\BaseList|Objects\Voice\Recording
      */
     public function getList($callId, $legId, $parameters = [])
     {
@@ -75,6 +77,7 @@ class Recordings
             $objectName = $this->object;
 
             foreach ($items as $item) {
+                /** @psalm-suppress UndefinedClass */
                 $object = new $objectName($this->httpClient);
 
                 $itemObject = $object->loadFromArray($item);
@@ -90,9 +93,9 @@ class Recordings
      * @param string $callId
      * @param string $legId
      *
-     * @return $this->object
+     * @return Objects\Voice\Recording
      */
-    public function read($callId, $legId, $recordingId)
+    public function read($callId, $legId, $recordingId): Objects\Voice\Recording
     {
         list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, "calls/$callId/legs/$legId/recordings/$recordingId");
 
@@ -103,9 +106,10 @@ class Recordings
      * @param string $callId
      * @param string $legId
      * @param string $recordingId
-     * @return $this->object
+     *
+     * @return Objects\Voice\Recording
      */
-    public function delete($callId, $legId, $recordingId)
+    public function delete($callId, $legId, $recordingId): Objects\Voice\Recording
     {
         list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_DELETE, "calls/$callId/legs/$legId/recordings/$recordingId");
         return $this->processRequest($body);

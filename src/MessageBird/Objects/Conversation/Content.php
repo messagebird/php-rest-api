@@ -72,8 +72,10 @@ class Content extends Base implements JsonSerializable
 
     /**
      * Sets the location on this object if available.
+     *
+     * @return void
      */
-    private function loadLocationIfNeeded()
+    private function loadLocationIfNeeded(): void
     {
         if (!empty($this->location->latitude) && !empty($this->location->longitude)) {
             $this->location = [
@@ -85,8 +87,10 @@ class Content extends Base implements JsonSerializable
 
     /**
      * Sets the media on this object if available.
+     *
+     * @return void
      */
-    private function loadMediaIfNeeded()
+    private function loadMediaIfNeeded(): void
     {
         if (!empty($this->audio->url)) {
             $this->audio = ['url' => $this->audio->url];

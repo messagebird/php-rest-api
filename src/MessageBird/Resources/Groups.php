@@ -33,7 +33,7 @@ class Groups extends Base
      * @throws Exceptions\AuthenticateException
      * @throws Exceptions\HttpException
      *
-     * @return $this ->object
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
      *
      * @internal param array $parameters
      */
@@ -115,7 +115,6 @@ class Groups extends Base
      *
      * @throws Exceptions\AuthenticateException
      * @throws Exceptions\HttpException
-     * @throws InvalidArgumentException;
      *
      * @return mixed
      */
