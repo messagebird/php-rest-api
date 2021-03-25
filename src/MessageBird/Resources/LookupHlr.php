@@ -29,13 +29,13 @@ class LookupHlr extends Base
      * @param Objects\Hlr $hlr
      * @param string|null $countryCode
      *
-     * @return $this->object
+     * @return static
      *
      * @throws \MessageBird\Exceptions\HttpException
      * @throws \MessageBird\Exceptions\RequestException
      * @throws \MessageBird\Exceptions\ServerException
      */
-    public function create($hlr, $countryCode = null)
+    public function create($hlr, $countryCode = null): self
     {
         if(empty($hlr->msisdn)) {
             throw new InvalidArgumentException('The phone number ($hlr->msisdn) cannot be empty.');
@@ -54,7 +54,7 @@ class LookupHlr extends Base
      * @param mixed $phoneNumber
      * @param string|null  $countryCode
      *
-     * @return $this->object
+     * @return static
      *
      * @throws \MessageBird\Exceptions\HttpException
      * @throws \MessageBird\Exceptions\RequestException

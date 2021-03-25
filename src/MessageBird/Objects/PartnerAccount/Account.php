@@ -16,6 +16,9 @@ class Account extends Base
 
     public $signingKey;
 
+    /**
+     * @return false|string
+     */
     public function loadToJson()
     {
         return json_encode([

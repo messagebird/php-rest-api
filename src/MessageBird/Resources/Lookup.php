@@ -29,7 +29,7 @@ class Lookup extends Base
      * @param string|int $phoneNumber
      * @param string     $countryCode
      *
-     * @return $this->object
+     * @return static
      *
      * @throws \MessageBird\Exceptions\HttpException
      * @throws \MessageBird\Exceptions\RequestException

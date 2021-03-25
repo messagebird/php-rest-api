@@ -18,7 +18,10 @@ class Accounts extends Base
         $this->setResourceName(self::RESOURCE_NAME);
     }
 
-    public function create($object, $query = null)
+    /**
+     * @return static
+     */
+    public function create($object, $query = null): self
     {
         list(, , $body) = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,

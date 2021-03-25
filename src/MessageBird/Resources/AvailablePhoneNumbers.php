@@ -30,11 +30,12 @@ class AvailablePhoneNumbers
      * @param string $countryCode
      * @param array $parameters
      *
-     * @return Objects\BaseList
+     * @return Objects\BaseList|Objects\Number
+     *
      * @throws \MessageBird\Exceptions\RequestException
      * @throws \MessageBird\Exceptions\ServerException
      */
-    public function getList($countryCode, $parameters = []): Objects\BaseList
+    public function getList($countryCode, $parameters = [])
     {
         list($status, , $body) = $this->httpClient->performHttpRequest(
             Common\HttpClient::REQUEST_GET,

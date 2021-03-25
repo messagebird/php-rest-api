@@ -13,6 +13,9 @@ use MessageBird\Objects\Voice\BaseList;
  */
 class Base extends \MessageBird\Resources\Base
 {
+    /**
+     * @return BaseList|static
+     */
     public function getList($parameters = [])
     {
         list($status, , $body) = $this->httpClient->performHttpRequest(
@@ -47,6 +50,8 @@ class Base extends \MessageBird\Resources\Base
 
     /**
      * @inheritdoc
+     *
+     * @return \MessageBird\Objects\Balance|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
      */
     public function processRequest($body)
     {

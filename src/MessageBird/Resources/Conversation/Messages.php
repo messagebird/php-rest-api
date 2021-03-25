@@ -51,26 +51,28 @@ class Messages
 
     /**
      * @param Message $object
+     *
+     * @return void
      */
-    public function setObject($object)
+    public function setObject($object): void
     {
         $this->object = $object;
     }
 
     /**
      * Send a message to a conversation.
-     * 
+     *
      * @param string $conversationId
      * @param Message $object
      * @param string[]|null $query
      *
-     * @return Message
-     * 
+     * @return self
+     *
      * @throws HttpException
      * @throws RequestException
      * @throws ServerException
      */
-    public function create($conversationId, $object, $query = null)
+    public function create($conversationId, $object, $query = null): self
     {
         $body = json_encode($object);
 
@@ -87,9 +89,11 @@ class Messages
     /**
      * Retrieves all the messages form the conversation based on its
      * conversationId.
-     * 
+     *
      * @param string $conversationId
      * @param string[] $parameters
+     *
+     * @return BaseList|self
      */
     public function getList($conversationId, $parameters = [])
     {
@@ -123,6 +127,9 @@ class Messages
         return $this->processRequest($body);
     }
 
+    /**
+     * @return Message|self
+     */
     public function read($messageId, $parameters = []) {
         list($status, , $body) = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_GET,
@@ -160,15 +167,15 @@ class Messages
 
     /**
      * Throws an exception if the request if the request has any errors.
-     * 
+     *
      * @param string $body
      *
-     * @return self
+     * @return Message
      *
      * @throws RequestException
      * @throws ServerException
      */
-    public function processRequest($body)
+    public function processRequest($body): Message
     {
         $body = @json_decode($body);
 

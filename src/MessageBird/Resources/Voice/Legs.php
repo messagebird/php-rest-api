@@ -34,8 +34,10 @@ class Legs
 
     /**
      * @param mixed $object
+     *
+     * @return void
      */
-    public function setObject($object)
+    public function setObject($object): void
     {
         $this->object = $object;
     }
@@ -52,7 +54,7 @@ class Legs
      * @param string      $callId
      * @param array $parameters
      *
-     * @return Objects\Voice\Leg
+     * @return Objects\BaseList|Objects\Voice\Leg
      */
     public function getList($callId, $parameters = [])
     {
@@ -89,9 +91,9 @@ class Legs
      * @param string $callId
      * @param string $legId
      *
-     * @return $this->object
+     * @return Objects\Voice\Leg
      */
-    public function read($callId, $legId)
+    public function read($callId, $legId): Objects\Voice\Leg
     {
         list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, "calls/$callId/legs/$legId");
 

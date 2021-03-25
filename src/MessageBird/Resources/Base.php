@@ -38,8 +38,10 @@ class Base
 
     /**
      * @param mixed $resourceName
+     *
+     * @return void
      */
-    public function setResourceName($resourceName)
+    public function setResourceName($resourceName): void
     {
         $this->resourceName = $resourceName;
     }
@@ -54,8 +56,10 @@ class Base
 
     /**
      * @param mixed $object
+     *
+     * @return void
      */
-    public function setObject($object)
+    public function setObject($object): void
     {
         $this->object = $object;
     }
@@ -72,19 +76,25 @@ class Base
      * @param mixed $object
      * @param array|null $query
      *
-     * @return Objects\Hlr|Objects\Message|Objects\Balance|Objects\Verify|Objects\Lookup|Objects\VoiceMessage
+     * @return static
+     *
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
      */
-    public function create($object, $query = null)
+    public function create($object, $query = null): self
     {
         $body = json_encode($object);
         list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_POST, $this->resourceName, $query, $body);
         return $this->processRequest($body);
     }
 
-    public function getList($parameters =  [])
+    /**
+     * @param array|null $parameters
+     *
+     * @return Objects\BaseList|static
+     */
+    public function getList(?array $parameters =  [])
     {
         list($status, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $this->resourceName, $parameters);
 
@@ -114,7 +124,7 @@ class Base
     /**
      * @param mixed $id
      *
-     * @return $this->object
+     * @return static
      *
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
@@ -129,7 +139,7 @@ class Base
     /**
      * @param mixed $id
      *
-     * @return bool
+     * @return static|true
      *
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
@@ -149,7 +159,7 @@ class Base
     /**
      * @param string $body
      *
-     * @return $this
+     * @return Objects\Balance|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      *
      * @throws \MessageBird\Exceptions\RequestException
      * @throws \MessageBird\Exceptions\ServerException

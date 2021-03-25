@@ -28,13 +28,13 @@ class Verify extends Base
      * @param mixed $id
      * @param mixed $token
      *
-     * @return $this->object
+     * @return static
      *
      * @throws \MessageBird\Exceptions\HttpException
      * @throws \MessageBird\Exceptions\RequestException
      * @throws \MessageBird\Exceptions\ServerException
      */
-    public function verify($id, $token)
+    public function verify($id, $token): self
     {
         $resourceName = $this->resourceName . (($id) ? '/' . $id : null);
         list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $resourceName, ['token' => $token]);

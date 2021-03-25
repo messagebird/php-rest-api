@@ -26,13 +26,13 @@ class Conversations extends Base
      * @param Message $object
      * @param array|null $query
      *
-     * @return Conversation
+     * @return static
      *
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
      */
-    public function start($object, $query = null)
+    public function start($object, $query = null): self
     {
         $body = json_encode($object);
 
@@ -48,8 +48,10 @@ class Conversations extends Base
 
     /**
      * Conversations API uses a special URL scheme for starting a conversation.
+     *
+     * @return string
      */
-    private function getStartUrl()
+    private function getStartUrl(): string
     {
         return $this->resourceName . '/start';
     }
@@ -59,13 +61,13 @@ class Conversations extends Base
      *
      * @param int $contactId
      *
-     * @return Conversation
+     * @return static
      *
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
      */
-    public function create($contactId, $query = null)
+    public function create($contactId, $query = null): self
     {
         $body = json_encode(['contactId' => $contactId]);
 

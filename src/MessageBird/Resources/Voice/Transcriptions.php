@@ -34,8 +34,10 @@ class Transcriptions
 
     /**
      * @param mixed $object
+     *
+     * @return void
      */
-    public function setObject($object)
+    public function setObject($object): void
     {
         $this->object = $object;
     }
@@ -70,7 +72,7 @@ class Transcriptions
      * @param string $recordingId
      * @param array  $parameters
      *
-     * @return Objects\Voice\Transcription
+     * @return Objects\BaseList|Objects\Voice\Transcription
      */
     public function getList($callId, $legId, $recordingId, $parameters = [])
     {

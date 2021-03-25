@@ -26,13 +26,13 @@ class Send extends Base
      * @param SendMessage $object
      * @param array|null $query
      *
-     * @return SendMessageResult
+     * @return static
      *
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
      */
-    public function send($object, $query = null)
+    public function send($object, $query = null): self
     {
         $body = json_encode($object);
 
