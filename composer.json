@@ -19,7 +19,7 @@
         "php": ">=7.3|^8.0",
         "ext-curl": "*",
         "ext-json": "*",
-        "ocramius/package-versions": "^1.4"
+        "ocramius/package-versions": "2.1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0|^9.0",

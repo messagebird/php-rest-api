@@ -221,22 +221,22 @@ class Client
             $this->numbersAPIClient = $httpClient;
         }
 
-        $this->httpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
+        $this->httpClient->addUserAgentString('MessageBird/ApiClient/' . $this->getClientVersion());
         $this->httpClient->addUserAgentString($this->getPhpVersion());
 
-        $this->chatAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
+        $this->chatAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . $this->getClientVersion());
         $this->chatAPIHttpClient->addUserAgentString($this->getPhpVersion());
 
-        $this->conversationsAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
+        $this->conversationsAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . $this->getClientVersion());
         $this->conversationsAPIHttpClient->addUserAgentString($this->getPhpVersion());
 
-        $this->voiceAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
+        $this->voiceAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . $this->getClientVersion());
         $this->voiceAPIHttpClient->addUserAgentString($this->getPhpVersion());
 
-        $this->partnerAccountClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
+        $this->partnerAccountClient->addUserAgentString('MessageBird/ApiClient/' . $this->getClientVersion());
         $this->partnerAccountClient->addUserAgentString($this->getPhpVersion());
 
-        $this->numbersAPIClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
+        $this->numbersAPIClient->addUserAgentString('MessageBird/ApiClient/' . $this->getClientVersion());
         $this->numbersAPIClient->addUserAgentString($this->getPhpVersion());
 
         if ($accessKey !== null) {
@@ -304,12 +304,10 @@ class Client
 
     /**
      * Get the current version of this package without hash or v-prefix
-     * If this reposistory is checked out on a non-version-branch it will
+     * If this repository is checked out on a non-version-branch it will
      * have a format like dev-[branch]. (e.g. dev-master for the master branch)
-     *
-     * @return string
      */
-    private function getClientVersion()
+    private function getClientVersion(): string
     {
         $fullVersion = Versions::getVersion(static::PACKAGE_NAME);
         $splitVersion = explode('@', $fullVersion, 2);
