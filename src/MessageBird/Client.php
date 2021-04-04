@@ -312,7 +312,7 @@ class Client
         $fullVersion = Versions::getVersion(static::PACKAGE_NAME);
         list($version, $reference) = explode('@', $fullVersion, 2);
 
-        if (strlen($version) > 1 && $version{0} == 'v') {
+        if (strlen($version) > 1 && $version[0] == 'v') {
             // some tags ar v1.x.y, some are not (?)
             $versionWithoutVPrefix = substr($version, 1);
         } else {
