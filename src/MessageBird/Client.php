@@ -310,13 +310,13 @@ class Client
     private function getClientVersion(): string
     {
         $fullVersion = Versions::getVersion(static::PACKAGE_NAME);
-        $splitVersion = explode('@', $fullVersion, 2);
+        list($version, $reference) = explode('@', $fullVersion, 2);
 
-        if (strlen($splitVersion[0]) > 1 && $splitVersion[0]{0} == 'v') {
+        if (strlen($version) > 1 && $version{0} == 'v') {
             // some tags ar v1.x.y, some are not (?)
-            $versionWithoutVPrefix = substr($splitVersion[0], 1);
+            $versionWithoutVPrefix = substr($version, 1);
         } else {
-            $versionWithoutVPrefix = $splitVersion[0];
+            $versionWithoutVPrefix = $version;
         }
         return $versionWithoutVPrefix;
     }
