@@ -29,6 +29,11 @@ class Base
     protected $object;
 
     /**
+     * @var Objects\MessageResponse
+     */
+    protected $responseObject;
+
+    /**
      * @param Common\HttpClient $httpClient
      */
     public function __construct(Common\HttpClient $httpClient)
@@ -70,6 +75,24 @@ class Base
     public function getObject()
     {
         return $this->object;
+    }
+
+    /**
+     * @param mixed $responseObject
+     *
+     * @return void
+     */
+    public function setResponseObject($responseObject): void
+    {
+        $this->responseObject = $responseObject;
+    }
+
+    /**
+     * @return Objects\MessageResponse
+     */
+    public function getResponseObject()
+    {
+        return $this->responseObject;
     }
 
     /**
@@ -164,7 +187,7 @@ class Base
     /**
      * @param string $body
      *
-     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|Objects\MessageResponse|null
      *
      * @throws \MessageBird\Exceptions\RequestException
      * @throws \MessageBird\Exceptions\ServerException
@@ -177,12 +200,16 @@ class Base
             throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
         }
 
-        if (empty($body->errors)) {
-            return $this->object->loadFromArray($body);
+        if (!empty($body->errors)) {
+            $responseError = new Common\ResponseError($body);
+            throw new Exceptions\RequestException($responseError->getErrorString());
         }
 
-        $responseError = new Common\ResponseError($body);
-        throw new Exceptions\RequestException($responseError->getErrorString());
+        if ($this->responseObject) {
+            return $this->responseObject->loadFromArray($body);
+        }
+
+        return $this->object->loadFromArray($body);
     }
 
     /**

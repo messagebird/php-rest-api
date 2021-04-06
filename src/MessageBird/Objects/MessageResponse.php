@@ -8,14 +8,22 @@ namespace MessageBird\Objects;
  * @property int $protocolId
  * @package MessageBird\Objects
  */
-class Message extends Base
+class MessageResponse extends Base
 {
-    const TYPE_SMS = 'sms';
-    const TYPE_BINARY = 'binary';
-    const TYPE_PREMIUM = 'premium';
+    /**
+     * An unique random ID which is created on the MessageBird
+     * platform and is returned upon creation of the object.
+     *
+     * @var string
+     */
+    public $id;
 
-    const DATACODING_UNICODE = 'unicode';
-    const DATACODING_PLAIN = 'plain';
+    /**
+     * The URL of the created object.
+     *
+     * @var string
+     */
+    public $href;
 
     /**
      * Tells you if the message is sent or received.
@@ -24,14 +32,14 @@ class Message extends Base
      *
      * @var string
      */
-    public $direction = 'mt';
+    public $direction;
 
     /**
      * The type of message. Values can be: sms, binary, premium, or flash
      *
      * @var string
      */
-    public $type = self::TYPE_SMS;
+    public $type;
 
     /**
      * The sender of the message. This can be a telephone number
@@ -87,7 +95,7 @@ class Message extends Base
      *
      * @var string
      */
-    public $datacoding = self::DATACODING_PLAIN;
+    public $datacoding;
 
     /**
      * Indicates the message type. 1 is a normal message, 0 is a flash message.
@@ -107,103 +115,25 @@ class Message extends Base
      * The date and time of the creation of the message in RFC3339 format (Y-m-d\TH:i:sP)
      * @var string
      */
-    protected $createdDatetime;
+    public $createdDatetime;
 
     /**
      * An array of recipients
      *
-     * @var array
+     * @var Recipients
      */
-    public $recipients =  [];
-
-    /**
-     * The URL to send status delivery reports for the message to
-     *
-     * @var string
-     */
-    public $reportUrl;
-
-
-    /**
-     * Send a premium SMS
-     *
-     * @param mixed $shortcode
-     * @param mixed $keyword
-     * @param mixed $tariff
-     * @param mixed $mid
-     * @param mixed $member
-     *
-     * @return void
-     */
-    public function setPremiumSms($shortcode, $keyword, $tariff, $mid = null, $member = null): void
-    {
-        $this->typeDetails['shortcode'] = $shortcode;
-        $this->typeDetails['keyword']   = $keyword;
-        $this->typeDetails['tariff']    = $tariff;
-        if ($mid !== null) {
-            $this->typeDetails['mid'] = $mid;
-        }
-        if ($member !== null) {
-            $this->typeDetails['member'] = $member;
-        }
-
-        $this->type = self::TYPE_PREMIUM;
-    }
-
-    /**
-     * @param mixed $header
-     * @param mixed $body
-     *
-     * @return void
-     */
-    public function setBinarySms($header, $body): void
-    {
-        $this->typeDetails['udh'] = $header;
-        $this->body               = $body;
-        $this->type               = self::TYPE_BINARY;
-    }
-
-    /**
-     * @param mixed $bool
-     *
-     * @return void
-     */
-    public function setFlash($bool): void
-    {
-        if ($bool === true) {
-            $this->mclass = 0;
-        } else {
-            $this->mclass = 1;
-        }
-    }
-
-    /**
-     * Get the $createdDatetime value
-     *
-     * @return string
-     */
-    public function getCreatedDatetime()
-    {
-        return $this->createdDatetime;
-    }
+    public $recipients;
 
     /**
      * @param mixed $object
      *
-     * @return $this|void
+     * @return $this
      */
     public function loadFromArray($object)
     {
         parent::loadFromArray($object);
 
-        if (!empty($this->recipients->items)) {
-            foreach ($this->recipients->items as &$item) {
-                $recipient = new Recipient();
-                $recipient->loadFromArray($item);
-
-                $item = $recipient;
-            }
-        }
+        $this->recipients = (new Recipients())->loadFromArray($this->recipients);
 
         return $this;
     }
