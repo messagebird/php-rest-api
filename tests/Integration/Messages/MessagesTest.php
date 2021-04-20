@@ -108,4 +108,71 @@ class MessagesTest extends BaseTest
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'messages/message_id', null, null);
         $this->client->messages->delete("message_id");
     }
+
+    public function testCreateMessageResponse()
+    {
+        $message             = new \MessageBird\Objects\Message();
+        $message->originator = 'MessageBird';
+        $message->recipients = [31612345678];
+        $message->body       = 'This is a test message.';
+
+        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([200, '', '{
+                  "id":"e8077d803532c0b5937c639b60216938",
+                  "href":"https://rest.messagebird.com/messages/e8077d803532c0b5937c639b60216938",
+                  "direction":"mt",
+                  "type":"sms",
+                  "originator":"YourName",
+                  "body":"This is a test message",
+                  "reference":null,
+                  "validity":null,
+                  "gateway":null,
+                  "typeDetails":{
+
+                  },
+                  "datacoding":"plain",
+                  "mclass":1,
+                  "scheduledDatetime":null,
+                  "createdDatetime":"2015-07-03T07:55:31+00:00",
+                  "recipients":{
+                    "totalCount":1,
+                    "totalSentCount":1,
+                    "totalDeliveredCount":0,
+                    "totalDeliveryFailedCount":0,
+                    "items":[
+                      {
+                        "recipient":31612345678,
+                        "status":"sent",
+                        "statusDatetime":"2015-07-03T07:55:31+00:00"
+                      }
+                    ]
+                  },
+                  "reportUrl":null
+                }']);
+
+        /** @var \MessageBird\Objects\MessageResponse $messageResponse */
+        $messageResponse = $this->client->messages->create($message);
+
+        $this->assertSame('e8077d803532c0b5937c639b60216938', $messageResponse->id);
+        $this->assertSame('https://rest.messagebird.com/messages/e8077d803532c0b5937c639b60216938', $messageResponse->href);
+        $this->assertSame('mt', $messageResponse->direction);
+        $this->assertSame('sms', $messageResponse->type);
+        $this->assertSame('YourName', $messageResponse->originator);
+        $this->assertSame('This is a test message', $messageResponse->body);
+        $this->assertNull($messageResponse->reference);
+        $this->assertNull($messageResponse->validity);
+        $this->assertNull($messageResponse->gateway);
+        $this->assertEmpty($messageResponse->typeDetails);
+        $this->assertSame('plain', $messageResponse->datacoding);
+        $this->assertSame(1, $messageResponse->mclass);
+        $this->assertNull($messageResponse->scheduledDatetime);
+        $this->assertSame('2015-07-03T07:55:31+00:00', $messageResponse->createdDatetime);
+        $this->assertSame(1, $messageResponse->recipients->totalCount);
+        $this->assertSame(1, $messageResponse->recipients->totalSentCount);
+        $this->assertSame(0, $messageResponse->recipients->totalDeliveredCount);
+        $this->assertSame(0, $messageResponse->recipients->totalDeliveryFailedCount);
+        $this->assertCount(1, $messageResponse->recipients->items);
+        $this->assertSame(31612345678, $messageResponse->recipients->items[0]->recipient);
+        $this->assertSame('sent', $messageResponse->recipients->items[0]->status);
+        $this->assertSame('2015-07-03T07:55:31+00:00', $messageResponse->recipients->items[0]->statusDatetime);
+    }
 }

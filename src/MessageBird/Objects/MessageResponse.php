@@ -107,7 +107,7 @@ class MessageResponse extends Base
     /**
      * The scheduled date and time of the message in RFC3339 format (Y-m-d\TH:i:sP)
      *
-     * @var string
+     * @var string|null
      */
     public $scheduledDatetime;
 
@@ -134,6 +134,7 @@ class MessageResponse extends Base
         parent::loadFromArray($object);
 
         $this->recipients = (new Recipients())->loadFromArray($this->recipients);
+        $this->typeDetails = get_object_vars($this->typeDetails);
 
         return $this;
     }

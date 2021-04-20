@@ -101,7 +101,7 @@ class Base
      * @param mixed $object
      * @param array|null $query
      *
-     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\MessageResponse|Objects\Verify|Objects\VoiceMessage|null
      *
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
