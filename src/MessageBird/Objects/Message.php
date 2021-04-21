@@ -18,21 +18,6 @@ class Message extends Base
     const DATACODING_PLAIN = 'plain';
 
     /**
-     * An unique random ID which is created on the MessageBird
-     * platform and is returned upon creation of the object.
-     *
-     * @var string
-     */
-    protected $id;
-
-    /**
-     * The URL of the created object.
-     *
-     * @var string
-     */
-    protected $href;
-
-    /**
      * Tells you if the message is sent or received.
      * mt: mobile terminated (sent to mobile)
      * mo: mobile originated (received from mobile)
@@ -190,26 +175,6 @@ class Message extends Base
         } else {
             $this->mclass = 1;
         }
-    }
-
-    /**
-     * Get the created id
-     *
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get the created href
-     *
-     * @return string
-     */
-    public function getHref()
-    {
-        return $this->href;
     }
 
     /**
