@@ -42,6 +42,11 @@ class Client
     public $groups;
 
     /**
+     * @var Resources\EmailMessage
+     */
+    public $emailmessages;
+
+    /**
      * @var Resources\VoiceMessage
      */
     public $voicemessages;
@@ -241,6 +246,7 @@ class Client
         $this->hlr = new Resources\Hlr($this->httpClient);
         $this->verify = new Resources\Verify($this->httpClient);
         $this->balance = new Resources\Balance($this->httpClient);
+        $this->emailmessages = new Resources\EmailMessage($this->httpClient);
         $this->voicemessages = new Resources\VoiceMessage($this->httpClient);
         $this->lookup = new Resources\Lookup($this->httpClient);
         $this->lookupHlr = new Resources\LookupHlr($this->httpClient);

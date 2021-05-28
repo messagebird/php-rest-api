@@ -31,9 +31,9 @@ class Verify extends Base
     protected $href;
 
     /**
-     * The msisdn of the recipient
+     * The msisdn or email of the recipient
      *
-     * @var int
+     * @var int|string
      */
     public $recipient;
 
