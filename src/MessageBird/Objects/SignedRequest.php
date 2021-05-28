@@ -90,24 +90,24 @@ class SignedRequest extends Base
      * {@inheritdoc}
      * @throws ValidationException when a required parameter is missing.
      */
-    public function loadFromArray($params)
+    public function loadFromArray($object)
     {
-        if (!isset($params['requestTimestamp']) || !is_int($params['requestTimestamp'])) {
+        if (!isset($object['requestTimestamp']) || !is_int($object['requestTimestamp'])) {
             throw new ValidationException('The "requestTimestamp" value is missing or invalid.');
         }
 
-        if (!isset($params['signature']) || !is_string($params['signature'])) {
+        if (!isset($object['signature']) || !is_string($object['signature'])) {
             throw new ValidationException('The "signature" parameter is missing.');
         }
 
-        if (!isset($params['queryParameters']) || !is_array($params['queryParameters'])) {
+        if (!isset($object['queryParameters']) || !is_array($object['queryParameters'])) {
             throw new ValidationException('The "queryParameters" parameter is missing or invalid.');
         }
 
-        if (!isset($params['body']) || !is_string($params['body'])) {
+        if (!isset($object['body']) || !is_string($object['body'])) {
             throw new ValidationException('The "body" parameter is missing.');
         }
 
-        return parent::loadFromArray($params);
+        return parent::loadFromArray($object);
     }
 }
