@@ -8,7 +8,7 @@ use Tests\Integration\BaseTest;
 
 class GroupTest extends BaseTest
 {
-    public function testCreateGroup()
+    public function testCreateGroup(): void
     {
         $group = new Group();
         $group->name = "Home";
@@ -32,7 +32,7 @@ class GroupTest extends BaseTest
         $this->client->groups->create($group);
     }
 
-    public function testListGroups()
+    public function testListGroups(): void
     {
         $this->expectException(ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
@@ -44,7 +44,7 @@ class GroupTest extends BaseTest
         $this->client->groups->getList(['offset' => 100, 'limit' => 30]);
     }
 
-    public function testViewGroup()
+    public function testViewGroup(): void
     {
         $this->expectException(ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
@@ -56,7 +56,7 @@ class GroupTest extends BaseTest
         $this->client->groups->read("group_id");
     }
 
-    public function testDeleteGroup()
+    public function testDeleteGroup(): void
     {
         $this->expectException(ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(

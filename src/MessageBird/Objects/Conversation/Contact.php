@@ -66,10 +66,8 @@ class Contact extends Base
 
     /**
      * @param mixed $object
-     *
-     * @return self
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): Contact
     {
         parent::loadFromArray($object);
 

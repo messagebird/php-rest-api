@@ -51,40 +51,32 @@ class Group extends Base
 
     /**
      * Get the created id
-     *
-     * @return mixed
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
      * Get the created href
-     *
-     * @return string
      */
-    public function getHref()
+    public function getHref(): string
     {
         return $this->href;
     }
 
     /**
      * Get the $createdDatetime value
-     *
-     * @return string
      */
-    public function getCreatedDatetime()
+    public function getCreatedDatetime(): string
     {
         return $this->createdDatetime;
     }
 
     /**
      * Get the $updatedDatetime value
-     *
-     * @return string
      */
-    public function getUpdatedDatetime()
+    public function getUpdatedDatetime(): string
     {
         return $this->createdDatetime;
     }

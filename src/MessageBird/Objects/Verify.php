@@ -82,50 +82,40 @@ class Verify extends Base
 
     /**
      * Get the created href
-     *
-     * @return string
      */
-    public function getHref()
+    public function getHref(): string
     {
         return $this->href;
     }
 
     /**
      * Get the created href
-     *
-     * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->messages->href;
     }
 
     /**
      * Get the status
-     *
-     * @return string
      */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
 
     /**
      * Get the $createdDatetime value
-     *
-     * @return string
      */
-    public function getCreatedDatetime()
+    public function getCreatedDatetime(): string
     {
         return $this->createdDatetime;
     }
 
     /**
      * Get the $validUntilDatetime value
-     *
-     * @return string
      */
-    public function getValidUntilDatetime()
+    public function getValidUntilDatetime(): string
     {
         return $this->validUntilDatetime;
     }

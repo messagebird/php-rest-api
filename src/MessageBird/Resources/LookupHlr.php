@@ -4,6 +4,7 @@ namespace MessageBird\Resources;
 
 use InvalidArgumentException;
 use MessageBird\Common;
+use MessageBird\Exceptions\AuthenticateException;
 use MessageBird\Exceptions\HttpException;
 use MessageBird\Exceptions\RequestException;
 use MessageBird\Exceptions\ServerException;
@@ -25,14 +26,16 @@ class LookupHlr extends Base
     }
 
     /**
-     * @param Objects\Hlr $hlr
-     * @param string|null $countryCode
+     * @param Objects\Hlr $object
+     * @param array|null $query
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      *
      * @throws HttpException
      * @throws RequestException
      * @throws ServerException
+     * @throws \JsonException
+     * @throws AuthenticateException
      */
     public function create($hlr, $countryCode = null)
     {
@@ -65,8 +68,9 @@ class LookupHlr extends Base
      * @throws HttpException
      * @throws RequestException
      * @throws ServerException
+     * @throws AuthenticateException
      */
-    public function read($phoneNumber = null, $countryCode = null)
+    public function read($phoneNumber = null, ?string $countryCode = null)
     {
         if (empty($phoneNumber)) {
             throw new InvalidArgumentException('The phone number cannot be empty.');

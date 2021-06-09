@@ -83,30 +83,24 @@ class MmsMessage extends Base
 
     /**
      * Get the created id
-     *
-     * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
      * Get the created href
-     *
-     * @return string
      */
-    public function getHref()
+    public function getHref(): string
     {
         return $this->href;
     }
 
     /**
      * Get the $createdDatetime value
-     *
-     * @return string
      */
-    public function getCreatedDatetime()
+    public function getCreatedDatetime(): string
     {
         return $this->createdDatetime;
     }

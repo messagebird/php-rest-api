@@ -4,6 +4,7 @@ namespace MessageBird\Resources;
 
 use InvalidArgumentException;
 use MessageBird\Common;
+use MessageBird\Exceptions;
 use MessageBird\Objects;
 
 /**
@@ -26,6 +27,12 @@ class Contacts extends Base
      * @param mixed $id
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
+     *
+     * @throws \JsonException
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
      *
      * @internal param array $parameters
      */
@@ -56,8 +63,9 @@ class Contacts extends Base
      * @param array|null $parameters
      *
      * @return Objects\Balance|Objects\BaseList|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
+     * @throws \JsonException
      */
-    public function getMessages($id, $parameters = [])
+    public function getMessages($id, ?array $parameters = [])
     {
         if ($id === null) {
             throw new InvalidArgumentException('No contact id provided.');
@@ -73,8 +81,9 @@ class Contacts extends Base
      * @param array|null $parameters
      *
      * @return Objects\Balance|Objects\BaseList|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
+     * @throws \JsonException
      */
-    public function getGroups($id, $parameters = [])
+    public function getGroups($id, ?array $parameters = [])
     {
         if ($id === null) {
             throw new InvalidArgumentException('No contact id provided.');

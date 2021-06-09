@@ -12,6 +12,7 @@ use MessageBird\Objects\PartnerAccount\Account;
 use MessageBird\Objects\Verify;
 use MessageBird\Objects\VoiceMessage;
 use MessageBird\Resources\Base;
+use MessageBird\Exceptions;
 
 class Accounts extends Base
 {
@@ -26,9 +27,16 @@ class Accounts extends Base
     }
 
     /**
+     * @param $object
+     * @param array|null $query
      * @return Balance|Conversation|Hlr|Lookup|Message|Verify|VoiceMessage|null
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
      */
-    public function create($object, $query = null)
+    public function create($object, ?array $query = null)
     {
         [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
@@ -40,7 +48,16 @@ class Accounts extends Base
         return $this->processRequest($body);
     }
 
-    public function getList($parameters = [])
+    /**
+     * @return array|Balance|\MessageBird\Objects\BaseList|Conversation|Hlr|Lookup|Message|\MessageBird\Objects\MessageResponse|Verify|VoiceMessage|null
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
+     * @throws \JsonException
+     */
+    public function getList(?array $parameters = [])
     {
         [$status, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_GET,
@@ -63,7 +80,14 @@ class Accounts extends Base
     }
 
     /**
+     * @param $object
+     * @param $id
      * @return Balance|Conversation|Hlr|Lookup|Message|Verify|VoiceMessage|null
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
      */
     public function update($object, $id)
     {

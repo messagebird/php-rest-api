@@ -7,10 +7,10 @@ use Tests\Integration\BaseTest;
 
 class BalanceTest extends BaseTest
 {
-    public function testReadBalance()
+    public function testReadBalance(): void
     {
         $this->expectException(ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'balance', null, null);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with("GET", 'balance', null, null);
         $this->client->balance->read();
     }
 }

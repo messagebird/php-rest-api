@@ -4,8 +4,7 @@ namespace MessageBird\Resources\Voice;
 
 use MessageBird\Common;
 use MessageBird\Common\HttpClient;
-use MessageBird\Exceptions\RequestException;
-use MessageBird\Exceptions\ServerException;
+use MessageBird\Exceptions;
 use MessageBird\Objects;
 
 /**
@@ -31,10 +30,7 @@ class Recordings
         $this->setObject(new Objects\Voice\Recording());
     }
 
-    /**
-     * @return Objects\Voice\Recording
-     */
-    public function getObject()
+    public function getObject(): Objects\Voice\Recording
     {
         return $this->object;
     }
@@ -48,13 +44,12 @@ class Recordings
     }
 
     /**
-     * @param string $callId
-     * @param string $legId
-     * @param array $parameters
-     *
      * @return Objects\BaseList|Objects\Voice\Recording
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\HttpException
+     * @throws \JsonException
      */
-    public function getList($callId, $legId, $parameters = [])
+    public function getList(string $callId, string $legId, array $parameters = [])
     {
         [$status, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_GET,
@@ -87,22 +82,21 @@ class Recordings
     }
 
     /**
-     * @param string $body
-     *
-     * @return Objects\Voice\Recording
-     * @throws RequestException
-     * @throws ServerException
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
      */
-    public function processRequest($body)
+    public function processRequest(?string $body): Objects\Voice\Recording
     {
         try {
             $body = @json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
         } catch (\JsonException $e) {
-            throw new ServerException('Got an invalid JSON response from the server.');
+            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
         }
 
         if ($body === null) {
-            throw new ServerException('Got an invalid JSON response from the server.');
+            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
         }
 
         if (empty($body->errors)) {
@@ -110,14 +104,17 @@ class Recordings
         }
 
         $responseError = new Common\ResponseError($body);
-        throw new RequestException($responseError->getErrorString());
+        throw new Exceptions\RequestException($responseError->getErrorString());
     }
 
     /**
-     * @param string $callId
-     * @param string $legId
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
      */
-    public function read($callId, $legId, $recordingId): Objects\Voice\Recording
+    public function read(string $callId, string $legId, string $recordingId): Objects\Voice\Recording
     {
         [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_GET,
@@ -128,11 +125,13 @@ class Recordings
     }
 
     /**
-     * @param string $callId
-     * @param string $legId
-     * @param string $recordingId
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
      */
-    public function delete($callId, $legId, $recordingId): Objects\Voice\Recording
+    public function delete(string $callId, string $legId, string $recordingId): Objects\Voice\Recording
     {
         [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_DELETE,
@@ -142,12 +141,14 @@ class Recordings
     }
 
     /**
-     * @param string $callId
-     * @param string $legId
-     *
-     * @return self|string
+     * @return mixed
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
      */
-    public function download($callId, $legId, $recordingId)
+    public function download(string $callId, string $legId, string $recordingId)
     {
         [$status, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_GET,

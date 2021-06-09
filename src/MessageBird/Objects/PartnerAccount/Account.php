@@ -18,6 +18,7 @@ class Account extends Base
 
     /**
      * @return false|string
+     * @throws \JsonException
      */
     public function loadToJson()
     {
@@ -28,10 +29,8 @@ class Account extends Base
 
     /**
      * @param mixed $object
-     *
-     * @return $this|void
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): Account
     {
         parent::loadFromArray($object);
 

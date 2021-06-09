@@ -12,7 +12,6 @@ use MessageBird\Common\HttpClient;
 class Client
 {
     public const ENDPOINT = 'https://rest.messagebird.com';
-    public const CHATAPI_ENDPOINT = 'https://chat.messagebird.com/1';
     public const CONVERSATIONSAPI_ENDPOINT = 'https://conversations.messagebird.com/v1';
     public const VOICEAPI_ENDPOINT = 'https://voice.messagebird.com';
     public const PARTNER_ACCOUNT_ENDPOINT = 'https://partner-accounts.messagebird.com';
@@ -67,22 +66,6 @@ class Client
      * @var Resources\MmsMessages
      */
     public $mmsMessages;
-    /**
-     * @var Resources\Chat\Message
-     */
-    public $chatMessages;
-    /**
-     * @var Resources\Chat\Channel
-     */
-    public $chatChannels;
-    /**
-     * @var Resources\Chat\Platform
-     */
-    public $chatPlatforms;
-    /**
-     * @var Resources\Chat\Contact
-     */
-    public $chatContacts;
     /**
      * @var Resources\Voice\Calls
      */
@@ -147,11 +130,6 @@ class Client
     /**
      * @var Common\HttpClient
      */
-    protected $chatAPIHttpClient;
-
-    /**
-     * @var Common\HttpClient
-     */
     protected $conversationsAPIHttpClient;
 
     /**
@@ -169,17 +147,16 @@ class Client
      */
     protected $numbersAPIClient;
 
-    /**
-     * @param string $accessKey
-     */
-    public function __construct($accessKey = null, Common\HttpClient $httpClient = null, array $config = [])
+    public function __construct(?string $accessKey = null, Common\HttpClient $httpClient = null, array $config = [])
     {
         if ($httpClient === null) {
-            $this->chatAPIHttpClient = new Common\HttpClient(self::CHATAPI_ENDPOINT);
-            $this->conversationsAPIHttpClient = new Common\HttpClient(\in_array(
-                self::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX,
-                $config
-            ) ? self::CONVERSATIONSAPI_WHATSAPP_SANDBOX_ENDPOINT : self::CONVERSATIONSAPI_ENDPOINT);
+            $this->conversationsAPIHttpClient = new Common\HttpClient(
+                \in_array(
+                    self::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX,
+                    $config,
+                    true
+                ) ? self::CONVERSATIONSAPI_WHATSAPP_SANDBOX_ENDPOINT : self::CONVERSATIONSAPI_ENDPOINT
+            );
             $this->httpClient = new Common\HttpClient(self::ENDPOINT);
             $this->voiceAPIHttpClient = new Common\HttpClient(self::VOICEAPI_ENDPOINT, 10, 2, [
                 'X-MessageBird-Version' => '20170314',
@@ -187,7 +164,6 @@ class Client
             $this->partnerAccountClient = new Common\HttpClient(self::PARTNER_ACCOUNT_ENDPOINT);
             $this->numbersAPIClient = new Common\HttpClient(self::NUMBERSAPI_ENDPOINT);
         } else {
-            $this->chatAPIHttpClient = $httpClient;
             $this->conversationsAPIHttpClient = $httpClient;
             $this->httpClient = $httpClient;
             $this->voiceAPIHttpClient = $httpClient;
@@ -197,9 +173,6 @@ class Client
 
         $this->httpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
         $this->httpClient->addUserAgentString($this->getPhpVersion());
-
-        $this->chatAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
-        $this->chatAPIHttpClient->addUserAgentString($this->getPhpVersion());
 
         $this->conversationsAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
         $this->conversationsAPIHttpClient->addUserAgentString($this->getPhpVersion());
@@ -225,10 +198,6 @@ class Client
         $this->voicemessages = new Resources\VoiceMessage($this->httpClient);
         $this->lookup = new Resources\Lookup($this->httpClient);
         $this->lookupHlr = new Resources\LookupHlr($this->httpClient);
-        $this->chatMessages = new Resources\Chat\Message($this->chatAPIHttpClient);
-        $this->chatChannels = new Resources\Chat\Channel($this->chatAPIHttpClient);
-        $this->chatPlatforms = new Resources\Chat\Platform($this->chatAPIHttpClient);
-        $this->chatContacts = new Resources\Chat\Contact($this->chatAPIHttpClient);
         $this->voiceCallFlows = new Resources\Voice\CallFlows($this->voiceAPIHttpClient);
         $this->voiceCalls = new Resources\Voice\Calls($this->voiceAPIHttpClient);
         $this->voiceLegs = new Resources\Voice\Legs($this->voiceAPIHttpClient);
@@ -247,10 +216,7 @@ class Client
         $this->availablePhoneNumbers = new Resources\AvailablePhoneNumbers($this->numbersAPIClient);
     }
 
-    /**
-     * @return string
-     */
-    private function getPhpVersion()
+    private function getPhpVersion(): string
     {
         if (!\defined('PHP_VERSION_ID')) {
             $version = array_map('intval', explode('.', \PHP_VERSION));
@@ -267,7 +233,6 @@ class Client
     {
         $authentication = new Common\Authentication($accessKey);
 
-        $this->chatAPIHttpClient->setAuthentication($authentication);
         $this->conversationsAPIHttpClient->setAuthentication($authentication);
         $this->httpClient->setAuthentication($authentication);
         $this->voiceAPIHttpClient->setAuthentication($authentication);

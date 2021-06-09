@@ -9,7 +9,7 @@ use Tests\Integration\BaseTest;
 
 class LookupTest extends BaseTest
 {
-    public function testReadLookup()
+    public function testReadLookup(): void
     {
         $this->expectException(ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
@@ -21,13 +21,13 @@ class LookupTest extends BaseTest
         $this->client->lookup->read(31612345678);
     }
 
-    public function testReadLookupWithEmptyNumber()
+    public function testReadLookupWithEmptyNumber(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->client->lookup->read(null);
     }
 
-    public function testReadLookupWithCountryCode()
+    public function testReadLookupWithCountryCode(): void
     {
         $this->expectException(ServerException::class);
         $params = ["countryCode" => "NL"];
@@ -40,12 +40,12 @@ class LookupTest extends BaseTest
         $this->client->lookup->read(612345678, $params["countryCode"]);
     }
 
-    public function testCreateLookupHlr()
+    public function testCreateLookupHlr(): void
     {
         $this->expectException(ServerException::class);
         $hlr = new Hlr();
         $hlr->msisdn = 31612345678;
-        $hlr->reference = 'Yoloswag3007';
+        $hlr->reference = 'example.org';
 
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
             "POST",
@@ -57,7 +57,7 @@ class LookupTest extends BaseTest
         $this->client->lookupHlr->create($hlr);
     }
 
-    public function testCreateLookupHlrWithEmptyNumber()
+    public function testCreateLookupHlrWithEmptyNumber(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $hlr = new Hlr();
@@ -65,7 +65,7 @@ class LookupTest extends BaseTest
         $this->client->lookupHlr->create($hlr);
     }
 
-    public function testCreateLookupHlrWithCountryCode()
+    public function testCreateLookupHlrWithCountryCode(): void
     {
         $this->expectException(ServerException::class);
         $hlr = new Hlr();
@@ -84,7 +84,7 @@ class LookupTest extends BaseTest
         $this->client->lookupHlr->create($hlr, $params["countryCode"]);
     }
 
-    public function testReadLookupHlr()
+    public function testReadLookupHlr(): void
     {
         $this->expectException(ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
@@ -96,13 +96,13 @@ class LookupTest extends BaseTest
         $this->client->lookupHlr->read(31612345678);
     }
 
-    public function testReadLookupHlrWithEmptyNumber()
+    public function testReadLookupHlrWithEmptyNumber(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->client->lookupHlr->read(null);
     }
 
-    public function testReadLookupHlrWithCountryCode()
+    public function testReadLookupHlrWithCountryCode(): void
     {
         $this->expectException(ServerException::class);
         $params = ["countryCode" => "NL"];

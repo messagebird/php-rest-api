@@ -11,7 +11,7 @@ use Tests\Integration\BaseTest;
 
 class ContactTest extends BaseTest
 {
-    public function testCreateContact()
+    public function testCreateContact(): void
     {
         $contact = new Contact();
         $contact->firstName = "John";
@@ -23,7 +23,7 @@ class ContactTest extends BaseTest
         $contact->custom4 = "Customfield4";
 
 
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->willReturn([
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->willReturn([
             200,
             '',
             '{
@@ -53,10 +53,10 @@ class ContactTest extends BaseTest
         $this->client->contacts->create($contact);
     }
 
-    public function testListContacts()
+    public function testListContacts(): void
     {
         $this->expectException(ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
             "GET",
             'contacts',
             ['offset' => 100, 'limit' => 30],
@@ -65,10 +65,10 @@ class ContactTest extends BaseTest
         $this->client->contacts->getList(['offset' => 100, 'limit' => 30]);
     }
 
-    public function testViewContact()
+    public function testViewContact(): void
     {
         $this->expectException(ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
             "GET",
             'contacts/contact_id',
             null,
@@ -77,10 +77,10 @@ class ContactTest extends BaseTest
         $this->client->contacts->read("contact_id");
     }
 
-    public function testDeleteContact()
+    public function testDeleteContact(): void
     {
         $this->expectException(ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
             "DELETE",
             'contacts/contact_id',
             null,
@@ -89,14 +89,14 @@ class ContactTest extends BaseTest
         $this->client->contacts->delete("contact_id");
     }
 
-    public function testContactGetGroups()
+    public function testContactGetGroups(): void
     {
         $this->mockClient->method('performHttpRequest')
             ->with(
-                $this->equalTo(HttpClient::REQUEST_GET),
-                $this->equalTo('contacts/contact_id/groups'),
-                $this->anything(),
-                $this->anything()
+                self::equalTo(HttpClient::REQUEST_GET),
+                self::equalTo('contacts/contact_id/groups'),
+                self::anything(),
+                self::anything()
             )
             ->willReturn([
                 200,
@@ -131,28 +131,28 @@ class ContactTest extends BaseTest
             ],
         ];
 
-        $this->assertEquals($groupList, $resultingGroupList);
+        self::assertEquals($groupList, $resultingGroupList);
     }
 
-    public function testContactGetMessages()
+    public function testContactGetMessages(): void
     {
         $this->mockClient->method('performHttpRequest')
-            ->with(
-                $this->equalTo(HttpClient::REQUEST_GET),
-                $this->equalTo('contacts/contact_id/messages'),
-                $this->anything(),
-                $this->anything()
-            )
-            ->willReturn([
-                200,
-                '',
-                '{"offset":0,"limit":20,"count":1,"totalCount":1,"links":{"first":"","previous":null,"next":null,"last":""},"items":[{"id":"contact_id","href":"","direction":"mt","type":"sms","originator":"MsgBird","body":"MessageBody","reference":null,"validity":null,"gateway":0,"typeDetails":{},"datacoding":"plain","mclass":1,"scheduledDatetime":null,"createdDatetime":"","recipients":{"totalCount":1,"totalSentCount":1,"totalDeliveredCount":1,"totalDeliveryFailedCount":0,"items":[{"recipient":12345678912,"status":"delivered","statusDatetime":""}]}}]}',
-            ]);
+             ->with(
+                 self::equalTo(HttpClient::REQUEST_GET),
+                 self::equalTo('contacts/contact_id/messages'),
+                 self::anything(),
+                 self::anything()
+             )
+             ->willReturn([
+                 200,
+                 '',
+                 '{"offset":0,"limit":20,"count":1,"totalCount":1,"links":{"first":"","previous":null,"next":null,"last":""},"items":[{"id":"contact_id","href":"","direction":"mt","type":"sms","originator":"MsgBird","body":"MessageBody","reference":null,"validity":null,"gateway":0,"typeDetails":{},"datacoding":"plain","mclass":1,"scheduledDatetime":null,"createdDatetime":"","recipients":{"totalCount":1,"totalSentCount":1,"totalDeliveredCount":1,"totalDeliveryFailedCount":0,"items":[{"recipient":12345678912,"status":"delivered","statusDatetime":""}]}}]}',
+             ]);
 
         $messages = $this->client->contacts->getMessages("contact_id");
 
         foreach ($messages->items as $message) {
-            $this->assertInstanceOf(Message::class, $message);
+            self::assertInstanceOf(Message::class, $message);
         }
     }
 }

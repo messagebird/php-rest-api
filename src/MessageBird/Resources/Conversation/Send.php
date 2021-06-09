@@ -30,16 +30,16 @@ class Send extends Base
     /**
      * Starts a conversation or adding a message to the conversation when a conversation with the contact already exist.
      *
-     * @param SendMessage $object
-     * @param array|null $query
-     *
      * @return Balance|Conversation|Hlr|Lookup|Message|Verify|VoiceMessage|null
      *
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
+     * @throws \JsonException
      */
-    public function send($object, $query = null)
+    public function send(SendMessage $object, ?array $query = null)
     {
         $body = json_encode($object, \JSON_THROW_ON_ERROR);
 

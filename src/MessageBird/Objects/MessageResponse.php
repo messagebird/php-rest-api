@@ -126,10 +126,8 @@ class MessageResponse extends Base
 
     /**
      * @param mixed $object
-     *
-     * @return $this
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): MessageResponse
     {
         parent::loadFromArray($object);
 

@@ -3,6 +3,7 @@
 namespace MessageBird\Resources;
 
 use MessageBird\Common;
+use MessageBird\Exceptions\AuthenticateException;
 use MessageBird\Exceptions\HttpException;
 use MessageBird\Exceptions\RequestException;
 use MessageBird\Exceptions\ServerException;
@@ -31,7 +32,7 @@ class Verify extends Base
      *
      * @throws HttpException
      * @throws RequestException
-     * @throws ServerException
+     * @throws ServerException|AuthenticateException
      */
     public function verify($id, $token)
     {

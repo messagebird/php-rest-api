@@ -38,13 +38,6 @@ class HttpClientTest extends BaseTest
         $this->doAssertionToNotBeConsideredRiskyTest();
     }
 
-    public function testHttpClientInvalidConnectionTimeout(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Connection timeout must be an int >= 0, got "stdClass"');
-        new HttpClient(Client::ENDPOINT, 10, new stdClass());
-    }
-
     /**
      * Tests a boundary condition (connectionTimeout == 0)
      */

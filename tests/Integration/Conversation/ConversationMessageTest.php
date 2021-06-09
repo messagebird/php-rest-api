@@ -48,10 +48,10 @@ class ConversationMessageTest extends BaseTest
         "type": "video"
     }';
 
-    public function testCreateImage()
+    public function testCreateImage(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
+            ->expects(self::once())->method('performHttpRequest')
             ->with(
                 'POST',
                 'conversations/some-conversation-id/messages',
@@ -73,10 +73,10 @@ class ConversationMessageTest extends BaseTest
         $this->client->conversationMessages->create('some-conversation-id', $message);
     }
 
-    public function testCreateLocation()
+    public function testCreateLocation(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
+            ->expects(self::once())->method('performHttpRequest')
             ->with(
                 'POST',
                 'conversations/some-contact-id/messages',
@@ -99,10 +99,10 @@ class ConversationMessageTest extends BaseTest
         $this->client->conversationMessages->create('some-contact-id', $message);
     }
 
-    public function testCreateText()
+    public function testCreateText(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
+            ->expects(self::once())->method('performHttpRequest')
             ->with(
                 'POST',
                 'conversations/some-other-contact-id/messages',
@@ -122,12 +122,12 @@ class ConversationMessageTest extends BaseTest
         $this->client->conversationMessages->create('some-other-contact-id', $message);
     }
 
-    public function testCreateWithoutChannel()
+    public function testCreateWithoutChannel(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
-            ->with('POST', 'conversations/genid/messages', null, '{"type":"text","content":{"text":"Hello world"}}')
-            ->willReturn([200, '', '{}']);
+             ->expects(self::once())->method('performHttpRequest')
+             ->with('POST', 'conversations/genid/messages', null, '{"type":"text","content":{"text":"Hello world"}}')
+             ->willReturn([200, '', '{}']);
 
         $content = new Content();
         $content->text = 'Hello world';
@@ -139,27 +139,27 @@ class ConversationMessageTest extends BaseTest
         $this->client->conversationMessages->create('genid', $message);
     }
 
-    public function testListPagination()
+    public function testListPagination(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
-            ->with('GET', 'conversations/genid/messages', [], null)
-            ->willReturn([200, '', self::LIST_RESPONSE]);
+             ->expects(self::once())->method('performHttpRequest')
+             ->with('GET', 'conversations/genid/messages', [], null)
+             ->willReturn([200, '', self::LIST_RESPONSE]);
 
         $messages = $this->client->conversationMessages->getList('genid');
 
-        $this->assertEquals(1, $messages->count);
-        $this->assertEquals(1, $messages->totalCount);
-        $this->assertEquals(25, $messages->limit);
-        $this->assertEquals(0, $messages->offset);
+        self::assertEquals(1, $messages->count);
+        self::assertEquals(1, $messages->totalCount);
+        self::assertEquals(25, $messages->limit);
+        self::assertEquals(0, $messages->offset);
     }
 
-    public function testListObject()
+    public function testListObject(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
-            ->with('GET', 'conversations/genid/messages', [], null)
-            ->willReturn([200, '', self::LIST_RESPONSE]);
+             ->expects(self::once())->method('performHttpRequest')
+             ->with('GET', 'conversations/genid/messages', [], null)
+             ->willReturn([200, '', self::LIST_RESPONSE]);
 
         $message = $this->client->conversationMessages->getList('genid')->items[0];
 
@@ -178,15 +178,15 @@ class ConversationMessageTest extends BaseTest
         $expectedMessage->status = 'delivered';
         $expectedMessage->createdDatetime = '2002-10-02T16:00:00Z';
 
-        $this->assertEquals($expectedMessage, $message);
+        self::assertEquals($expectedMessage, $message);
     }
 
-    public function testReadMessage()
+    public function testReadMessage(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
-            ->with('GET', 'messages/message-id', [], null)
-            ->willReturn([200, '', self::READ_RESPONSE]);
+             ->expects(self::once())->method('performHttpRequest')
+             ->with('GET', 'messages/message-id', [], null)
+             ->willReturn([200, '', self::READ_RESPONSE]);
 
 
         $message = $this->client->conversationMessages->read('message-id');
@@ -205,6 +205,6 @@ class ConversationMessageTest extends BaseTest
         $expectedMessage->status = 'delivered';
         $expectedMessage->createdDatetime = '2002-10-02T16:00:00Z';
 
-        $this->assertEquals($expectedMessage, $message);
+        self::assertEquals($expectedMessage, $message);
     }
 }

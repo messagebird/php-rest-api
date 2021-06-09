@@ -5,8 +5,6 @@ namespace MessageBird\Resources;
 use MessageBird\Common;
 use MessageBird\Common\HttpClient;
 use MessageBird\Exceptions;
-use MessageBird\Exceptions\RequestException;
-use MessageBird\Exceptions\ServerException;
 use MessageBird\Objects;
 
 /**
@@ -41,10 +39,7 @@ class Base
         $this->httpClient = $httpClient;
     }
 
-    /**
-     * @return string
-     */
-    public function getResourceName()
+    public function getResourceName(): string
     {
         return $this->resourceName;
     }
@@ -73,10 +68,7 @@ class Base
         $this->object = $object;
     }
 
-    /**
-     * @return Objects\MessageResponse
-     */
-    public function getResponseObject()
+    public function getResponseObject(): Objects\MessageResponse
     {
         return $this->responseObject;
     }
@@ -97,11 +89,12 @@ class Base
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\MessageResponse|Objects\Verify|Objects\VoiceMessage|null
      *
+     * @throws Exceptions\AuthenticateException
      * @throws Exceptions\HttpException
-     * @throws RequestException
-     * @throws ServerException
+     * @throws Exceptions\BalanceException
+     * @throws \JsonException
      */
-    public function create($object, $query = null)
+    public function create($object, ?array $query = null)
     {
         $body = json_encode($object, \JSON_THROW_ON_ERROR);
         [, , $body] = $this->httpClient->performHttpRequest(
@@ -114,26 +107,29 @@ class Base
     }
 
     /**
+     * @param string|null $body
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|Objects\MessageResponse|null
      *
-     * @throws RequestException
-     * @throws ServerException
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
      */
     public function processRequest(?string $body)
     {
         try {
             $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
         } catch (\JsonException $e) {
-            throw new ServerException('Got an invalid JSON response from the server.');
+            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
         }
 
         if ($body === null) {
-            throw new ServerException('Got an invalid JSON response from the server.');
+            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
         }
 
         if (!empty($body->errors)) {
             $responseError = new Common\ResponseError($body);
-            throw new RequestException($responseError->getErrorString());
+            throw new Exceptions\RequestException($responseError->getErrorString());
         }
 
         if ($this->responseObject) {
@@ -144,7 +140,14 @@ class Base
     }
 
     /**
+     * @param array|null $parameters
      * @return Objects\Balance|Objects\BaseList|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
+     * @throws \JsonException
      */
     public function getList(?array $parameters = [])
     {
@@ -185,8 +188,11 @@ class Base
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      *
-     * @throws RequestException
-     * @throws ServerException
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
      */
     public function read($id = null)
     {
@@ -200,8 +206,11 @@ class Base
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null|true
      *
-     * @throws RequestException
-     * @throws ServerException
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
      */
     public function delete($id)
     {
@@ -221,6 +230,12 @@ class Base
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
      *
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
+     * @throws \JsonException
      * @internal param array $parameters
      */
     public function update($object, $id)

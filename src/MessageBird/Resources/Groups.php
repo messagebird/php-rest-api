@@ -28,9 +28,12 @@ class Groups extends Base
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
      *
-     * @throws Exceptions\HttpException
-     *
      * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
+     * @throws \JsonException
+     *
      * @internal param array $parameters
      */
     public function update($object, $id)
@@ -56,14 +59,16 @@ class Groups extends Base
     }
 
     /**
-     * @param string $id
+     * @param string|null $id
      * @param array|null $parameters
      *
      * @return mixed
+     *
      * @throws InvalidArgumentException
+     * @throws \JsonException
      *
      */
-    public function getContacts($id = null, $parameters = [])
+    public function getContacts(?string $id = null, ?array $parameters = [])
     {
         if ($id === null) {
             throw new InvalidArgumentException('No group id provided.');
@@ -75,15 +80,16 @@ class Groups extends Base
 
     /**
      * @param array $contacts
-     * @param string $id
+     * @param string|null $id
      *
      * @return mixed
      * @throws Exceptions\HttpException
      * @throws InvalidArgumentException
      *
      * @throws Exceptions\AuthenticateException
+     * @throws \JsonException
      */
-    public function addContacts($contacts, $id = null)
+    public function addContacts(array $contacts, ?string $id = null)
     {
         if (!\is_array($contacts)) {
             throw new  InvalidArgumentException('No array with contacts provided.');
@@ -106,15 +112,16 @@ class Groups extends Base
     }
 
     /**
-     * @param string $contact_id
-     * @param string $id
+     * @param string|null $contact_id
+     * @param string|null $id
      *
      * @return mixed
      * @throws Exceptions\HttpException
      *
      * @throws Exceptions\AuthenticateException
+     * @throws \JsonException
      */
-    public function removeContact($contact_id = null, $id = null)
+    public function removeContact(?string $contact_id = null, ?string $id = null)
     {
         if ($contact_id === null || $id === null) {
             throw new InvalidArgumentException('Null Contact or Group id.');

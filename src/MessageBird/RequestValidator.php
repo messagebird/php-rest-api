@@ -65,7 +65,7 @@ class RequestValidator
      * @return bool
      * @deprecated Use {@link RequestValidator::validateSignature()} instead.
      */
-    public function verify(SignedRequest $signedRequest)
+    public function verify(SignedRequest $signedRequest): bool
     {
         $payload = $this->buildPayloadFromRequest($signedRequest);
 
@@ -104,7 +104,7 @@ class RequestValidator
      * @return bool
      * @deprecated Use {@link RequestValidator::validateSignature()} instead.
      */
-    public function isRecent(SignedRequest $signedRequest, $offset = 10)
+    public function isRecent(SignedRequest $signedRequest, int $offset = 10): bool
     {
         return (\time() - (int)$signedRequest->requestTimestamp) < $offset;
     }

@@ -19,9 +19,10 @@ class PhoneNumbers extends Base
 
     public function __construct(HttpClient $httpClient)
     {
-        $this->httpClient = $httpClient;
         $this->setObject(new Objects\Number());
         $this->setResourceName('phone-numbers');
+
+        parent::__construct($httpClient);
     }
 
     /**
@@ -30,6 +31,11 @@ class PhoneNumbers extends Base
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      *
+     * @throws \JsonException
+     * @throws \MessageBird\Exceptions\AuthenticateException
+     * @throws \MessageBird\Exceptions\HttpException
+     * @throws \MessageBird\Exceptions\RequestException
+     * @throws \MessageBird\Exceptions\ServerException
      * @internal param array $parameters
      */
     public function update($object, $id)

@@ -96,12 +96,12 @@ class ConversationTest extends BaseTest
         "lastUsedChannelId": "channel-id"
     }';
 
-    public function testStart()
+    public function testStart(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
-            ->with('POST', 'conversations/start', null, self::START_REQUEST)
-            ->willReturn([200, '', '{}']);
+             ->expects(self::once())->method('performHttpRequest')
+             ->with('POST', 'conversations/start', null, self::START_REQUEST)
+             ->willReturn([200, '', '{}']);
 
         $content = new Content();
         $content->location = [
@@ -121,22 +121,22 @@ class ConversationTest extends BaseTest
     /**
      * We can also start a conversation without a message.
      */
-    public function testCreate()
+    public function testCreate(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
-            ->with('POST', 'conversations', null, self::CREATE_REQUEST)
-            ->willReturn([200, '', '{}']);
+             ->expects(self::once())->method('performHttpRequest')
+             ->with('POST', 'conversations', null, self::CREATE_REQUEST)
+             ->willReturn([200, '', '{}']);
 
         $this->client->conversations->create('some-contact-id');
     }
 
-    public function testList()
+    public function testList(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
-            ->with('GET', 'conversations', [], null)
-            ->willReturn([200, '', self::LIST_RESPONSE]);
+             ->expects(self::once())->method('performHttpRequest')
+             ->with('GET', 'conversations', [], null)
+             ->willReturn([200, '', self::LIST_RESPONSE]);
 
         $list = new BaseList();
         $list->limit = 10;
@@ -145,7 +145,7 @@ class ConversationTest extends BaseTest
         $list->totalCount = 1;
         $list->items = [$this->getConversation()];
 
-        $this->assertEquals(
+        self::assertEquals(
             $list,
             $this->client->conversations->getList()
         );
@@ -153,10 +153,8 @@ class ConversationTest extends BaseTest
 
     /**
      * Gets an arbitrary conversation that's used in tests.
-     *
-     * @return Conversation
      */
-    private function getConversation()
+    private function getConversation(): Conversation
     {
         $contact = new Contact();
         $contact->id = 'contact-id';
@@ -197,20 +195,20 @@ class ConversationTest extends BaseTest
         return $conversation;
     }
 
-    public function testRead()
+    public function testRead(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
-            ->with('GET', 'conversations/conversation-id', null, null)
-            ->willReturn([200, '', self::READ_RESPONSE]);
+             ->expects(self::once())->method('performHttpRequest')
+             ->with('GET', 'conversations/conversation-id', null, null)
+             ->willReturn([200, '', self::READ_RESPONSE]);
 
-        $this->assertEquals(
+        self::assertEquals(
             $this->getConversation(),
             $this->client->conversations->read('conversation-id')
         );
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
         $this->mockClient
             ->expects($this->exactly(2))->method('performHttpRequest')

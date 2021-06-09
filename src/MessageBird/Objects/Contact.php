@@ -90,18 +90,12 @@ class Contact extends Base
      */
     protected $updatedDatetime;
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getHref()
+    public function getHref(): string
     {
         return $this->href;
     }
@@ -116,36 +110,25 @@ class Contact extends Base
         return $this->messages;
     }
 
-    /**
-     * @return string
-     */
-    public function getCreatedDatetime()
+    public function getCreatedDatetime(): string
     {
         return $this->createdDatetime;
     }
 
-    /**
-     * @return string
-     */
-    public function getUpdatedDatetime()
+    public function getUpdatedDatetime(): string
     {
         return $this->updatedDatetime;
     }
 
-    /**
-     * @return array
-     */
-    public function getCustomDetails()
+    public function getCustomDetails(): array
     {
         return $this->customDetails;
     }
 
     /**
      * @param mixed $object
-     *
-     * @return $this
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): Contact
     {
         unset($this->custom1, $this->custom2, $this->custom3, $this->custom4);
 

@@ -97,10 +97,8 @@ class Conversation extends Base
 
     /**
      * @param mixed $object
-     *
-     * @return self
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): Conversation
     {
         parent::loadFromArray($object);
 

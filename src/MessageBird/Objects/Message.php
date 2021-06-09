@@ -12,7 +12,6 @@ class Message extends Base
 {
     public const TYPE_SMS = 'sms';
     public const TYPE_BINARY = 'binary';
-    public const TYPE_PREMIUM = 'premium';
 
     public const DATACODING_UNICODE = 'unicode';
     public const DATACODING_PLAIN = 'plain';
@@ -121,30 +120,6 @@ class Message extends Base
     protected $createdDatetime;
 
     /**
-     * Send a premium SMS
-     *
-     * @param mixed $shortcode
-     * @param mixed $keyword
-     * @param mixed $tariff
-     * @param mixed $mid
-     * @param mixed $member
-     */
-    public function setPremiumSms($shortcode, $keyword, $tariff, $mid = null, $member = null): void
-    {
-        $this->typeDetails['shortcode'] = $shortcode;
-        $this->typeDetails['keyword'] = $keyword;
-        $this->typeDetails['tariff'] = $tariff;
-        if ($mid !== null) {
-            $this->typeDetails['mid'] = $mid;
-        }
-        if ($member !== null) {
-            $this->typeDetails['member'] = $member;
-        }
-
-        $this->type = self::TYPE_PREMIUM;
-    }
-
-    /**
      * @param mixed $header
      * @param mixed $body
      */
@@ -169,20 +144,16 @@ class Message extends Base
 
     /**
      * Get the $createdDatetime value
-     *
-     * @return string
-     */
-    public function getCreatedDatetime()
+     *     */
+    public function getCreatedDatetime(): string
     {
         return $this->createdDatetime;
     }
 
     /**
      * @param mixed $object
-     *
-     * @return $this|void
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): Message
     {
         parent::loadFromArray($object);
 

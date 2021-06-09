@@ -62,7 +62,7 @@ class Conversations extends Base
     /**
      * Starts a conversation without sending an initial message.
      *
-     * @param int $contactId
+     * @param int $object
      *
      * @return Conversation|Balance|Hlr|Lookup|\MessageBird\Objects\Message|Verify|VoiceMessage|null
      *
@@ -70,9 +70,9 @@ class Conversations extends Base
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
      */
-    public function create($contactId, $query = null)
+    public function create($object, array $query = null)
     {
-        $body = json_encode(['contactId' => $contactId], \JSON_THROW_ON_ERROR);
+        $body = json_encode(['contactId' => $object], \JSON_THROW_ON_ERROR);
 
         [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,

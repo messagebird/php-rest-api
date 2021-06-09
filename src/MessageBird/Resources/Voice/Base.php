@@ -21,7 +21,14 @@ use MessageBird\Objects\VoiceMessage;
 class Base extends \MessageBird\Resources\Base
 {
     /**
+     * @param array $parameters
      * @return BaseList|Balance|Conversation|Hlr|Lookup|Message|Verify|VoiceMessage|null
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
+     * @throws \JsonException
      */
     public function getList($parameters = [])
     {

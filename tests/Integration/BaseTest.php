@@ -5,10 +5,6 @@ namespace Tests\Integration;
 use MessageBird\Client;
 use MessageBird\Common\HttpClient;
 use MessageBird\Resources\Balance;
-use MessageBird\Resources\Chat\Channel;
-use MessageBird\Resources\Chat\Contact;
-use MessageBird\Resources\Chat\Message;
-use MessageBird\Resources\Chat\Platform;
 use MessageBird\Resources\Contacts;
 use MessageBird\Resources\Groups;
 use MessageBird\Resources\Hlr;
@@ -36,10 +32,6 @@ class BaseTest extends TestCase
         self::assertInstanceOf(Groups::class, $messageBird->groups);
         self::assertInstanceOf(VoiceMessage::class, $messageBird->voicemessages);
         self::assertInstanceOf(Verify::class, $messageBird->verify);
-        self::assertInstanceOf(Message::class, $messageBird->chatMessages);
-        self::assertInstanceOf(Platform::class, $messageBird->chatPlatforms);
-        self::assertInstanceOf(Channel::class, $messageBird->chatChannels);
-        self::assertInstanceOf(Contact::class, $messageBird->chatContacts);
     }
 
     public function testHttpClientMock(): void

@@ -46,11 +46,10 @@ class SignedRequest extends Base
     /**
      * Create a new SignedRequest from PHP globals.
      *
-     * @return SignedRequest
      * @throws ValidationException when a required parameter is missing.
      * @deprecated Use {@link RequestValidator::validateRequestFromGlobals()} instead.
      */
-    public static function createFromGlobals()
+    public static function createFromGlobals(): SignedRequest
     {
         $body = file_get_contents('php://input');
         $queryParameters = $_GET;
@@ -125,7 +124,7 @@ class SignedRequest extends Base
      * @return SignedRequest
      * @throws ValidationException when a required parameter is missing.
      */
-    public static function create($query, $signature, $requestTimestamp, $body)
+    public static function create($query, string $signature, int $requestTimestamp, string $body): SignedRequest
     {
         if (\is_string($query)) {
             $queryParameters = [];

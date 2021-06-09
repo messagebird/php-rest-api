@@ -4,6 +4,7 @@ namespace MessageBird\Resources;
 
 use InvalidArgumentException;
 use MessageBird\Common;
+use MessageBird\Exceptions\AuthenticateException;
 use MessageBird\Exceptions\HttpException;
 use MessageBird\Exceptions\RequestException;
 use MessageBird\Exceptions\ServerException;
@@ -28,15 +29,16 @@ class Lookup extends Base
      * @no-named-arguments
      *
      * @param string|int $phoneNumber
-     * @param string $countryCode
+     * @param string|null $countryCode
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      *
      * @throws HttpException
      * @throws RequestException
      * @throws ServerException
+     * @throws AuthenticateException
      */
-    public function read($phoneNumber = null, $countryCode = null)
+    public function read($phoneNumber = null, ?string $countryCode = null)
     {
         if (empty($phoneNumber)) {
             throw new InvalidArgumentException('The phone number cannot be empty.');

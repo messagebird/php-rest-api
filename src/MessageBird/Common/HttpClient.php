@@ -39,12 +39,12 @@ class HttpClient
     /**
      * @var int
      */
-    private $timeout = 10;
+    private $timeout;
 
     /**
      * @var int
      */
-    private $connectionTimeout = 2;
+    private $connectionTimeout;
 
     /**
      * @var array
@@ -56,13 +56,7 @@ class HttpClient
      */
     private $httpOptions = [];
 
-    /**
-     * @param string $endpoint
-     * @param int $timeout > 0
-     * @param int $connectionTimeout >= 0
-     * @param array $headers
-     */
-    public function __construct($endpoint, $timeout = 10, $connectionTimeout = 2, $headers = [])
+    public function __construct(string $endpoint, int $timeout = 10, int $connectionTimeout = 2, array $headers = [])
     {
         $this->endpoint = $endpoint;
 
@@ -93,10 +87,7 @@ class HttpClient
         $this->headers = $headers;
     }
 
-    /**
-     * @param string $userAgent
-     */
-    public function addUserAgentString($userAgent): void
+    public function addUserAgentString(string $userAgent): void
     {
         $this->userAgent[] = $userAgent;
     }
@@ -131,7 +122,7 @@ class HttpClient
 
     /**
      * @param string $method
-     * @param string $resourceName
+     * @param string|null $resourceName
      * @param mixed $query
      * @param string|null $body
      *
@@ -140,7 +131,7 @@ class HttpClient
      * @throws Exceptions\AuthenticateException
      * @throws Exceptions\HttpException
      */
-    public function performHttpRequest($method, $resourceName, $query = null, $body = null)
+    public function performHttpRequest(string $method, ?string $resourceName, $query = null, ?string $body = null): ?array
     {
         $curl = curl_init();
 
@@ -185,7 +176,7 @@ class HttpClient
         }
 
         // Some servers have outdated or incorrect certificates, Use the included CA-bundle
-        $caFile = realpath(__DIR__ . '/../ca-bundle.crt');
+        $caFile = dirname(__DIR__) . '/ca-bundle.crt';
         if (!file_exists($caFile)) {
             throw new Exceptions\HttpException(sprintf(
                 'Unable to find CA-bundle file "%s".',
@@ -219,7 +210,7 @@ class HttpClient
      *
      * @return string
      */
-    public function getRequestUrl($resourceName, $query)
+    public function getRequestUrl(string $resourceName, $query): string
     {
         $requestUrl = $this->endpoint . '/' . $resourceName;
         if ($query) {
@@ -232,19 +223,13 @@ class HttpClient
         return $requestUrl;
     }
 
-    /**
-     * @return $this
-     */
-    public function setTimeout(int $timeout)
+    public function setTimeout(int $timeout): HttpClient
     {
         $this->timeout = $timeout;
         return $this;
     }
 
-    /**
-     * @return $this
-     */
-    public function setConnectionTimeout(int $connectionTimeout)
+    public function setConnectionTimeout(int $connectionTimeout): HttpClient
     {
         $this->connectionTimeout = $connectionTimeout;
         return $this;

@@ -24,8 +24,6 @@ class ResponseError
 
     public const NOT_ENOUGH_CREDIT = 25;
 
-    public const CHAT_API_AUTH_ERROR = 1001;
-
     public $errors = [];
 
     /**
@@ -51,8 +49,6 @@ class ResponseError
                 if ($error->code === self::NOT_ENOUGH_CREDIT) {
                     throw new Exceptions\BalanceException($this->getExceptionMessage($error));
                 } elseif ($error->code === self::REQUEST_NOT_ALLOWED) {
-                    throw new Exceptions\AuthenticateException($this->getExceptionMessage($error));
-                } elseif ($error->code === self::CHAT_API_AUTH_ERROR) {
                     throw new Exceptions\AuthenticateException($this->getExceptionMessage($error));
                 }
 

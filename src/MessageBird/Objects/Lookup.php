@@ -81,72 +81,37 @@ class Lookup extends Base
      */
     protected $hlr;
 
-    /**
-     * Get the href
-     *
-     * @return mixed
-     */
-    public function getHref()
+    public function getHref(): ?string
     {
         return $this->href;
     }
 
-    /**
-     * Get the href
-     *
-     * @return mixed
-     */
-    public function getCountryCode()
+    public function getCountryCode(): ?string
     {
         return $this->countryCode;
     }
 
-    /**
-     * Get the href
-     *
-     * @return mixed
-     */
-    public function getCountryPrefix()
+    public function getCountryPrefix(): ?int
     {
         return $this->countryPrefix;
     }
 
-    /**
-     * Get the href
-     *
-     * @return mixed
-     */
-    public function getPhoneNumber()
+    public function getPhoneNumber(): ?int
     {
         return $this->phoneNumber;
     }
 
-    /**
-     * Get the href
-     *
-     * @return mixed
-     */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
 
-    /**
-     * Get the href
-     *
-     * @return mixed
-     */
-    public function getFormats()
+    public function getFormats(): ?array
     {
         return $this->formats;
     }
 
-    /**
-     * Get the href
-     *
-     * @return mixed
-     */
-    public function getHLR()
+    public function getHLR(): ?array
     {
         return $this->hlr;
     }
