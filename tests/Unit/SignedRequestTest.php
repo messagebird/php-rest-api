@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 class SignedRequestTest extends TestCase
 {
-    public function testCreate()
+    public function testCreate(): void
     {
         $query = [
             'recipient' => '31612345678',
@@ -34,7 +34,7 @@ class SignedRequestTest extends TestCase
         self::assertEquals($signature, $request->signature);
     }
 
-    public function testLoadFromArray()
+    public function testLoadFromArray(): void
     {
         $query = [
             'recipient' => '31612345678',
@@ -63,7 +63,7 @@ class SignedRequestTest extends TestCase
         self::assertEquals($signature, $request->signature);
     }
 
-    public function testLoadInvalidQuery()
+    public function testLoadInvalidQuery(): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('query');
@@ -81,7 +81,7 @@ class SignedRequestTest extends TestCase
         ]);
     }
 
-    public function testLoadInvalidSignature()
+    public function testLoadInvalidSignature(): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('signature');
@@ -107,7 +107,7 @@ class SignedRequestTest extends TestCase
         ]);
     }
 
-    public function testLoadInvalidTimestamp()
+    public function testLoadInvalidTimestamp(): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('requestTimestamp');
@@ -133,7 +133,7 @@ class SignedRequestTest extends TestCase
         ]);
     }
 
-    public function testLoadInvalidBody()
+    public function testLoadInvalidBody(): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('body');

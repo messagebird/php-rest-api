@@ -26,7 +26,7 @@ class BaseTest extends TestCase
     /** @var MockObject */
     protected $mockClient;
 
-    public function testClientConstructor()
+    public function testClientConstructor(): void
     {
         $messageBird = new Client('YOUR_ACCESS_KEY');
         self::assertInstanceOf(Balance::class, $messageBird->balance);
@@ -42,7 +42,7 @@ class BaseTest extends TestCase
         self::assertInstanceOf(Contact::class, $messageBird->chatContacts);
     }
 
-    public function testHttpClientMock()
+    public function testHttpClientMock(): void
     {
         $this->mockClient->expects($this->atLeastOnce())->method('addUserAgentString');
         new Client('YOUR_ACCESS_KEY', $this->mockClient);
@@ -61,7 +61,7 @@ class BaseTest extends TestCase
      * The doesNotPerformAssertions annotation is not available in earlier PHPUnit
      * versions, and hence can not be used.
      */
-    protected function doAssertionToNotBeConsideredRiskyTest()
+    protected function doAssertionToNotBeConsideredRiskyTest(): void
     {
         static::assertTrue(true);
     }

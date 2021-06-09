@@ -12,7 +12,7 @@ class ResponseErrorTest extends BaseTest
     public const SINGLE_ERROR_JSON = '{"errors":[{"code":25,"description":"foo"}]}';
     public const MULTIPLE_ERRORS_JSON = '{"errors":[{"code":9,"description":"foo"},{"code":25,"description":"bar"}]}';
 
-    public function testSingleError()
+    public function testSingleError(): void
     {
         self::assertEquals(
             sprintf(self::EXCEPTION_MESSAGE, 'foo'),
@@ -20,11 +20,11 @@ class ResponseErrorTest extends BaseTest
         );
     }
 
-    private function getExceptionMessageFromJson($json)
+    private function getExceptionMessageFromJson($json): string
     {
         try {
-            new ResponseError(json_decode($json));
-        } catch (MessageBirdException $e) {
+            new ResponseError(json_decode($json,null, 512, \JSON_THROW_ON_ERROR));
+        } catch (MessageBirdException | \JsonException $e) {
             // Expected: we want the error message.
             return $e->getMessage();
         }
@@ -32,7 +32,7 @@ class ResponseErrorTest extends BaseTest
         self::fail('No exception thrown');
     }
 
-    public function testMultipleErrors()
+    public function testMultipleErrors(): void
     {
         self::assertEquals(
             sprintf(self::EXCEPTION_MESSAGE, 'bar'),

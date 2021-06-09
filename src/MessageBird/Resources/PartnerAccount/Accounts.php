@@ -52,14 +52,14 @@ class Accounts extends Base
             return $this->processRequest($body);
         }
 
-
         $response = json_decode($body, true, 512, \JSON_THROW_ON_ERROR);
 
+        $return = [];
         foreach ($response as &$singleResponse) {
-            $this->getObject()->loadFromArray($singleResponse);
+            $return[] = $this->getObject()->loadFromArray($singleResponse);
         }
 
-        return $response;
+        return $return;
     }
 
     /**

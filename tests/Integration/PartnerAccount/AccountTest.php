@@ -7,7 +7,7 @@ use Tests\Integration\BaseTest;
 
 class AccountTest extends BaseTest
 {
-    public function testCreateSubAccount()
+    public function testCreateSubAccount(): void
     {
         $account = new Account();
         $account->name = 'MessageBird';
@@ -48,13 +48,13 @@ class AccountTest extends BaseTest
 
         $response = $this->client->partnerAccounts->create($account);
 
-        $this->assertNotEmpty($response->id);
-        $this->assertNotEmpty($response->name);
-        $this->assertNotEmpty($response->accessKeys);
-        $this->assertNotEmpty($response->signingKey);
+        self::assertNotEmpty($response->id);
+        self::assertNotEmpty($response->name);
+        self::assertNotEmpty($response->accessKeys);
+        self::assertNotEmpty($response->signingKey);
     }
 
-    public function testListSubAccount()
+    public function testListSubAccount(): void
     {
         $this->mockClient
             ->expects($this->atLeastOnce())
@@ -89,15 +89,15 @@ class AccountTest extends BaseTest
             );
 
         $response = $this->client->partnerAccounts->getList();
-        $this->assertCount(3, $response);
+        self::assertCount(3, $response);
         foreach ($response as $item) {
-            $this->assertNotEmpty($item->id);
-            $this->assertNotEmpty($item->name);
-            $this->assertNotEmpty($item->email);
+            self::assertNotEmpty($item->id);
+            self::assertNotEmpty($item->name);
+            self::assertNotEmpty($item->email);
         }
     }
 
-    public function testReadSubAccount()
+    public function testReadSubAccount(): void
     {
         $this->mockClient
             ->expects($this->atLeastOnce())
@@ -121,12 +121,12 @@ class AccountTest extends BaseTest
 
         $response = $this->client->partnerAccounts->read(1);
 
-        $this->assertNotEmpty($response->id);
-        $this->assertNotEmpty($response->name);
-        $this->assertNotEmpty($response->email);
+        self::assertNotEmpty($response->id);
+        self::assertNotEmpty($response->name);
+        self::assertNotEmpty($response->email);
     }
 
-    public function testDeleteSubAccount()
+    public function testDeleteSubAccount(): void
     {
         $this->mockClient
             ->expects($this->once())
@@ -146,7 +146,7 @@ class AccountTest extends BaseTest
         $this->assertTrue($response);
     }
 
-    public function testEditSubAccount()
+    public function testEditSubAccount(): void
     {
         $account = new Account();
         $account->name = 'MessageBird';

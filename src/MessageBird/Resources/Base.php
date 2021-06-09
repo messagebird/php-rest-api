@@ -114,18 +114,20 @@ class Base
     }
 
     /**
-     * @param string $body
-     *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|Objects\MessageResponse|null
      *
      * @throws RequestException
      * @throws ServerException
      */
-    public function processRequest($body)
+    public function processRequest(?string $body)
     {
-        $body = @json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
+        try {
+            $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
+            throw new ServerException('Got an invalid JSON response from the server.');
+        }
 
-        if ($body === null || $body === false) {
+        if ($body === null) {
             throw new ServerException('Got an invalid JSON response from the server.');
         }
 

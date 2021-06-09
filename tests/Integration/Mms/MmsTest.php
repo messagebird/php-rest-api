@@ -8,12 +8,12 @@ use Tests\Integration\BaseTest;
 
 class MmsTest extends BaseTest
 {
-    public function testCreateMmsFail()
+    public function testCreateMmsFail(): void
     {
         $this->expectException(RequestException::class);
         $mmsMessage = new MmsMessage();
 
-        $this->mockClient->expects($this->once())
+        $this->mockClient->expects(self::once())
             ->method('performHttpRequest')
             ->with('POST', 'mms', null, json_encode($mmsMessage))
             ->willReturn([
@@ -25,12 +25,12 @@ class MmsTest extends BaseTest
         $this->client->mmsMessages->create($mmsMessage);
     }
 
-    public function testCreateMmsSuccess()
+    public function testCreateMmsSuccess(): void
     {
         $mmsMessage = $this->generateDummyMessage();
         $dummyMessageId = 'message_id';
 
-        $this->mockClient->expects($this->once())
+        $this->mockClient->expects(self::once())
             ->method('performHttpRequest')
             ->with('POST', 'mms', null, json_encode($mmsMessage))
             ->willReturn([200, '', $this->generateMmsServerResponse($mmsMessage, $dummyMessageId)]);
@@ -40,10 +40,7 @@ class MmsTest extends BaseTest
         $this->assertMessagesAreEqual($mmsMessage, $resultMmsMessage, $dummyMessageId);
     }
 
-    /**
-     * @return MmsMessage
-     */
-    private function generateDummyMessage()
+    private function generateDummyMessage(): MmsMessage
     {
         $mmsMessage = new MmsMessage();
         $mmsMessage->originator = "MessageBird";
@@ -57,7 +54,7 @@ class MmsTest extends BaseTest
     /**
      * @return string JSON string containing the generated server response.
      */
-    private function generateMmsServerResponse(MmsMessage $mmsMessage, $messageId)
+    private function generateMmsServerResponse(MmsMessage $mmsMessage, $messageId): string
     {
         return '{
             "id": "' . $messageId . '",
@@ -90,32 +87,32 @@ class MmsTest extends BaseTest
      * Asserts if 2 messages are equal. They are equal if all the attributes have the same value.
      * @param MmsMessage $mmsMessage
      * @param MmsMessage $resultMmsMessage
-     * @param $expectedId Since the id field cannot be manually set this the id of the message is checked against this expectedId value.
+     * @param string $expectedId Since the id field cannot be manually set this the id of the message is checked against this expectedId value.
      */
     private function assertMessagesAreEqual(
         MmsMessage $mmsMessage,
         MmsMessage $resultMmsMessage,
-        $expectedId
-    ) {
-        $this->assertSame($expectedId, $resultMmsMessage->getId());
-        $this->assertSame("https://rest.messagebird.com/mms/{$expectedId}", $resultMmsMessage->getHref());
-        $this->assertSame($mmsMessage->direction, $resultMmsMessage->direction);
-        $this->assertSame($mmsMessage->originator, $resultMmsMessage->originator);
-        $this->assertSame($mmsMessage->subject, $resultMmsMessage->subject);
-        $this->assertSame($mmsMessage->body, $resultMmsMessage->body);
-        $this->assertSame($mmsMessage->mediaUrls, $resultMmsMessage->mediaUrls);
-        $this->assertSame($mmsMessage->reference, $resultMmsMessage->reference);
+        string $expectedId
+    ): void {
+        self::assertSame($expectedId, $resultMmsMessage->getId());
+        self::assertSame("https://rest.messagebird.com/mms/{$expectedId}", $resultMmsMessage->getHref());
+        self::assertSame($mmsMessage->direction, $resultMmsMessage->direction);
+        self::assertSame($mmsMessage->originator, $resultMmsMessage->originator);
+        self::assertSame($mmsMessage->subject, $resultMmsMessage->subject);
+        self::assertSame($mmsMessage->body, $resultMmsMessage->body);
+        self::assertSame($mmsMessage->mediaUrls, $resultMmsMessage->mediaUrls);
+        self::assertSame($mmsMessage->reference, $resultMmsMessage->reference);
 
         foreach ($resultMmsMessage->recipients->items as $item) {
-            $this->assertContains($item->recipient, $mmsMessage->recipients);
+            self::assertContains($item->recipient, $mmsMessage->recipients);
         }
     }
 
-    public function testListMms()
+    public function testListMms(): void
     {
         $dummyMessage = $this->generateDummyMessage();
 
-        $this->mockClient->expects($this->once())
+        $this->mockClient->expects(self::once())
             ->method('performHttpRequest')
             ->with('GET', 'mms', ['offset' => '100', 'limit' => '30'], null)
             ->willReturn([
@@ -136,16 +133,16 @@ class MmsTest extends BaseTest
 
         $resultMessages = $this->client->mmsMessages->getList(['offset' => 100, 'limit' => 30]);
 
-        $this->assertSame(0, $resultMessages->offset);
-        $this->assertSame(1, $resultMessages->count);
-        $this->assertSame(2, $resultMessages->totalCount);
+        self::assertSame(0, $resultMessages->offset);
+        self::assertSame(1, $resultMessages->count);
+        self::assertSame(2, $resultMessages->totalCount);
 
-        $this->assertCount(2, $resultMessages->items);
+        self::assertCount(2, $resultMessages->items);
         $this->assertMessagesAreEqual($dummyMessage, $resultMessages->items[0], 'message_id');
         $this->assertMessagesAreEqual($dummyMessage, $resultMessages->items[1], 'message_id_2');
     }
 
-    public function testDeleteMms()
+    public function testDeleteMms(): void
     {
         $this->expectException(RequestException::class);
         $this->mockClient->expects($this->exactly(2))
@@ -162,7 +159,7 @@ class MmsTest extends BaseTest
         $this->client->mmsMessages->delete('message_id');
     }
 
-    public function testReadMms()
+    public function testReadMms(): void
     {
         $this->expectException(RequestException::class);
         $dummyMessage = $this->generateDummyMessage();

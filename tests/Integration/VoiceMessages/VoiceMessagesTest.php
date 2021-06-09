@@ -8,7 +8,7 @@ use Tests\Integration\BaseTest;
 
 class VoiceMessagesTest extends BaseTest
 {
-    public function testVoiceMessageCreate()
+    public function testVoiceMessageCreate(): void
     {
         $this->expectException(ServerException::class);
         $message = new VoiceMessage();
@@ -26,7 +26,7 @@ class VoiceMessagesTest extends BaseTest
         $this->client->voicemessages->create($message);
     }
 
-    public function testListMessage()
+    public function testListMessage(): void
     {
         $this->expectException(ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
@@ -38,7 +38,7 @@ class VoiceMessagesTest extends BaseTest
         $this->client->voicemessages->getList(['offset' => 100, 'limit' => 30]);
     }
 
-    public function testReadMessage()
+    public function testReadMessage(): void
     {
         $this->expectException(ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
@@ -50,7 +50,7 @@ class VoiceMessagesTest extends BaseTest
         $this->client->voicemessages->read("message_id");
     }
 
-    public function testDeleteMessage()
+    public function testDeleteMessage(): void
     {
         $this->expectException(ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(

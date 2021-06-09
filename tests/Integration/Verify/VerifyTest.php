@@ -8,7 +8,7 @@ use Tests\Integration\BaseTest;
 
 class VerifyTest extends BaseTest
 {
-    public function testGenerateOtp()
+    public function testGenerateOtp(): void
     {
         $this->expectException(ServerException::class);
         $verify = new Verify();
@@ -25,7 +25,7 @@ class VerifyTest extends BaseTest
         $this->client->verify->create($verify);
     }
 
-    public function testVerifyOtp()
+    public function testVerifyOtp(): void
     {
         $this->expectException(ServerException::class);
         $verify = new Verify();

@@ -7,7 +7,7 @@ use Tests\Integration\BaseTest;
 
 class AvailablePhoneNumbersTest extends BaseTest
 {
-    public function testListAvailablePhoneNumbers()
+    public function testListAvailablePhoneNumbers(): void
     {
         $this->expectException(ServerException::class);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
