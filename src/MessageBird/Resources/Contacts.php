@@ -40,7 +40,7 @@ class Contacts extends Base
         }
 
         $resourceName = $this->resourceName . ($id ? '/' . $id : null);
-        $body = json_encode($body, JSON_THROW_ON_ERROR);
+        $body = json_encode($body, \JSON_THROW_ON_ERROR);
 
         [, , $body] = $this->httpClient->performHttpRequest(
             Common\HttpClient::REQUEST_PATCH,

@@ -87,7 +87,7 @@ class RequestValidator
 
         // Build sorted query string
         $query = $signedRequest->queryParameters;
-        ksort($query, SORT_STRING);
+        ksort($query, \SORT_STRING);
         $parts[] = http_build_query($query);
 
         // Calculate checksum for request body

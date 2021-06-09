@@ -53,7 +53,7 @@ class Accounts extends Base
         }
 
 
-        $response = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+        $response = json_decode($body, true, 512, \JSON_THROW_ON_ERROR);
 
         foreach ($response as &$singleResponse) {
             $this->getObject()->loadFromArray($singleResponse);

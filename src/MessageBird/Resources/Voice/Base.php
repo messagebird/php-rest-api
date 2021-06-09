@@ -32,7 +32,7 @@ class Base extends \MessageBird\Resources\Base
         );
 
         if ($status === 200) {
-            $body = json_decode($body, null, 512, JSON_THROW_ON_ERROR);
+            $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
 
             $data = $body->data;
 
@@ -63,7 +63,7 @@ class Base extends \MessageBird\Resources\Base
      */
     public function processRequest($body)
     {
-        $body = @json_decode($body, null, 512, JSON_THROW_ON_ERROR);
+        $body = @json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
 
         if ($body === null || $body === false) {
             throw new Exceptions\ServerException('Got an invalid JSON response from the server.');

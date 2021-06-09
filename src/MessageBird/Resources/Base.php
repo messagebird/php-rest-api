@@ -103,7 +103,7 @@ class Base
      */
     public function create($object, $query = null)
     {
-        $body = json_encode($object, JSON_THROW_ON_ERROR);
+        $body = json_encode($object, \JSON_THROW_ON_ERROR);
         [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
             $this->resourceName,
@@ -123,7 +123,7 @@ class Base
      */
     public function processRequest($body)
     {
-        $body = @json_decode($body, null, 512, JSON_THROW_ON_ERROR);
+        $body = @json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
 
         if ($body === null || $body === false) {
             throw new ServerException('Got an invalid JSON response from the server.');
@@ -153,7 +153,7 @@ class Base
         );
 
         if ($status === 200) {
-            $body = json_decode($body, null, 512, JSON_THROW_ON_ERROR);
+            $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
 
             $items = $body->items;
             unset($body->items);
@@ -232,7 +232,7 @@ class Base
         }
 
         $resourceName = $this->resourceName . ($id ? '/' . $id : null);
-        $body = json_encode($body, JSON_THROW_ON_ERROR);
+        $body = json_encode($body, \JSON_THROW_ON_ERROR);
 
         [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_PUT,

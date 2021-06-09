@@ -45,7 +45,7 @@ class AvailablePhoneNumbers
         if ($status !== 200) {
             return $this->processRequest($body);
         }
-        $body = json_decode($body, null, 512, JSON_THROW_ON_ERROR);
+        $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
 
         $items = $body->items;
         unset($body->items);

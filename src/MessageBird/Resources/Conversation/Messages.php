@@ -68,7 +68,7 @@ class Messages
      */
     public function create($conversationId, $object, $query = null): Message
     {
-        $body = json_encode($object, JSON_THROW_ON_ERROR);
+        $body = json_encode($object, \JSON_THROW_ON_ERROR);
 
         [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
@@ -104,7 +104,7 @@ class Messages
      */
     public function processRequest($body): Message
     {
-        $body = @json_decode($body, null, 512, JSON_THROW_ON_ERROR);
+        $body = @json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
 
         if ($body === null || $body === false) {
             throw new ServerException('Got an invalid JSON response from the server.');
@@ -139,7 +139,7 @@ class Messages
         );
 
         if ($status === self::HTTP_STATUS_OK) {
-            $body = json_decode($body, null, 512, JSON_THROW_ON_ERROR);
+            $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
 
             $items = $body->items;
             unset($body->items);
@@ -178,7 +178,7 @@ class Messages
             return $this->processRequest($body);
         }
 
-        $body = json_decode($body, null, 512, JSON_THROW_ON_ERROR);
+        $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
         if (empty($body)) {
             return $this->processRequest($body);
         }

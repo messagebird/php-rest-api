@@ -41,7 +41,7 @@ class Send extends Base
      */
     public function send($object, $query = null)
     {
-        $body = json_encode($object, JSON_THROW_ON_ERROR);
+        $body = json_encode($object, \JSON_THROW_ON_ERROR);
 
         [, , $resultBody] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,

@@ -66,22 +66,22 @@ class HttpClient
     {
         $this->endpoint = $endpoint;
 
-        if (!is_int($timeout) || $timeout < 1) {
+        if (!\is_int($timeout) || $timeout < 1) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Timeout must be an int > 0, got "%s".',
-                    is_object($timeout) ? get_class($timeout) : gettype($timeout) . ' ' . var_export($timeout, true)
+                    \is_object($timeout) ? \get_class($timeout) : \gettype($timeout) . ' ' . var_export($timeout, true)
                 )
             );
         }
 
         $this->timeout = $timeout;
 
-        if (!is_int($connectionTimeout) || $connectionTimeout < 0) {
+        if (!\is_int($connectionTimeout) || $connectionTimeout < 0) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Connection timeout must be an int >= 0, got "%s".',
-                    is_object($connectionTimeout) ? get_class($connectionTimeout) : gettype($connectionTimeout) . ' ' . var_export(
+                    \is_object($connectionTimeout) ? \get_class($connectionTimeout) : \gettype($connectionTimeout) . ' ' . var_export(
                         $connectionTimeout,
                         true
                     )
@@ -158,30 +158,30 @@ class HttpClient
 
         $headers = array_merge($headers, $this->headers);
 
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($curl, CURLOPT_HEADER, true);
-        curl_setopt($curl, CURLOPT_URL, $this->getRequestUrl($resourceName, $query));
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
-        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $this->connectionTimeout);
+        curl_setopt($curl, \CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, \CURLOPT_HEADER, true);
+        curl_setopt($curl, \CURLOPT_URL, $this->getRequestUrl($resourceName, $query));
+        curl_setopt($curl, \CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, \CURLOPT_TIMEOUT, $this->timeout);
+        curl_setopt($curl, \CURLOPT_CONNECTTIMEOUT, $this->connectionTimeout);
 
         foreach ($this->httpOptions as $option => $value) {
             curl_setopt($curl, $option, $value);
         }
 
         if ($method === self::REQUEST_GET) {
-            curl_setopt($curl, CURLOPT_HTTPGET, true);
+            curl_setopt($curl, \CURLOPT_HTTPGET, true);
         } elseif ($method === self::REQUEST_POST) {
-            curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+            curl_setopt($curl, \CURLOPT_POST, true);
+            curl_setopt($curl, \CURLOPT_POSTFIELDS, $body);
         } elseif ($method === self::REQUEST_DELETE) {
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::REQUEST_DELETE);
+            curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, self::REQUEST_DELETE);
         } elseif ($method === self::REQUEST_PUT) {
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::REQUEST_PUT);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+            curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, self::REQUEST_PUT);
+            curl_setopt($curl, \CURLOPT_POSTFIELDS, $body);
         } elseif ($method === self::REQUEST_PATCH) {
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::REQUEST_PATCH);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+            curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, self::REQUEST_PATCH);
+            curl_setopt($curl, \CURLOPT_POSTFIELDS, $body);
         }
 
         // Some servers have outdated or incorrect certificates, Use the included CA-bundle
@@ -193,7 +193,7 @@ class HttpClient
             ));
         }
 
-        curl_setopt($curl, CURLOPT_CAINFO, $caFile);
+        curl_setopt($curl, \CURLOPT_CAINFO, $caFile);
 
         $response = curl_exec($curl);
 
@@ -201,7 +201,7 @@ class HttpClient
             throw new Exceptions\HttpException(curl_error($curl), curl_errno($curl));
         }
 
-        $responseStatus = (int)curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $responseStatus = (int)curl_getinfo($curl, \CURLINFO_HTTP_CODE);
 
         // Split the header and body
         $parts = explode("\r\n\r\n", $response, 3);
@@ -223,7 +223,7 @@ class HttpClient
     {
         $requestUrl = $this->endpoint . '/' . $resourceName;
         if ($query) {
-            if (is_array($query)) {
+            if (\is_array($query)) {
                 $query = http_build_query($query);
             }
             $requestUrl .= '?' . $query;

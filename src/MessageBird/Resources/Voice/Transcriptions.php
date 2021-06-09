@@ -72,7 +72,7 @@ class Transcriptions
      */
     public function processRequest($body)
     {
-        $body = @json_decode($body, null, 512, JSON_THROW_ON_ERROR);
+        $body = @json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
 
         if ($body === null || $body === false) {
             throw new ServerException('Got an invalid JSON response from the server.');
@@ -103,7 +103,7 @@ class Transcriptions
         );
 
         if ($status === 200) {
-            $body = json_decode($body, null, 512, JSON_THROW_ON_ERROR);
+            $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
 
             $items = $body->data;
             unset($body->data);

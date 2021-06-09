@@ -49,7 +49,7 @@ class LookupHlr extends Base
             Common\HttpClient::REQUEST_POST,
             $resourceName,
             $query,
-            json_encode($hlr, JSON_THROW_ON_ERROR)
+            json_encode($hlr, \JSON_THROW_ON_ERROR)
         );
         return $this->processRequest($body);
     }

@@ -176,7 +176,7 @@ class Client
     {
         if ($httpClient === null) {
             $this->chatAPIHttpClient = new Common\HttpClient(self::CHATAPI_ENDPOINT);
-            $this->conversationsAPIHttpClient = new Common\HttpClient(in_array(
+            $this->conversationsAPIHttpClient = new Common\HttpClient(\in_array(
                 self::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX,
                 $config
             ) ? self::CONVERSATIONSAPI_WHATSAPP_SANDBOX_ENDPOINT : self::CONVERSATIONSAPI_ENDPOINT);
@@ -252,12 +252,12 @@ class Client
      */
     private function getPhpVersion()
     {
-        if (!defined('PHP_VERSION_ID')) {
-            $version = array_map('intval', explode('.', PHP_VERSION));
-            define('PHP_VERSION_ID', $version[0] * 10000 + $version[1] * 100 + $version[2]);
+        if (!\defined('PHP_VERSION_ID')) {
+            $version = array_map('intval', explode('.', \PHP_VERSION));
+            \define('PHP_VERSION_ID', $version[0] * 10000 + $version[1] * 100 + $version[2]);
         }
 
-        return 'PHP/' . PHP_VERSION_ID;
+        return 'PHP/' . \PHP_VERSION_ID;
     }
 
     /**

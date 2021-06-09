@@ -43,7 +43,7 @@ class PhoneNumbers extends Base
         }
 
         $resourceName = $this->resourceName . ($id ? '/' . $id : null);
-        $body = json_encode($body, JSON_THROW_ON_ERROR);
+        $body = json_encode($body, \JSON_THROW_ON_ERROR);
 
         // This override is only needed to use the PATCH http method
         [, , $body] = $this->httpClient->performHttpRequest(

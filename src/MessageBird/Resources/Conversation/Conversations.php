@@ -39,7 +39,7 @@ class Conversations extends Base
      */
     public function start($object, $query = null)
     {
-        $body = json_encode($object, JSON_THROW_ON_ERROR);
+        $body = json_encode($object, \JSON_THROW_ON_ERROR);
 
         [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
@@ -72,7 +72,7 @@ class Conversations extends Base
      */
     public function create($contactId, $query = null)
     {
-        $body = json_encode(['contactId' => $contactId], JSON_THROW_ON_ERROR);
+        $body = json_encode(['contactId' => $contactId], \JSON_THROW_ON_ERROR);
 
         [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
@@ -104,7 +104,7 @@ class Conversations extends Base
         }
 
         $resourceName = $this->resourceName . ($id ? '/' . $id : null);
-        $body = json_encode($body, JSON_THROW_ON_ERROR);
+        $body = json_encode($body, \JSON_THROW_ON_ERROR);
 
         [, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_PATCH, $resourceName, false, $body);
 

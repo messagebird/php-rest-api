@@ -44,7 +44,7 @@ class Groups extends Base
         }
 
         $resourceName = $this->resourceName . ($id ? '/' . $id : null);
-        $body = json_encode($body, JSON_THROW_ON_ERROR);
+        $body = json_encode($body, \JSON_THROW_ON_ERROR);
 
         [, , $body] = $this->httpClient->performHttpRequest(
             Common\HttpClient::REQUEST_PATCH,
@@ -85,7 +85,7 @@ class Groups extends Base
      */
     public function addContacts($contacts, $id = null)
     {
-        if (!is_array($contacts)) {
+        if (!\is_array($contacts)) {
             throw new  InvalidArgumentException('No array with contacts provided.');
         }
         if ($id === null) {
@@ -93,7 +93,7 @@ class Groups extends Base
         }
 
         $resourceName = $this->resourceName . ($id ? '/' . $id . '/contacts' : null);
-        $contacts = json_encode($contacts, JSON_THROW_ON_ERROR);
+        $contacts = json_encode($contacts, \JSON_THROW_ON_ERROR);
         [$responseStatus, , $responseBody] = $this->httpClient->performHttpRequest(
             Common\HttpClient::REQUEST_PUT,
             $resourceName,
@@ -101,7 +101,7 @@ class Groups extends Base
             $contacts
         );
         if ($responseStatus !== Common\HttpClient::HTTP_NO_CONTENT) {
-            return json_decode($responseBody, null, 512, JSON_THROW_ON_ERROR);
+            return json_decode($responseBody, null, 512, \JSON_THROW_ON_ERROR);
         }
     }
 
@@ -126,7 +126,7 @@ class Groups extends Base
             $resourceName
         );
         if ($responseStatus !== Common\HttpClient::HTTP_NO_CONTENT) {
-            return json_decode($responseBody, null, 512, JSON_THROW_ON_ERROR);
+            return json_decode($responseBody, null, 512, \JSON_THROW_ON_ERROR);
         }
     }
 }
