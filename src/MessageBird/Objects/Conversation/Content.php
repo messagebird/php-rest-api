@@ -11,13 +11,13 @@ use MessageBird\Objects\Conversation\HSM\Message as HSMMessage;
  */
 class Content extends Base implements JsonSerializable
 {
-    const TYPE_AUDIO = 'audio';
-    const TYPE_FILE = 'file';
-    const TYPE_IMAGE = 'image';
-    const TYPE_LOCATION = 'location';
-    const TYPE_TEXT = 'text';
-    const TYPE_VIDEO = 'video';
-    const TYPE_HSM = 'hsm';
+    public const TYPE_AUDIO = 'audio';
+    public const TYPE_FILE = 'file';
+    public const TYPE_IMAGE = 'image';
+    public const TYPE_LOCATION = 'location';
+    public const TYPE_TEXT = 'text';
+    public const TYPE_VIDEO = 'video';
+    public const TYPE_HSM = 'hsm';
 
     /**
      * @var string[]

@@ -12,8 +12,12 @@ class LookupTest extends BaseTest
     public function testReadLookup()
     {
         $this->expectException(ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'lookup/31612345678', null,
-            null);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+            "GET",
+            'lookup/31612345678',
+            null,
+            null
+        );
         $this->client->lookup->read(31612345678);
     }
 
@@ -27,8 +31,12 @@ class LookupTest extends BaseTest
     {
         $this->expectException(ServerException::class);
         $params = ["countryCode" => "NL"];
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'lookup/612345678',
-            $params, null);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+            "GET",
+            'lookup/612345678',
+            $params,
+            null
+        );
         $this->client->lookup->read(612345678, $params["countryCode"]);
     }
 
@@ -39,8 +47,12 @@ class LookupTest extends BaseTest
         $hlr->msisdn = 31612345678;
         $hlr->reference = 'Yoloswag3007';
 
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST",
-            'lookup/' . $hlr->msisdn . '/hlr', null, json_encode($hlr));
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+            "POST",
+            'lookup/' . $hlr->msisdn . '/hlr',
+            null,
+            json_encode($hlr)
+        );
 
         $this->client->lookupHlr->create($hlr);
     }
@@ -62,8 +74,12 @@ class LookupTest extends BaseTest
 
         $params = ["countryCode" => "NL"];
 
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST",
-            'lookup/' . $hlr->msisdn . '/hlr', $params, json_encode($hlr));
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+            "POST",
+            'lookup/' . $hlr->msisdn . '/hlr',
+            $params,
+            json_encode($hlr)
+        );
 
         $this->client->lookupHlr->create($hlr, $params["countryCode"]);
     }
@@ -71,8 +87,12 @@ class LookupTest extends BaseTest
     public function testReadLookupHlr()
     {
         $this->expectException(ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'lookup/31612345678/hlr',
-            null, null);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+            "GET",
+            'lookup/31612345678/hlr',
+            null,
+            null
+        );
         $this->client->lookupHlr->read(31612345678);
     }
 
@@ -86,8 +106,12 @@ class LookupTest extends BaseTest
     {
         $this->expectException(ServerException::class);
         $params = ["countryCode" => "NL"];
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'lookup/612345678/hlr',
-            $params, null);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+            "GET",
+            'lookup/612345678/hlr',
+            $params,
+            null
+        );
         $this->client->lookupHlr->read(612345678, $params["countryCode"]);
     }
 }

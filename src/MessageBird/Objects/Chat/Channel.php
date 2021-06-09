@@ -11,7 +11,6 @@ use MessageBird\Objects\Base;
  */
 class Channel extends Base
 {
-
     /**
      * The name of the Channel
      *

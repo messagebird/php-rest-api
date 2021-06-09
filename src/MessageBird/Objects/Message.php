@@ -10,12 +10,12 @@ namespace MessageBird\Objects;
  */
 class Message extends Base
 {
-    const TYPE_SMS = 'sms';
-    const TYPE_BINARY = 'binary';
-    const TYPE_PREMIUM = 'premium';
+    public const TYPE_SMS = 'sms';
+    public const TYPE_BINARY = 'binary';
+    public const TYPE_PREMIUM = 'premium';
 
-    const DATACODING_UNICODE = 'unicode';
-    const DATACODING_PLAIN = 'plain';
+    public const DATACODING_UNICODE = 'unicode';
+    public const DATACODING_PLAIN = 'plain';
 
     /**
      * Tells you if the message is sent or received.

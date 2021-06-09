@@ -6,7 +6,6 @@ use MessageBird\Objects\Base;
 
 class CallFlow extends Base
 {
-
     /**
      * The title of the call flow
      *

@@ -15,7 +15,7 @@ use MessageBird\Resources\Base;
 
 class Conversations extends Base
 {
-    const RESOURCE_NAME = 'conversations';
+    public const RESOURCE_NAME = 'conversations';
 
     public function __construct(HttpClient $httpClient)
     {

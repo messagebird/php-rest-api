@@ -13,7 +13,6 @@ use MessageBird\Objects;
  */
 class Contacts extends Base
 {
-
     public function __construct(Common\HttpClient $httpClient)
     {
         $this->setObject(new Objects\Contact());

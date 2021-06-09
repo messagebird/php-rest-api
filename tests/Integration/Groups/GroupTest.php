@@ -35,24 +35,36 @@ class GroupTest extends BaseTest
     public function testListGroups()
     {
         $this->expectException(ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'groups',
-            ['offset' => 100, 'limit' => 30], null);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+            "GET",
+            'groups',
+            ['offset' => 100, 'limit' => 30],
+            null
+        );
         $this->client->groups->getList(['offset' => 100, 'limit' => 30]);
     }
 
     public function testViewGroup()
     {
         $this->expectException(ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'groups/group_id', null,
-            null);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+            "GET",
+            'groups/group_id',
+            null,
+            null
+        );
         $this->client->groups->read("group_id");
     }
 
     public function testDeleteGroup()
     {
         $this->expectException(ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'groups/group_id', null,
-            null);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+            "DELETE",
+            'groups/group_id',
+            null,
+            null
+        );
         $this->client->groups->delete("group_id");
     }
 }

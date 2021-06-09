@@ -12,7 +12,6 @@ use MessageBird\Objects;
  */
 class CallFlows extends Base
 {
-
     public function __construct(Common\HttpClient $httpClient)
     {
         $this->setObject(new Objects\Voice\CallFlow());

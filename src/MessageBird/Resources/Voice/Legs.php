@@ -114,8 +114,10 @@ class Legs
      */
     public function read($callId, $legId): Objects\Voice\Leg
     {
-        [, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_GET,
-            "calls/$callId/legs/$legId");
+        [, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_GET,
+            "calls/$callId/legs/$legId"
+        );
 
         return $this->processRequest($body);
     }

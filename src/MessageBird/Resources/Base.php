@@ -104,8 +104,12 @@ class Base
     public function create($object, $query = null)
     {
         $body = json_encode($object, JSON_THROW_ON_ERROR);
-        [, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_POST, $this->resourceName,
-            $query, $body);
+        [, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_POST,
+            $this->resourceName,
+            $query,
+            $body
+        );
         return $this->processRequest($body);
     }
 
@@ -142,8 +146,11 @@ class Base
      */
     public function getList(?array $parameters = [])
     {
-        [$status, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_GET, $this->resourceName,
-            $parameters);
+        [$status, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_GET,
+            $this->resourceName,
+            $parameters
+        );
 
         if ($status === 200) {
             $body = json_decode($body, null, 512, JSON_THROW_ON_ERROR);
@@ -227,8 +234,12 @@ class Base
         $resourceName = $this->resourceName . ($id ? '/' . $id : null);
         $body = json_encode($body, JSON_THROW_ON_ERROR);
 
-        [, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_PUT, $resourceName, false,
-            $body);
+        [, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_PUT,
+            $resourceName,
+            false,
+            $body
+        );
         return $this->processRequest($body);
     }
 

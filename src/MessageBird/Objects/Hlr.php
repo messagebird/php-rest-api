@@ -9,11 +9,11 @@ namespace MessageBird\Objects;
  */
 class Hlr extends Base
 {
-    const STATUS_SENT = 'sent';
-    const STATUS_ABSENT = 'absent';
-    const STATUS_ACTIVE = 'active';
-    const STATUS_UNKNOWN = 'unknown';
-    const STATUS_FAILED = 'failed';
+    public const STATUS_SENT = 'sent';
+    public const STATUS_ABSENT = 'absent';
+    public const STATUS_ACTIVE = 'active';
+    public const STATUS_UNKNOWN = 'unknown';
+    public const STATUS_FAILED = 'failed';
     /**
      * The msisdns you want to do a network query on
      *

@@ -11,20 +11,20 @@ use MessageBird\Exceptions;
  */
 class ResponseError
 {
-    const EXCEPTION_MESSAGE = 'Got error response from the server: %s';
+    public const EXCEPTION_MESSAGE = 'Got error response from the server: %s';
 
-    const SUCCESS = 1;
+    public const SUCCESS = 1;
 
-    const REQUEST_NOT_ALLOWED = 2;
+    public const REQUEST_NOT_ALLOWED = 2;
 
-    const MISSING_PARAMS = 9;
-    const INVALID_PARAMS = 10;
+    public const MISSING_PARAMS = 9;
+    public const INVALID_PARAMS = 10;
 
-    const NOT_FOUND = 20;
+    public const NOT_FOUND = 20;
 
-    const NOT_ENOUGH_CREDIT = 25;
+    public const NOT_ENOUGH_CREDIT = 25;
 
-    const CHAT_API_AUTH_ERROR = 1001;
+    public const CHAT_API_AUTH_ERROR = 1001;
 
     public $errors = [];
 

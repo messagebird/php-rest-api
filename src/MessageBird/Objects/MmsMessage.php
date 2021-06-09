@@ -9,7 +9,6 @@ namespace MessageBird\Objects;
  */
 class MmsMessage extends Base
 {
-
     /**
      * Tells you if the message is sent or received.
      * mt: mobile terminated (sent to mobile)

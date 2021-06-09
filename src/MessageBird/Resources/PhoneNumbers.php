@@ -12,7 +12,6 @@ use MessageBird\Objects;
  */
 class PhoneNumbers extends Base
 {
-
     /**
      * @var HttpClient
      */
@@ -47,8 +46,12 @@ class PhoneNumbers extends Base
         $body = json_encode($body, JSON_THROW_ON_ERROR);
 
         // This override is only needed to use the PATCH http method
-        [, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_PATCH, $resourceName, false,
-            $body);
+        [, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_PATCH,
+            $resourceName,
+            false,
+            $body
+        );
         return $this->processRequest($body);
     }
 }

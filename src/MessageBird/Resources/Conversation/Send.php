@@ -17,7 +17,7 @@ use MessageBird\Resources\Base;
 
 class Send extends Base
 {
-    const RESOURCE_NAME = 'send';
+    public const RESOURCE_NAME = 'send';
 
     public function __construct(HttpClient $httpClient)
     {

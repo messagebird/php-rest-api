@@ -11,7 +11,6 @@ use MessageBird\Objects\Base;
  */
 class Contact extends Base
 {
-
     /**
      * First name of contact
      *

@@ -15,7 +15,6 @@ use MessageBird\Objects;
  */
 class AvailablePhoneNumbers
 {
-
     /**
      * @var HttpClient
      */

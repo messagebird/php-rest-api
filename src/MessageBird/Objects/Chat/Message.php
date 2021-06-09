@@ -11,7 +11,6 @@ use MessageBird\Objects\Base;
  */
 class Message extends Base
 {
-
     /**
      * The type of the messages. Possible values: text, image, audio, video, location
      *

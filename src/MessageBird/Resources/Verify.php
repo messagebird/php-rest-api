@@ -15,10 +15,9 @@ use MessageBird\Objects;
  */
 class Verify extends Base
 {
-
     public function __construct(Common\HttpClient $httpClient)
     {
-        $this->setObject(new Objects\Verify);
+        $this->setObject(new Objects\Verify());
         $this->setResourceName('verify');
 
         parent::__construct($httpClient);
@@ -37,8 +36,11 @@ class Verify extends Base
     public function verify($id, $token)
     {
         $resourceName = $this->resourceName . (($id) ? '/' . $id : null);
-        [, , $body] = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $resourceName,
-            ['token' => $token]);
+        [, , $body] = $this->httpClient->performHttpRequest(
+            Common\HttpClient::REQUEST_GET,
+            $resourceName,
+            ['token' => $token]
+        );
         return $this->processRequest($body);
     }
 }

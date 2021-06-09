@@ -16,10 +16,9 @@ use MessageBird\Objects;
  */
 class LookupHlr extends Base
 {
-
     public function __construct(Common\HttpClient $httpClient)
     {
-        $this->setObject(new Objects\Hlr);
+        $this->setObject(new Objects\Hlr());
         $this->setResourceName('lookup');
 
         parent::__construct($httpClient);
@@ -46,8 +45,12 @@ class LookupHlr extends Base
             $query = ["countryCode" => $countryCode];
         }
         $resourceName = $this->resourceName . '/' . ($hlr->msisdn) . '/hlr';
-        [, , $body] = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_POST, $resourceName, $query,
-            json_encode($hlr, JSON_THROW_ON_ERROR));
+        [, , $body] = $this->httpClient->performHttpRequest(
+            Common\HttpClient::REQUEST_POST,
+            $resourceName,
+            $query,
+            json_encode($hlr, JSON_THROW_ON_ERROR)
+        );
         return $this->processRequest($body);
     }
 
@@ -74,8 +77,12 @@ class LookupHlr extends Base
             $query = ["countryCode" => $countryCode];
         }
         $resourceName = $this->resourceName . '/' . $phoneNumber . '/hlr';
-        [, , $body] = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $resourceName, $query,
-            null);
+        [, , $body] = $this->httpClient->performHttpRequest(
+            Common\HttpClient::REQUEST_GET,
+            $resourceName,
+            $query,
+            null
+        );
         return $this->processRequest($body);
     }
 }

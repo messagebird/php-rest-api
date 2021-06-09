@@ -9,11 +9,11 @@ namespace MessageBird\Objects;
  */
 class Verify extends Base
 {
-    const STATUS_SENT = 'sent';
-    const STATUS_VERIFIED = 'verified';
-    const STATUS_FAILED = 'failed';
-    const STATUS_EXPIRED = 'expired';
-    const STATUS_DELETED = 'deleted';
+    public const STATUS_SENT = 'sent';
+    public const STATUS_VERIFIED = 'verified';
+    public const STATUS_FAILED = 'failed';
+    public const STATUS_EXPIRED = 'expired';
+    public const STATUS_DELETED = 'deleted';
     /**
      * The msisdn or email of the recipient
      *

@@ -11,7 +11,6 @@ use MessageBird\Objects\Base;
  */
 class Platform extends Base
 {
-
     /**
      * A unique random ID which is created on the MessageBird platform and is returned upon creation of the object.
      *

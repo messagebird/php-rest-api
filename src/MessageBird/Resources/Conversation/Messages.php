@@ -16,10 +16,10 @@ use MessageBird\Objects\Conversation\Message;
  */
 class Messages
 {
-    const HTTP_STATUS_OK = 200;
+    public const HTTP_STATUS_OK = 200;
 
-    const RESOURCE_NAME = 'conversations/%s/messages';
-    const MESSAGE_RESOURCE_NAME = 'messages/%s';
+    public const RESOURCE_NAME = 'conversations/%s/messages';
+    public const MESSAGE_RESOURCE_NAME = 'messages/%s';
 
     /**
      * @var HttpClient

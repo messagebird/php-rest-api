@@ -15,7 +15,7 @@ use MessageBird\Resources\Base;
 
 class Accounts extends Base
 {
-    const RESOURCE_NAME = 'child-accounts';
+    public const RESOURCE_NAME = 'child-accounts';
 
     public function __construct(HttpClient $httpClient)
     {

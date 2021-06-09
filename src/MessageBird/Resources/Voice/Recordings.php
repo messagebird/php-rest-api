@@ -115,8 +115,10 @@ class Recordings
      */
     public function read($callId, $legId, $recordingId): Objects\Voice\Recording
     {
-        [, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_GET,
-            "calls/$callId/legs/$legId/recordings/$recordingId");
+        [, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_GET,
+            "calls/$callId/legs/$legId/recordings/$recordingId"
+        );
 
         return $this->processRequest($body);
     }
@@ -128,8 +130,10 @@ class Recordings
      */
     public function delete($callId, $legId, $recordingId): Objects\Voice\Recording
     {
-        [, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_DELETE,
-            "calls/$callId/legs/$legId/recordings/$recordingId");
+        [, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_DELETE,
+            "calls/$callId/legs/$legId/recordings/$recordingId"
+        );
         return $this->processRequest($body);
     }
 
@@ -141,8 +145,10 @@ class Recordings
      */
     public function download($callId, $legId, $recordingId)
     {
-        [$status, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_GET,
-            "calls/$callId/legs/$legId/recordings/$recordingId.wav");
+        [$status, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_GET,
+            "calls/$callId/legs/$legId/recordings/$recordingId.wav"
+        );
 
         if ($status !== 200) {
             return $this->processRequest($body);

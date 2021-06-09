@@ -9,18 +9,18 @@ namespace MessageBird\Objects;
  */
 class Lookup extends Base
 {
-    const TYPE_FIXED_LINE = "fixed line";
-    const TYPE_MOBILE = "mobile";
-    const TYPE_FIXED_LINE_OR_MOBILE = "fixed line or mobile";
-    const TYPE_TOLL_FREE = "toll free";
-    const TYPE_PREMIUM_RATE = "premium rate";
-    const TYPE_SHARED_COST = "shared cost";
-    const TYPE_VOIP = "voip";
-    const TYPE_PERSONAL_NUMBER = "personal number";
-    const TYPE_PAGER = "pager";
-    const TYPE_UNIVERSAL_ACCESS_NUMBER = "universal access number";
-    const TYPE_VOICE_MAIL = "voice mail";
-    const TYPE_UNKNOWN = "unknown";
+    public const TYPE_FIXED_LINE = "fixed line";
+    public const TYPE_MOBILE = "mobile";
+    public const TYPE_FIXED_LINE_OR_MOBILE = "fixed line or mobile";
+    public const TYPE_TOLL_FREE = "toll free";
+    public const TYPE_PREMIUM_RATE = "premium rate";
+    public const TYPE_SHARED_COST = "shared cost";
+    public const TYPE_VOIP = "voip";
+    public const TYPE_PERSONAL_NUMBER = "personal number";
+    public const TYPE_PAGER = "pager";
+    public const TYPE_UNIVERSAL_ACCESS_NUMBER = "universal access number";
+    public const TYPE_VOICE_MAIL = "voice mail";
+    public const TYPE_UNKNOWN = "unknown";
 
     /**
      * The URL of the created object.

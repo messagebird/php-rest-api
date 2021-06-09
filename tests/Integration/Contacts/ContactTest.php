@@ -56,24 +56,36 @@ class ContactTest extends BaseTest
     public function testListContacts()
     {
         $this->expectException(ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts',
-            ['offset' => 100, 'limit' => 30], null);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+            "GET",
+            'contacts',
+            ['offset' => 100, 'limit' => 30],
+            null
+        );
         $this->client->contacts->getList(['offset' => 100, 'limit' => 30]);
     }
 
     public function testViewContact()
     {
         $this->expectException(ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts/contact_id',
-            null, null);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+            "GET",
+            'contacts/contact_id',
+            null,
+            null
+        );
         $this->client->contacts->read("contact_id");
     }
 
     public function testDeleteContact()
     {
         $this->expectException(ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'contacts/contact_id',
-            null, null);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+            "DELETE",
+            'contacts/contact_id',
+            null,
+            null
+        );
         $this->client->contacts->delete("contact_id");
     }
 

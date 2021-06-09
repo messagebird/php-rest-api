@@ -13,13 +13,13 @@ use MessageBird\Exceptions;
  */
 class HttpClient
 {
-    const REQUEST_GET = 'GET';
-    const REQUEST_POST = 'POST';
-    const REQUEST_DELETE = 'DELETE';
-    const REQUEST_PUT = 'PUT';
-    const REQUEST_PATCH = "PATCH";
+    public const REQUEST_GET = 'GET';
+    public const REQUEST_POST = 'POST';
+    public const REQUEST_DELETE = 'DELETE';
+    public const REQUEST_PUT = 'PUT';
+    public const REQUEST_PATCH = "PATCH";
 
-    const HTTP_NO_CONTENT = 204;
+    public const HTTP_NO_CONTENT = 204;
 
     /**
      * @var string
@@ -81,8 +81,10 @@ class HttpClient
             throw new InvalidArgumentException(
                 sprintf(
                     'Connection timeout must be an int >= 0, got "%s".',
-                    is_object($connectionTimeout) ? get_class($connectionTimeout) : gettype($connectionTimeout) . ' ' . var_export($connectionTimeout,
-                            true)
+                    is_object($connectionTimeout) ? get_class($connectionTimeout) : gettype($connectionTimeout) . ' ' . var_export(
+                        $connectionTimeout,
+                        true
+                    )
                 )
             );
         }
@@ -185,8 +187,10 @@ class HttpClient
         // Some servers have outdated or incorrect certificates, Use the included CA-bundle
         $caFile = realpath(__DIR__ . '/../ca-bundle.crt');
         if (!file_exists($caFile)) {
-            throw new Exceptions\HttpException(sprintf('Unable to find CA-bundle file "%s".',
-                __DIR__ . '/../ca-bundle.crt'));
+            throw new Exceptions\HttpException(sprintf(
+                'Unable to find CA-bundle file "%s".',
+                __DIR__ . '/../ca-bundle.crt'
+            ));
         }
 
         curl_setopt($curl, CURLOPT_CAINFO, $caFile);

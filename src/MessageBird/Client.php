@@ -11,15 +11,15 @@ use MessageBird\Common\HttpClient;
  */
 class Client
 {
-    const ENDPOINT = 'https://rest.messagebird.com';
-    const CHATAPI_ENDPOINT = 'https://chat.messagebird.com/1';
-    const CONVERSATIONSAPI_ENDPOINT = 'https://conversations.messagebird.com/v1';
-    const VOICEAPI_ENDPOINT = 'https://voice.messagebird.com';
-    const PARTNER_ACCOUNT_ENDPOINT = 'https://partner-accounts.messagebird.com';
-    const NUMBERSAPI_ENDPOINT = 'https://numbers.messagebird.com/v1';
+    public const ENDPOINT = 'https://rest.messagebird.com';
+    public const CHATAPI_ENDPOINT = 'https://chat.messagebird.com/1';
+    public const CONVERSATIONSAPI_ENDPOINT = 'https://conversations.messagebird.com/v1';
+    public const VOICEAPI_ENDPOINT = 'https://voice.messagebird.com';
+    public const PARTNER_ACCOUNT_ENDPOINT = 'https://partner-accounts.messagebird.com';
+    public const NUMBERSAPI_ENDPOINT = 'https://numbers.messagebird.com/v1';
 
-    const ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX = 'ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX';
-    const CONVERSATIONSAPI_WHATSAPP_SANDBOX_ENDPOINT = 'https://whatsapp-sandbox.messagebird.com/v1';
+    public const ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX = 'ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX';
+    public const CONVERSATIONSAPI_WHATSAPP_SANDBOX_ENDPOINT = 'https://whatsapp-sandbox.messagebird.com/v1';
 
     const CLIENT_VERSION = '2.0.1';
 
@@ -176,8 +176,10 @@ class Client
     {
         if ($httpClient === null) {
             $this->chatAPIHttpClient = new Common\HttpClient(self::CHATAPI_ENDPOINT);
-            $this->conversationsAPIHttpClient = new Common\HttpClient(in_array(self::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX,
-                $config) ? self::CONVERSATIONSAPI_WHATSAPP_SANDBOX_ENDPOINT : self::CONVERSATIONSAPI_ENDPOINT);
+            $this->conversationsAPIHttpClient = new Common\HttpClient(in_array(
+                self::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX,
+                $config
+            ) ? self::CONVERSATIONSAPI_WHATSAPP_SANDBOX_ENDPOINT : self::CONVERSATIONSAPI_ENDPOINT);
             $this->httpClient = new Common\HttpClient(self::ENDPOINT);
             $this->voiceAPIHttpClient = new Common\HttpClient(self::VOICEAPI_ENDPOINT, 10, 2, [
                 'X-MessageBird-Version' => '20170314',

@@ -12,10 +12,9 @@ use MessageBird\Objects;
  */
 class Hlr extends Base
 {
-
     public function __construct(Common\HttpClient $httpClient)
     {
-        $this->setObject(new Objects\Hlr);
+        $this->setObject(new Objects\Hlr());
         $this->setResourceName('hlr');
 
         parent::__construct($httpClient);

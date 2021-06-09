@@ -14,7 +14,6 @@ use MessageBird\Objects;
  */
 class Groups extends Base
 {
-
     public function __construct(Common\HttpClient $httpClient)
     {
         $this->setObject(new Objects\Group());

@@ -15,8 +15,12 @@ class HlrTest extends BaseTest
         $hlr->msisdn = 'MessageBird';
         $hlr->reference = "yoloswag3000";
 
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'hlr', null,
-            '{"msisdn":"MessageBird","network":null,"details":[],"reference":"yoloswag3000","status":null}');
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+            "POST",
+            'hlr',
+            null,
+            '{"msisdn":"MessageBird","network":null,"details":[],"reference":"yoloswag3000","status":null}'
+        );
         $this->client->hlr->create($hlr);
     }
 
@@ -24,8 +28,12 @@ class HlrTest extends BaseTest
     public function testReadHlr()
     {
         $this->expectException(ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'hlr/message_id', null,
-            null);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
+            "GET",
+            'hlr/message_id',
+            null,
+            null
+        );
         $this->client->hlr->read("message_id");
     }
 }

@@ -16,10 +16,9 @@ use MessageBird\Objects;
  */
 class Lookup extends Base
 {
-
     public function __construct(Common\HttpClient $httpClient)
     {
-        $this->setObject(new Objects\Lookup);
+        $this->setObject(new Objects\Lookup());
         $this->setResourceName('lookup');
 
         parent::__construct($httpClient);
