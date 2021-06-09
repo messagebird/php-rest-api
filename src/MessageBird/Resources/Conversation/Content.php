@@ -11,7 +11,7 @@ class Content extends Base
     public function __construct(HttpClient $httpClient)
     {
         parent::__construct($httpClient);
-        
+
         $this->setObject(new ContentObject());
     }
 }

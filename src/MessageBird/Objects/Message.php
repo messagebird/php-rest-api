@@ -80,7 +80,7 @@ class Message extends Base
      *
      * @var array
      */
-    public $typeDetails =  [];
+    public $typeDetails = [];
 
     /**
      * The datacoding used, can be plain or unicode
@@ -102,27 +102,23 @@ class Message extends Base
      * @var string
      */
     public $scheduledDatetime;
-
-    /**
-     * The date and time of the creation of the message in RFC3339 format (Y-m-d\TH:i:sP)
-     * @var string
-     */
-    protected $createdDatetime;
-
     /**
      * An array of recipients
      *
      * @var array
      */
-    public $recipients =  [];
-
+    public $recipients = [];
     /**
      * The URL to send status delivery reports for the message to
      *
      * @var string
      */
     public $reportUrl;
-
+    /**
+     * The date and time of the creation of the message in RFC3339 format (Y-m-d\TH:i:sP)
+     * @var string
+     */
+    protected $createdDatetime;
 
     /**
      * Send a premium SMS
@@ -132,14 +128,12 @@ class Message extends Base
      * @param mixed $tariff
      * @param mixed $mid
      * @param mixed $member
-     *
-     * @return void
      */
     public function setPremiumSms($shortcode, $keyword, $tariff, $mid = null, $member = null): void
     {
         $this->typeDetails['shortcode'] = $shortcode;
-        $this->typeDetails['keyword']   = $keyword;
-        $this->typeDetails['tariff']    = $tariff;
+        $this->typeDetails['keyword'] = $keyword;
+        $this->typeDetails['tariff'] = $tariff;
         if ($mid !== null) {
             $this->typeDetails['mid'] = $mid;
         }
@@ -153,20 +147,16 @@ class Message extends Base
     /**
      * @param mixed $header
      * @param mixed $body
-     *
-     * @return void
      */
     public function setBinarySms($header, $body): void
     {
         $this->typeDetails['udh'] = $header;
-        $this->body               = $body;
-        $this->type               = self::TYPE_BINARY;
+        $this->body = $body;
+        $this->type = self::TYPE_BINARY;
     }
 
     /**
      * @param mixed $bool
-     *
-     * @return void
      */
     public function setFlash($bool): void
     {

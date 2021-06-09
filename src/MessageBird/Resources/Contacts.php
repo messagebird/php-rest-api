@@ -14,9 +14,6 @@ use MessageBird\Objects;
 class Contacts extends Base
 {
 
-    /**
-     * @param Common\HttpClient $httpClient
-     */
     public function __construct(Common\HttpClient $httpClient)
     {
         $this->setObject(new Objects\Contact());
@@ -44,9 +41,9 @@ class Contacts extends Base
         }
 
         $resourceName = $this->resourceName . ($id ? '/' . $id : null);
-        $body = json_encode($body);
+        $body = json_encode($body, JSON_THROW_ON_ERROR);
 
-        list(, , $body) = $this->httpClient->performHttpRequest(
+        [, , $body] = $this->httpClient->performHttpRequest(
             Common\HttpClient::REQUEST_PATCH,
             $resourceName,
             false,

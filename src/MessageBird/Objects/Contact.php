@@ -11,68 +11,58 @@ namespace MessageBird\Objects;
 class Contact extends Base
 {
     /**
-     * An unique random ID which is created on the MessageBird
-     * platform and is returned upon creation of the object.
-     *
-     * @var string
-     */
-    protected $id;
-
-    /**
-     * The URL of the created object.
-     *
-     * @var string
-     */
-    protected $href;
-
-    /**
      * The phone number of contact.
      *
      * @var int
      */
     public $msisdn;
-
     /**
      * The first name of the contact.
      *
      * @var string
      */
     public $firstName;
-
     /**
      * The last name of the contact.
      *
      * @var string
      */
     public $lastName;
-
+    /**
+     * @var string
+     */
+    public $custom1;
+    /**
+     * @var string
+     */
+    public $custom2;
+    /**
+     * @var string
+     */
+    public $custom3;
+    /**
+     * @var string
+     */
+    public $custom4;
+    /**
+     * An unique random ID which is created on the MessageBird
+     * platform and is returned upon creation of the object.
+     *
+     * @var string
+     */
+    protected $id;
+    /**
+     * The URL of the created object.
+     *
+     * @var string
+     */
+    protected $href;
     /**
      * Custom fields of the contact.
      *
      * @var array
      */
     protected $customDetails = [];
-
-    /**
-     * @var string
-     */
-    public $custom1;
-
-    /**
-     * @var string
-     */
-    public $custom2;
-
-    /**
-     * @var string
-     */
-    public $custom3;
-
-    /**
-     * @var string
-     */
-    public $custom4;
-
     /**
      * The hash of the group this contact belongs to.
      *
@@ -117,17 +107,11 @@ class Contact extends Base
         return $this->href;
     }
 
-    /**
-     * @return array
-     */
     public function getGroups(): array
     {
         return $this->groups;
     }
 
-    /**
-     * @return array
-     */
     public function getMessages(): array
     {
         return $this->messages;

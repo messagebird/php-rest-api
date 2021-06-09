@@ -4,6 +4,7 @@ namespace MessageBird\Objects\Conversation;
 
 use JsonSerializable;
 use MessageBird\Objects\Base;
+use stdClass;
 
 /**
  * Message that is send via the /send endpoint of the Conversations API
@@ -57,7 +58,7 @@ class SendMessage extends Base implements JsonSerializable
     /**
      * The source of the response/action that sent the message.
      *
-     * @var \stdClass
+     * @var stdClass
      */
     public $source;
 
@@ -75,7 +76,7 @@ class SendMessage extends Base implements JsonSerializable
     public function jsonSerialize()
     {
         $json = [];
-        
+
         foreach (get_object_vars($this) as $key => $value) {
             if (!empty($value)) {
                 $json[$key] = $value;

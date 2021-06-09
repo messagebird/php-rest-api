@@ -14,9 +14,6 @@ use MessageBird\Resources\Base;
 class Channel extends Base
 {
 
-    /**
-     * @param Common\HttpClient $httpClient
-     */
     public function __construct(Common\HttpClient $httpClient)
     {
         $this->setObject(new Objects\Chat\Channel());

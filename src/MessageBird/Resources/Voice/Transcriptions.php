@@ -3,7 +3,9 @@
 namespace MessageBird\Resources\Voice;
 
 use MessageBird\Common;
-use MessageBird\Exceptions;
+use MessageBird\Common\HttpClient;
+use MessageBird\Exceptions\RequestException;
+use MessageBird\Exceptions\ServerException;
 use MessageBird\Objects;
 
 /**
@@ -14,7 +16,7 @@ use MessageBird\Objects;
 class Transcriptions
 {
     /**
-     * @var \MessageBird\Common\HttpClient
+     * @var HttpClient
      */
     protected $httpClient;
 
@@ -23,23 +25,10 @@ class Transcriptions
      */
     protected $object;
 
-    /**
-     * @param Common\HttpClient $httpClient
-     */
-    public function __construct(Common\HttpClient $httpClient)
+    public function __construct(HttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
         $this->setObject(new Objects\Voice\Transcription());
-    }
-
-    /**
-     * @param mixed $object
-     *
-     * @return void
-     */
-    public function setObject($object): void
-    {
-        $this->object = $object;
     }
 
     /**
@@ -51,39 +40,70 @@ class Transcriptions
     }
 
     /**
-     * @param string                      $callId
-     * @param string                      $legId
-     * @param string                      $recordingId
-     *
-     * @return Objects\Voice\Transcription
+     * @param mixed $object
      */
-    public function create($callId, $legId, $recordingId)
+    public function setObject($object): void
     {
-        list(, , $body) = $this->httpClient->performHttpRequest(
-            Common\HttpClient::REQUEST_POST,
-            "calls/$callId/legs/$legId/recordings/$recordingId/transcriptions"
-        );
-        return $this->processRequest($body);
+        $this->object = $object;
     }
 
     /**
      * @param string $callId
      * @param string $legId
      * @param string $recordingId
-     * @param array  $parameters
+     *
+     * @return Objects\Voice\Transcription
+     */
+    public function create($callId, $legId, $recordingId)
+    {
+        [, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_POST,
+            "calls/$callId/legs/$legId/recordings/$recordingId/transcriptions"
+        );
+        return $this->processRequest($body);
+    }
+
+    /**
+     * @param string $body
+     *
+     * @return Objects\Voice\Transcription
+     * @throws RequestException
+     * @throws ServerException
+     */
+    public function processRequest($body)
+    {
+        $body = @json_decode($body, null, 512, JSON_THROW_ON_ERROR);
+
+        if ($body === null || $body === false) {
+            throw new ServerException('Got an invalid JSON response from the server.');
+        }
+
+        if (empty($body->errors)) {
+            return $this->object->loadFromArray($body->data[0]);
+        }
+
+        $responseError = new Common\ResponseError($body);
+        throw new RequestException($responseError->getErrorString());
+    }
+
+    /**
+     * @param string $callId
+     * @param string $legId
+     * @param string $recordingId
+     * @param array $parameters
      *
      * @return Objects\BaseList|Objects\Voice\Transcription
      */
     public function getList($callId, $legId, $recordingId, $parameters = [])
     {
-        list($status, , $body) = $this->httpClient->performHttpRequest(
-            Common\HttpClient::REQUEST_GET,
+        [$status, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_GET,
             "calls/$callId/legs/$legId/recordings/$recordingId/transcriptions",
             $parameters
         );
 
         if ($status === 200) {
-            $body = json_decode($body);
+            $body = json_decode($body, null, 512, JSON_THROW_ON_ERROR);
 
             $items = $body->data;
             unset($body->data);
@@ -108,7 +128,7 @@ class Transcriptions
 
     /**
      * @param string $callId string
-     * @param string $legId  string
+     * @param string $legId string
      * @param string $recordingId
      * @param string $transcriptionId
      *
@@ -116,8 +136,8 @@ class Transcriptions
      */
     public function read($callId, $legId, $recordingId, $transcriptionId)
     {
-        list(, , $body) = $this->httpClient->performHttpRequest(
-            Common\HttpClient::REQUEST_GET,
+        [, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_GET,
             "calls/$callId/legs/$legId/recordings/$recordingId/transcriptions/$transcriptionId"
         );
 
@@ -126,7 +146,7 @@ class Transcriptions
 
     /**
      * @param string $callId string
-     * @param string $legId  string
+     * @param string $legId string
      * @param string $recordingId
      * @param string $transcriptionId
      *
@@ -134,8 +154,8 @@ class Transcriptions
      */
     public function download($callId, $legId, $recordingId, $transcriptionId)
     {
-        list($status, , $body) = $this->httpClient->performHttpRequest(
-            Common\HttpClient::REQUEST_GET,
+        [$status, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_GET,
             "calls/$callId/legs/$legId/recordings/$recordingId/transcriptions/$transcriptionId.txt"
         );
 
@@ -144,28 +164,5 @@ class Transcriptions
         }
 
         return $body;
-    }
-
-    /**
-     * @param string $body
-     *
-     * @return Objects\Voice\Transcription
-     * @throws \MessageBird\Exceptions\RequestException
-     * @throws \MessageBird\Exceptions\ServerException
-     */
-    public function processRequest($body)
-    {
-        $body = @json_decode($body);
-
-        if ($body === null || $body === false) {
-            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
-        }
-
-        if (empty($body->errors)) {
-            return $this->object->loadFromArray($body->data[0]);
-        }
-
-        $responseError = new Common\ResponseError($body);
-        throw new Exceptions\RequestException($responseError->getErrorString());
     }
 }

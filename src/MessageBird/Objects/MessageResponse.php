@@ -88,7 +88,7 @@ class MessageResponse extends Base
      *
      * @var array
      */
-    public $typeDetails =  [];
+    public $typeDetails = [];
 
     /**
      * The datacoding used, can be plain or unicode

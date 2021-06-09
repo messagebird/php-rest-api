@@ -5,6 +5,8 @@ namespace Tests\Integration;
 use InvalidArgumentException;
 use MessageBird\Client;
 use MessageBird\Common\HttpClient;
+use MessageBird\Exceptions\AuthenticateException;
+use stdClass;
 
 class HttpClientTest extends BaseTest
 {
@@ -13,10 +15,10 @@ class HttpClientTest extends BaseTest
         $client = new HttpClient(Client::ENDPOINT);
 
         $url = $client->getRequestUrl('a', null);
-        $this->assertSame(Client::ENDPOINT.'/a', $url);
+        self::assertSame(Client::ENDPOINT . '/a', $url);
 
         $url = $client->getRequestUrl('a', ['b' => 1]);
-        $this->assertSame(Client::ENDPOINT.'/a?b=1', $url);
+        self::assertSame(Client::ENDPOINT . '/a?b=1', $url);
     }
 
     public function testHttpClientInvalidTimeout()
@@ -40,7 +42,7 @@ class HttpClientTest extends BaseTest
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Connection timeout must be an int >= 0, got "stdClass"');
-        new HttpClient(Client::ENDPOINT, 10, new \stdClass());
+        new HttpClient(Client::ENDPOINT, 10, new stdClass());
     }
 
     /**
@@ -58,7 +60,7 @@ class HttpClientTest extends BaseTest
      */
     public function testHttpClientWithoutAuthenticationException()
     {
-        $this->expectException(\MessageBird\Exceptions\AuthenticateException::class);
+        $this->expectException(AuthenticateException::class);
         $this->expectExceptionMessage('Can not perform API Request without Authentication');
         $client = new HttpClient(Client::ENDPOINT);
         $client->performHttpRequest('foo', 'bar');
@@ -74,6 +76,6 @@ class HttpClientTest extends BaseTest
 
         $client->addHttpOption(CURLOPT_PROXY, $url);
 
-        $this->assertSame($client->getHttpOption(CURLOPT_PROXY), $url);
+        self::assertSame($client->getHttpOption(CURLOPT_PROXY), $url);
     }
 }

@@ -11,33 +11,30 @@ namespace MessageBird\Objects;
 class Group extends Base
 {
     /**
+     * The name of the group.
+     *
+     * @var int
+     */
+    public $name;
+    /**
      * An unique random ID which is created on the MessageBird
      * platform and is returned upon creation of the object.
      *
      * @var string
      */
     protected $id;
-
     /**
      * The URL of the created object.
      *
      * @var string
      */
     protected $href;
-
-    /**
-     * The name of the group.
-     *
-     * @var int
-     */
-    public $name;
-
     /**
      * The hash with the contacts in group.
      *
      * @var array
      */
-    protected $contacts =  [];
+    protected $contacts = [];
 
     /**
      * The date and time of the creation of the group in RFC3339 format (Y-m-d\TH:i:sP)

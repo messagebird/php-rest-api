@@ -2,24 +2,31 @@
 
 namespace Tests\Integration\Contacts;
 
-use Tests\Integration\BaseTest;
+use MessageBird\Common\HttpClient;
+use MessageBird\Exceptions\ServerException;
+use MessageBird\Objects\BaseList;
+use MessageBird\Objects\Contact;
 use MessageBird\Objects\Message;
+use Tests\Integration\BaseTest;
 
 class ContactTest extends BaseTest
 {
     public function testCreateContact()
     {
-        $contact             = new \MessageBird\Objects\Contact();
-        $contact->firstName  = "John";
-        $contact->lastName   = "Doe";
-        $contact->msisdn     = "31612345678";
+        $contact = new Contact();
+        $contact->firstName = "John";
+        $contact->lastName = "Doe";
+        $contact->msisdn = "31612345678";
         $contact->custom1 = "Customfield1";
         $contact->custom2 = "Customfield2";
         $contact->custom3 = "Customfield3";
         $contact->custom4 = "Customfield4";
 
 
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->willReturn([200, '', '{
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->willReturn([
+            200,
+            '',
+            '{
             "id": "61afc0531573b08ddbe36e1c85602827",
             "href": "https://rest.messagebird.com/contacts/61afc0531573b08ddbe36e1c85602827",
             "msisdn": 31612345678,
@@ -41,28 +48,32 @@ class ContactTest extends BaseTest
             },
             "createdDatetime": "2016-04-29T09:42:26+00:00",
             "updatedDatetime": "2016-04-29T09:42:26+00:00"
-        }']);
+        }'
+        ]);
         $this->client->contacts->create($contact);
     }
 
     public function testListContacts()
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts', ['offset' => 100, 'limit' => 30], null);
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts',
+            ['offset' => 100, 'limit' => 30], null);
         $this->client->contacts->getList(['offset' => 100, 'limit' => 30]);
     }
 
     public function testViewContact()
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts/contact_id', null, null);
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'contacts/contact_id',
+            null, null);
         $this->client->contacts->read("contact_id");
     }
 
     public function testDeleteContact()
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'contacts/contact_id', null, null);
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'contacts/contact_id',
+            null, null);
         $this->client->contacts->delete("contact_id");
     }
 
@@ -70,7 +81,7 @@ class ContactTest extends BaseTest
     {
         $this->mockClient->method('performHttpRequest')
             ->with(
-                $this->equalTo(\MessageBird\Common\HttpClient::REQUEST_GET),
+                $this->equalTo(HttpClient::REQUEST_GET),
                 $this->equalTo('contacts/contact_id/groups'),
                 $this->anything(),
                 $this->anything()
@@ -83,23 +94,23 @@ class ContactTest extends BaseTest
 
         $resultingGroupList = $this->client->contacts->getGroups("contact_id");
 
-        $groupList = new \MessageBird\Objects\BaseList();
+        $groupList = new BaseList();
         $groupList->limit = 20;
         $groupList->offset = 0;
         $groupList->count = 1;
         $groupList->totalCount = 1;
-        $groupList->links = (object) [
+        $groupList->links = (object)[
             'first' => '',
             'previous' => null,
             'next' => null,
             'last' => ''
         ];
         $groupList->items = [
-            (object) [
+            (object)[
                 'id' => 'contact_id',
                 'href' => '',
                 'name' => 'GroupName',
-                'contacts' => (object) [
+                'contacts' => (object)[
                     'totalCount' => 1,
                     'href' => ''
                 ],
@@ -115,7 +126,7 @@ class ContactTest extends BaseTest
     {
         $this->mockClient->method('performHttpRequest')
             ->with(
-                $this->equalTo(\MessageBird\Common\HttpClient::REQUEST_GET),
+                $this->equalTo(HttpClient::REQUEST_GET),
                 $this->equalTo('contacts/contact_id/messages'),
                 $this->anything(),
                 $this->anything()
@@ -128,7 +139,7 @@ class ContactTest extends BaseTest
 
         $messages = $this->client->contacts->getMessages("contact_id");
 
-        foreach($messages->items as $message) {
+        foreach ($messages->items as $message) {
             $this->assertInstanceOf(Message::class, $message);
         }
     }

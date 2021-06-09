@@ -8,19 +8,11 @@ class CallFlow extends Base
 {
 
     /**
-     * The unique ID of the call
-     *
-     * @var string
-     */
-    protected $id;
-
-    /**
      * The title of the call flow
      *
      * @var string
      */
     public $title;
-
     /**
      * An array of step objects.
      *
@@ -30,7 +22,12 @@ class CallFlow extends Base
      * @var Step[]
      */
     public $steps;
-
+    /**
+     * The unique ID of the call
+     *
+     * @var string
+     */
+    protected $id;
     /**
      * The date and time the call flow was created
      *
@@ -52,14 +49,11 @@ class CallFlow extends Base
     {
         parent::loadFromArray($object);
 
-        if (!empty($this->steps)) {
-            foreach ($this->steps as &$item) {
-                $step = new Step();
-                $step->loadFromArray($item);
-                $step->options = (array) $step->options;
+        foreach ($this->steps as &$item) {
+            $step = new Step();
+            $step->loadFromArray($item);
 
-                $item = $step;
-            }
+            $item = $step;
         }
 
         return $this;

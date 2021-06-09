@@ -15,9 +15,6 @@ use MessageBird\Objects;
 class Groups extends Base
 {
 
-    /**
-     * @param Common\HttpClient $httpClient
-     */
     public function __construct(Common\HttpClient $httpClient)
     {
         $this->setObject(new Objects\Group());
@@ -30,11 +27,11 @@ class Groups extends Base
      * @param mixed $object
      * @param mixed $id
      *
-     * @throws Exceptions\AuthenticateException
-     * @throws Exceptions\HttpException
-     *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
      *
+     * @throws Exceptions\HttpException
+     *
+     * @throws Exceptions\AuthenticateException
      * @internal param array $parameters
      */
     public function update($object, $id)
@@ -48,9 +45,9 @@ class Groups extends Base
         }
 
         $resourceName = $this->resourceName . ($id ? '/' . $id : null);
-        $body = json_encode($body);
+        $body = json_encode($body, JSON_THROW_ON_ERROR);
 
-        list(, , $body) = $this->httpClient->performHttpRequest(
+        [, , $body] = $this->httpClient->performHttpRequest(
             Common\HttpClient::REQUEST_PATCH,
             $resourceName,
             false,
@@ -63,9 +60,9 @@ class Groups extends Base
      * @param string $id
      * @param array|null $parameters
      *
+     * @return mixed
      * @throws InvalidArgumentException
      *
-     * @return mixed
      */
     public function getContacts($id = null, $parameters = [])
     {
@@ -81,11 +78,11 @@ class Groups extends Base
      * @param array $contacts
      * @param string $id
      *
-     * @throws Exceptions\AuthenticateException
+     * @return mixed
      * @throws Exceptions\HttpException
      * @throws InvalidArgumentException
      *
-     * @return mixed
+     * @throws Exceptions\AuthenticateException
      */
     public function addContacts($contacts, $id = null)
     {
@@ -97,15 +94,15 @@ class Groups extends Base
         }
 
         $resourceName = $this->resourceName . ($id ? '/' . $id . '/contacts' : null);
-        $contacts = json_encode($contacts);
-        list($responseStatus, , $responseBody) = $this->httpClient->performHttpRequest(
+        $contacts = json_encode($contacts, JSON_THROW_ON_ERROR);
+        [$responseStatus, , $responseBody] = $this->httpClient->performHttpRequest(
             Common\HttpClient::REQUEST_PUT,
             $resourceName,
             false,
             $contacts
         );
         if ($responseStatus !== Common\HttpClient::HTTP_NO_CONTENT) {
-            return json_decode($responseBody);
+            return json_decode($responseBody, null, 512, JSON_THROW_ON_ERROR);
         }
     }
 
@@ -113,10 +110,10 @@ class Groups extends Base
      * @param string $contact_id
      * @param string $id
      *
-     * @throws Exceptions\AuthenticateException
+     * @return mixed
      * @throws Exceptions\HttpException
      *
-     * @return mixed
+     * @throws Exceptions\AuthenticateException
      */
     public function removeContact($contact_id = null, $id = null)
     {
@@ -125,12 +122,12 @@ class Groups extends Base
         }
         $resourceName = $this->resourceName . ($id ? '/' . $id . '/contacts/' . $contact_id : null);
 
-        list($responseStatus, , $responseBody) = $this->httpClient->performHttpRequest(
+        [$responseStatus, , $responseBody] = $this->httpClient->performHttpRequest(
             Common\HttpClient::REQUEST_DELETE,
             $resourceName
         );
         if ($responseStatus !== Common\HttpClient::HTTP_NO_CONTENT) {
-            return json_decode($responseBody);
+            return json_decode($responseBody, null, 512, JSON_THROW_ON_ERROR);
         }
     }
 }

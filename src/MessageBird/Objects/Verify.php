@@ -14,29 +14,12 @@ class Verify extends Base
     const STATUS_FAILED = 'failed';
     const STATUS_EXPIRED = 'expired';
     const STATUS_DELETED = 'deleted';
-
-    /**
-     * An unique random ID which is created on the MessageBird platform and is returned upon
-     * creation of the object.
-     *
-     * @var string
-     */
-    protected $id;
-
-    /**
-     * The URL of the created object.
-     *
-     * @var string
-     */
-    protected $href;
-
     /**
      * The msisdn or email of the recipient
      *
      * @var int|string
      */
     public $recipient;
-
     /**
      * A client reference. Here you can put your own reference,
      * like your internal reference.
@@ -44,7 +27,19 @@ class Verify extends Base
      * @var string
      */
     public $reference;
-
+    /**
+     * An unique random ID which is created on the MessageBird platform and is returned upon
+     * creation of the object.
+     *
+     * @var string
+     */
+    protected $id;
+    /**
+     * The URL of the created object.
+     *
+     * @var string
+     */
+    protected $href;
     /**
      * An associative array containing one href entry referring to the URL of the created object.
      * The entry can either refer to either the messages or the voicemessages endpoint

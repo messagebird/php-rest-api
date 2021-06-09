@@ -3,7 +3,14 @@
 namespace MessageBird\Resources\PartnerAccount;
 
 use MessageBird\Common\HttpClient;
+use MessageBird\Objects\Balance;
+use MessageBird\Objects\Conversation\Conversation;
+use MessageBird\Objects\Hlr;
+use MessageBird\Objects\Lookup;
+use MessageBird\Objects\Message;
 use MessageBird\Objects\PartnerAccount\Account;
+use MessageBird\Objects\Verify;
+use MessageBird\Objects\VoiceMessage;
 use MessageBird\Resources\Base;
 
 class Accounts extends Base
@@ -19,11 +26,11 @@ class Accounts extends Base
     }
 
     /**
-     * @return \MessageBird\Objects\Balance|\MessageBird\Objects\Conversation\Conversation|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
+     * @return Balance|Conversation|Hlr|Lookup|Message|Verify|VoiceMessage|null
      */
     public function create($object, $query = null)
     {
-        list(, , $body) = $this->httpClient->performHttpRequest(
+        [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
             self::RESOURCE_NAME,
             null,
@@ -35,7 +42,7 @@ class Accounts extends Base
 
     public function getList($parameters = [])
     {
-        list($status, , $body) = $this->httpClient->performHttpRequest(
+        [$status, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_GET,
             self::RESOURCE_NAME,
             $parameters
@@ -46,21 +53,21 @@ class Accounts extends Base
         }
 
 
-        $response = json_decode($body, true);
+        $response = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
 
-        foreach ($response as &$item) {
-            $item = $this->getObject()->loadFromArray($item);
+        foreach ($response as &$singleResponse) {
+            $this->getObject()->loadFromArray($singleResponse);
         }
 
         return $response;
     }
 
     /**
-     * @return \MessageBird\Objects\Balance|\MessageBird\Objects\Conversation\Conversation|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
+     * @return Balance|Conversation|Hlr|Lookup|Message|Verify|VoiceMessage|null
      */
     public function update($object, $id)
     {
-        list(, , $body) = $this->httpClient->performHttpRequest(
+        [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_PATCH,
             sprintf('%s/%s', self::RESOURCE_NAME, $id),
             null,

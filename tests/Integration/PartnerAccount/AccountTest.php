@@ -2,13 +2,14 @@
 
 namespace Tests\Integration\PartnerAccount;
 
+use MessageBird\Objects\PartnerAccount\Account;
 use Tests\Integration\BaseTest;
 
 class AccountTest extends BaseTest
 {
     public function testCreateSubAccount()
     {
-        $account = new \MessageBird\Objects\PartnerAccount\Account();
+        $account = new Account();
         $account->name = 'MessageBird';
 
         $this->mockClient
@@ -147,7 +148,7 @@ class AccountTest extends BaseTest
 
     public function testEditSubAccount()
     {
-        $account = new \MessageBird\Objects\PartnerAccount\Account();
+        $account = new Account();
         $account->name = 'MessageBird';
 
         $this->mockClient

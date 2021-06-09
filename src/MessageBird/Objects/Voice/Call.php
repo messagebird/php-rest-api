@@ -7,33 +7,29 @@ use MessageBird\Objects\Base;
 class Call extends Base
 {
     /**
-     * The unique ID of the call
-     *
-     * @var string
-     */
-    protected $id;
-
-    /**
      * The caller ID of the call
      *
      * @var string
      */
     public $source;
-
     /**
      * The number/address to be called.
      *
      * @var string
      */
     public $destination;
-
     /**
      * The call flow object to be executed when the call is answered.
      *
      * @var CallFlow
      */
     public $callFlow;
-
+    /**
+     * The unique ID of the call
+     *
+     * @var string
+     */
+    protected $id;
     /**
      * The unique ID of the number that is/was called
      *

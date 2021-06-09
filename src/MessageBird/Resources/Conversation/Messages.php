@@ -31,9 +31,6 @@ class Messages
      */
     protected $object;
 
-    /**
-     * @param HttpClient $httpClient
-     */
     public function __construct(HttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
@@ -51,8 +48,6 @@ class Messages
 
     /**
      * @param Message $object
-     *
-     * @return void
      */
     public function setObject($object): void
     {
@@ -66,7 +61,6 @@ class Messages
      * @param Message $object
      * @param string[]|null $query
      *
-     * @return Message
      *
      * @throws HttpException
      * @throws RequestException
@@ -74,9 +68,9 @@ class Messages
      */
     public function create($conversationId, $object, $query = null): Message
     {
-        $body = json_encode($object);
+        $body = json_encode($object, JSON_THROW_ON_ERROR);
 
-        list(, , $body) = $this->httpClient->performHttpRequest(
+        [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
             $this->getResourceNameWithId($conversationId),
             $query,
@@ -84,74 +78,6 @@ class Messages
         );
 
         return $this->processRequest($body);
-    }
-
-    /**
-     * Retrieves all the messages form the conversation based on its
-     * conversationId.
-     *
-     * @param string $conversationId
-     * @param string[] $parameters
-     *
-     * @return BaseList|Message
-     */
-    public function getList($conversationId, $parameters = [])
-    {
-        list($status, , $body) = $this->httpClient->performHttpRequest(
-            HttpClient::REQUEST_GET,
-            $this->getResourceNameWithId($conversationId),
-            $parameters
-        );
-
-        if ($status === self::HTTP_STATUS_OK) {
-            $body = json_decode($body);
-
-            $items = $body->items;
-            unset($body->items);
-
-            $baseList = new BaseList();
-            $baseList->loadFromArray($body);
-
-            $objectName = $this->object;
-
-            foreach ($items as $item) {
-                /** @psalm-suppress UndefinedClass */
-                $message = new $objectName($this->httpClient);
-                $message->loadFromArray($item);
-
-                $baseList->items[] = $message;
-            }
-            
-            return $baseList;
-        }
-
-        return $this->processRequest($body);
-    }
-
-    /**
-     * @return Message|self
-     */
-    public function read($messageId, $parameters = [])
-    {
-        list($status, , $body) = $this->httpClient->performHttpRequest(
-            HttpClient::REQUEST_GET,
-            sprintf(self::MESSAGE_RESOURCE_NAME, $messageId),
-            $parameters
-        );
-
-        if ($status !== self::HTTP_STATUS_OK) {
-            return $this->processRequest($body);
-        }
-
-        $body = json_decode($body);
-        if (empty($body)) {
-            return $this->processRequest($body);
-        }
-
-        $message = new Message();
-        $message->loadFromArray($body);
-
-        return $message;
     }
 
     /**
@@ -172,14 +98,13 @@ class Messages
      *
      * @param string $body
      *
-     * @return Message
      *
      * @throws RequestException
      * @throws ServerException
      */
     public function processRequest($body): Message
     {
-        $body = @json_decode($body);
+        $body = @json_decode($body, null, 512, JSON_THROW_ON_ERROR);
 
         if ($body === null || $body === false) {
             throw new ServerException('Got an invalid JSON response from the server.');
@@ -194,5 +119,73 @@ class Messages
         throw new RequestException(
             $responseError->getErrorString()
         );
+    }
+
+    /**
+     * Retrieves all the messages form the conversation based on its
+     * conversationId.
+     *
+     * @param string $conversationId
+     * @param string[] $parameters
+     *
+     * @return BaseList|Message
+     */
+    public function getList($conversationId, $parameters = [])
+    {
+        [$status, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_GET,
+            $this->getResourceNameWithId($conversationId),
+            $parameters
+        );
+
+        if ($status === self::HTTP_STATUS_OK) {
+            $body = json_decode($body, null, 512, JSON_THROW_ON_ERROR);
+
+            $items = $body->items;
+            unset($body->items);
+
+            $baseList = new BaseList();
+            $baseList->loadFromArray($body);
+
+            $objectName = $this->object;
+
+            foreach ($items as $item) {
+                /** @psalm-suppress UndefinedClass */
+                $message = new $objectName($this->httpClient);
+                $message->loadFromArray($item);
+
+                $baseList->items[] = $message;
+            }
+
+            return $baseList;
+        }
+
+        return $this->processRequest($body);
+    }
+
+    /**
+     * @return Message|self
+     */
+    public function read($messageId, $parameters = [])
+    {
+        [$status, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_GET,
+            sprintf(self::MESSAGE_RESOURCE_NAME, $messageId),
+            $parameters
+        );
+
+        if ($status !== self::HTTP_STATUS_OK) {
+            return $this->processRequest($body);
+        }
+
+        $body = json_decode($body, null, 512, JSON_THROW_ON_ERROR);
+        if (empty($body)) {
+            return $this->processRequest($body);
+        }
+
+        $message = new Message();
+        $message->loadFromArray($body);
+
+        return $message;
     }
 }

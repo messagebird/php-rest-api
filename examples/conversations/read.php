@@ -14,8 +14,7 @@ $optionalParameters = [
 
 try {
     $conversation = $messageBird->conversations->read(
-        'CONVERSATION_ID',
-        $optionalParameters
+        'CONVERSATION_ID'
     );
 
     var_dump($conversation);

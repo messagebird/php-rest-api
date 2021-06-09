@@ -7,6 +7,15 @@ use Firebase\JWT\SignatureInvalidException;
 use MessageBird\Exceptions\ValidationException;
 use MessageBird\Objects\SignedRequest;
 
+use function base64_decode;
+use function hash;
+use function hash_equals;
+use function hash_hmac;
+use function http_build_query;
+use function implode;
+use function ksort;
+use function time;
+
 /**
  * Class RequestValidator validates request signature signed by MessageBird services.
  *
@@ -53,52 +62,51 @@ class RequestValidator
     /**
      * Verify that the signed request was submitted from MessageBird using the known key.
      *
-     * @param SignedRequest $request
      * @return bool
      * @deprecated Use {@link RequestValidator::validateSignature()} instead.
      */
-    public function verify(SignedRequest $request)
+    public function verify(SignedRequest $signedRequest)
     {
-        $payload = $this->buildPayloadFromRequest($request);
+        $payload = $this->buildPayloadFromRequest($signedRequest);
 
-        $calculatedSignature = \hash_hmac(self::HMAC_HASH_ALGO, $payload, $this->signingKey, true);
-        $expectedSignature = \base64_decode($request->signature, true);
+        $calculatedSignature = hash_hmac(self::HMAC_HASH_ALGO, $payload, $this->signingKey, true);
+        $expectedSignature = base64_decode($signedRequest->signature, true);
 
-        return \hash_equals($expectedSignature, $calculatedSignature);
+        return hash_equals($expectedSignature, $calculatedSignature);
     }
 
     /**
      * @deprecated Use {@link RequestValidator::validateSignature()} instead.
      */
-    private function buildPayloadFromRequest(SignedRequest $request): string
+    private function buildPayloadFromRequest(SignedRequest $signedRequest): string
     {
         $parts = [];
 
         // Add request timestamp
-        $parts[] = $request->requestTimestamp;
+        $parts[] = $signedRequest->requestTimestamp;
 
         // Build sorted query string
-        $query = $request->queryParameters;
-        \ksort($query, SORT_STRING);
-        $parts[] = \http_build_query($query);
+        $query = $signedRequest->queryParameters;
+        ksort($query, SORT_STRING);
+        $parts[] = http_build_query($query);
 
         // Calculate checksum for request body
-        $parts[] = \hash(self::BODY_HASH_ALGO, $request->body, true);
+        $parts[] = hash(self::BODY_HASH_ALGO, $signedRequest->body, true);
 
-        return \implode("\n", $parts);
+        return implode("\n", $parts);
     }
 
     /**
      * Check whether the request was made recently.
      *
-     * @param SignedRequest $request The signed request object.
+     * @param SignedRequest $signedRequest The signed request object.
      * @param int $offset The maximum number of seconds that is allowed to consider the request recent
      * @return bool
      * @deprecated Use {@link RequestValidator::validateSignature()} instead.
      */
-    public function isRecent(SignedRequest $request, $offset = 10)
+    public function isRecent(SignedRequest $signedRequest, $offset = 10)
     {
-        return (\time() - (int)$request->requestTimestamp) < $offset;
+        return (\time() - (int)$signedRequest->requestTimestamp) < $offset;
     }
 
     /**

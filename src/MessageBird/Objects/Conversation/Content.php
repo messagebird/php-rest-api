@@ -72,23 +72,23 @@ class Content extends Base implements JsonSerializable
 
     /**
      * Sets the location on this object if available.
-     *
-     * @return void
      */
     private function loadLocationIfNeeded(): void
     {
-        if (!empty($this->location->latitude) && !empty($this->location->longitude)) {
-            $this->location = [
-                'latitude' => $this->location->latitude,
-                'longitude' => $this->location->longitude,
-            ];
+        if (empty($this->location->latitude)) {
+            return;
         }
+        if (empty($this->location->longitude)) {
+            return;
+        }
+        $this->location = [
+            'latitude' => $this->location->latitude,
+            'longitude' => $this->location->longitude,
+        ];
     }
 
     /**
      * Sets the media on this object if available.
-     *
-     * @return void
      */
     private function loadMediaIfNeeded(): void
     {

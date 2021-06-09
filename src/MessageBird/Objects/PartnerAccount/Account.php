@@ -23,7 +23,7 @@ class Account extends Base
     {
         return json_encode([
             'name' => $this->name,
-        ]);
+        ], JSON_THROW_ON_ERROR);
     }
 
     /**

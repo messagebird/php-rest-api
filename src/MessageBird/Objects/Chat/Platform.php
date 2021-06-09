@@ -42,7 +42,7 @@ class Platform extends Base
     protected $channelIdentifier;
 
     /**
-     * 	The name of the contact details parameter that uniquely identifies a contact on this platform.
+     *    The name of the contact details parameter that uniquely identifies a contact on this platform.
      *
      * @var string
      */

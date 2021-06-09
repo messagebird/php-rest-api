@@ -54,7 +54,8 @@ class ConversationWebhookTest extends BaseTest
     {
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
-            ->with('POST', 'webhooks', null, '{"channelId":"chid","events":["conversation.created","message.created"],"url":"https:\/\/messagebird.com\/webhook-receiver"}')
+            ->with('POST', 'webhooks', null,
+                '{"channelId":"chid","events":["conversation.created","message.created"],"url":"https:\/\/messagebird.com\/webhook-receiver"}')
             ->willReturn([200, '', '{}']);
 
         $webhook = new Webhook();

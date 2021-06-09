@@ -74,7 +74,7 @@ class Contact extends Base
         parent::loadFromArray($object);
 
         if (!empty($this->customDetails)) {
-            $this->customDetails = (array) $this->customDetails;
+            $this->customDetails = (array)$this->customDetails;
         }
 
         return $this;

@@ -3,7 +3,10 @@
 namespace MessageBird\Resources;
 
 use MessageBird\Common;
+use MessageBird\Common\HttpClient;
 use MessageBird\Exceptions;
+use MessageBird\Exceptions\RequestException;
+use MessageBird\Exceptions\ServerException;
 use MessageBird\Objects;
 
 /**
@@ -14,7 +17,7 @@ use MessageBird\Objects;
 class Base
 {
     /**
-     * @var \MessageBird\Common\HttpClient
+     * @var HttpClient
      */
     protected $httpClient;
 
@@ -33,22 +36,9 @@ class Base
      */
     protected $responseObject;
 
-    /**
-     * @param Common\HttpClient $httpClient
-     */
-    public function __construct(Common\HttpClient $httpClient)
+    public function __construct(HttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
-    }
-
-    /**
-     * @param mixed $resourceName
-     *
-     * @return void
-     */
-    public function setResourceName($resourceName): void
-    {
-        $this->resourceName = $resourceName;
     }
 
     /**
@@ -60,13 +50,11 @@ class Base
     }
 
     /**
-     * @param mixed $object
-     *
-     * @return void
+     * @param mixed $resourceName
      */
-    public function setObject($object): void
+    public function setResourceName($resourceName): void
     {
-        $this->object = $object;
+        $this->resourceName = $resourceName;
     }
 
     /**
@@ -78,13 +66,11 @@ class Base
     }
 
     /**
-     * @param mixed $responseObject
-     *
-     * @return void
+     * @param mixed $object
      */
-    public function setResponseObject($responseObject): void
+    public function setObject($object): void
     {
-        $this->responseObject = $responseObject;
+        $this->object = $object;
     }
 
     /**
@@ -96,6 +82,14 @@ class Base
     }
 
     /**
+     * @param mixed $responseObject
+     */
+    public function setResponseObject($responseObject): void
+    {
+        $this->responseObject = $responseObject;
+    }
+
+    /**
      * @no-named-arguments
      *
      * @param mixed $object
@@ -104,27 +98,55 @@ class Base
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\MessageResponse|Objects\Verify|Objects\VoiceMessage|null
      *
      * @throws Exceptions\HttpException
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
+     * @throws RequestException
+     * @throws ServerException
      */
     public function create($object, $query = null)
     {
-        $body = json_encode($object);
-        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_POST, $this->resourceName, $query, $body);
+        $body = json_encode($object, JSON_THROW_ON_ERROR);
+        [, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_POST, $this->resourceName,
+            $query, $body);
         return $this->processRequest($body);
     }
 
     /**
-     * @param array|null $parameters
+     * @param string $body
      *
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|Objects\MessageResponse|null
+     *
+     * @throws RequestException
+     * @throws ServerException
+     */
+    public function processRequest($body)
+    {
+        $body = @json_decode($body, null, 512, JSON_THROW_ON_ERROR);
+
+        if ($body === null || $body === false) {
+            throw new ServerException('Got an invalid JSON response from the server.');
+        }
+
+        if (!empty($body->errors)) {
+            $responseError = new Common\ResponseError($body);
+            throw new RequestException($responseError->getErrorString());
+        }
+
+        if ($this->responseObject) {
+            return $this->responseObject->loadFromArray($body);
+        }
+
+        return $this->object->loadFromArray($body);
+    }
+
+    /**
      * @return Objects\Balance|Objects\BaseList|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      */
-    public function getList(?array $parameters =  [])
+    public function getList(?array $parameters = [])
     {
-        list($status, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $this->resourceName, $parameters);
+        [$status, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_GET, $this->resourceName,
+            $parameters);
 
         if ($status === 200) {
-            $body = json_decode($body);
+            $body = json_decode($body, null, 512, JSON_THROW_ON_ERROR);
 
             $items = $body->items;
             unset($body->items);
@@ -138,7 +160,7 @@ class Base
                 /** @psalm-suppress UndefinedClass */
                 $object = new $objectName($this->httpClient);
 
-                $message           = $object->loadFromArray($item);
+                $message = $object->loadFromArray($item);
                 $baseList->items[] = $message;
             }
             return $baseList;
@@ -154,13 +176,13 @@ class Base
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      *
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
+     * @throws RequestException
+     * @throws ServerException
      */
     public function read($id = null)
     {
         $resourceName = $this->resourceName . (($id) ? '/' . $id : null);
-        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $resourceName);
+        [, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_GET, $resourceName);
         return $this->processRequest($body);
     }
 
@@ -169,47 +191,19 @@ class Base
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null|true
      *
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
+     * @throws RequestException
+     * @throws ServerException
      */
     public function delete($id)
     {
         $resourceName = $this->resourceName . '/' . $id;
-        list($status, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_DELETE, $resourceName);
+        [$status, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_DELETE, $resourceName);
 
-        if ($status === Common\HttpClient::HTTP_NO_CONTENT) {
+        if ($status === HttpClient::HTTP_NO_CONTENT) {
             return true;
         }
 
         return $this->processRequest($body);
-    }
-
-    /**
-     * @param string $body
-     *
-     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|Objects\MessageResponse|null
-     *
-     * @throws \MessageBird\Exceptions\RequestException
-     * @throws \MessageBird\Exceptions\ServerException
-     */
-    public function processRequest($body)
-    {
-        $body = @json_decode($body);
-
-        if ($body === null || $body === false) {
-            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
-        }
-
-        if (!empty($body->errors)) {
-            $responseError = new Common\ResponseError($body);
-            throw new Exceptions\RequestException($responseError->getErrorString());
-        }
-
-        if ($this->responseObject) {
-            return $this->responseObject->loadFromArray($body);
-        }
-
-        return $this->object->loadFromArray($body);
     }
 
     /**
@@ -231,16 +225,14 @@ class Base
         }
 
         $resourceName = $this->resourceName . ($id ? '/' . $id : null);
-        $body = json_encode($body);
+        $body = json_encode($body, JSON_THROW_ON_ERROR);
 
-        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_PUT, $resourceName, false, $body);
+        [, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_PUT, $resourceName, false,
+            $body);
         return $this->processRequest($body);
     }
 
-    /**
-     * @return Common\HttpClient
-     */
-    public function getHttpClient(): Common\HttpClient
+    public function getHttpClient(): HttpClient
     {
         return $this->httpClient;
     }

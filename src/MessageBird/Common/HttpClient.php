@@ -2,6 +2,7 @@
 
 namespace MessageBird\Common;
 
+use InvalidArgumentException;
 use MessageBird\Common;
 use MessageBird\Exceptions;
 
@@ -57,31 +58,32 @@ class HttpClient
 
     /**
      * @param string $endpoint
-     * @param int    $timeout           > 0
-     * @param int    $connectionTimeout >= 0
-     * @param array  $headers
+     * @param int $timeout > 0
+     * @param int $connectionTimeout >= 0
+     * @param array $headers
      */
     public function __construct($endpoint, $timeout = 10, $connectionTimeout = 2, $headers = [])
     {
         $this->endpoint = $endpoint;
 
         if (!is_int($timeout) || $timeout < 1) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf(
-                'Timeout must be an int > 0, got "%s".',
-                is_object($timeout) ? get_class($timeout) : gettype($timeout).' '.var_export($timeout, true)
-            )
+                    'Timeout must be an int > 0, got "%s".',
+                    is_object($timeout) ? get_class($timeout) : gettype($timeout) . ' ' . var_export($timeout, true)
+                )
             );
         }
 
         $this->timeout = $timeout;
 
         if (!is_int($connectionTimeout) || $connectionTimeout < 0) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf(
-                'Connection timeout must be an int >= 0, got "%s".',
-                is_object($connectionTimeout) ? get_class($connectionTimeout) : gettype($connectionTimeout).' '.var_export($connectionTimeout, true)
-            )
+                    'Connection timeout must be an int >= 0, got "%s".',
+                    is_object($connectionTimeout) ? get_class($connectionTimeout) : gettype($connectionTimeout) . ' ' . var_export($connectionTimeout,
+                            true)
+                )
             );
         }
 
@@ -91,48 +93,17 @@ class HttpClient
 
     /**
      * @param string $userAgent
-     *
-     * @return void
      */
     public function addUserAgentString($userAgent): void
     {
         $this->userAgent[] = $userAgent;
     }
 
-    /**
-     * @param Common\Authentication $authentication
-     *
-     * @return void
-     */
     public function setAuthentication(Common\Authentication $authentication): void
     {
         $this->authentication = $authentication;
     }
 
-    /**
-     * @param string $resourceName
-     * @param mixed  $query
-     *
-     * @return string
-     */
-    public function getRequestUrl($resourceName, $query)
-    {
-        $requestUrl = $this->endpoint . '/' . $resourceName;
-        if ($query) {
-            if (is_array($query)) {
-                $query = http_build_query($query);
-            }
-            $requestUrl .= '?' . $query;
-        }
-
-        return $requestUrl;
-    }
-
-    /**
-     * @param array $headers
-     *
-     * @return void
-     */
     public function setHeaders(array $headers): void
     {
         $this->headers = $headers;
@@ -141,8 +112,6 @@ class HttpClient
     /**
      * @param mixed $option
      * @param mixed $value
-     *
-     * @return void
      */
     public function addHttpOption($option, $value): void
     {
@@ -159,9 +128,9 @@ class HttpClient
     }
 
     /**
-     * @param string      $method
-     * @param string      $resourceName
-     * @param mixed       $query
+     * @param string $method
+     * @param string $resourceName
+     * @param mixed $query
      * @param string|null $body
      *
      * @return array
@@ -177,7 +146,7 @@ class HttpClient
             throw new Exceptions\AuthenticateException('Can not perform API Request without Authentication');
         }
 
-        $headers =  [
+        $headers = [
             'User-agent: ' . implode(' ', $this->userAgent),
             'Accept: application/json',
             'Content-Type: application/json',
@@ -216,7 +185,8 @@ class HttpClient
         // Some servers have outdated or incorrect certificates, Use the included CA-bundle
         $caFile = realpath(__DIR__ . '/../ca-bundle.crt');
         if (!file_exists($caFile)) {
-            throw new Exceptions\HttpException(sprintf('Unable to find CA-bundle file "%s".', __DIR__ . '/../ca-bundle.crt'));
+            throw new Exceptions\HttpException(sprintf('Unable to find CA-bundle file "%s".',
+                __DIR__ . '/../ca-bundle.crt'));
         }
 
         curl_setopt($curl, CURLOPT_CAINFO, $caFile);
@@ -227,20 +197,38 @@ class HttpClient
             throw new Exceptions\HttpException(curl_error($curl), curl_errno($curl));
         }
 
-        $responseStatus = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $responseStatus = (int)curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         // Split the header and body
         $parts = explode("\r\n\r\n", $response, 3);
         $isThreePartResponse = (strpos($parts[0], "\n") === false && strpos($parts[0], 'HTTP/1.') === 0);
-        list($responseHeader, $responseBody) = $isThreePartResponse ?  [$parts[1], $parts[2]] :  [$parts[0], $parts[1]];
+        [$responseHeader, $responseBody] = $isThreePartResponse ? [$parts[1], $parts[2]] : [$parts[0], $parts[1]];
 
         curl_close($curl);
 
-        return  [$responseStatus, $responseHeader, $responseBody];
+        return [$responseStatus, $responseHeader, $responseBody];
     }
 
     /**
-     * @param int $timeout
+     * @param string $resourceName
+     * @param mixed $query
+     *
+     * @return string
+     */
+    public function getRequestUrl($resourceName, $query)
+    {
+        $requestUrl = $this->endpoint . '/' . $resourceName;
+        if ($query) {
+            if (is_array($query)) {
+                $query = http_build_query($query);
+            }
+            $requestUrl .= '?' . $query;
+        }
+
+        return $requestUrl;
+    }
+
+    /**
      * @return $this
      */
     public function setTimeout(int $timeout)
@@ -250,7 +238,6 @@ class HttpClient
     }
 
     /**
-     * @param int $connectionTimeout
      * @return $this
      */
     public function setConnectionTimeout(int $connectionTimeout)

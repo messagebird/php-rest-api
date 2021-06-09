@@ -2,7 +2,6 @@
 
 namespace Tests\Integration\Conversation;
 
-use MessageBird\Client;
 use MessageBird\Objects\Conversation\Content;
 use MessageBird\Objects\Conversation\Message;
 use Tests\Integration\BaseTest;
@@ -53,7 +52,8 @@ class ConversationMessageTest extends BaseTest
     {
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
-            ->with('POST', 'conversations/some-conversation-id/messages', null, '{"channelId":"abcd1234","type":"image","content":{"image":{"url":"https:\/\/developers.messagebird.com\/assets\/images\/glyph.svg"}}}')
+            ->with('POST', 'conversations/some-conversation-id/messages', null,
+                '{"channelId":"abcd1234","type":"image","content":{"image":{"url":"https:\/\/developers.messagebird.com\/assets\/images\/glyph.svg"}}}')
             ->willReturn([200, '', '{}']);
 
         $content = new Content();
@@ -73,7 +73,8 @@ class ConversationMessageTest extends BaseTest
     {
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
-            ->with('POST', 'conversations/some-contact-id/messages', null, '{"channelId":"abcd1234","type":"location","content":{"location":{"latitude":"52.379112","longitude":"4.900384"}}}')
+            ->with('POST', 'conversations/some-contact-id/messages', null,
+                '{"channelId":"abcd1234","type":"location","content":{"location":{"latitude":"52.379112","longitude":"4.900384"}}}')
             ->willReturn([200, '', '{}']);
 
         $content = new Content();
@@ -94,7 +95,8 @@ class ConversationMessageTest extends BaseTest
     {
         $this->mockClient
             ->expects($this->once())->method('performHttpRequest')
-            ->with('POST', 'conversations/some-other-contact-id/messages', null, '{"channelId":"abcd1234","type":"text","content":{"text":"Hello world"}}')
+            ->with('POST', 'conversations/some-other-contact-id/messages', null,
+                '{"channelId":"abcd1234","type":"text","content":{"text":"Hello world"}}')
             ->willReturn([200, '', '{}']);
 
         $content = new Content();

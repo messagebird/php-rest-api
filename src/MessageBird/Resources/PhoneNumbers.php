@@ -2,7 +2,7 @@
 
 namespace MessageBird\Resources;
 
-use MessageBird\Common;
+use MessageBird\Common\HttpClient;
 use MessageBird\Objects;
 
 /**
@@ -14,14 +14,11 @@ class PhoneNumbers extends Base
 {
 
     /**
-     * @var \MessageBird\Common\HttpClient
+     * @var HttpClient
      */
     protected $httpClient;
 
-    /**
-     * @param Common\HttpClient $httpClient
-     */
-    public function __construct(Common\HttpClient $httpClient)
+    public function __construct(HttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
         $this->setObject(new Objects\Number());
@@ -47,10 +44,11 @@ class PhoneNumbers extends Base
         }
 
         $resourceName = $this->resourceName . ($id ? '/' . $id : null);
-        $body = json_encode($body);
+        $body = json_encode($body, JSON_THROW_ON_ERROR);
 
         // This override is only needed to use the PATCH http method
-        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_PATCH, $resourceName, false, $body);
+        [, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_PATCH, $resourceName, false,
+            $body);
         return $this->processRequest($body);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace MessageBird;
 
+use MessageBird\Common\HttpClient;
+
 /**
  * Class Client
  *
@@ -22,150 +24,121 @@ class Client
     const CLIENT_VERSION = '2.0.1';
 
     /**
-     * @var string
-     */
-    protected $endpoint = self::ENDPOINT;
-
-    /**
      * @var Resources\Messages
      */
     public $messages;
-
     /**
      * @var Resources\Contacts
      */
     public $contacts;
-
     /**
      * @var Resources\Groups
      */
     public $groups;
-
     /**
      * @var Resources\EmailMessage
      */
     public $emailmessages;
-
     /**
      * @var Resources\VoiceMessage
      */
     public $voicemessages;
-
     /**
      * @var Resources\Hlr
      */
     public $hlr;
-
     /**
      * @var Resources\Verify
      */
     public $verify;
-
     /**
      * @var Resources\Balance
      */
     public $balance;
-
     /**
      * @var Resources\Lookup
      */
     public $lookup;
-
     /**
      * @var Resources\LookupHlr
      */
     public $lookupHlr;
-
     /**
      * @var Resources\MmsMessages
      */
     public $mmsMessages;
-
     /**
      * @var Resources\Chat\Message
      */
     public $chatMessages;
-
     /**
      * @var Resources\Chat\Channel
      */
     public $chatChannels;
-
     /**
      * @var Resources\Chat\Platform
      */
     public $chatPlatforms;
-
     /**
      * @var Resources\Chat\Contact
      */
     public $chatContacts;
-
     /**
      * @var Resources\Voice\Calls
      */
     public $voiceCalls;
-
     /**
      * @var Resources\Voice\CallFlows
      */
     public $voiceCallFlows;
-
     /**
      * @var Resources\Voice\Legs
      */
     public $voiceLegs;
-
     /**
      * @var Resources\Voice\Recordings
      */
     public $voiceRecordings;
-
     /**
      * @var Resources\Voice\Transcriptions
      */
     public $voiceTranscriptions;
-
     /**
      * @var Resources\PhoneNumbers
      */
     public $phoneNumbers;
-
     /**
      * @var Resources\AvailablePhoneNumbers
      */
     public $availablePhoneNumbers;
-
     /**
      * @var Resources\Voice\Webhooks
      */
     public $voiceWebhooks;
-
     /**
      * @var Resources\Conversation\Conversations;
      */
     public $conversations;
-
     /**
      * @var Resources\Conversation\Messages;
      */
     public $conversationMessages;
-
     /**
      * @var Resources\Conversation\Send;
      */
     public $conversationSend;
-
     /**
      * @var Resources\Conversation\Webhooks;
      */
     public $conversationWebhooks;
-
     /**
      * @var Resources\PartnerAccount\Accounts;
      */
     public $partnerAccounts;
-
+    /**
+     * @var string
+     */
+    protected $endpoint = self::ENDPOINT;
     /**
      * @var Common\HttpClient
      */
@@ -192,23 +165,23 @@ class Client
     protected $partnerAccountClient;
 
     /**
-     * @var \MessageBird\Common\HttpClient
+     * @var HttpClient
      */
     protected $numbersAPIClient;
 
     /**
-     * @param string            $accessKey
-     * @param Common\HttpClient $httpClient
+     * @param string $accessKey
      */
     public function __construct($accessKey = null, Common\HttpClient $httpClient = null, array $config = [])
     {
         if ($httpClient === null) {
             $this->chatAPIHttpClient = new Common\HttpClient(self::CHATAPI_ENDPOINT);
-            $this->conversationsAPIHttpClient = new Common\HttpClient(in_array(self::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX, $config) ? self::CONVERSATIONSAPI_WHATSAPP_SANDBOX_ENDPOINT : self::CONVERSATIONSAPI_ENDPOINT);
+            $this->conversationsAPIHttpClient = new Common\HttpClient(in_array(self::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX,
+                $config) ? self::CONVERSATIONSAPI_WHATSAPP_SANDBOX_ENDPOINT : self::CONVERSATIONSAPI_ENDPOINT);
             $this->httpClient = new Common\HttpClient(self::ENDPOINT);
             $this->voiceAPIHttpClient = new Common\HttpClient(self::VOICEAPI_ENDPOINT, 10, 2, [
                 'X-MessageBird-Version' => '20170314',
-           ]);
+            ]);
             $this->partnerAccountClient = new Common\HttpClient(self::PARTNER_ACCOUNT_ENDPOINT);
             $this->numbersAPIClient = new Common\HttpClient(self::NUMBERSAPI_ENDPOINT);
         } else {
@@ -273,9 +246,20 @@ class Client
     }
 
     /**
+     * @return string
+     */
+    private function getPhpVersion()
+    {
+        if (!defined('PHP_VERSION_ID')) {
+            $version = array_map('intval', explode('.', PHP_VERSION));
+            define('PHP_VERSION_ID', $version[0] * 10000 + $version[1] * 100 + $version[2]);
+        }
+
+        return 'PHP/' . PHP_VERSION_ID;
+    }
+
+    /**
      * @param mixed $accessKey
-     *
-     * @return void
      */
     public function setAccessKey($accessKey): void
     {
@@ -287,18 +271,5 @@ class Client
         $this->voiceAPIHttpClient->setAuthentication($authentication);
         $this->partnerAccountClient->setAuthentication($authentication);
         $this->numbersAPIClient->setAuthentication($authentication);
-    }
-
-    /**
-     * @return string
-     */
-    private function getPhpVersion()
-    {
-        if (!defined('PHP_VERSION_ID')) {
-            $version = array_map('intval', explode('.', PHP_VERSION));
-            define('PHP_VERSION_ID', $version[0] * 10000 + $version[1] * 100 + $version[2]);
-        }
-
-        return 'PHP/' . PHP_VERSION_ID;
     }
 }

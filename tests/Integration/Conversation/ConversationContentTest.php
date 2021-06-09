@@ -11,6 +11,20 @@ use Tests\Integration\BaseTest;
  */
 class ConversationContentTest extends BaseTest
 {
+    public function testAudioContent()
+    {
+        $content = new Content();
+        $content->audio = ['url' => 'https://example.com/audio.mp3'];
+
+        $message = new Message();
+        $message->content = $content;
+        $message->type = 'audio';
+
+        $this->assertEquals($message, $this->messageFromJson(
+            '{"type":"audio","content":{"audio":{"url":"https://example.com/audio.mp3"}}}'
+        ));
+    }
+
     /**
      * @param string $json
      *
@@ -24,20 +38,6 @@ class ConversationContentTest extends BaseTest
         );
 
         return $message;
-    }
-
-    public function testAudioContent()
-    {
-        $content = new Content();
-        $content->audio = ['url' => 'https://example.com/audio.mp3'];
-
-        $message = new Message();
-        $message->content = $content;
-        $message->type = 'audio';
-
-        $this->assertEquals($message, $this->messageFromJson(
-            '{"type":"audio","content":{"audio":{"url":"https://example.com/audio.mp3"}}}'
-        ));
     }
 
     public function testFileContent()
