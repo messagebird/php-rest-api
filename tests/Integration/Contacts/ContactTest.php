@@ -48,7 +48,7 @@ class ContactTest extends BaseTest
             },
             "createdDatetime": "2016-04-29T09:42:26+00:00",
             "updatedDatetime": "2016-04-29T09:42:26+00:00"
-        }'
+        }',
         ]);
         $this->client->contacts->create($contact);
     }
@@ -101,7 +101,7 @@ class ContactTest extends BaseTest
             ->willReturn([
                 200,
                 '',
-                '{"offset":0,"limit":20,"count":1,"totalCount":1,"links":{"first":"","previous":null,"next":null,"last":""},"items":[{"id":"contact_id","href":"","name":"GroupName","contacts":{"totalCount":1,"href":""},"createdDatetime":"","updatedDatetime":""}]}'
+                '{"offset":0,"limit":20,"count":1,"totalCount":1,"links":{"first":"","previous":null,"next":null,"last":""},"items":[{"id":"contact_id","href":"","name":"GroupName","contacts":{"totalCount":1,"href":""},"createdDatetime":"","updatedDatetime":""}]}',
             ]);
 
         $resultingGroupList = $this->client->contacts->getGroups("contact_id");
@@ -115,7 +115,7 @@ class ContactTest extends BaseTest
             'first' => '',
             'previous' => null,
             'next' => null,
-            'last' => ''
+            'last' => '',
         ];
         $groupList->items = [
             (object)[
@@ -124,11 +124,11 @@ class ContactTest extends BaseTest
                 'name' => 'GroupName',
                 'contacts' => (object)[
                     'totalCount' => 1,
-                    'href' => ''
+                    'href' => '',
                 ],
                 'createdDatetime' => '',
-                'updatedDatetime' => ''
-            ]
+                'updatedDatetime' => '',
+            ],
         ];
 
         $this->assertEquals($groupList, $resultingGroupList);
@@ -146,7 +146,7 @@ class ContactTest extends BaseTest
             ->willReturn([
                 200,
                 '',
-                '{"offset":0,"limit":20,"count":1,"totalCount":1,"links":{"first":"","previous":null,"next":null,"last":""},"items":[{"id":"contact_id","href":"","direction":"mt","type":"sms","originator":"MsgBird","body":"MessageBody","reference":null,"validity":null,"gateway":0,"typeDetails":{},"datacoding":"plain","mclass":1,"scheduledDatetime":null,"createdDatetime":"","recipients":{"totalCount":1,"totalSentCount":1,"totalDeliveredCount":1,"totalDeliveryFailedCount":0,"items":[{"recipient":12345678912,"status":"delivered","statusDatetime":""}]}}]}'
+                '{"offset":0,"limit":20,"count":1,"totalCount":1,"links":{"first":"","previous":null,"next":null,"last":""},"items":[{"id":"contact_id","href":"","direction":"mt","type":"sms","originator":"MsgBird","body":"MessageBody","reference":null,"validity":null,"gateway":0,"typeDetails":{},"datacoding":"plain","mclass":1,"scheduledDatetime":null,"createdDatetime":"","recipients":{"totalCount":1,"totalSentCount":1,"totalDeliveredCount":1,"totalDeliveryFailedCount":0,"items":[{"recipient":12345678912,"status":"delivered","statusDatetime":""}]}}]}',
             ]);
 
         $messages = $this->client->contacts->getMessages("contact_id");

@@ -27,7 +27,7 @@ class GroupTest extends BaseTest
             },
             "createdDatetime": "2016-04-29T09:42:26+00:00",
             "updatedDatetime": "2016-04-29T09:42:26+00:00"
-        }'
+        }',
         ]);
         $this->client->groups->create($group);
     }

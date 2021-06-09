@@ -13,10 +13,10 @@ use Tests\Integration\BaseTest;
 
 class ConversationTest extends BaseTest
 {
-    const START_REQUEST = '{"channelId":"channel-id","type":"location","content":{"location":{"latitude":"37.778326","longitude":"-122.394648"}},"to":"31612345678"}';
-    const CREATE_REQUEST = '{"contactId":"some-contact-id"}';
+    public const START_REQUEST = '{"channelId":"channel-id","type":"location","content":{"location":{"latitude":"37.778326","longitude":"-122.394648"}},"to":"31612345678"}';
+    public const CREATE_REQUEST = '{"contactId":"some-contact-id"}';
 
-    const LIST_RESPONSE = '{
+    public const LIST_RESPONSE = '{
         "count": 1,
         "totalCount": 1,
         "limit": 10,
@@ -60,7 +60,7 @@ class ConversationTest extends BaseTest
         ]
     }';
 
-    const READ_RESPONSE = '{
+    public const READ_RESPONSE = '{
         "id": "conversation-id",
         "href": "https://conversations.messagebird.com/v1/conversations/conversation-id",
         "contact": {

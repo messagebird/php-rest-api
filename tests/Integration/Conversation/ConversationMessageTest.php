@@ -8,7 +8,7 @@ use Tests\Integration\BaseTest;
 
 class ConversationMessageTest extends BaseTest
 {
-    const LIST_RESPONSE = '{
+    public const LIST_RESPONSE = '{
         "count": 1,
         "totalCount": 1,
         "limit": 25,
@@ -32,7 +32,7 @@ class ConversationMessageTest extends BaseTest
         ]
     }';
 
-    const READ_RESPONSE = '{
+    public const READ_RESPONSE = '{
         "channelId": "chid",
         "contactId": "conid",
         "content": {
@@ -62,7 +62,7 @@ class ConversationMessageTest extends BaseTest
 
         $content = new Content();
         $content->image = [
-            'url' => 'https://developers.messagebird.com/assets/images/glyph.svg'
+            'url' => 'https://developers.messagebird.com/assets/images/glyph.svg',
         ];
 
         $message = new Message();
@@ -88,7 +88,7 @@ class ConversationMessageTest extends BaseTest
         $content = new Content();
         $content->location = [
             'latitude' => '52.379112',
-            'longitude' => '4.900384'
+            'longitude' => '4.900384',
         ];
 
         $message = new Message();
@@ -165,7 +165,7 @@ class ConversationMessageTest extends BaseTest
 
         $expectedContent = new Content();
         $expectedContent->video = [
-            'url' => 'https://developers.messagebird.com/assets/videos/foo.mp4'
+            'url' => 'https://developers.messagebird.com/assets/videos/foo.mp4',
         ];
 
         $expectedMessage = new Message();
@@ -193,7 +193,7 @@ class ConversationMessageTest extends BaseTest
 
         $expectedContent = new Content();
         $expectedContent->video = [
-            'url' => 'https://developers.messagebird.com/assets/videos/foo.mp4'
+            'url' => 'https://developers.messagebird.com/assets/videos/foo.mp4',
         ];
         $expectedMessage = new Message();
         $expectedMessage->id = 'genid';

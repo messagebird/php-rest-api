@@ -34,7 +34,7 @@ class AccountTest extends BaseTest
                     }
                   ],
                   "signingKey": "7qxJg4lsDKLAEBXAdxyarcwwvDn7YB00"
-                }'
+                }',
             ]);
         $this->mockClient
             ->expects($this->once())
@@ -78,7 +78,7 @@ class AccountTest extends BaseTest
                     "name": "Partner Account 1 Sub 3",
                     "email": "subaccount3@messagebird.com"
                   }
-                ]'
+                ]',
             ]);
         $this->mockClient
             ->expects($this->once())
@@ -109,7 +109,7 @@ class AccountTest extends BaseTest
                   "id": 6249609,
                   "name": "Partner Account 1 Sub 1",
                   "email": "subaccount1@messagebird.com"
-                }'
+                }',
             ]);
         $this->mockClient
             ->expects($this->once())
@@ -138,7 +138,7 @@ class AccountTest extends BaseTest
             ->willReturn([
                 204,
                 '',
-                ''
+                '',
             ]);
 
         $response = $this->client->partnerAccounts->delete(1);
@@ -166,7 +166,7 @@ class AccountTest extends BaseTest
                 '{
                   "id": 6249799,
                   "name": "Partner Account Sub 1"
-                }'
+                }',
             ]);
 
         $this->client->partnerAccounts->update($account, 1);

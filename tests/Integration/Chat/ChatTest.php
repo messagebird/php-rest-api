@@ -19,7 +19,7 @@ class ChatTest extends BaseTest
         $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([
             200,
             '',
-            '{"type":"text","payload":"This is a test message to test the Chat API","contactId":"9d754dac577e3ff103cdf4n29856560"}'
+            '{"type":"text","payload":"This is a test message to test the Chat API","contactId":"9d754dac577e3ff103cdf4n29856560"}',
         ]);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
             "POST",
@@ -59,13 +59,13 @@ class ChatTest extends BaseTest
         $chatChannel->channelDetails =
             [
                 'botName' => 'testBot',
-                'token' => '1234566778:A34JT44Yr4amk234352et5hvRnHeAEHA'
+                'token' => '1234566778:A34JT44Yr4amk234352et5hvRnHeAEHA',
             ];
 
         $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([
             200,
             '',
-            '{"name":"Test Channel Telegram","platformId":"e84f332c5649a5f911e569n69330697","channelDetails":{"botName":"testBot","token":"1234566778:A34JT44Yr4amk234352et5hvRnHeAEHA"},"callbackUrl":null}'
+            '{"name":"Test Channel Telegram","platformId":"e84f332c5649a5f911e569n69330697","channelDetails":{"botName":"testBot","token":"1234566778:A34JT44Yr4amk234352et5hvRnHeAEHA"},"callbackUrl":null}',
         ]);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
             "POST",
@@ -116,7 +116,7 @@ class ChatTest extends BaseTest
         $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([
             200,
             '',
-            '{"name":"9d2345ac577e4f103cd3d4529856560","callbackUrl":"http:\/\/testurl.dev"}'
+            '{"name":"9d2345ac577e4f103cd3d4529856560","callbackUrl":"http:\/\/testurl.dev"}',
         ]);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
             "PUT",

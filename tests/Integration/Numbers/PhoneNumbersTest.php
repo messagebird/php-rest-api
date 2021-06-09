@@ -36,7 +36,7 @@ class PhoneNumbersTest extends BaseTest
         $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([
             200,
             '',
-            '{"tags":["tag1"]}'
+            '{"tags":["tag1"]}',
         ]);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
             'PATCH',
@@ -59,7 +59,7 @@ class PhoneNumbersTest extends BaseTest
         $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([
             201,
             '',
-            "[$numberJSON]"
+            "[$numberJSON]",
         ]);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
             'POST',

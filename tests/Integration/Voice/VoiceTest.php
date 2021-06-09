@@ -64,7 +64,7 @@ class VoiceTest extends BaseTest
   "_links": {
     "self": "/calls/21025ed1-cc1d-4554-ac05-043fa6c84e00"
   }
-}'
+}',
         ]);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
             "POST",
@@ -163,7 +163,7 @@ class VoiceTest extends BaseTest
        }
      }
   ]
-}'
+}',
         ]);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
             "POST",
@@ -266,7 +266,7 @@ class VoiceTest extends BaseTest
     "currentPage": 1,
     "perPage": 10
   }
-}'
+}',
         ]);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
             "POST",
@@ -299,7 +299,7 @@ class VoiceTest extends BaseTest
   "_links": {
     "self": "/webhooks/534e1848-235f-482d-983d-e3e11a04f58a"
   }
-}'
+}',
         ]);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
             "PUT",
@@ -391,7 +391,7 @@ class VoiceTest extends BaseTest
     "currentPage": 1,
     "perPage": 10
   }
-}'
+}',
         ]);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
             "POST",
@@ -431,7 +431,7 @@ class VoiceTest extends BaseTest
   "_links": {
     "self": "/call-flows/de3ed163-d5fc-45f4-b8c4-7eea7458c635"
   }
-}'
+}',
         ]);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
             "PUT",

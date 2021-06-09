@@ -153,7 +153,7 @@ class HttpClient
             'Accept: application/json',
             'Content-Type: application/json',
             'Accept-Charset: utf-8',
-            sprintf('Authorization: AccessKey %s', $this->authentication->accessKey)
+            sprintf('Authorization: AccessKey %s', $this->authentication->accessKey),
         ];
 
         $headers = array_merge($headers, $this->headers);

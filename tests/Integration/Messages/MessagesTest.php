@@ -50,7 +50,7 @@ class MessagesTest extends BaseTest
                     ]
                   },
                   "reportUrl":null
-                }'
+                }',
         ]);
         $this->mockClient->expects($this->once())->method('performHttpRequest')->with(
             "POST",
@@ -192,7 +192,7 @@ class MessagesTest extends BaseTest
                     ]
                   },
                   "reportUrl":null
-                }'
+                }',
         ]);
 
         /** @var MessageResponse $messageResponse */

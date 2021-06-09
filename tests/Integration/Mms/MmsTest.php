@@ -19,7 +19,7 @@ class MmsTest extends BaseTest
             ->willReturn([
                 422,
                 '',
-                '{"errors":[{"code":9,"description":"no (correct) recipients found","parameter":"recipients"}]}'
+                '{"errors":[{"code":9,"description":"no (correct) recipients found","parameter":"recipients"}]}',
             ]);
 
         $this->client->mmsMessages->create($mmsMessage);
@@ -131,7 +131,7 @@ class MmsTest extends BaseTest
                     },
                     "items": [ ' . $this->generateMmsServerResponse($dummyMessage, 'message_id') . ',
                                ' . $this->generateMmsServerResponse($dummyMessage, 'message_id_2') . ']
-                }'
+                }',
             ]);
 
         $resultMessages = $this->client->mmsMessages->getList(['offset' => 100, 'limit' => 30]);

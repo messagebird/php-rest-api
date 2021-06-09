@@ -7,7 +7,7 @@ use Tests\Integration\BaseTest;
 
 class ConversationWebhookTest extends BaseTest
 {
-    const LIST_RESPONSE = '{
+    public const LIST_RESPONSE = '{
         "offset": 0,
         "limit": 25,
         "count": 1,
@@ -27,7 +27,7 @@ class ConversationWebhookTest extends BaseTest
         ]
     }';
 
-    const READ_RESPONSE = '{
+    public const READ_RESPONSE = '{
         "id": "some-id",
         "channelId": "chid",
         "href": "https://conversations.messagebird.com/v1/webhooks/some-id",
