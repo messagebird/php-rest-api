@@ -44,10 +44,9 @@ class SignedRequest extends Base
     /**
      * Create a new SignedRequest from PHP globals.
      *
-     * @return SignedRequest
      * @throws ValidationException when a required parameter is missing.
      */
-    public static function createFromGlobals()
+    public static function createFromGlobals(): SignedRequest
     {
         $body = file_get_contents('php://input');
         $queryParameters = $_GET;
@@ -55,10 +54,35 @@ class SignedRequest extends Base
             (int)$_SERVER['HTTP_MESSAGEBIRD_REQUEST_TIMESTAMP'] : null;
         $signature = $_SERVER['HTTP_MESSAGEBIRD_SIGNATURE'] ?? null;
 
-        $signedRequest = new SignedRequest();
+        $signedRequest = new self();
         $signedRequest->loadFromArray(compact('body', 'queryParameters', 'requestTimestamp', 'signature'));
 
         return $signedRequest;
+    }
+
+    /**
+     * {@inheritdoc}
+     * @throws ValidationException when a required parameter is missing.
+     */
+    public function loadFromArray($object)
+    {
+        if (!isset($object['requestTimestamp']) || !\is_int($object['requestTimestamp'])) {
+            throw new ValidationException('The "requestTimestamp" value is missing or invalid.');
+        }
+
+        if (!isset($object['signature']) || !\is_string($object['signature'])) {
+            throw new ValidationException('The "signature" parameter is missing.');
+        }
+
+        if (!isset($object['queryParameters']) || !\is_array($object['queryParameters'])) {
+            throw new ValidationException('The "queryParameters" parameter is missing or invalid.');
+        }
+
+        if (!isset($object['body']) || !\is_string($object['body'])) {
+            throw new ValidationException('The "body" parameter is missing.');
+        }
+
+        return parent::loadFromArray($object);
     }
 
     /**
@@ -71,43 +95,18 @@ class SignedRequest extends Base
      * @return SignedRequest
      * @throws ValidationException when a required parameter is missing.
      */
-    public static function create($query, $signature, $requestTimestamp, $body)
+    public static function create($query, string $signature, int $requestTimestamp, string $body): SignedRequest
     {
-        if (is_string($query)) {
+        if (\is_string($query)) {
             $queryParameters = [];
             parse_str($query, $queryParameters);
         } else {
             $queryParameters = $query;
         }
 
-        $signedRequest = new SignedRequest();
+        $signedRequest = new self();
         $signedRequest->loadFromArray(compact('body', 'queryParameters', 'requestTimestamp', 'signature'));
 
         return $signedRequest;
-    }
-
-    /**
-     * {@inheritdoc}
-     * @throws ValidationException when a required parameter is missing.
-     */
-    public function loadFromArray($object)
-    {
-        if (!isset($object['requestTimestamp']) || !is_int($object['requestTimestamp'])) {
-            throw new ValidationException('The "requestTimestamp" value is missing or invalid.');
-        }
-
-        if (!isset($object['signature']) || !is_string($object['signature'])) {
-            throw new ValidationException('The "signature" parameter is missing.');
-        }
-
-        if (!isset($object['queryParameters']) || !is_array($object['queryParameters'])) {
-            throw new ValidationException('The "queryParameters" parameter is missing or invalid.');
-        }
-
-        if (!isset($object['body']) || !is_string($object['body'])) {
-            throw new ValidationException('The "body" parameter is missing.');
-        }
-
-        return parent::loadFromArray($object);
     }
 }

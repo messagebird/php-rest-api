@@ -9,18 +9,18 @@ namespace MessageBird\Objects;
  */
 class Lookup extends Base
 {
-    const TYPE_FIXED_LINE = "fixed line";
-    const TYPE_MOBILE = "mobile";
-    const TYPE_FIXED_LINE_OR_MOBILE = "fixed line or mobile";
-    const TYPE_TOLL_FREE = "toll free";
-    const TYPE_PREMIUM_RATE = "premium rate";
-    const TYPE_SHARED_COST = "shared cost";
-    const TYPE_VOIP = "voip";
-    const TYPE_PERSONAL_NUMBER = "personal number";
-    const TYPE_PAGER = "pager";
-    const TYPE_UNIVERSAL_ACCESS_NUMBER = "universal access number";
-    const TYPE_VOICE_MAIL = "voice mail";
-    const TYPE_UNKNOWN = "unknown";
+    public const TYPE_FIXED_LINE = "fixed line";
+    public const TYPE_MOBILE = "mobile";
+    public const TYPE_FIXED_LINE_OR_MOBILE = "fixed line or mobile";
+    public const TYPE_TOLL_FREE = "toll free";
+    public const TYPE_PREMIUM_RATE = "premium rate";
+    public const TYPE_SHARED_COST = "shared cost";
+    public const TYPE_VOIP = "voip";
+    public const TYPE_PERSONAL_NUMBER = "personal number";
+    public const TYPE_PAGER = "pager";
+    public const TYPE_UNIVERSAL_ACCESS_NUMBER = "universal access number";
+    public const TYPE_VOICE_MAIL = "voice mail";
+    public const TYPE_UNKNOWN = "unknown";
 
     /**
      * The URL of the created object.
@@ -81,72 +81,37 @@ class Lookup extends Base
      */
     protected $hlr;
 
-    /**
-     * Get the href
-     *
-     * @return mixed
-     */
-    public function getHref()
+    public function getHref(): ?string
     {
         return $this->href;
     }
 
-    /**
-     * Get the href
-     *
-     * @return mixed
-     */
-    public function getCountryCode()
+    public function getCountryCode(): ?string
     {
         return $this->countryCode;
     }
 
-    /**
-     * Get the href
-     *
-     * @return mixed
-     */
-    public function getCountryPrefix()
+    public function getCountryPrefix(): ?int
     {
         return $this->countryPrefix;
     }
 
-    /**
-     * Get the href
-     *
-     * @return mixed
-     */
-    public function getPhoneNumber()
+    public function getPhoneNumber(): ?int
     {
         return $this->phoneNumber;
     }
 
-    /**
-     * Get the href
-     *
-     * @return mixed
-     */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
 
-    /**
-     * Get the href
-     *
-     * @return mixed
-     */
-    public function getFormats()
+    public function getFormats(): ?array
     {
         return $this->formats;
     }
 
-    /**
-     * Get the href
-     *
-     * @return mixed
-     */
-    public function getHLR()
+    public function getHLR(): ?array
     {
         return $this->hlr;
     }

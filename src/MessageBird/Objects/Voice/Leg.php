@@ -77,82 +77,52 @@ class Leg extends Base
      */
     protected $endedAt;
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getCallId()
+    public function getCallId(): string
     {
         return $this->callId;
     }
 
-    /**
-     * @return string
-     */
-    public function getSource()
+    public function getSource(): string
     {
         return $this->source;
     }
 
-    /**
-     * @return string
-     */
-    public function getDestination()
+    public function getDestination(): string
     {
         return $this->destination;
     }
 
-    /**
-     * @return string
-     */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
 
-    /**
-     * @return string
-     */
-    public function getDirection()
+    public function getDirection(): string
     {
         return $this->direction;
     }
 
-    /**
-     * @return string
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): string
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return string
-     */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): string
     {
         return $this->updatedAt;
     }
 
-    /**
-     * @return string
-     */
-    public function getAnsweredAt()
+    public function getAnsweredAt(): string
     {
         return $this->answeredAt;
     }
 
-    /**
-     * @return string
-     */
-    public function getEndedAt()
+    public function getEndedAt(): string
     {
         return $this->endedAt;
     }

@@ -48,50 +48,32 @@ class Recording extends Base
      */
     protected $updatedAt;
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getLegId()
+    public function getLegId(): string
     {
         return $this->legId;
     }
 
-    /**
-     * @return string
-     */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
 
-    /**
-     * @return int
-     */
-    public function getDuration()
+    public function getDuration(): int
     {
         return $this->duration;
     }
 
-    /**
-     * @return string
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): string
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return string
-     */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): string
     {
         return $this->updatedAt;
     }

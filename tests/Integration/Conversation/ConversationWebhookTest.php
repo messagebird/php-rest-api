@@ -7,7 +7,7 @@ use Tests\Integration\BaseTest;
 
 class ConversationWebhookTest extends BaseTest
 {
-    const LIST_RESPONSE = '{
+    public const LIST_RESPONSE = '{
         "offset": 0,
         "limit": 25,
         "count": 1,
@@ -27,7 +27,7 @@ class ConversationWebhookTest extends BaseTest
         ]
     }';
 
-    const READ_RESPONSE = '{
+    public const READ_RESPONSE = '{
         "id": "some-id",
         "channelId": "chid",
         "href": "https://conversations.messagebird.com/v1/webhooks/some-id",
@@ -40,22 +40,27 @@ class ConversationWebhookTest extends BaseTest
         "updatedDatetime": "2018-07-20T12:13:51+00:00"
     }';
 
-    public function testDelete()
+    public function testDelete(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
-            ->with('DELETE', 'webhooks/some-id', null, null)
-            ->willReturn([204, '', null]);
+             ->expects(self::once())->method('performHttpRequest')
+             ->with('DELETE', 'webhooks/some-id', null, null)
+             ->willReturn([204, '', null]);
 
         $this->client->conversationWebhooks->delete('some-id');
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
-            ->with('POST', 'webhooks', null, '{"channelId":"chid","events":["conversation.created","message.created"],"url":"https:\/\/messagebird.com\/webhook-receiver"}')
-            ->willReturn([200, '', '{}']);
+             ->expects(self::once())->method('performHttpRequest')
+             ->with(
+                 'POST',
+                 'webhooks',
+                 null,
+                 '{"channelId":"chid","events":["conversation.created","message.created"],"url":"https:\/\/messagebird.com\/webhook-receiver"}'
+             )
+             ->willReturn([200, '', '{}']);
 
         $webhook = new Webhook();
         $webhook->channelId = 'chid';
@@ -68,27 +73,27 @@ class ConversationWebhookTest extends BaseTest
         $this->client->conversationWebhooks->create($webhook);
     }
 
-    public function testListPagination()
+    public function testListPagination(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
-            ->with('GET', 'webhooks', [], null)
-            ->willReturn([200, '', self::LIST_RESPONSE]);
+              ->expects(self::once())->method('performHttpRequest')
+              ->with('GET', 'webhooks', [], null)
+              ->willReturn([200, '', self::LIST_RESPONSE]);
 
         $webhooks = $this->client->conversationWebhooks->getList();
 
-        $this->assertEquals(1, $webhooks->count);
-        $this->assertEquals(1, $webhooks->totalCount);
-        $this->assertEquals(25, $webhooks->limit);
-        $this->assertEquals(0, $webhooks->offset);
+        self::assertEquals(1, $webhooks->count);
+        self::assertEquals(1, $webhooks->totalCount);
+        self::assertEquals(25, $webhooks->limit);
+        self::assertEquals(0, $webhooks->offset);
     }
 
-    public function testListObject()
+    public function testListObject(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
-            ->with('GET', 'webhooks', [], null)
-            ->willReturn([200, '', self::LIST_RESPONSE]);
+             ->expects(self::once())->method('performHttpRequest')
+             ->with('GET', 'webhooks', [], null)
+             ->willReturn([200, '', self::LIST_RESPONSE]);
 
         $expectedWebhook = new Webhook();
         $expectedWebhook->id = 'some-id';
@@ -97,16 +102,16 @@ class ConversationWebhookTest extends BaseTest
         $expectedWebhook->url = 'https://example.com/webhook';
         $expectedWebhook->createdDatetime = '2018-07-31T12:12:43Z';
 
-        $this->assertEquals(
+        self::assertEquals(
             $expectedWebhook,
             $this->client->conversationWebhooks->getList()->items[0]
         );
     }
 
-    public function testRead()
+    public function testRead(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
+            ->expects(self::once())->method('performHttpRequest')
             ->with('GET', 'webhooks/some-id', null, null)
             ->willReturn([200, '', self::READ_RESPONSE]);
 
@@ -122,7 +127,7 @@ class ConversationWebhookTest extends BaseTest
         $webhook->createdDatetime = '2018-07-20T12:13:41+00:00';
         $webhook->updatedDatetime = '2018-07-20T12:13:51+00:00';
 
-        $this->assertEquals(
+        self::assertEquals(
             $webhook,
             $this->client->conversationWebhooks->read('some-id')
         );

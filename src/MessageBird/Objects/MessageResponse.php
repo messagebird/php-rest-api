@@ -88,7 +88,7 @@ class MessageResponse extends Base
      *
      * @var array
      */
-    public $typeDetails =  [];
+    public $typeDetails = [];
 
     /**
      * The datacoding used, can be plain or unicode
@@ -126,10 +126,8 @@ class MessageResponse extends Base
 
     /**
      * @param mixed $object
-     *
-     * @return $this
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): MessageResponse
     {
         parent::loadFromArray($object);
 

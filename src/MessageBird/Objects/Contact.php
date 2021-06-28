@@ -1,6 +1,5 @@
 <?php
 
-
 namespace MessageBird\Objects;
 
 /**
@@ -11,68 +10,58 @@ namespace MessageBird\Objects;
 class Contact extends Base
 {
     /**
-     * An unique random ID which is created on the MessageBird
-     * platform and is returned upon creation of the object.
-     *
-     * @var string
-     */
-    protected $id;
-
-    /**
-     * The URL of the created object.
-     *
-     * @var string
-     */
-    protected $href;
-
-    /**
      * The phone number of contact.
      *
      * @var int
      */
     public $msisdn;
-
     /**
      * The first name of the contact.
      *
      * @var string
      */
     public $firstName;
-
     /**
      * The last name of the contact.
      *
      * @var string
      */
     public $lastName;
-
+    /**
+     * @var string
+     */
+    public $custom1;
+    /**
+     * @var string
+     */
+    public $custom2;
+    /**
+     * @var string
+     */
+    public $custom3;
+    /**
+     * @var string
+     */
+    public $custom4;
+    /**
+     * An unique random ID which is created on the MessageBird
+     * platform and is returned upon creation of the object.
+     *
+     * @var string
+     */
+    protected $id;
+    /**
+     * The URL of the created object.
+     *
+     * @var string
+     */
+    protected $href;
     /**
      * Custom fields of the contact.
      *
      * @var array
      */
     protected $customDetails = [];
-
-    /**
-     * @var string
-     */
-    public $custom1;
-
-    /**
-     * @var string
-     */
-    public $custom2;
-
-    /**
-     * @var string
-     */
-    public $custom3;
-
-    /**
-     * @var string
-     */
-    public $custom4;
-
     /**
      * The hash of the group this contact belongs to.
      *
@@ -101,68 +90,45 @@ class Contact extends Base
      */
     protected $updatedDatetime;
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getHref()
+    public function getHref(): string
     {
         return $this->href;
     }
 
-    /**
-     * @return array
-     */
     public function getGroups(): array
     {
         return $this->groups;
     }
 
-    /**
-     * @return array
-     */
     public function getMessages(): array
     {
         return $this->messages;
     }
 
-    /**
-     * @return string
-     */
-    public function getCreatedDatetime()
+    public function getCreatedDatetime(): string
     {
         return $this->createdDatetime;
     }
 
-    /**
-     * @return string
-     */
-    public function getUpdatedDatetime()
+    public function getUpdatedDatetime(): string
     {
         return $this->updatedDatetime;
     }
 
-    /**
-     * @return array
-     */
-    public function getCustomDetails()
+    public function getCustomDetails(): array
     {
         return $this->customDetails;
     }
 
     /**
      * @param mixed $object
-     *
-     * @return $this
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): Contact
     {
         unset($this->custom1, $this->custom2, $this->custom3, $this->custom4);
 

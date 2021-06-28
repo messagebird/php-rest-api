@@ -96,10 +96,8 @@ class Message extends Base implements JsonSerializable
 
     /**
      * @param mixed $object
-     *
-     * @return self
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): Message
     {
         parent::loadFromArray($object);
 
@@ -114,7 +112,7 @@ class Message extends Base implements JsonSerializable
     /**
      * Serialize only non empty fields.
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $json = [];
 

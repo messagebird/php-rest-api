@@ -9,34 +9,17 @@ namespace MessageBird\Objects;
  */
 class Verify extends Base
 {
-    const STATUS_SENT = 'sent';
-    const STATUS_VERIFIED = 'verified';
-    const STATUS_FAILED = 'failed';
-    const STATUS_EXPIRED = 'expired';
-    const STATUS_DELETED = 'deleted';
-
-    /**
-     * An unique random ID which is created on the MessageBird platform and is returned upon
-     * creation of the object.
-     *
-     * @var string
-     */
-    protected $id;
-
-    /**
-     * The URL of the created object.
-     *
-     * @var string
-     */
-    protected $href;
-
+    public const STATUS_SENT = 'sent';
+    public const STATUS_VERIFIED = 'verified';
+    public const STATUS_FAILED = 'failed';
+    public const STATUS_EXPIRED = 'expired';
+    public const STATUS_DELETED = 'deleted';
     /**
      * The msisdn or email of the recipient
      *
      * @var int|string
      */
     public $recipient;
-
     /**
      * A client reference. Here you can put your own reference,
      * like your internal reference.
@@ -44,7 +27,19 @@ class Verify extends Base
      * @var string
      */
     public $reference;
-
+    /**
+     * An unique random ID which is created on the MessageBird platform and is returned upon
+     * creation of the object.
+     *
+     * @var string
+     */
+    protected $id;
+    /**
+     * The URL of the created object.
+     *
+     * @var string
+     */
+    protected $href;
     /**
      * An associative array containing one href entry referring to the URL of the created object.
      * The entry can either refer to either the messages or the voicemessages endpoint
@@ -87,50 +82,40 @@ class Verify extends Base
 
     /**
      * Get the created href
-     *
-     * @return string
      */
-    public function getHref()
+    public function getHref(): string
     {
         return $this->href;
     }
 
     /**
      * Get the created href
-     *
-     * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->messages->href;
     }
 
     /**
      * Get the status
-     *
-     * @return string
      */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
 
     /**
      * Get the $createdDatetime value
-     *
-     * @return string
      */
-    public function getCreatedDatetime()
+    public function getCreatedDatetime(): string
     {
         return $this->createdDatetime;
     }
 
     /**
      * Get the $validUntilDatetime value
-     *
-     * @return string
      */
-    public function getValidUntilDatetime()
+    public function getValidUntilDatetime(): string
     {
         return $this->validUntilDatetime;
     }

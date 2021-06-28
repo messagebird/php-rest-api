@@ -10,12 +10,11 @@ namespace MessageBird\Objects;
  */
 class Message extends Base
 {
-    const TYPE_SMS = 'sms';
-    const TYPE_BINARY = 'binary';
-    const TYPE_PREMIUM = 'premium';
+    public const TYPE_SMS = 'sms';
+    public const TYPE_BINARY = 'binary';
 
-    const DATACODING_UNICODE = 'unicode';
-    const DATACODING_PLAIN = 'plain';
+    public const DATACODING_UNICODE = 'unicode';
+    public const DATACODING_PLAIN = 'plain';
 
     /**
      * Tells you if the message is sent or received.
@@ -80,7 +79,7 @@ class Message extends Base
      *
      * @var array
      */
-    public $typeDetails =  [];
+    public $typeDetails = [];
 
     /**
      * The datacoding used, can be plain or unicode
@@ -102,7 +101,18 @@ class Message extends Base
      * @var string
      */
     public $scheduledDatetime;
-
+    /**
+     * An array of recipients
+     *
+     * @var array
+     */
+    public $recipients = [];
+    /**
+     * The URL to send status delivery reports for the message to
+     *
+     * @var string
+     */
+    public $reportUrl;
     /**
      * The date and time of the creation of the message in RFC3339 format (Y-m-d\TH:i:sP)
      * @var string
@@ -110,63 +120,18 @@ class Message extends Base
     protected $createdDatetime;
 
     /**
-     * An array of recipients
-     *
-     * @var array
-     */
-    public $recipients =  [];
-
-    /**
-     * The URL to send status delivery reports for the message to
-     *
-     * @var string
-     */
-    public $reportUrl;
-
-
-    /**
-     * Send a premium SMS
-     *
-     * @param mixed $shortcode
-     * @param mixed $keyword
-     * @param mixed $tariff
-     * @param mixed $mid
-     * @param mixed $member
-     *
-     * @return void
-     */
-    public function setPremiumSms($shortcode, $keyword, $tariff, $mid = null, $member = null): void
-    {
-        $this->typeDetails['shortcode'] = $shortcode;
-        $this->typeDetails['keyword']   = $keyword;
-        $this->typeDetails['tariff']    = $tariff;
-        if ($mid !== null) {
-            $this->typeDetails['mid'] = $mid;
-        }
-        if ($member !== null) {
-            $this->typeDetails['member'] = $member;
-        }
-
-        $this->type = self::TYPE_PREMIUM;
-    }
-
-    /**
      * @param mixed $header
      * @param mixed $body
-     *
-     * @return void
      */
     public function setBinarySms($header, $body): void
     {
         $this->typeDetails['udh'] = $header;
-        $this->body               = $body;
-        $this->type               = self::TYPE_BINARY;
+        $this->body = $body;
+        $this->type = self::TYPE_BINARY;
     }
 
     /**
      * @param mixed $bool
-     *
-     * @return void
      */
     public function setFlash($bool): void
     {
@@ -179,20 +144,16 @@ class Message extends Base
 
     /**
      * Get the $createdDatetime value
-     *
-     * @return string
-     */
-    public function getCreatedDatetime()
+     *     */
+    public function getCreatedDatetime(): string
     {
         return $this->createdDatetime;
     }
 
     /**
      * @param mixed $object
-     *
-     * @return $this|void
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): Message
     {
         parent::loadFromArray($object);
 

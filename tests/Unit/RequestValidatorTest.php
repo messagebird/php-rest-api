@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class RequestValidatorTest extends TestCase
 {
-    public function testVerify()
+    public function testVerify(): void
     {
         $query = [
             'recipient' => '31612345678',
@@ -26,10 +26,10 @@ class RequestValidatorTest extends TestCase
         $request = SignedRequest::create($query, $signature, $requestTimestamp, $body);
         $validator = new RequestValidator('PlLrKaqvZNRR5zAjm42ZT6q1SQxgbbGd');
 
-        $this->assertTrue($validator->verify($request));
+        self::assertTrue($validator->verify($request));
     }
 
-    public function testVerifyWithBody()
+    public function testVerifyWithBody(): void
     {
         $query = [
             'recipient' => '31612345678',
@@ -47,10 +47,10 @@ class RequestValidatorTest extends TestCase
         $request = SignedRequest::create($query, $signature, $requestTimestamp, $body);
         $validator = new RequestValidator('PlLrKaqvZNRR5zAjm42ZT6q1SQxgbbGd');
 
-        $this->assertTrue($validator->verify($request));
+        self::assertTrue($validator->verify($request));
     }
 
-    public function testVerificationFails()
+    public function testVerificationFails(): void
     {
         $query = [
             'recipient' => '31612345678',
@@ -68,10 +68,10 @@ class RequestValidatorTest extends TestCase
         $request = SignedRequest::create($query, $signature, $requestTimestamp, $body);
         $validator = new RequestValidator('PlLrKaqvZNRR5zAjm42ZT6q1SQxgbbGd');
 
-        $this->assertFalse($validator->verify($request));
+        self::assertFalse($validator->verify($request));
     }
 
-    public function testRecentRequest()
+    public function testRecentRequest(): void
     {
         $query = [];
         $signature = 'KVBdcVdz2lYMwcBLZCRITgxUfA/WkwSi+T3Wxl2HL6w=';
@@ -81,10 +81,10 @@ class RequestValidatorTest extends TestCase
         $request = SignedRequest::create($query, $signature, $requestTimestamp, $body);
         $validator = new RequestValidator('');
 
-        $this->assertTrue($validator->isRecent($request));
+        self::assertTrue($validator->isRecent($request));
     }
 
-    public function testExpiredRequest()
+    public function testExpiredRequest(): void
     {
         $query = [];
         $signature = 'KVBdcVdz2lYMwcBLZCRITgxUfA/WkwSi+T3Wxl2HL6w=';
@@ -94,6 +94,6 @@ class RequestValidatorTest extends TestCase
         $request = SignedRequest::create($query, $signature, $requestTimestamp, $body);
         $validator = new RequestValidator('');
 
-        $this->assertFalse($validator->isRecent($request));
+        self::assertFalse($validator->isRecent($request));
     }
 }

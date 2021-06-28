@@ -12,13 +12,9 @@ use MessageBird\Objects;
  */
 class Balance extends Base
 {
-
-    /**
-     * @param Common\HttpClient $httpClient
-     */
     public function __construct(Common\HttpClient $httpClient)
     {
-        $this->setObject(new Objects\Balance);
+        $this->setObject(new Objects\Balance());
         $this->setResourceName('balance');
 
         parent::__construct($httpClient);

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace MessageBird\Objects;
 
 /**
@@ -11,33 +10,30 @@ namespace MessageBird\Objects;
 class Group extends Base
 {
     /**
+     * The name of the group.
+     *
+     * @var int
+     */
+    public $name;
+    /**
      * An unique random ID which is created on the MessageBird
      * platform and is returned upon creation of the object.
      *
      * @var string
      */
     protected $id;
-
     /**
      * The URL of the created object.
      *
      * @var string
      */
     protected $href;
-
-    /**
-     * The name of the group.
-     *
-     * @var int
-     */
-    public $name;
-
     /**
      * The hash with the contacts in group.
      *
      * @var array
      */
-    protected $contacts =  [];
+    protected $contacts = [];
 
     /**
      * The date and time of the creation of the group in RFC3339 format (Y-m-d\TH:i:sP)
@@ -55,40 +51,32 @@ class Group extends Base
 
     /**
      * Get the created id
-     *
-     * @return mixed
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
      * Get the created href
-     *
-     * @return string
      */
-    public function getHref()
+    public function getHref(): string
     {
         return $this->href;
     }
 
     /**
      * Get the $createdDatetime value
-     *
-     * @return string
      */
-    public function getCreatedDatetime()
+    public function getCreatedDatetime(): string
     {
         return $this->createdDatetime;
     }
 
     /**
      * Get the $updatedDatetime value
-     *
-     * @return string
      */
-    public function getUpdatedDatetime()
+    public function getUpdatedDatetime(): string
     {
         return $this->createdDatetime;
     }

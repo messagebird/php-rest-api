@@ -4,7 +4,14 @@ namespace MessageBird\Resources\Voice;
 
 use MessageBird\Common;
 use MessageBird\Exceptions;
+use MessageBird\Objects\Balance;
+use MessageBird\Objects\Conversation\Conversation;
+use MessageBird\Objects\Hlr;
+use MessageBird\Objects\Lookup;
+use MessageBird\Objects\Message;
+use MessageBird\Objects\Verify;
 use MessageBird\Objects\Voice\BaseList;
+use MessageBird\Objects\VoiceMessage;
 
 /**
  * Class Base
@@ -14,18 +21,25 @@ use MessageBird\Objects\Voice\BaseList;
 class Base extends \MessageBird\Resources\Base
 {
     /**
-     * @return BaseList|\MessageBird\Objects\Balance|\MessageBird\Objects\Conversation\Conversation|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
+     * @param array $parameters
+     * @return BaseList|Balance|Conversation|Hlr|Lookup|Message|Verify|VoiceMessage|null
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
+     * @throws \JsonException
      */
     public function getList($parameters = [])
     {
-        list($status, , $body) = $this->httpClient->performHttpRequest(
+        [$status, , $body] = $this->httpClient->performHttpRequest(
             Common\HttpClient::REQUEST_GET,
             $this->resourceName,
             $parameters
         );
 
         if ($status === 200) {
-            $body = json_decode($body);
+            $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
 
             $data = $body->data;
 
@@ -36,11 +50,11 @@ class Base extends \MessageBird\Resources\Base
 
             $objectName = $this->object;
 
-            foreach ($data as $item) {
+            foreach ($data as $singleData) {
                 /** @psalm-suppress UndefinedClass */
                 $itemObject = new $objectName($this->httpClient);
 
-                $message = $itemObject->loadFromArray($item);
+                $message = $itemObject->loadFromArray($singleData);
                 $baseList->items[] = $message;
             }
             return $baseList;
@@ -52,13 +66,18 @@ class Base extends \MessageBird\Resources\Base
     /**
      * @inheritdoc
      *
-     * @return \MessageBird\Objects\Balance|\MessageBird\Objects\Conversation\Conversation|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
+     * @return Balance|Conversation|Hlr|Lookup|Message|Verify|VoiceMessage|null
      */
-    public function processRequest($body)
+    public function processRequest(?string $body)
     {
-        $body = @json_decode($body);
+        try {
+            $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
+            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
 
-        if ($body === null || $body === false) {
+        }
+
+        if ($body === null) {
             throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
         }
 
