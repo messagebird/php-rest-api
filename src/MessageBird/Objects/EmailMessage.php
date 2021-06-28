@@ -25,6 +25,20 @@ class EmailMessage extends Base
     protected $status;
 
     /**
+     * Failure code in the event that something went wrong
+     *
+     * @var int|null
+     */
+    protected $failure_code;
+
+    /**
+     * Failure description in the event that something went wrong
+     *
+     * @var string|null
+     */
+    protected $failure_description;
+
+    /**
      * Get the created id
      *
      * @return mixed
@@ -42,5 +56,21 @@ class EmailMessage extends Base
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getFailureCode()
+    {
+        return $this->failure_code;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFailureDescription()
+    {
+        return $this->failure_description;
     }
 }
