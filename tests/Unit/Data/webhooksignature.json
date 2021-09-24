@@ -1,0 +1,442 @@
+[
+    {
+        "name": "Valid JWT with no URL parameters or payload - DELETE",
+        "method": "DELETE",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDcifQ.6Fp0rVOsRr1fj9S2GidXAfkmPVofKr8_RTffC6G6r2E",
+        "valid": true
+    },
+    {
+        "name": "Valid JWT with no URL parameters or payload - GET",
+        "method": "GET",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDcifQ.6Fp0rVOsRr1fj9S2GidXAfkmPVofKr8_RTffC6G6r2E",
+        "valid": true
+    },
+    {
+        "name": "Valid JWT with no URL parameters or payload - PATCH",
+        "method": "PATCH",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDcifQ.6Fp0rVOsRr1fj9S2GidXAfkmPVofKr8_RTffC6G6r2E",
+        "valid": true
+    },
+    {
+        "name": "Valid JWT with no URL parameters or payload - POST",
+        "method": "POST",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDcifQ.6Fp0rVOsRr1fj9S2GidXAfkmPVofKr8_RTffC6G6r2E",
+        "valid": true
+    },
+    {
+        "name": "Valid JWT with no URL parameters or payload - PUT",
+        "method": "PUT",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDcifQ.6Fp0rVOsRr1fj9S2GidXAfkmPVofKr8_RTffC6G6r2E",
+        "valid": true
+    },
+    {
+        "name": "Valid JWT with URL parameters and no payload - DELETE",
+        "method": "DELETE",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/path?bar=1\u0026foo=2",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiJjOTQ2YWY3Ny1lMTgyLTRlYWEtYjJmZi0xYTU0NWI1ZTk5MWEiLCJ1cmxfaGFzaCI6IjQxZjA1ZjBkZGQwYTIyYWIyMDlhYzQ2ZjQ3YzQ1NzJkOWNlZmEyNTdlZDc0YjI0MDA0YmFlNzUzZWNlNmMyNjAifQ.huo2ou6JDoDc7sV25d75UMWeYhBeavQlLsqIibSZuac",
+        "valid": true
+    },
+    {
+        "name": "Valid JWT with URL parameters and no payload - GET",
+        "method": "GET",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/path?bar=1\u0026foo=2",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiJjOTQ2YWY3Ny1lMTgyLTRlYWEtYjJmZi0xYTU0NWI1ZTk5MWEiLCJ1cmxfaGFzaCI6IjQxZjA1ZjBkZGQwYTIyYWIyMDlhYzQ2ZjQ3YzQ1NzJkOWNlZmEyNTdlZDc0YjI0MDA0YmFlNzUzZWNlNmMyNjAifQ.huo2ou6JDoDc7sV25d75UMWeYhBeavQlLsqIibSZuac",
+        "valid": true
+    },
+    {
+        "name": "Valid JWT with URL parameters and no payload - PATCH",
+        "method": "PATCH",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/path?bar=1\u0026foo=2",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiJjOTQ2YWY3Ny1lMTgyLTRlYWEtYjJmZi0xYTU0NWI1ZTk5MWEiLCJ1cmxfaGFzaCI6IjQxZjA1ZjBkZGQwYTIyYWIyMDlhYzQ2ZjQ3YzQ1NzJkOWNlZmEyNTdlZDc0YjI0MDA0YmFlNzUzZWNlNmMyNjAifQ.huo2ou6JDoDc7sV25d75UMWeYhBeavQlLsqIibSZuac",
+        "valid": true
+    },
+    {
+        "name": "Valid JWT with URL parameters and no payload - POST",
+        "method": "POST",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/path?bar=1\u0026foo=2",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiJjOTQ2YWY3Ny1lMTgyLTRlYWEtYjJmZi0xYTU0NWI1ZTk5MWEiLCJ1cmxfaGFzaCI6IjQxZjA1ZjBkZGQwYTIyYWIyMDlhYzQ2ZjQ3YzQ1NzJkOWNlZmEyNTdlZDc0YjI0MDA0YmFlNzUzZWNlNmMyNjAifQ.huo2ou6JDoDc7sV25d75UMWeYhBeavQlLsqIibSZuac",
+        "valid": true
+    },
+    {
+        "name": "Valid JWT with URL parameters and no payload - PUT",
+        "method": "PUT",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/path?bar=1\u0026foo=2",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiJjOTQ2YWY3Ny1lMTgyLTRlYWEtYjJmZi0xYTU0NWI1ZTk5MWEiLCJ1cmxfaGFzaCI6IjQxZjA1ZjBkZGQwYTIyYWIyMDlhYzQ2ZjQ3YzQ1NzJkOWNlZmEyNTdlZDc0YjI0MDA0YmFlNzUzZWNlNmMyNjAifQ.huo2ou6JDoDc7sV25d75UMWeYhBeavQlLsqIibSZuac",
+        "valid": true
+    },
+    {
+        "name": "Valid JWT with URL parameters and payload - DELETE",
+        "method": "DELETE",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/path?bar=1\u0026foo=2",
+        "payload": "Hello, World!",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI5M2U1NTAwNi1hMGU4LTQ1MjYtYTE5MC1mYTVmZjAwZWExMTYiLCJ1cmxfaGFzaCI6IjQxZjA1ZjBkZGQwYTIyYWIyMDlhYzQ2ZjQ3YzQ1NzJkOWNlZmEyNTdlZDc0YjI0MDA0YmFlNzUzZWNlNmMyNjAiLCJwYXlsb2FkX2hhc2giOiJkZmZkNjAyMWJiMmJkNWIwYWY2NzYyOTA4MDllYzNhNTMxOTFkZDgxYzdmNzBhNGIyODY4OGEzNjIxODI5ODZmIn0._H--TOuYFLpeEH39-rg5E3IHVkjHozBcaKVWPRC5m9I",
+        "valid": true
+    },
+    {
+        "name": "Valid JWT with URL parameters and payload - GET",
+        "method": "GET",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/path?bar=1\u0026foo=2",
+        "payload": "Hello, World!",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI5M2U1NTAwNi1hMGU4LTQ1MjYtYTE5MC1mYTVmZjAwZWExMTYiLCJ1cmxfaGFzaCI6IjQxZjA1ZjBkZGQwYTIyYWIyMDlhYzQ2ZjQ3YzQ1NzJkOWNlZmEyNTdlZDc0YjI0MDA0YmFlNzUzZWNlNmMyNjAiLCJwYXlsb2FkX2hhc2giOiJkZmZkNjAyMWJiMmJkNWIwYWY2NzYyOTA4MDllYzNhNTMxOTFkZDgxYzdmNzBhNGIyODY4OGEzNjIxODI5ODZmIn0._H--TOuYFLpeEH39-rg5E3IHVkjHozBcaKVWPRC5m9I",
+        "valid": true
+    },
+    {
+        "name": "Valid JWT with URL parameters and payload - PATCH",
+        "method": "PATCH",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/path?bar=1\u0026foo=2",
+        "payload": "Hello, World!",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI5M2U1NTAwNi1hMGU4LTQ1MjYtYTE5MC1mYTVmZjAwZWExMTYiLCJ1cmxfaGFzaCI6IjQxZjA1ZjBkZGQwYTIyYWIyMDlhYzQ2ZjQ3YzQ1NzJkOWNlZmEyNTdlZDc0YjI0MDA0YmFlNzUzZWNlNmMyNjAiLCJwYXlsb2FkX2hhc2giOiJkZmZkNjAyMWJiMmJkNWIwYWY2NzYyOTA4MDllYzNhNTMxOTFkZDgxYzdmNzBhNGIyODY4OGEzNjIxODI5ODZmIn0._H--TOuYFLpeEH39-rg5E3IHVkjHozBcaKVWPRC5m9I",
+        "valid": true
+    },
+    {
+        "name": "Valid JWT with URL parameters and payload - POST",
+        "method": "POST",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/path?bar=1\u0026foo=2",
+        "payload": "Hello, World!",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI5M2U1NTAwNi1hMGU4LTQ1MjYtYTE5MC1mYTVmZjAwZWExMTYiLCJ1cmxfaGFzaCI6IjQxZjA1ZjBkZGQwYTIyYWIyMDlhYzQ2ZjQ3YzQ1NzJkOWNlZmEyNTdlZDc0YjI0MDA0YmFlNzUzZWNlNmMyNjAiLCJwYXlsb2FkX2hhc2giOiJkZmZkNjAyMWJiMmJkNWIwYWY2NzYyOTA4MDllYzNhNTMxOTFkZDgxYzdmNzBhNGIyODY4OGEzNjIxODI5ODZmIn0._H--TOuYFLpeEH39-rg5E3IHVkjHozBcaKVWPRC5m9I",
+        "valid": true
+    },
+    {
+        "name": "Valid JWT with URL parameters and payload - PUT",
+        "method": "PUT",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/path?bar=1\u0026foo=2",
+        "payload": "Hello, World!",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI5M2U1NTAwNi1hMGU4LTQ1MjYtYTE5MC1mYTVmZjAwZWExMTYiLCJ1cmxfaGFzaCI6IjQxZjA1ZjBkZGQwYTIyYWIyMDlhYzQ2ZjQ3YzQ1NzJkOWNlZmEyNTdlZDc0YjI0MDA0YmFlNzUzZWNlNmMyNjAiLCJwYXlsb2FkX2hhc2giOiJkZmZkNjAyMWJiMmJkNWIwYWY2NzYyOTA4MDllYzNhNTMxOTFkZDgxYzdmNzBhNGIyODY4OGEzNjIxODI5ODZmIn0._H--TOuYFLpeEH39-rg5E3IHVkjHozBcaKVWPRC5m9I",
+        "valid": true
+    },
+    {
+        "name": "Token received before it was issued - GET",
+        "method": "GET",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ4MjgwMCwiZXhwIjoxNjI1NDgyODYwLCJqdGkiOiJmOWY4YzM4Mi0yNDQ5LTQzMTEtYjcyYi0xZGY3MTY4NzkzMWUiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDcifQ.ZELgDFNGhjZH9CffQKcq3sytBe2I0KciLxpBhcfstHQ",
+        "valid": false,
+        "reason": "invalid jwt: claim nbf is in the future"
+    },
+    {
+        "name": "Token received after it was expired - GET",
+        "method": "GET",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3NTYwMCwiZXhwIjoxNjI1NDc1NjYwLCJqdGkiOiI1ZjAyZjUyMi02MDMwLTQ2YzgtYjVhMy0wMTI0NjQ3OGQ4YmMiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDcifQ.45MSST3B_2PsjNUeiuW54_vUQgVw4rBXrdWrOUEz3lM",
+        "valid": false,
+        "reason": "invalid jwt: claim exp is in the past"
+    },
+    {
+        "name": "Token received on different URL (parameters were sorted out of order) - GET",
+        "method": "GET",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/path?foo=1\u0026bar=2",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiJhNzVjOTA5Ni1lODIzLTQ0MmItODVmMi03ZDNjOWQ5YjcyNmIiLCJ1cmxfaGFzaCI6IjZhMDIyZDgzNGMxODMzMGJhYWQ4YTJiZDYxMzUxNzNlZDIxNjEwYTQ1NDUxNmJlMGRmM2YxY2MwMTUxNjEwZWEifQ.z6Sw1XQIM0wuEQGBhXBdawDIIrtMg2XnmA_bpDq53pE",
+        "valid": false,
+        "reason": "invalid jwt: claim url_hash is invalid"
+    },
+    {
+        "name": "Payload does not match - DELETE",
+        "method": "DELETE",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "Hello, World!",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiIxNDUwMTUzMi05NmYyLTQ2ODQtOTgzMi02OGYwOTUxYWUzNDIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDciLCJwYXlsb2FkX2hhc2giOiJmYjYyZjAyYWNkYTdkNzQxNzdhNzAxYTFjZTAwNmU2YmFjZDkwYzdkNGQ3YWI0ODE2OTJjMWRhNDdjODEwNzZiIn0.m79RCwO6dGa9pvzsQypkVuXQ6eM0CkRl6_U7MfWg6TM",
+        "valid": false,
+        "reason": "invalid jwt: claim payload_hash is invalid"
+    },
+    {
+        "name": "Payload does not match - GET",
+        "method": "GET",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "Hello, World!",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiIxNDUwMTUzMi05NmYyLTQ2ODQtOTgzMi02OGYwOTUxYWUzNDIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDciLCJwYXlsb2FkX2hhc2giOiJmYjYyZjAyYWNkYTdkNzQxNzdhNzAxYTFjZTAwNmU2YmFjZDkwYzdkNGQ3YWI0ODE2OTJjMWRhNDdjODEwNzZiIn0.m79RCwO6dGa9pvzsQypkVuXQ6eM0CkRl6_U7MfWg6TM",
+        "valid": false,
+        "reason": "invalid jwt: claim payload_hash is invalid"
+    },
+    {
+        "name": "Payload does not match - PATCH",
+        "method": "PATCH",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "Hello, World!",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiIxNDUwMTUzMi05NmYyLTQ2ODQtOTgzMi02OGYwOTUxYWUzNDIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDciLCJwYXlsb2FkX2hhc2giOiJmYjYyZjAyYWNkYTdkNzQxNzdhNzAxYTFjZTAwNmU2YmFjZDkwYzdkNGQ3YWI0ODE2OTJjMWRhNDdjODEwNzZiIn0.m79RCwO6dGa9pvzsQypkVuXQ6eM0CkRl6_U7MfWg6TM",
+        "valid": false,
+        "reason": "invalid jwt: claim payload_hash is invalid"
+    },
+    {
+        "name": "Payload does not match - POST",
+        "method": "POST",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "Hello, World!",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiIxNDUwMTUzMi05NmYyLTQ2ODQtOTgzMi02OGYwOTUxYWUzNDIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDciLCJwYXlsb2FkX2hhc2giOiJmYjYyZjAyYWNkYTdkNzQxNzdhNzAxYTFjZTAwNmU2YmFjZDkwYzdkNGQ3YWI0ODE2OTJjMWRhNDdjODEwNzZiIn0.m79RCwO6dGa9pvzsQypkVuXQ6eM0CkRl6_U7MfWg6TM",
+        "valid": false,
+        "reason": "invalid jwt: claim payload_hash is invalid"
+    },
+    {
+        "name": "Payload does not match - PUT",
+        "method": "PUT",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "Hello, World!",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiIxNDUwMTUzMi05NmYyLTQ2ODQtOTgzMi02OGYwOTUxYWUzNDIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDciLCJwYXlsb2FkX2hhc2giOiJmYjYyZjAyYWNkYTdkNzQxNzdhNzAxYTFjZTAwNmU2YmFjZDkwYzdkNGQ3YWI0ODE2OTJjMWRhNDdjODEwNzZiIn0.m79RCwO6dGa9pvzsQypkVuXQ6eM0CkRl6_U7MfWg6TM",
+        "valid": false,
+        "reason": "invalid jwt: claim payload_hash is invalid"
+    },
+    {
+        "name": "Different secret - GET",
+        "method": "GET",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiIyNDNjMjdhZS0yZjAyLTQ2YTAtODg1Mi1jNjZmMzdlYTlmNDYiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDcifQ.JgSeYyOtlEKAXk8bz30iJI4tXgf4lxknoiezawuVhb4",
+        "valid": false,
+        "reason": "invalid jwt: signature is invalid"
+    },
+    {
+        "name": "payload was removed in transit - DELETE",
+        "method": "DELETE",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiIxNDUwMTUzMi05NmYyLTQ2ODQtOTgzMi02OGYwOTUxYWUzNDIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDciLCJwYXlsb2FkX2hhc2giOiJkZmZkNjAyMWJiMmJkNWIwYWY2NzYyOTA4MDllYzNhNTMxOTFkZDgxYzdmNzBhNGIyODY4OGEzNjIxODI5ODZmIn0.bHfsjj3tljfzTufoG3EU3p_yFrQh9CufyzRSaRMd4ss",
+        "valid": false,
+        "reason": "invalid jwt: claim payload_hash is set but actual payload is missing"
+    },
+    {
+        "name": "payload was removed in transit - GET",
+        "method": "GET",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiIxNDUwMTUzMi05NmYyLTQ2ODQtOTgzMi02OGYwOTUxYWUzNDIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDciLCJwYXlsb2FkX2hhc2giOiJkZmZkNjAyMWJiMmJkNWIwYWY2NzYyOTA4MDllYzNhNTMxOTFkZDgxYzdmNzBhNGIyODY4OGEzNjIxODI5ODZmIn0.bHfsjj3tljfzTufoG3EU3p_yFrQh9CufyzRSaRMd4ss",
+        "valid": false,
+        "reason": "invalid jwt: claim payload_hash is set but actual payload is missing"
+    },
+    {
+        "name": "payload was removed in transit - PATCH",
+        "method": "PATCH",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiIxNDUwMTUzMi05NmYyLTQ2ODQtOTgzMi02OGYwOTUxYWUzNDIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDciLCJwYXlsb2FkX2hhc2giOiJkZmZkNjAyMWJiMmJkNWIwYWY2NzYyOTA4MDllYzNhNTMxOTFkZDgxYzdmNzBhNGIyODY4OGEzNjIxODI5ODZmIn0.bHfsjj3tljfzTufoG3EU3p_yFrQh9CufyzRSaRMd4ss",
+        "valid": false,
+        "reason": "invalid jwt: claim payload_hash is set but actual payload is missing"
+    },
+    {
+        "name": "payload was removed in transit - POST",
+        "method": "POST",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiIxNDUwMTUzMi05NmYyLTQ2ODQtOTgzMi02OGYwOTUxYWUzNDIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDciLCJwYXlsb2FkX2hhc2giOiJkZmZkNjAyMWJiMmJkNWIwYWY2NzYyOTA4MDllYzNhNTMxOTFkZDgxYzdmNzBhNGIyODY4OGEzNjIxODI5ODZmIn0.bHfsjj3tljfzTufoG3EU3p_yFrQh9CufyzRSaRMd4ss",
+        "valid": false,
+        "reason": "invalid jwt: claim payload_hash is set but actual payload is missing"
+    },
+    {
+        "name": "payload was removed in transit - PUT",
+        "method": "PUT",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiIxNDUwMTUzMi05NmYyLTQ2ODQtOTgzMi02OGYwOTUxYWUzNDIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDciLCJwYXlsb2FkX2hhc2giOiJkZmZkNjAyMWJiMmJkNWIwYWY2NzYyOTA4MDllYzNhNTMxOTFkZDgxYzdmNzBhNGIyODY4OGEzNjIxODI5ODZmIn0.bHfsjj3tljfzTufoG3EU3p_yFrQh9CufyzRSaRMd4ss",
+        "valid": false,
+        "reason": "invalid jwt: claim payload_hash is set but actual payload is missing"
+    },
+    {
+        "name": "payload was added in transit - DELETE",
+        "method": "DELETE",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "Hello, World!",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDcifQ.6Fp0rVOsRr1fj9S2GidXAfkmPVofKr8_RTffC6G6r2E",
+        "valid": false,
+        "reason": "invalid jwt: claim payload_hash is not set but payload is present"
+    },
+    {
+        "name": "payload was added in transit - GET",
+        "method": "GET",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "Hello, World!",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDcifQ.6Fp0rVOsRr1fj9S2GidXAfkmPVofKr8_RTffC6G6r2E",
+        "valid": false,
+        "reason": "invalid jwt: claim payload_hash is not set but payload is present"
+    },
+    {
+        "name": "payload was added in transit - PATCH",
+        "method": "PATCH",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "Hello, World!",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDcifQ.6Fp0rVOsRr1fj9S2GidXAfkmPVofKr8_RTffC6G6r2E",
+        "valid": false,
+        "reason": "invalid jwt: claim payload_hash is not set but payload is present"
+    },
+    {
+        "name": "payload was added in transit - POST",
+        "method": "POST",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "Hello, World!",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDcifQ.6Fp0rVOsRr1fj9S2GidXAfkmPVofKr8_RTffC6G6r2E",
+        "valid": false,
+        "reason": "invalid jwt: claim payload_hash is not set but payload is present"
+    },
+    {
+        "name": "payload was added in transit - PUT",
+        "method": "PUT",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "Hello, World!",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDcifQ.6Fp0rVOsRr1fj9S2GidXAfkmPVofKr8_RTffC6G6r2E",
+        "valid": false,
+        "reason": "invalid jwt: claim payload_hash is not set but payload is present"
+    },
+    {
+        "name": "Port number in URL - GET",
+        "method": "GET",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com:8080/",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjA3Zjc4NjFhNjliMTNjMjI5YzZhZTU5NmQxOThiMjc2M2IwNTRjZjVlMDAwZDczNmQxYzQ4MTAyZDc3MGNmZmMifQ.vcpa0IicGAbpo064dOjiA2VbVOR2S5uZBEaBOP16sS8",
+        "valid": true
+    },
+    {
+        "name": "Special characters in URL - GET",
+        "method": "GET",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/?obj%5Bfield1%5D=val1\u0026obj%5Bfield2%5D=val2\u0026param=value+with+spaces",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjhhZmYzNzQ4ZDc4OWM0MzMzNTczZTFjMzFmZTViMDA0OTQwY2I1ZmM0NzQ2MGVkM2QwZTY1NGY3ZmM0ZTVmYWUifQ.mJBCMfEjKmN3IMuzqPXPHktWETrcu0iNdF3agE8PDyI",
+        "valid": true
+    },
+    {
+        "name": "Special characters in the payload - DELETE",
+        "method": "DELETE",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "Some text containg \u0026 \u003c \u003e, \u0026 and \\u0026",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDciLCJwYXlsb2FkX2hhc2giOiIyNDMxYmQ5Y2NiNDhlZDAxNmZhZDU2N2IwNzcxMjAzOGI1Y2RkOTQ5YWM5ZDQxZmU0NjkzZDVhMzg0NWNmN2U4In0.IQiKzeEPaO3A48lhKmBDSmxZyCESPCGxdSKFdi0dEJs",
+        "valid": true
+    },
+    {
+        "name": "Special characters in the payload - GET",
+        "method": "GET",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "Some text containg \u0026 \u003c \u003e, \u0026 and \\u0026",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDciLCJwYXlsb2FkX2hhc2giOiIyNDMxYmQ5Y2NiNDhlZDAxNmZhZDU2N2IwNzcxMjAzOGI1Y2RkOTQ5YWM5ZDQxZmU0NjkzZDVhMzg0NWNmN2U4In0.IQiKzeEPaO3A48lhKmBDSmxZyCESPCGxdSKFdi0dEJs",
+        "valid": true
+    },
+    {
+        "name": "Special characters in the payload - PATCH",
+        "method": "PATCH",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "Some text containg \u0026 \u003c \u003e, \u0026 and \\u0026",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDciLCJwYXlsb2FkX2hhc2giOiIyNDMxYmQ5Y2NiNDhlZDAxNmZhZDU2N2IwNzcxMjAzOGI1Y2RkOTQ5YWM5ZDQxZmU0NjkzZDVhMzg0NWNmN2U4In0.IQiKzeEPaO3A48lhKmBDSmxZyCESPCGxdSKFdi0dEJs",
+        "valid": true
+    },
+    {
+        "name": "Special characters in the payload - POST",
+        "method": "POST",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "Some text containg \u0026 \u003c \u003e, \u0026 and \\u0026",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDciLCJwYXlsb2FkX2hhc2giOiIyNDMxYmQ5Y2NiNDhlZDAxNmZhZDU2N2IwNzcxMjAzOGI1Y2RkOTQ5YWM5ZDQxZmU0NjkzZDVhMzg0NWNmN2U4In0.IQiKzeEPaO3A48lhKmBDSmxZyCESPCGxdSKFdi0dEJs",
+        "valid": true
+    },
+    {
+        "name": "Special characters in the payload - PUT",
+        "method": "PUT",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "payload": "Some text containg \u0026 \u003c \u003e, \u0026 and \\u0026",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDciLCJwYXlsb2FkX2hhc2giOiIyNDMxYmQ5Y2NiNDhlZDAxNmZhZDU2N2IwNzcxMjAzOGI1Y2RkOTQ5YWM5ZDQxZmU0NjkzZDVhMzg0NWNmN2U4In0.IQiKzeEPaO3A48lhKmBDSmxZyCESPCGxdSKFdi0dEJs",
+        "valid": true
+    },
+    {
+        "name": "HS384 alg - GET",
+        "method": "GET",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDcifQ.KNMW-29X77lZeuPmThmHWc_RUAvTkaDkpxIZK6mqE08v8mWKiU9Edh4QXwAJO2nv",
+        "valid": true
+    },
+    {
+        "name": "HS512 alg - GET",
+        "method": "GET",
+        "secret": "36efdd1aace2e26cd490f0d951138253bef2f7c6d34d18981da781555cc4cebb",
+        "url": "https://example.com/",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJNZXNzYWdlQmlyZCIsIm5iZiI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDcifQ.rd6r0iMyNGnVPCwurETphE3Y8rpAyvvnUK0S8WvGUkt2E1QSRAZ7NZJZBHw1Y_Wb5W-sK9HJr_PRL2vz4jRT3Q",
+        "valid": true
+    },
+    {
+        "name": "none alg - GET",
+        "method": "GET",
+        "url": "https://example.com/",
+        "timestamp": "2021-07-05T12:00:00+02:00",
+        "token": "eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJpc3MiOiJNZXNzYWdlQmlyZCIsImlhdCI6MTYyNTQ3OTIwMCwiZXhwIjoxNjI1NDc5MjYwLCJqdGkiOiI1OWEyNDRkYy1lOWFkLTRlMjMtOTc3OC0zNzFmYWEyMzhmNzIiLCJ1cmxfaGFzaCI6IjBmMTE1ZGIwNjJiN2MwZGQwMzBiMTY4NzhjOTlkZWE1YzM1NGI0OWRjMzdiMzhlYjg4NDYxNzljNzc4M2U5ZDcifQ.",
+        "valid": false,
+        "reason": "invalid jwt: signing method none is invalid"
+    }
+]

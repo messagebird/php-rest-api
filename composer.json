@@ -18,7 +18,8 @@
     "require": {
         "php": ">=7.3|^8.0",
         "ext-curl": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "firebase/php-jwt": "^5.4"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0|^9.0",

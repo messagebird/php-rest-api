@@ -3,6 +3,7 @@
 namespace MessageBird\Objects;
 
 use MessageBird\Exceptions\ValidationException;
+use MessageBird\RequestValidator;
 
 /**
  * Class SignedRequest
@@ -10,6 +11,7 @@ use MessageBird\Exceptions\ValidationException;
  * @package MessageBird\Objects
  *
  * @link https://developers.messagebird.com/docs/verify-http-requests
+ * @deprecated Use {@link RequestValidator} instead.
  */
 class SignedRequest extends Base
 {
@@ -46,6 +48,7 @@ class SignedRequest extends Base
      *
      * @return SignedRequest
      * @throws ValidationException when a required parameter is missing.
+     * @deprecated Use {@link RequestValidator::validateRequestFromGlobals()} instead.
      */
     public static function createFromGlobals()
     {
@@ -70,6 +73,7 @@ class SignedRequest extends Base
      * @param string $body The request body
      * @return SignedRequest
      * @throws ValidationException when a required parameter is missing.
+     * @deprecated Use {@link RequestValidator::validateSignature()} instead.
      */
     public static function create($query, $signature, $requestTimestamp, $body)
     {

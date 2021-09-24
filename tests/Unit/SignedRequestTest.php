@@ -5,6 +5,9 @@ namespace Tests\Unit;
 use MessageBird\Objects\SignedRequest;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @deprecated This test is deprecated together with {@link SignedRequest}
+ */
 class SignedRequestTest extends TestCase
 {
     public function testCreate()
