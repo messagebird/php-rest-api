@@ -74,7 +74,7 @@ class SignedRequest extends Base
      * @throws ValidationException when a required parameter is missing.
      * @deprecated Use {@link RequestValidator::validateSignature()} instead.
      */
-    public static function create($query, $signature, $requestTimestamp, $body)
+    public static function create($query, string $signature, int $requestTimestamp, string $body): SignedRequest
     {
         if (is_string($query)) {
             $queryParameters = [];
@@ -83,7 +83,7 @@ class SignedRequest extends Base
             $queryParameters = $query;
         }
 
-        $signedRequest = new SignedRequest();
+        $signedRequest = new self();
         $signedRequest->loadFromArray(compact('body', 'queryParameters', 'requestTimestamp', 'signature'));
 
         return $signedRequest;
@@ -112,30 +112,5 @@ class SignedRequest extends Base
         }
 
         return parent::loadFromArray($object);
-    }
-
-    /**
-     * Create a SignedRequest from the provided data.
-     *
-     * @param string|array $query The query string from the request
-     * @param string $signature The base64-encoded signature for the request
-     * @param int $requestTimestamp The UNIX timestamp for the time the request was made
-     * @param string $body The request body
-     * @return SignedRequest
-     * @throws ValidationException when a required parameter is missing.
-     */
-    public static function create($query, string $signature, int $requestTimestamp, string $body): SignedRequest
-    {
-        if (\is_string($query)) {
-            $queryParameters = [];
-            parse_str($query, $queryParameters);
-        } else {
-            $queryParameters = $query;
-        }
-
-        $signedRequest = new self();
-        $signedRequest->loadFromArray(compact('body', 'queryParameters', 'requestTimestamp', 'signature'));
-
-        return $signedRequest;
     }
 }
