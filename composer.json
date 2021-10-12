@@ -34,11 +34,5 @@
         "psr-4": {
             "Tests\\": "tests/"
         }
-    },
-    "repositories": [
-        {
-          "type": "vcs",
-          "url": "https://github.com/abisatria1/php-rest-api.git"
-        }
-    ],
+    }
 }
