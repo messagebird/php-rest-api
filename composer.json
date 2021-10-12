@@ -38,7 +38,7 @@
     "repositories": [
         {
           "type": "vcs",
-          "url": "https://github.com/daggerhart/my-custom-library.git"
+          "url": "https://github.com/abisatria1/php-rest-api.git"
         }
     ],
 }
