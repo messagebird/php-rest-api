@@ -168,7 +168,7 @@ class Base
 
             $objectName = $this->object;
 
-            $baseList->items[] = [];
+            $baseList->items = [];
 
             if ($items === null) {
                 return $baseList;
