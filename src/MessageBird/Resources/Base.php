@@ -168,6 +168,12 @@ class Base
 
             $objectName = $this->object;
 
+            $baseList->items = [];
+
+            if ($items === null) {
+                return $baseList;
+            }
+
             foreach ($items as $item) {
                 /** @psalm-suppress UndefinedClass */
                 $object = new $objectName($this->httpClient);
@@ -175,6 +181,7 @@ class Base
                 $message = $object->loadFromArray($item);
                 $baseList->items[] = $message;
             }
+
             return $baseList;
         }
 
