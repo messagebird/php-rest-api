@@ -3,12 +3,20 @@
 namespace MessageBird\Resources\PartnerAccount;
 
 use MessageBird\Common\HttpClient;
+use MessageBird\Objects\Balance;
+use MessageBird\Objects\Conversation\Conversation;
+use MessageBird\Objects\Hlr;
+use MessageBird\Objects\Lookup;
+use MessageBird\Objects\Message;
 use MessageBird\Objects\PartnerAccount\Account;
+use MessageBird\Objects\Verify;
+use MessageBird\Objects\VoiceMessage;
 use MessageBird\Resources\Base;
+use MessageBird\Exceptions;
 
 class Accounts extends Base
 {
-    const RESOURCE_NAME = 'child-accounts';
+    public const RESOURCE_NAME = 'child-accounts';
 
     public function __construct(HttpClient $httpClient)
     {
@@ -19,11 +27,18 @@ class Accounts extends Base
     }
 
     /**
-     * @return \MessageBird\Objects\Balance|\MessageBird\Objects\Conversation\Conversation|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
+     * @param $object
+     * @param array|null $query
+     * @return Balance|Conversation|Hlr|Lookup|Message|Verify|VoiceMessage|null
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
      */
-    public function create($object, $query = null)
+    public function create($object, ?array $query = null)
     {
-        list(, , $body) = $this->httpClient->performHttpRequest(
+        [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
             self::RESOURCE_NAME,
             null,
@@ -33,9 +48,18 @@ class Accounts extends Base
         return $this->processRequest($body);
     }
 
-    public function getList($parameters = [])
+    /**
+     * @return array|Balance|\MessageBird\Objects\BaseList|Conversation|Hlr|Lookup|Message|\MessageBird\Objects\MessageResponse|Verify|VoiceMessage|null
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
+     * @throws \JsonException
+     */
+    public function getList(?array $parameters = [])
     {
-        list($status, , $body) = $this->httpClient->performHttpRequest(
+        [$status, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_GET,
             self::RESOURCE_NAME,
             $parameters
@@ -45,22 +69,29 @@ class Accounts extends Base
             return $this->processRequest($body);
         }
 
+        $response = json_decode($body, true, 512, \JSON_THROW_ON_ERROR);
 
-        $response = json_decode($body, true);
-
-        foreach ($response as &$item) {
-            $item = $this->getObject()->loadFromArray($item);
+        $return = [];
+        foreach ($response as &$singleResponse) {
+            $return[] = $this->getObject()->loadFromArray($singleResponse);
         }
 
-        return $response;
+        return $return;
     }
 
     /**
-     * @return \MessageBird\Objects\Balance|\MessageBird\Objects\Conversation\Conversation|\MessageBird\Objects\Hlr|\MessageBird\Objects\Lookup|\MessageBird\Objects\Message|\MessageBird\Objects\Verify|\MessageBird\Objects\VoiceMessage|null
+     * @param $object
+     * @param $id
+     * @return Balance|Conversation|Hlr|Lookup|Message|Verify|VoiceMessage|null
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
      */
     public function update($object, $id)
     {
-        list(, , $body) = $this->httpClient->performHttpRequest(
+        [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_PATCH,
             sprintf('%s/%s', self::RESOURCE_NAME, $id),
             null,

@@ -11,13 +11,13 @@ use MessageBird\Objects\Conversation\HSM\Message as HSMMessage;
  */
 class Content extends Base implements JsonSerializable
 {
-    const TYPE_AUDIO = 'audio';
-    const TYPE_FILE = 'file';
-    const TYPE_IMAGE = 'image';
-    const TYPE_LOCATION = 'location';
-    const TYPE_TEXT = 'text';
-    const TYPE_VIDEO = 'video';
-    const TYPE_HSM = 'hsm';
+    public const TYPE_AUDIO = 'audio';
+    public const TYPE_FILE = 'file';
+    public const TYPE_IMAGE = 'image';
+    public const TYPE_LOCATION = 'location';
+    public const TYPE_TEXT = 'text';
+    public const TYPE_VIDEO = 'video';
+    public const TYPE_HSM = 'hsm';
 
     /**
      * @var string[]
@@ -72,23 +72,23 @@ class Content extends Base implements JsonSerializable
 
     /**
      * Sets the location on this object if available.
-     *
-     * @return void
      */
     private function loadLocationIfNeeded(): void
     {
-        if (!empty($this->location->latitude) && !empty($this->location->longitude)) {
-            $this->location = [
-                'latitude' => $this->location->latitude,
-                'longitude' => $this->location->longitude,
-            ];
+        if (empty($this->location->latitude)) {
+            return;
         }
+        if (empty($this->location->longitude)) {
+            return;
+        }
+        $this->location = [
+            'latitude' => $this->location->latitude,
+            'longitude' => $this->location->longitude,
+        ];
     }
 
     /**
      * Sets the media on this object if available.
-     *
-     * @return void
      */
     private function loadMediaIfNeeded(): void
     {
@@ -112,7 +112,7 @@ class Content extends Base implements JsonSerializable
     /**
      * Serialize only non empty fields.
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $json = [];
 

@@ -4,6 +4,10 @@ namespace MessageBird\Resources;
 
 use InvalidArgumentException;
 use MessageBird\Common;
+use MessageBird\Exceptions\AuthenticateException;
+use MessageBird\Exceptions\HttpException;
+use MessageBird\Exceptions\RequestException;
+use MessageBird\Exceptions\ServerException;
 use MessageBird\Objects;
 
 /**
@@ -13,13 +17,9 @@ use MessageBird\Objects;
  */
 class Lookup extends Base
 {
-
-    /**
-     * @param Common\HttpClient $httpClient
-     */
     public function __construct(Common\HttpClient $httpClient)
     {
-        $this->setObject(new Objects\Lookup);
+        $this->setObject(new Objects\Lookup());
         $this->setResourceName('lookup');
 
         parent::__construct($httpClient);
@@ -29,15 +29,16 @@ class Lookup extends Base
      * @no-named-arguments
      *
      * @param string|int $phoneNumber
-     * @param string     $countryCode
+     * @param string|null $countryCode
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
      *
-     * @throws \MessageBird\Exceptions\HttpException
-     * @throws \MessageBird\Exceptions\RequestException
-     * @throws \MessageBird\Exceptions\ServerException
+     * @throws HttpException
+     * @throws RequestException
+     * @throws ServerException
+     * @throws AuthenticateException
      */
-    public function read($phoneNumber = null, $countryCode = null)
+    public function read($phoneNumber = null, ?string $countryCode = null)
     {
         if (empty($phoneNumber)) {
             throw new InvalidArgumentException('The phone number cannot be empty.');
@@ -47,7 +48,7 @@ class Lookup extends Base
             $query = ["countryCode" => $countryCode];
         }
         $resourceName = $this->resourceName . '/' . $phoneNumber;
-        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $resourceName, $query);
+        [, , $body] = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $resourceName, $query);
         return $this->processRequest($body);
     }
 }

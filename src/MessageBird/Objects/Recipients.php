@@ -43,13 +43,11 @@ class Recipients extends Base
     {
         parent::loadFromArray($object);
 
-        if (!empty($this->items)) {
-            foreach ($this->items as &$item) {
-                $recipient = new Recipient();
-                $recipient->loadFromArray($item);
+        foreach ($this->items as &$item) {
+            $recipient = new Recipient();
+            $recipient->loadFromArray($item);
 
-                $item = $recipient;
-            }
+            $item = $recipient;
         }
 
         return $this;

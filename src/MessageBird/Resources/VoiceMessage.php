@@ -12,13 +12,9 @@ use MessageBird\Objects;
  */
 class VoiceMessage extends Base
 {
-
-    /**
-     * @param Common\HttpClient $httpClient
-     */
     public function __construct(Common\HttpClient $httpClient)
     {
-        $this->setObject(new Objects\VoiceMessage);
+        $this->setObject(new Objects\VoiceMessage());
         $this->setResourceName('voicemessages');
 
         parent::__construct($httpClient);

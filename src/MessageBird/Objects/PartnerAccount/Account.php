@@ -18,20 +18,19 @@ class Account extends Base
 
     /**
      * @return false|string
+     * @throws \JsonException
      */
     public function loadToJson()
     {
         return json_encode([
             'name' => $this->name,
-        ]);
+        ], \JSON_THROW_ON_ERROR);
     }
 
     /**
      * @param mixed $object
-     *
-     * @return $this|void
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): Account
     {
         parent::loadFromArray($object);
 

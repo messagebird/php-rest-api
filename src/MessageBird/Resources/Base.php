@@ -3,6 +3,7 @@
 namespace MessageBird\Resources;
 
 use MessageBird\Common;
+use MessageBird\Common\HttpClient;
 use MessageBird\Exceptions;
 use MessageBird\Objects;
 
@@ -14,7 +15,7 @@ use MessageBird\Objects;
 class Base
 {
     /**
-     * @var \MessageBird\Common\HttpClient
+     * @var HttpClient
      */
     protected $httpClient;
 
@@ -33,40 +34,22 @@ class Base
      */
     protected $responseObject;
 
-    /**
-     * @param Common\HttpClient $httpClient
-     */
-    public function __construct(Common\HttpClient $httpClient)
+    public function __construct(HttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
     }
 
-    /**
-     * @param mixed $resourceName
-     *
-     * @return void
-     */
-    public function setResourceName($resourceName): void
-    {
-        $this->resourceName = $resourceName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getResourceName()
+    public function getResourceName(): string
     {
         return $this->resourceName;
     }
 
     /**
-     * @param mixed $object
-     *
-     * @return void
+     * @param mixed $resourceName
      */
-    public function setObject($object): void
+    public function setResourceName($resourceName): void
     {
-        $this->object = $object;
+        $this->resourceName = $resourceName;
     }
 
     /**
@@ -78,21 +61,24 @@ class Base
     }
 
     /**
+     * @param mixed $object
+     */
+    public function setObject($object): void
+    {
+        $this->object = $object;
+    }
+
+    public function getResponseObject(): Objects\MessageResponse
+    {
+        return $this->responseObject;
+    }
+
+    /**
      * @param mixed $responseObject
-     *
-     * @return void
      */
     public function setResponseObject($responseObject): void
     {
         $this->responseObject = $responseObject;
-    }
-
-    /**
-     * @return Objects\MessageResponse
-     */
-    public function getResponseObject()
-    {
-        return $this->responseObject;
     }
 
     /**
@@ -103,100 +89,41 @@ class Base
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\MessageResponse|Objects\Verify|Objects\VoiceMessage|null
      *
+     * @throws Exceptions\AuthenticateException
      * @throws Exceptions\HttpException
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
+     * @throws Exceptions\BalanceException
+     * @throws \JsonException
      */
-    public function create($object, $query = null)
+    public function create($object, ?array $query = null)
     {
-        $body = json_encode($object);
-        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_POST, $this->resourceName, $query, $body);
+        $body = json_encode($object, \JSON_THROW_ON_ERROR);
+        [, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_POST,
+            $this->resourceName,
+            $query,
+            $body
+        );
         return $this->processRequest($body);
     }
 
     /**
-     * @param array|null $parameters
-     *
-     * @return Objects\Balance|Objects\BaseList|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
-     */
-    public function getList(?array $parameters =  [])
-    {
-        list($status, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $this->resourceName, $parameters);
-
-        if ($status === 200) {
-            $body = json_decode($body);
-
-            $items = $body->items;
-            unset($body->items);
-
-            $baseList = new Objects\BaseList();
-            $baseList->loadFromArray($body);
-
-            $objectName = $this->object;
-
-            foreach ($items as $item) {
-                /** @psalm-suppress UndefinedClass */
-                $object = new $objectName($this->httpClient);
-
-                $message           = $object->loadFromArray($item);
-                $baseList->items[] = $message;
-            }
-            return $baseList;
-        }
-
-        return $this->processRequest($body);
-    }
-
-    /**
-     * @no-named-arguments
-     *
-     * @param mixed $id
-     *
-     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
-     *
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
-     */
-    public function read($id = null)
-    {
-        $resourceName = $this->resourceName . (($id) ? '/' . $id : null);
-        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $resourceName);
-        return $this->processRequest($body);
-    }
-
-    /**
-     * @param mixed $id
-     *
-     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null|true
-     *
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
-     */
-    public function delete($id)
-    {
-        $resourceName = $this->resourceName . '/' . $id;
-        list($status, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_DELETE, $resourceName);
-
-        if ($status === Common\HttpClient::HTTP_NO_CONTENT) {
-            return true;
-        }
-
-        return $this->processRequest($body);
-    }
-
-    /**
-     * @param string $body
-     *
+     * @param string|null $body
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|Objects\MessageResponse|null
      *
-     * @throws \MessageBird\Exceptions\RequestException
-     * @throws \MessageBird\Exceptions\ServerException
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
      */
-    public function processRequest($body)
+    public function processRequest(?string $body)
     {
-        $body = @json_decode($body);
+        try {
+            $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
+            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
+        }
 
-        if ($body === null || $body === false) {
+        if ($body === null) {
             throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
         }
 
@@ -213,11 +140,102 @@ class Base
     }
 
     /**
+     * @param array|null $parameters
+     * @return Objects\Balance|Objects\BaseList|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
+     * @throws \JsonException
+     */
+    public function getList(?array $parameters = [])
+    {
+        [$status, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_GET,
+            $this->resourceName,
+            $parameters
+        );
+
+        if ($status === 200) {
+            $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
+
+            $items = $body->items;
+            unset($body->items);
+
+            $baseList = new Objects\BaseList();
+            $baseList->loadFromArray($body);
+
+            $objectName = $this->object;
+
+            foreach ($items as $item) {
+                /** @psalm-suppress UndefinedClass */
+                $object = new $objectName($this->httpClient);
+
+                $message = $object->loadFromArray($item);
+                $baseList->items[] = $message;
+            }
+            return $baseList;
+        }
+
+        return $this->processRequest($body);
+    }
+
+    /**
+     * @no-named-arguments
+     *
+     * @param mixed $id
+     *
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
+     *
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
+     */
+    public function read($id = null)
+    {
+        $resourceName = $this->resourceName . (($id) ? '/' . $id : null);
+        [, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_GET, $resourceName);
+        return $this->processRequest($body);
+    }
+
+    /**
+     * @param mixed $id
+     *
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null|true
+     *
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
+     */
+    public function delete($id)
+    {
+        $resourceName = $this->resourceName . '/' . $id;
+        [$status, , $body] = $this->httpClient->performHttpRequest(HttpClient::REQUEST_DELETE, $resourceName);
+
+        if ($status === HttpClient::HTTP_NO_CONTENT) {
+            return true;
+        }
+
+        return $this->processRequest($body);
+    }
+
+    /**
      * @param mixed $object
      * @param mixed $id
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
      *
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
+     * @throws \JsonException
      * @internal param array $parameters
      */
     public function update($object, $id)
@@ -231,16 +249,18 @@ class Base
         }
 
         $resourceName = $this->resourceName . ($id ? '/' . $id : null);
-        $body = json_encode($body);
+        $body = json_encode($body, \JSON_THROW_ON_ERROR);
 
-        list(, , $body) = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_PUT, $resourceName, false, $body);
+        [, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_PUT,
+            $resourceName,
+            false,
+            $body
+        );
         return $this->processRequest($body);
     }
 
-    /**
-     * @return Common\HttpClient
-     */
-    public function getHttpClient(): Common\HttpClient
+    public function getHttpClient(): HttpClient
     {
         return $this->httpClient;
     }

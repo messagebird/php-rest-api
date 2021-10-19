@@ -2,13 +2,14 @@
 
 namespace Tests\Integration\PartnerAccount;
 
+use MessageBird\Objects\PartnerAccount\Account;
 use Tests\Integration\BaseTest;
 
 class AccountTest extends BaseTest
 {
-    public function testCreateSubAccount()
+    public function testCreateSubAccount(): void
     {
-        $account = new \MessageBird\Objects\PartnerAccount\Account();
+        $account = new Account();
         $account->name = 'MessageBird';
 
         $this->mockClient
@@ -33,7 +34,7 @@ class AccountTest extends BaseTest
                     }
                   ],
                   "signingKey": "7qxJg4lsDKLAEBXAdxyarcwwvDn7YB00"
-                }'
+                }',
             ]);
         $this->mockClient
             ->expects($this->once())
@@ -47,13 +48,13 @@ class AccountTest extends BaseTest
 
         $response = $this->client->partnerAccounts->create($account);
 
-        $this->assertNotEmpty($response->id);
-        $this->assertNotEmpty($response->name);
-        $this->assertNotEmpty($response->accessKeys);
-        $this->assertNotEmpty($response->signingKey);
+        self::assertNotEmpty($response->id);
+        self::assertNotEmpty($response->name);
+        self::assertNotEmpty($response->accessKeys);
+        self::assertNotEmpty($response->signingKey);
     }
 
-    public function testListSubAccount()
+    public function testListSubAccount(): void
     {
         $this->mockClient
             ->expects($this->atLeastOnce())
@@ -77,7 +78,7 @@ class AccountTest extends BaseTest
                     "name": "Partner Account 1 Sub 3",
                     "email": "subaccount3@messagebird.com"
                   }
-                ]'
+                ]',
             ]);
         $this->mockClient
             ->expects($this->once())
@@ -88,15 +89,15 @@ class AccountTest extends BaseTest
             );
 
         $response = $this->client->partnerAccounts->getList();
-        $this->assertCount(3, $response);
+        self::assertCount(3, $response);
         foreach ($response as $item) {
-            $this->assertNotEmpty($item->id);
-            $this->assertNotEmpty($item->name);
-            $this->assertNotEmpty($item->email);
+            self::assertNotEmpty($item->id);
+            self::assertNotEmpty($item->name);
+            self::assertNotEmpty($item->email);
         }
     }
 
-    public function testReadSubAccount()
+    public function testReadSubAccount(): void
     {
         $this->mockClient
             ->expects($this->atLeastOnce())
@@ -108,7 +109,7 @@ class AccountTest extends BaseTest
                   "id": 6249609,
                   "name": "Partner Account 1 Sub 1",
                   "email": "subaccount1@messagebird.com"
-                }'
+                }',
             ]);
         $this->mockClient
             ->expects($this->once())
@@ -120,12 +121,12 @@ class AccountTest extends BaseTest
 
         $response = $this->client->partnerAccounts->read(1);
 
-        $this->assertNotEmpty($response->id);
-        $this->assertNotEmpty($response->name);
-        $this->assertNotEmpty($response->email);
+        self::assertNotEmpty($response->id);
+        self::assertNotEmpty($response->name);
+        self::assertNotEmpty($response->email);
     }
 
-    public function testDeleteSubAccount()
+    public function testDeleteSubAccount(): void
     {
         $this->mockClient
             ->expects($this->once())
@@ -137,7 +138,7 @@ class AccountTest extends BaseTest
             ->willReturn([
                 204,
                 '',
-                ''
+                '',
             ]);
 
         $response = $this->client->partnerAccounts->delete(1);
@@ -145,9 +146,9 @@ class AccountTest extends BaseTest
         $this->assertTrue($response);
     }
 
-    public function testEditSubAccount()
+    public function testEditSubAccount(): void
     {
-        $account = new \MessageBird\Objects\PartnerAccount\Account();
+        $account = new Account();
         $account->name = 'MessageBird';
 
         $this->mockClient
@@ -165,7 +166,7 @@ class AccountTest extends BaseTest
                 '{
                   "id": 6249799,
                   "name": "Partner Account Sub 1"
-                }'
+                }',
             ]);
 
         $this->client->partnerAccounts->update($account, 1);

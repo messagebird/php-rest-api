@@ -3,6 +3,8 @@
 namespace MessageBird\Resources;
 
 use MessageBird\Common;
+use MessageBird\Common\HttpClient;
+use MessageBird\Exceptions;
 use MessageBird\Objects;
 
 /**
@@ -12,33 +14,30 @@ use MessageBird\Objects;
  */
 class AvailablePhoneNumbers
 {
-
     /**
-     * @var \MessageBird\Common\HttpClient
+     * @var HttpClient
      */
     protected $httpClient;
 
-    /**
-     * @param Common\HttpClient $httpClient
-     */
-    public function __construct(Common\HttpClient $httpClient)
+    public function __construct(HttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
     }
 
     /**
-     * @param string $countryCode
-     * @param array $parameters
-     *
      * @return Objects\BaseList|Objects\Number
      *
-     * @throws \MessageBird\Exceptions\RequestException
-     * @throws \MessageBird\Exceptions\ServerException
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
+     * @throws \JsonException
      */
-    public function getList($countryCode, $parameters = [])
+    public function getList(string $countryCode, array $parameters = [])
     {
-        list($status, , $body) = $this->httpClient->performHttpRequest(
-            Common\HttpClient::REQUEST_GET,
+        [$status, , $body] = $this->httpClient->performHttpRequest(
+            HttpClient::REQUEST_GET,
             "available-phone-numbers/$countryCode",
             $parameters
         );
@@ -46,7 +45,7 @@ class AvailablePhoneNumbers
         if ($status !== 200) {
             return $this->processRequest($body);
         }
-        $body = json_decode($body);
+        $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
 
         $items = $body->items;
         unset($body->items);
@@ -63,23 +62,22 @@ class AvailablePhoneNumbers
     }
 
     /**
-     * @param string $body
-     *
-     * @return Objects\Number
-     * @throws \MessageBird\Exceptions\RequestException
-     * @throws \MessageBird\Exceptions\ServerException
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\BalanceException
+     * @throws Exceptions\ServerException
+     * @throws Exceptions\RequestException
      */
-    private function processRequest($body): Objects\Number
+    private function processRequest(?string $body): Objects\Number
     {
-        $body = json_decode($body);
-
-        if (json_last_error()) {
-            throw new \MessageBird\Exceptions\ServerException('Got an invalid JSON response from the server.');
+        try {
+            $body = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
+            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
         }
 
         if (!empty($body->errors)) {
             $responseError = new Common\ResponseError($body);
-            throw new \MessageBird\Exceptions\RequestException($responseError->getErrorString());
+            throw new Exceptions\RequestException($responseError->getErrorString());
         }
 
         return (new Objects\Number())->loadFromArray($body->data[0]);

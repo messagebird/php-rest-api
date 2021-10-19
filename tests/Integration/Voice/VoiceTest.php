@@ -2,30 +2,39 @@
 
 namespace Tests\Integration\Voice;
 
+use MessageBird\Exceptions\ServerException;
+use MessageBird\Objects\Voice\Call;
+use MessageBird\Objects\Voice\CallFlow;
+use MessageBird\Objects\Voice\Webhook;
 use Tests\Integration\BaseTest;
 
 class VoiceTest extends BaseTest
 {
-    public function testListVoiceCall()
+    public function testListVoiceCall(): void
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'calls', [
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with("GET", 'calls', [
             'offset' => 100,
             'limit' => 30,
         ], null);
         $this->client->voiceCalls->getList(['offset' => 100, 'limit' => 30]);
     }
 
-    public function testReadVoiceCall()
+    public function testReadVoiceCall(): void
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'calls/foobar', null, null);
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "GET",
+            'calls/foobar',
+            null,
+            null
+        );
         $this->client->voiceCalls->read('foobar');
     }
 
-    public function testCreateVoiceCall()
+    public function testCreateVoiceCall(): void
     {
-        $voiceCall = new \MessageBird\Objects\Voice\Call();
+        $voiceCall = new Call();
         $voiceCall->source = '31612354678';
         $voiceCall->destination = '31611223344';
         $voiceCall->callFlow = [
@@ -37,7 +46,10 @@ class VoiceTest extends BaseTest
             ],
         ];
 
-        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([201, '', '{
+        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([
+            201,
+            '',
+            '{
   "data": [
     {
       "id": "21025ed1-cc1d-4554-ac05-043fa6c84e00",
@@ -52,63 +64,92 @@ class VoiceTest extends BaseTest
   "_links": {
     "self": "/calls/21025ed1-cc1d-4554-ac05-043fa6c84e00"
   }
-}']);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'calls', null, '{"source":"31612354678","destination":"31611223344","callFlow":{"title":"Foobar","steps":[{"action":"hangup"}]}}');
+}',
+        ]);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "POST",
+            'calls',
+            null,
+            '{"source":"31612354678","destination":"31611223344","callFlow":{"title":"Foobar","steps":[{"action":"hangup"}]}}'
+        );
         $this->client->voiceCalls->create($voiceCall);
     }
 
-    public function testListVoiceLegs()
+    public function testListVoiceLegs(): void
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'calls/foobar/legs', [
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with("GET", 'calls/foobar/legs', [
             'offset' => 100,
             'limit' => 30,
         ], null);
         $this->client->voiceLegs->getList('foobar', ['offset' => 100, 'limit' => 30]);
     }
 
-    public function testReadVoiceLeg()
+    public function testReadVoiceLeg(): void
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'calls/foo/legs/bar', null, null);
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "GET",
+            'calls/foo/legs/bar',
+            null,
+            null
+        );
         $this->client->voiceLegs->read('foo', 'bar');
     }
 
-    public function testListVoiceRecordings()
+    public function testListVoiceRecordings(): void
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'calls/foo/legs/bar/recordings', [
-            'offset' => 100,
-            'limit' => 30,
-        ], null);
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "GET",
+            'calls/foo/legs/bar/recordings',
+            [
+                'offset' => 100,
+                'limit' => 30,
+            ],
+            null
+        );
         $this->client->voiceRecordings->getList('foo', 'bar', ['offset' => 100, 'limit' => 30]);
     }
 
-    public function testReadVoiceRecording()
+    public function testReadVoiceRecording(): void
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'calls/foo/legs/bar/recordings/baz', null, null);
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "GET",
+            'calls/foo/legs/bar/recordings/baz',
+            null,
+            null
+        );
         $this->client->voiceRecordings->read('foo', 'bar', 'baz');
     }
 
-    public function testDeleteVoiceRecording()
+    public function testDeleteVoiceRecording(): void
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
+        $this->expectException(ServerException::class);
         $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([204, '', null]);
         $this->client->voiceRecordings->delete('foo', 'bar', 'baz');
     }
 
 
-    public function testDownloadVoiceRecording()
+    public function testDownloadVoiceRecording(): void
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'calls/foo/legs/bar/recordings/baz.wav', null, null);
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "GET",
+            'calls/foo/legs/bar/recordings/baz.wav',
+            null,
+            null
+        );
         $this->client->voiceRecordings->download('foo', 'bar', 'baz');
     }
 
-    public function testCreateVoiceTranscription()
+    public function testCreateVoiceTranscription(): void
     {
-        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([201, '', '{
+        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([
+            201,
+            '',
+            '{
   "data": [
      {
        "id": "87c377ce-1629-48b6-ad01-4b4fd069c53c",
@@ -122,59 +163,88 @@ class VoiceTest extends BaseTest
        }
      }
   ]
-}']);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'calls/foo/legs/bar/recordings/baz/transcriptions', null, null);
+}',
+        ]);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "POST",
+            'calls/foo/legs/bar/recordings/baz/transcriptions',
+            null,
+            null
+        );
         $this->client->voiceTranscriptions->create('foo', 'bar', 'baz');
     }
 
-    public function testListVoiceTranscriptions()
+    public function testListVoiceTranscriptions(): void
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'calls/foo/legs/bar/recordings/baz/transcriptions', [
-            'offset' => 100,
-            'limit' => 30,
-        ], null);
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "GET",
+            'calls/foo/legs/bar/recordings/baz/transcriptions',
+            [
+                'offset' => 100,
+                'limit' => 30,
+            ],
+            null
+        );
         $this->client->voiceTranscriptions->getList('foo', 'bar', 'baz', ['offset' => 100, 'limit' => 30]);
     }
 
-    public function testReadVoiceTranscription()
+    public function testReadVoiceTranscription(): void
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'calls/foo/legs/bar/recordings/baz/transcriptions/bups', null, null);
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "GET",
+            'calls/foo/legs/bar/recordings/baz/transcriptions/bups',
+            null,
+            null
+        );
         $this->client->voiceTranscriptions->read('foo', 'bar', 'baz', 'bups');
     }
 
-    public function testDownloadVoiceTranscription()
+    public function testDownloadVoiceTranscription(): void
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'calls/foo/legs/bar/recordings/baz/transcriptions/bups.txt', null, null);
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "GET",
+            'calls/foo/legs/bar/recordings/baz/transcriptions/bups.txt',
+            null,
+            null
+        );
         $this->client->voiceTranscriptions->download('foo', 'bar', 'baz', 'bups');
     }
 
-    public function testListVoiceWebhooks()
+    public function testListVoiceWebhooks(): void
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'webhooks', [
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with("GET", 'webhooks', [
             'offset' => 100,
             'limit' => 30,
         ], null);
         $this->client->voiceWebhooks->getList(['offset' => 100, 'limit' => 30]);
     }
 
-    public function testReadVoiceWebhook()
+    public function testReadVoiceWebhook(): void
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'webhooks/foobar', null, null);
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "GET",
+            'webhooks/foobar',
+            null,
+            null
+        );
         $this->client->voiceWebhooks->read('foobar');
     }
 
-    public function testCreateVoiceWebhook()
+    public function testCreateVoiceWebhook(): void
     {
-        $webhook = new \MessageBird\Objects\Voice\Webhook();
+        $webhook = new Webhook();
         $webhook->url = 'https://example.com/';
         $webhook->token = 'foobar';
 
-        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([201, '', '{
+        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([
+            201,
+            '',
+            '{
   "data": [
     {
       "id": "534e1848-235f-482d-983d-e3e11a04f58a",
@@ -196,18 +266,27 @@ class VoiceTest extends BaseTest
     "currentPage": 1,
     "perPage": 10
   }
-}']);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'webhooks', null, '{"url":"https:\/\/example.com\/","token":"foobar"}');
+}',
+        ]);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "POST",
+            'webhooks',
+            null,
+            '{"url":"https:\/\/example.com\/","token":"foobar"}'
+        );
         $this->client->voiceWebhooks->create($webhook);
     }
 
-    public function testUpdateVoiceWebhook()
+    public function testUpdateVoiceWebhook(): void
     {
-        $webhook = new \MessageBird\Objects\Voice\Webhook();
+        $webhook = new Webhook();
         $webhook->url = 'https://example.com/foo';
         $webhook->token = 'foobar';
 
-        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([200, '', '{
+        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([
+            200,
+            '',
+            '{
   "data": [
     {
       "id": "foobar123",
@@ -220,50 +299,69 @@ class VoiceTest extends BaseTest
   "_links": {
     "self": "/webhooks/534e1848-235f-482d-983d-e3e11a04f58a"
   }
-}']);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("PUT", 'webhooks/foobar123', null, '{"url":"https:\/\/example.com\/foo","token":"foobar"}');
+}',
+        ]);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "PUT",
+            'webhooks/foobar123',
+            null,
+            '{"url":"https:\/\/example.com\/foo","token":"foobar"}'
+        );
         $this->client->voiceWebhooks->update($webhook, 'foobar123');
     }
 
-    public function testDeleteVoiceWebhook()
+    public function testDeleteVoiceWebhook(): void
     {
         $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([204, '', null]);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'webhooks/foobar123', null, '');
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "DELETE",
+            'webhooks/foobar123',
+            null,
+            ''
+        );
         $this->client->voiceWebhooks->delete('foobar123');
     }
 
 
-    public function testListVoiceCallFlows()
+    public function testListVoiceCallFlows(): void
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'call-flows', [
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with("GET", 'call-flows', [
             'offset' => 100,
             'limit' => 30,
         ], null);
         $this->client->voiceCallFlows->getList(['offset' => 100, 'limit' => 30]);
     }
 
-    public function testReadVoiceCallFlow()
+    public function testReadVoiceCallFlow(): void
     {
-        $this->expectException(\MessageBird\Exceptions\ServerException::class);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("GET", 'call-flows/foobar', null, null);
+        $this->expectException(ServerException::class);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "GET",
+            'call-flows/foobar',
+            null,
+            null
+        );
         $this->client->voiceCallFlows->read('foobar');
     }
 
-    public function testCreateVoiceCallFlow()
+    public function testCreateVoiceCallFlow(): void
     {
-        $callFlow = new \MessageBird\Objects\Voice\CallFlow();
+        $callFlow = new CallFlow();
         $callFlow->title = 'Foobar';
         $callFlow->steps = [
-           [
-               'action' => 'transfer',
-               'options' => [
-                   'destination' => '31612345678',
-               ],
-           ] ,
+            [
+                'action' => 'transfer',
+                'options' => [
+                    'destination' => '31612345678',
+                ],
+            ],
         ];
 
-        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([201, '', '{
+        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([
+            201,
+            '',
+            '{
   "data": [
     {
       "id": "de3ed163-d5fc-45f4-b8c4-7eea7458c635",
@@ -293,17 +391,26 @@ class VoiceTest extends BaseTest
     "currentPage": 1,
     "perPage": 10
   }
-}']);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("POST", 'call-flows', null, '{"title":"Foobar","steps":[{"action":"transfer","options":{"destination":"31612345678"}}]}');
+}',
+        ]);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "POST",
+            'call-flows',
+            null,
+            '{"title":"Foobar","steps":[{"action":"transfer","options":{"destination":"31612345678"}}]}'
+        );
         $this->client->voiceCallFlows->create($callFlow);
     }
 
-    public function testUpdateVoiceCallFlow()
+    public function testUpdateVoiceCallFlow(): void
     {
-        $webhook = new \MessageBird\Objects\Voice\Webhook();
+        $webhook = new Webhook();
         $webhook->title = 'Updated call flow';
 
-        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([200, '', '{
+        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([
+            200,
+            '',
+            '{
   "data": [
     {
       "id": "de3ed163-d5fc-45f4-b8c4-7eea7458c635",
@@ -324,15 +431,26 @@ class VoiceTest extends BaseTest
   "_links": {
     "self": "/call-flows/de3ed163-d5fc-45f4-b8c4-7eea7458c635"
   }
-}']);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("PUT", 'call-flows/foobar123', null, '{"title":"Updated call flow"}');
+}',
+        ]);
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "PUT",
+            'call-flows/foobar123',
+            null,
+            '{"title":"Updated call flow"}'
+        );
         $this->client->voiceCallFlows->update($webhook, 'foobar123');
     }
 
-    public function testDeleteVoiceCallFlow()
+    public function testDeleteVoiceCallFlow(): void
     {
         $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([204, '', null]);
-        $this->mockClient->expects($this->once())->method('performHttpRequest')->with("DELETE", 'call-flows/foobar123', null, '');
+        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
+            "DELETE",
+            'call-flows/foobar123',
+            null,
+            ''
+        );
         $this->client->voiceCallFlows->delete('foobar123');
     }
 }

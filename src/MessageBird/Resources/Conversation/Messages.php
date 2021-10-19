@@ -4,6 +4,8 @@ namespace MessageBird\Resources\Conversation;
 
 use MessageBird\Common\HttpClient;
 use MessageBird\Common\ResponseError;
+use MessageBird\Exceptions\AuthenticateException;
+use MessageBird\Exceptions\BalanceException;
 use MessageBird\Exceptions\HttpException;
 use MessageBird\Exceptions\RequestException;
 use MessageBird\Exceptions\ServerException;
@@ -16,10 +18,10 @@ use MessageBird\Objects\Conversation\Message;
  */
 class Messages
 {
-    const HTTP_STATUS_OK = 200;
+    public const HTTP_STATUS_OK = 200;
 
-    const RESOURCE_NAME = 'conversations/%s/messages';
-    const MESSAGE_RESOURCE_NAME = 'messages/%s';
+    public const RESOURCE_NAME = 'conversations/%s/messages';
+    public const MESSAGE_RESOURCE_NAME = 'messages/%s';
 
     /**
      * @var HttpClient
@@ -31,9 +33,6 @@ class Messages
      */
     protected $object;
 
-    /**
-     * @param HttpClient $httpClient
-     */
     public function __construct(HttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
@@ -41,20 +40,12 @@ class Messages
         $this->setObject(new Message());
     }
 
-    /**
-     * @return Message
-     */
-    public function getObject()
+    public function getObject(): Message
     {
         return $this->object;
     }
 
-    /**
-     * @param Message $object
-     *
-     * @return void
-     */
-    public function setObject($object): void
+    public function setObject(Message $object): void
     {
         $this->object = $object;
     }
@@ -62,21 +53,17 @@ class Messages
     /**
      * Send a message to a conversation.
      *
-     * @param string $conversationId
-     * @param Message $object
-     * @param string[]|null $query
-     *
-     * @return Message
-     *
      * @throws HttpException
      * @throws RequestException
      * @throws ServerException
+     * @throws AuthenticateException
+     * @throws \JsonException
      */
-    public function create($conversationId, $object, $query = null): Message
+    public function create(string $conversationId, Message $object, ?array $query = null): Message
     {
-        $body = json_encode($object);
+        $body = json_encode($object, \JSON_THROW_ON_ERROR);
 
-        list(, , $body) = $this->httpClient->performHttpRequest(
+        [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
             $this->getResourceNameWithId($conversationId),
             $query,
@@ -87,25 +74,72 @@ class Messages
     }
 
     /**
+     * Formats a URL for the Conversation API's messages endpoint based on the
+     * conversationId.
+     */
+    private function getResourceNameWithId(string $id): string
+    {
+        return sprintf(self::RESOURCE_NAME, $id);
+    }
+
+    /**
+     * Throws an exception if the request if the request has any errors.
+     *
+     * @throws AuthenticateException
+     * @throws RequestException
+     * @throws ServerException
+     * @throws BalanceException
+     * @throws \JsonException
+     */
+    public function processRequest(string $body): Message
+    {
+        try {
+            $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
+            throw new ServerException('Got an invalid JSON response from the server.');
+        }
+
+        if ($body === null) {
+            throw new ServerException('Got an invalid JSON response from the server.');
+        }
+
+        if (empty($body->errors)) {
+            return $this->object->loadFromArray($body);
+        }
+
+        $responseError = new ResponseError($body);
+
+        throw new RequestException(
+            $responseError->getErrorString()
+        );
+    }
+
+    /**
      * Retrieves all the messages form the conversation based on its
      * conversationId.
      *
-     * @param string $conversationId
-     * @param string[] $parameters
-     *
      * @return BaseList|Message
+     * @throws AuthenticateException
+     * @throws BalanceException
+     * @throws HttpException
+     * @throws RequestException
+     * @throws ServerException
+     * @throws \JsonException
      */
-    public function getList($conversationId, $parameters = [])
+    public function getList(string $conversationId, array $parameters = [])
     {
-        list($status, , $body) = $this->httpClient->performHttpRequest(
+        [$status, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_GET,
             $this->getResourceNameWithId($conversationId),
             $parameters
         );
 
         if ($status === self::HTTP_STATUS_OK) {
-            $body = json_decode($body);
-
+            try {
+                $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
+            } catch (\JsonException $e) {
+                throw new ServerException('Got an invalid JSON response from the server.');
+            }
             $items = $body->items;
             unset($body->items);
 
@@ -121,7 +155,7 @@ class Messages
 
                 $baseList->items[] = $message;
             }
-            
+
             return $baseList;
         }
 
@@ -130,10 +164,16 @@ class Messages
 
     /**
      * @return Message|self
+     * @throws AuthenticateException
+     * @throws BalanceException
+     * @throws HttpException
+     * @throws RequestException
+     * @throws ServerException
+     * @throws \JsonException
      */
-    public function read($messageId, $parameters = [])
+    public function read(string $messageId, ?array $parameters = [])
     {
-        list($status, , $body) = $this->httpClient->performHttpRequest(
+        [$status, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_GET,
             sprintf(self::MESSAGE_RESOURCE_NAME, $messageId),
             $parameters
@@ -143,7 +183,7 @@ class Messages
             return $this->processRequest($body);
         }
 
-        $body = json_decode($body);
+        $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
         if (empty($body)) {
             return $this->processRequest($body);
         }
@@ -152,47 +192,5 @@ class Messages
         $message->loadFromArray($body);
 
         return $message;
-    }
-
-    /**
-     * Formats a URL for the Conversation API's messages endpoint based on the
-     * conversationId.
-     *
-     * @param string $id
-     *
-     * @return string
-     */
-    private function getResourceNameWithId($id)
-    {
-        return sprintf(self::RESOURCE_NAME, $id);
-    }
-
-    /**
-     * Throws an exception if the request if the request has any errors.
-     *
-     * @param string $body
-     *
-     * @return Message
-     *
-     * @throws RequestException
-     * @throws ServerException
-     */
-    public function processRequest($body): Message
-    {
-        $body = @json_decode($body);
-
-        if ($body === null || $body === false) {
-            throw new ServerException('Got an invalid JSON response from the server.');
-        }
-
-        if (empty($body->errors)) {
-            return $this->object->loadFromArray($body);
-        }
-
-        $responseError = new ResponseError($body);
-
-        throw new RequestException(
-            $responseError->getErrorString()
-        );
     }
 }

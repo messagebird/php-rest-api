@@ -2,7 +2,6 @@
 
 namespace Tests\Integration\Conversation;
 
-use MessageBird\Client;
 use MessageBird\Objects\BaseList;
 use MessageBird\Objects\Conversation\Channel;
 use MessageBird\Objects\Conversation\Contact;
@@ -14,10 +13,10 @@ use Tests\Integration\BaseTest;
 
 class ConversationTest extends BaseTest
 {
-    const START_REQUEST = '{"channelId":"channel-id","type":"location","content":{"location":{"latitude":"37.778326","longitude":"-122.394648"}},"to":"31612345678"}';
-    const CREATE_REQUEST = '{"contactId":"some-contact-id"}';
+    public const START_REQUEST = '{"channelId":"channel-id","type":"location","content":{"location":{"latitude":"37.778326","longitude":"-122.394648"}},"to":"31612345678"}';
+    public const CREATE_REQUEST = '{"contactId":"some-contact-id"}';
 
-    const LIST_RESPONSE = '{
+    public const LIST_RESPONSE = '{
         "count": 1,
         "totalCount": 1,
         "limit": 10,
@@ -61,7 +60,7 @@ class ConversationTest extends BaseTest
         ]
     }';
 
-    const READ_RESPONSE = '{
+    public const READ_RESPONSE = '{
         "id": "conversation-id",
         "href": "https://conversations.messagebird.com/v1/conversations/conversation-id",
         "contact": {
@@ -97,12 +96,12 @@ class ConversationTest extends BaseTest
         "lastUsedChannelId": "channel-id"
     }';
 
-    public function testStart()
+    public function testStart(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
-            ->with('POST', 'conversations/start', null, self::START_REQUEST)
-            ->willReturn([200, '', '{}']);
+             ->expects(self::once())->method('performHttpRequest')
+             ->with('POST', 'conversations/start', null, self::START_REQUEST)
+             ->willReturn([200, '', '{}']);
 
         $content = new Content();
         $content->location = [
@@ -122,22 +121,22 @@ class ConversationTest extends BaseTest
     /**
      * We can also start a conversation without a message.
      */
-    public function testCreate()
+    public function testCreate(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
-            ->with('POST', 'conversations', null, self::CREATE_REQUEST)
-            ->willReturn([200, '', '{}']);
+             ->expects(self::once())->method('performHttpRequest')
+             ->with('POST', 'conversations', null, self::CREATE_REQUEST)
+             ->willReturn([200, '', '{}']);
 
         $this->client->conversations->create('some-contact-id');
     }
 
-    public function testList()
+    public function testList(): void
     {
         $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
-            ->with('GET', 'conversations', [], null)
-            ->willReturn([200, '', self::LIST_RESPONSE]);
+             ->expects(self::once())->method('performHttpRequest')
+             ->with('GET', 'conversations', [], null)
+             ->willReturn([200, '', self::LIST_RESPONSE]);
 
         $list = new BaseList();
         $list->limit = 10;
@@ -146,50 +145,16 @@ class ConversationTest extends BaseTest
         $list->totalCount = 1;
         $list->items = [$this->getConversation()];
 
-        $this->assertEquals(
+        self::assertEquals(
             $list,
             $this->client->conversations->getList()
         );
     }
 
-    public function testRead()
-    {
-        $this->mockClient
-            ->expects($this->once())->method('performHttpRequest')
-            ->with('GET', 'conversations/conversation-id', null, null)
-            ->willReturn([200, '', self::READ_RESPONSE]);
-
-        $this->assertEquals(
-            $this->getConversation(),
-            $this->client->conversations->read('conversation-id')
-        );
-    }
-
-    public function testUpdate()
-    {
-        $this->mockClient
-            ->expects($this->exactly(2))->method('performHttpRequest')
-            ->withConsecutive(
-                ['PATCH', 'conversations/conversation-id', null, '{"status":"archived"}'],
-                ['PATCH', 'conversations/conversation-id', null, '{"status":"active"}']
-            )
-            ->willReturn([200, '', '{}']);
-
-        $conversation = new Conversation();
-
-        $conversation->status = Conversation::STATUS_ARCHIVED;
-        $this->client->conversations->update($conversation, 'conversation-id');
-
-        $conversation->status = Conversation::STATUS_ACTIVE;
-        $this->client->conversations->update($conversation, 'conversation-id');
-    }
-
     /**
      * Gets an arbitrary conversation that's used in tests.
-     *
-     * @return Conversation
      */
-    private function getConversation()
+    private function getConversation(): Conversation
     {
         $contact = new Contact();
         $contact->id = 'contact-id';
@@ -228,5 +193,37 @@ class ConversationTest extends BaseTest
         $conversation->lastUsedChannelId = 'channel-id';
 
         return $conversation;
+    }
+
+    public function testRead(): void
+    {
+        $this->mockClient
+             ->expects(self::once())->method('performHttpRequest')
+             ->with('GET', 'conversations/conversation-id', null, null)
+             ->willReturn([200, '', self::READ_RESPONSE]);
+
+        self::assertEquals(
+            $this->getConversation(),
+            $this->client->conversations->read('conversation-id')
+        );
+    }
+
+    public function testUpdate(): void
+    {
+        $this->mockClient
+            ->expects($this->exactly(2))->method('performHttpRequest')
+            ->withConsecutive(
+                ['PATCH', 'conversations/conversation-id', null, '{"status":"archived"}'],
+                ['PATCH', 'conversations/conversation-id', null, '{"status":"active"}']
+            )
+            ->willReturn([200, '', '{}']);
+
+        $conversation = new Conversation();
+
+        $conversation->status = Conversation::STATUS_ARCHIVED;
+        $this->client->conversations->update($conversation, 'conversation-id');
+
+        $conversation->status = Conversation::STATUS_ACTIVE;
+        $this->client->conversations->update($conversation, 'conversation-id');
     }
 }

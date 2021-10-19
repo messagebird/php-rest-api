@@ -4,6 +4,7 @@ namespace MessageBird\Resources;
 
 use InvalidArgumentException;
 use MessageBird\Common;
+use MessageBird\Exceptions;
 use MessageBird\Objects;
 
 /**
@@ -13,10 +14,6 @@ use MessageBird\Objects;
  */
 class Contacts extends Base
 {
-
-    /**
-     * @param Common\HttpClient $httpClient
-     */
     public function __construct(Common\HttpClient $httpClient)
     {
         $this->setObject(new Objects\Contact());
@@ -31,6 +28,12 @@ class Contacts extends Base
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
      *
+     * @throws \JsonException
+     * @throws Exceptions\AuthenticateException
+     * @throws Exceptions\HttpException
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ServerException
+     *
      * @internal param array $parameters
      */
     public function update($object, $id)
@@ -44,9 +47,9 @@ class Contacts extends Base
         }
 
         $resourceName = $this->resourceName . ($id ? '/' . $id : null);
-        $body = json_encode($body);
+        $body = json_encode($body, \JSON_THROW_ON_ERROR);
 
-        list(, , $body) = $this->httpClient->performHttpRequest(
+        [, , $body] = $this->httpClient->performHttpRequest(
             Common\HttpClient::REQUEST_PATCH,
             $resourceName,
             false,
@@ -60,8 +63,9 @@ class Contacts extends Base
      * @param array|null $parameters
      *
      * @return Objects\Balance|Objects\BaseList|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
+     * @throws \JsonException
      */
-    public function getMessages($id, $parameters = [])
+    public function getMessages($id, ?array $parameters = [])
     {
         if ($id === null) {
             throw new InvalidArgumentException('No contact id provided.');
@@ -77,8 +81,9 @@ class Contacts extends Base
      * @param array|null $parameters
      *
      * @return Objects\Balance|Objects\BaseList|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
+     * @throws \JsonException
      */
-    public function getGroups($id, $parameters = [])
+    public function getGroups($id, ?array $parameters = [])
     {
         if ($id === null) {
             throw new InvalidArgumentException('No contact id provided.');

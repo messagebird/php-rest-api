@@ -32,7 +32,7 @@ class RequestValidatorTest extends TestCase
         $request = SignedRequest::create($query, $signature, $requestTimestamp, $body);
         $validator = new RequestValidator('PlLrKaqvZNRR5zAjm42ZT6q1SQxgbbGd');
 
-        $this->assertTrue($validator->verify($request));
+        self::assertTrue($validator->verify($request));
     }
 
     /* @deprecated */
@@ -54,7 +54,7 @@ class RequestValidatorTest extends TestCase
         $request = SignedRequest::create($query, $signature, $requestTimestamp, $body);
         $validator = new RequestValidator('PlLrKaqvZNRR5zAjm42ZT6q1SQxgbbGd');
 
-        $this->assertTrue($validator->verify($request));
+        self::assertTrue($validator->verify($request));
     }
 
     /* @deprecated */
@@ -76,7 +76,7 @@ class RequestValidatorTest extends TestCase
         $request = SignedRequest::create($query, $signature, $requestTimestamp, $body);
         $validator = new RequestValidator('PlLrKaqvZNRR5zAjm42ZT6q1SQxgbbGd');
 
-        $this->assertFalse($validator->verify($request));
+        self::assertFalse($validator->verify($request));
     }
 
     /* @deprecated */
@@ -90,7 +90,7 @@ class RequestValidatorTest extends TestCase
         $request = SignedRequest::create($query, $signature, $requestTimestamp, $body);
         $validator = new RequestValidator('');
 
-        $this->assertTrue($validator->isRecent($request));
+        self::assertTrue($validator->isRecent($request));
     }
 
     /* @deprecated */
@@ -104,7 +104,7 @@ class RequestValidatorTest extends TestCase
         $request = SignedRequest::create($query, $signature, $requestTimestamp, $body);
         $validator = new RequestValidator('');
 
-        $this->assertFalse($validator->isRecent($request));
+        self::assertFalse($validator->isRecent($request));
     }
 
     const ERROR_MAP = [
