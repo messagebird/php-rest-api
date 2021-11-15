@@ -2,6 +2,8 @@
 
 namespace MessageBird\Objects;
 
+use stdClass;
+
 /**
  * Class Group
  *
@@ -15,6 +17,7 @@ class Group extends Base
      * @var int
      */
     public $name;
+
     /**
      * An unique random ID which is created on the MessageBird
      * platform and is returned upon creation of the object.
@@ -22,16 +25,18 @@ class Group extends Base
      * @var string
      */
     protected $id;
+
     /**
      * The URL of the created object.
      *
      * @var string
      */
     protected $href;
+
     /**
      * The hash with the contacts in group.
      *
-     * @var array
+     * @var stdClass
      */
     protected $contacts = [];
 
@@ -79,6 +84,11 @@ class Group extends Base
     public function getUpdatedDatetime(): string
     {
         return $this->createdDatetime;
+    }
+
+    public function getContacts(): stdClass
+    {
+        return $this->contacts;
     }
 
     /**
