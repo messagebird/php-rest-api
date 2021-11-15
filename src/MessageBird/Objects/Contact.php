@@ -2,6 +2,8 @@
 
 namespace MessageBird\Objects;
 
+use stdClass;
+
 /**
  * Class Contact
  *
@@ -65,16 +67,16 @@ class Contact extends Base
     /**
      * The hash of the group this contact belongs to.
      *
-     * @var array
+     * @var stdClass
      */
-    protected $groups = [];
+    protected $groups;
 
     /**
      * The hash with messages sent to contact.
      *
-     * @var array
+     * @var stdClass
      */
-    protected $messages = [];
+    protected $messages;
 
     /**
      * The date and time of the creation of the contact in RFC3339 format (Y-m-d\TH:i:sP)
@@ -100,12 +102,12 @@ class Contact extends Base
         return $this->href;
     }
 
-    public function getGroups(): array
+    public function getGroups(): stdClass
     {
         return $this->groups;
     }
 
-    public function getMessages(): array
+    public function getMessages(): stdClass
     {
         return $this->messages;
     }
