@@ -93,7 +93,7 @@ class SignedRequest extends Base
      * {@inheritdoc}
      * @throws ValidationException when a required parameter is missing.
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): self
     {
         if (!isset($object['requestTimestamp']) || !\is_int($object['requestTimestamp'])) {
             throw new ValidationException('The "requestTimestamp" value is missing or invalid.');

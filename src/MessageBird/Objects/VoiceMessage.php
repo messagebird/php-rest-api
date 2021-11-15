@@ -134,7 +134,7 @@ class VoiceMessage extends Base
      *
      * @return $this|void
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): self
     {
         parent::loadFromArray($object);
 

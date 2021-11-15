@@ -14,7 +14,7 @@ class Base
      *
      * @return $this
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): self
     {
         if ($object) {
             foreach ($object as $key => $value) {

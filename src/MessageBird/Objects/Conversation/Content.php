@@ -59,7 +59,7 @@ class Content extends Base implements JsonSerializable
      *
      * @return $this
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): self
     {
         // Text is already properly set if available due to the response's structure.
         parent::loadFromArray($object);

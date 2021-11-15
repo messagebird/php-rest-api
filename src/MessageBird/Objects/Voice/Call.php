@@ -68,7 +68,7 @@ class Call extends Base
     /**
      * @inheritdoc
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): self
     {
         parent::loadFromArray($object);
 

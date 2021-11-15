@@ -121,7 +121,7 @@ class Lookup extends Base
      *
      * @return $this
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): self
     {
         unset($this->hlr);
         return parent::loadFromArray($object);
