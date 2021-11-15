@@ -73,9 +73,10 @@ class Groups extends Base
         if ($id === null) {
             throw new InvalidArgumentException('No group id provided.');
         }
+        $contactResource = new Contacts($this->httpClient);
+        $contactResource->setResourceName($this->resourceName . '/' . $id . '/contacts');
 
-        $this->setResourceName($this->resourceName . '/' . $id . '/contacts');
-        return $this->getList($parameters);
+        return $contactResource->getList($parameters);
     }
 
     /**
