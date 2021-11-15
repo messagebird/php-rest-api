@@ -86,7 +86,7 @@ class Group extends Base
      *
      * @return $this|void
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): self
     {
         parent::loadFromArray($object);
 
@@ -99,6 +99,6 @@ class Group extends Base
             }
         }
 
-        return $object;
+        return $this;
     }
 }
