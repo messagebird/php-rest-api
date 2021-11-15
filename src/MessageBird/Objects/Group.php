@@ -81,7 +81,7 @@ class Group extends Base
     /**
      * Get the $updatedDatetime value
      */
-    public function getUpdatedDatetime(): string
+    public function getUpdatedDatetime(): ?string
     {
         return $this->createdDatetime;
     }

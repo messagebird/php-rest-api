@@ -115,7 +115,7 @@ class Contact extends Base
         return $this->createdDatetime;
     }
 
-    public function getUpdatedDatetime(): string
+    public function getUpdatedDatetime(): ?string
     {
         return $this->updatedDatetime;
     }
