@@ -67,16 +67,16 @@ class Contact extends Base
     /**
      * The hash of the group this contact belongs to.
      *
-     * @var stdClass
+     * @var ?stdClass
      */
-    protected $groups;
+    protected $groups = null;
 
     /**
      * The hash with messages sent to contact.
      *
-     * @var stdClass
+     * @var ?stdClass
      */
-    protected $messages;
+    protected $messages = null;
 
     /**
      * The date and time of the creation of the contact in RFC3339 format (Y-m-d\TH:i:sP)
@@ -130,10 +130,10 @@ class Contact extends Base
     /**
      * @param mixed $object
      */
-    public function loadFromArray($object): Contact
+    public function loadFromArray($object): self
     {
         unset($this->custom1, $this->custom2, $this->custom3, $this->custom4);
-
+        
         return parent::loadFromArray($object);
     }
 

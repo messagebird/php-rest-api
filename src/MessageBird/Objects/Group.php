@@ -36,9 +36,9 @@ class Group extends Base
     /**
      * The hash with the contacts in group.
      *
-     * @var stdClass
+     * @var ?stdClass
      */
-    protected $contacts = [];
+    protected $contacts = null;
 
     /**
      * The date and time of the creation of the group in RFC3339 format (Y-m-d\TH:i:sP)
@@ -99,15 +99,6 @@ class Group extends Base
     public function loadFromArray($object): self
     {
         parent::loadFromArray($object);
-
-        if (!empty($object->items)) {
-            foreach ($object->items as &$item) {
-                $contact = new Contact();
-                $contact->loadFromArray($item);
-
-                $item = $contact;
-            }
-        }
 
         return $this;
     }
