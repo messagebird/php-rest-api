@@ -170,7 +170,21 @@ class MessagesTest extends BaseTest
                       {
                         "recipient":31612345678,
                         "status":"sent",
-                        "statusDatetime":"2015-07-03T07:55:31+00:00"
+                        "statusDatetime":"2015-07-03T07:55:31+00:00",
+                        "statusReason":"successfully delivered",
+                        "statusErrorCode":null,
+                        "recipientCountry":"Netherlands",
+                        "recipientCountryPrefix":31,
+                        "recipientOperator":"KPN",
+                        "mccmnc":"20408",
+                        "mcc":"204",
+                        "mnc":"08",
+                        "messageLength":22,
+                        "messagePartCount":1,
+                        "price":{
+                            "amount":0.075,
+                            "currency":"EUR"
+                        }
                       }
                     ]
                   },
@@ -206,5 +220,15 @@ class MessagesTest extends BaseTest
         self::assertSame(31612345678, $messageResponse->recipients->items[0]->recipient);
         self::assertSame('sent', $messageResponse->recipients->items[0]->status);
         self::assertSame('2015-07-03T07:55:31+00:00', $messageResponse->recipients->items[0]->statusDatetime);
+        self::assertSame('successfully delivered', $messageResponse->recipients->items[0]->statusReason);
+        self::assertSame(null, $messageResponse->recipients->items[0]->statusErrorCode);
+        self::assertSame('Netherlands', $messageResponse->recipients->items[0]->recipientCountry);
+        self::assertSame(31, $messageResponse->recipients->items[0]->recipientCountryPrefix);
+        self::assertSame('KPN', $messageResponse->recipients->items[0]->recipientOperator);
+        self::assertSame('20408', $messageResponse->recipients->items[0]->mccmnc);
+        self::assertSame('204', $messageResponse->recipients->items[0]->mcc);
+        self::assertSame('08', $messageResponse->recipients->items[0]->mnc);
+        self::assertSame(22, $messageResponse->recipients->items[0]->messageLength);
+        self::assertSame(1, $messageResponse->recipients->items[0]->messagePartCount);           
     }
 }
