@@ -16,4 +16,4 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Psalm – Static Analysis for PHP
-        uses: docker://vimeo/psalm-github-actions:^4.6
+        uses: docker://vimeo/psalm-github-actions:stable
