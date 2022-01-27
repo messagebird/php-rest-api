@@ -6,6 +6,7 @@ use MessageBird\Common\HttpClient;
 use MessageBird\Exceptions\ServerException;
 use MessageBird\Objects\BaseList;
 use MessageBird\Objects\Contact;
+use MessageBird\Objects\Group;
 use MessageBird\Objects\Message;
 use Tests\Integration\BaseTest;
 
@@ -118,7 +119,7 @@ class ContactTest extends BaseTest
             'last' => '',
         ];
         $groupList->items = [
-            (object)[
+            (new Group())->loadFromArray([
                 'id' => 'contact_id',
                 'href' => '',
                 'name' => 'GroupName',
@@ -128,7 +129,7 @@ class ContactTest extends BaseTest
                 ],
                 'createdDatetime' => '',
                 'updatedDatetime' => '',
-            ],
+            ]),
         ];
 
         self::assertEquals($groupList, $resultingGroupList);
