@@ -119,17 +119,19 @@ class ContactTest extends BaseTest
             'last' => '',
         ];
         $groupList->items = [
-            (new Group())->loadFromArray([
-                'id' => 'contact_id',
-                'href' => '',
-                'name' => 'GroupName',
-                'contacts' => (object)[
-                    'totalCount' => 1,
+            (new Group())->loadFromStdclass(
+                (object) [
+                    'id' => 'contact_id',
                     'href' => '',
-                ],
-                'createdDatetime' => '',
-                'updatedDatetime' => '',
-            ]),
+                    'name' => 'GroupName',
+                    'contacts' => (object)[
+                        'totalCount' => 1,
+                        'href' => '',
+                    ],
+                    'createdDatetime' => '',
+                    'updatedDatetime' => '',
+                ]
+            ),
         ];
 
         self::assertEquals($groupList, $resultingGroupList);

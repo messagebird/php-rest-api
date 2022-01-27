@@ -14,7 +14,7 @@ class Messages extends Base
 {
     public function __construct(Common\HttpClient $httpClient)
     {
-        $this->setObject(new Objects\Message());
+        $this->object = new Objects\Message();
         $this->setResponseObject(new Objects\MessageResponse());
         $this->setResourceName('messages');
 

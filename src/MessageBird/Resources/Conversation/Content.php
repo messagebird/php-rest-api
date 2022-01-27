@@ -12,6 +12,6 @@ class Content extends Base
     {
         parent::__construct($httpClient);
 
-        $this->setObject(new ContentObject());
+        $this->object = new ContentObject();
     }
 }

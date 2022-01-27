@@ -14,7 +14,7 @@ class MmsMessages extends Base
 {
     public function __construct(Common\HttpClient $httpClient)
     {
-        $this->setObject(new Objects\MmsMessage());
+        $this->object = new Objects\MmsMessage();
         $this->setResourceName('mms');
 
         parent::__construct($httpClient);

@@ -14,7 +14,7 @@ class CallFlows extends Base
 {
     public function __construct(Common\HttpClient $httpClient)
     {
-        $this->setObject(new Objects\Voice\CallFlow());
+        $this->object = new Objects\Voice\CallFlow();
         $this->setResourceName('call-flows');
 
         parent::__construct($httpClient);

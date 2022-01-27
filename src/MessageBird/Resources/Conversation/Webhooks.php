@@ -14,7 +14,7 @@ class Webhooks extends Base
     {
         parent::__construct($httpClient);
 
-        $this->setObject(new Webhook());
+        $this->object = new Webhook();
         $this->setResourceName(self::RESOURCE_NAME);
     }
 }

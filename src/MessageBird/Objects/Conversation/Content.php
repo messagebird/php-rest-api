@@ -5,6 +5,7 @@ namespace MessageBird\Objects\Conversation;
 use JsonSerializable;
 use MessageBird\Objects\Base;
 use MessageBird\Objects\Conversation\HSM\Message as HSMMessage;
+use stdClass;
 
 /**
  * Represents a Message object's actual content. Formatted depending on type.
@@ -55,6 +56,8 @@ class Content extends Base implements JsonSerializable
     public $hsm;
 
     /**
+     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
+     * 
      * @param mixed $object
      *
      * @return $this
@@ -63,6 +66,17 @@ class Content extends Base implements JsonSerializable
     {
         // Text is already properly set if available due to the response's structure.
         parent::loadFromArray($object);
+
+        $this->loadLocationIfNeeded();
+        $this->loadMediaIfNeeded();
+
+        return $this;
+    }
+
+    public function loadFromStdclass(stdClass $object): self
+    {
+        // Text is already properly set if available due to the response's structure.
+        parent::loadFromStdclass($object);
 
         $this->loadLocationIfNeeded();
         $this->loadMediaIfNeeded();

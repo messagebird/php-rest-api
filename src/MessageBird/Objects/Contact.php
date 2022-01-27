@@ -128,6 +128,8 @@ class Contact extends Base
     }
 
     /**
+     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
+     * 
      * @param mixed $object
      */
     public function loadFromArray($object): self
@@ -137,7 +139,16 @@ class Contact extends Base
         return parent::loadFromArray($object);
     }
 
+    public function loadFromStdclass(stdClass $object): self
+    {
+        unset($this->custom1, $this->custom2, $this->custom3, $this->custom4);
+        
+        return parent::loadFromStdclass($object);
+    }
+
     /**
+     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclassForGroups()}
+     * 
      * @param mixed $object
      *
      * @return $this ->object
@@ -150,6 +161,21 @@ class Contact extends Base
             foreach ($object->items as &$item) {
                 $group = new Group();
                 $group->loadFromArray($item);
+
+                $item = $group;
+            }
+        }
+        return $object;
+    }
+
+    public function loadFromStdclassForGroups(stdClass $object)
+    {
+        parent::loadFromStdclass($object);
+
+        if (!empty($object->items)) {
+            foreach ($object->items as &$item) {
+                $group = new Group();
+                $group->loadFromStdclass($item);
 
                 $item = $group;
             }

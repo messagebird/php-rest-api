@@ -3,6 +3,7 @@
 namespace MessageBird\Objects\Conversation;
 
 use MessageBird\Objects\Base;
+use stdClass;
 
 /**
  * Represents a counterparty with who messages can be exchanged.
@@ -65,11 +66,24 @@ class Contact extends Base
     public $updatedDatetime;
 
     /**
+     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
+     * 
      * @param mixed $object
      */
     public function loadFromArray($object): Contact
     {
         parent::loadFromArray($object);
+
+        if (!empty($this->customDetails)) {
+            $this->customDetails = (array)$this->customDetails;
+        }
+
+        return $this;
+    }
+
+    public function loadFromStdclass(stdClass $object): self
+    {
+        parent::loadFromStdclass($object);
 
         if (!empty($this->customDetails)) {
             $this->customDetails = (array)$this->customDetails;

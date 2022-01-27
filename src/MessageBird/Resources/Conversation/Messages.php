@@ -37,7 +37,7 @@ class Messages
     {
         $this->httpClient = $httpClient;
 
-        $this->setObject(new Message());
+        $this->object = new Message();
     }
 
     public function getObject(): Message
@@ -45,6 +45,12 @@ class Messages
         return $this->object;
     }
 
+    /**
+     * @deprecated
+     * 
+     * @param Message $object 
+     * @return void 
+     */
     public function setObject(Message $object): void
     {
         $this->object = $object;
@@ -104,7 +110,7 @@ class Messages
         }
 
         if (empty($body->errors)) {
-            return $this->object->loadFromArray($body);
+            return $this->object->loadFromStdclass($body);
         }
 
         $responseError = new ResponseError($body);
@@ -144,14 +150,14 @@ class Messages
             unset($body->items);
 
             $baseList = new BaseList();
-            $baseList->loadFromArray($body);
+            $baseList->loadFromStdclass($body);
 
             $objectName = $this->object;
 
             foreach ($items as $item) {
                 /** @psalm-suppress UndefinedClass */
                 $message = new $objectName($this->httpClient);
-                $message->loadFromArray($item);
+                $message->loadFromStdclass($item);
 
                 $baseList->items[] = $message;
             }
@@ -189,7 +195,7 @@ class Messages
         }
 
         $message = new Message();
-        $message->loadFromArray($body);
+        $message->loadFromStdclass($body);
 
         return $message;
     }

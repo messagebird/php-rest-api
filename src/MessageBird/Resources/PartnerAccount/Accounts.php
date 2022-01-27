@@ -22,7 +22,7 @@ class Accounts extends Base
     {
         parent::__construct($httpClient);
 
-        $this->setObject(new Account());
+        $this->object = new Account();
         $this->setResourceName(self::RESOURCE_NAME);
     }
 
@@ -69,11 +69,11 @@ class Accounts extends Base
             return $this->processRequest($body);
         }
 
-        $response = json_decode($body, true, 512, \JSON_THROW_ON_ERROR);
+        $response = json_decode($body, false, 512, \JSON_THROW_ON_ERROR);
 
         $return = [];
         foreach ($response as &$singleResponse) {
-            $return[] = $this->getObject()->loadFromArray($singleResponse);
+            $return[] = $this->getObject()->loadFromStdclass($singleResponse);
         }
 
         return $return;

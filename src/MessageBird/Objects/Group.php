@@ -92,14 +92,19 @@ class Group extends Base
     }
 
     /**
+     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
+     * 
      * @param mixed $object
      *
      * @return $this|void
      */
     public function loadFromArray($object): self
     {
-        parent::loadFromArray($object);
+        return parent::loadFromArray($object);
+    }
 
-        return $this;
+    public function loadFromStdclass(stdClass $object): self
+    {
+        return parent::loadFromStdclass($object);
     }
 }

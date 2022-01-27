@@ -19,7 +19,7 @@ class PhoneNumbers extends Base
 
     public function __construct(HttpClient $httpClient)
     {
-        $this->setObject(new Objects\Number());
+        $this->object = new Objects\Number();
         $this->setResourceName('phone-numbers');
 
         parent::__construct($httpClient);

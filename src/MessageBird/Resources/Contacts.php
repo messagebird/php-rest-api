@@ -6,6 +6,7 @@ use InvalidArgumentException;
 use MessageBird\Common;
 use MessageBird\Exceptions;
 use MessageBird\Objects;
+use MessageBird\Resources\Messages;
 
 /**
  * Class Contacts
@@ -14,10 +15,17 @@ use MessageBird\Objects;
  */
 class Contacts extends Base
 {
+    /**
+     * @var Messages
+     */
+    private $messagesObject;
+
     public function __construct(Common\HttpClient $httpClient)
     {
-        $this->setObject(new Objects\Contact());
+        $this->object = new Objects\Contact();
         $this->setResourceName('contacts');
+
+        $this->messagesObject = new Messages($httpClient);
 
         parent::__construct($httpClient);
     }
@@ -71,9 +79,8 @@ class Contacts extends Base
             throw new InvalidArgumentException('No contact id provided.');
         }
 
-        $this->setObject(new Objects\Message());
-        $this->setResourceName($this->resourceName . '/' . $id . '/messages');
-        return $this->getList($parameters);
+        $this->messagesObject->setResourceName($this->resourceName . '/' . $id . '/messages');
+        return $this->messagesObject->getList($parameters);
     }
 
     /**
@@ -89,7 +96,7 @@ class Contacts extends Base
             throw new InvalidArgumentException('No contact id provided.');
         }
 
-        $this->setObject(new Objects\Group());
+        $this->object = new Objects\Group();
         $this->setResourceName($this->resourceName . '/' . $id . '/groups');
         return $this->getList($parameters);
     }

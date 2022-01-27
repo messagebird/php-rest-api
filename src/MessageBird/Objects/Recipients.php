@@ -2,6 +2,8 @@
 
 namespace MessageBird\Objects;
 
+use stdClass;
+
 /**
  * Class Recipients
  *
@@ -35,6 +37,8 @@ class Recipients extends Base
     public $items;
 
     /**
+     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
+     * 
      * @param $object
      *
      * @return $this|void
@@ -46,6 +50,20 @@ class Recipients extends Base
         foreach ($this->items as &$item) {
             $recipient = new Recipient();
             $recipient->loadFromArray($item);
+
+            $item = $recipient;
+        }
+
+        return $this;
+    }
+
+    public function loadFromStdclass(stdClass $object): self
+    {
+        parent::loadFromStdclass($object);
+
+        foreach ($this->items as &$item) {
+            $recipient = new Recipient();
+            $recipient->loadFromStdclass($item);
 
             $item = $recipient;
         }

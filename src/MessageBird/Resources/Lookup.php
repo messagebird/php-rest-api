@@ -19,7 +19,7 @@ class Lookup extends Base
 {
     public function __construct(Common\HttpClient $httpClient)
     {
-        $this->setObject(new Objects\Lookup());
+        $this->object = new Objects\Lookup();
         $this->setResourceName('lookup');
 
         parent::__construct($httpClient);
