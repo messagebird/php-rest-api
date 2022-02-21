@@ -92,13 +92,13 @@ class Legs
      */
     public function processRequest(?string $body): Objects\Voice\Leg
     {
-        try {
-            $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
-        } catch (\JsonException $e) {
+        if ($body === null) {
             throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
         }
 
-        if ($body === null) {
+        try {
+            $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
             throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
         }
 

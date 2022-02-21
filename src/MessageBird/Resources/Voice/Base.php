@@ -70,15 +70,15 @@ class Base extends \MessageBird\Resources\Base
      */
     public function processRequest(?string $body)
     {
+        if ($body === null) {
+            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
+        }
+
         try {
             $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
         } catch (\JsonException $e) {
             throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
 
-        }
-
-        if ($body === null) {
-            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
         }
 
         if (empty($body->errors)) {

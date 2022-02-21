@@ -173,27 +173,28 @@ class WebhookSignatureTestIterator implements Iterator
         $this->array = $array;
     }
 
-    function rewind()
+    function rewind(): void
     {
-        return reset($this->array);
+        reset($this->array);
     }
 
-    function current()
+    function current(): array
     {
         return [current($this->array)];
     }
 
+    #[\ReturnTypeWillChange]
     function key()
     {
         return current($this->array)['name'];
     }
 
-    function next()
+    function next(): void
     {
-        return [next($this->array)];
+        next($this->array);
     }
 
-    function valid()
+    function valid(): bool
     {
         return key($this->array) !== null;
     }
