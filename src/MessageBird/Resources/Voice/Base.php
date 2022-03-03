@@ -45,7 +45,7 @@ class Base extends \MessageBird\Resources\Base
 
             $baseList = new BaseList();
             if (property_exists($body, 'pagination')) {
-                $baseList->loadFromArray($body->pagination);
+                $baseList->loadFromStdclass($body->pagination);
             }
 
             $objectName = $this->object;
@@ -54,7 +54,7 @@ class Base extends \MessageBird\Resources\Base
                 /** @psalm-suppress UndefinedClass */
                 $itemObject = new $objectName($this->httpClient);
 
-                $message = $itemObject->loadFromArray($singleData);
+                $message = $itemObject->loadFromStdclass($singleData);
                 $baseList->items[] = $message;
             }
             return $baseList;
@@ -82,7 +82,7 @@ class Base extends \MessageBird\Resources\Base
         }
 
         if (empty($body->errors)) {
-            return $this->object->loadFromArray($body->data[0]);
+            return $this->object->loadFromStdclass($body->data[0]);
         }
 
         $responseError = new Common\ResponseError($body);

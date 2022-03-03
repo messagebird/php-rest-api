@@ -14,7 +14,7 @@ class VoiceMessage extends Base
 {
     public function __construct(Common\HttpClient $httpClient)
     {
-        $this->setObject(new Objects\VoiceMessage());
+        $this->object = new Objects\VoiceMessage();
         $this->setResourceName('voicemessages');
 
         parent::__construct($httpClient);

@@ -19,7 +19,7 @@ class LookupHlr extends Base
 {
     public function __construct(Common\HttpClient $httpClient)
     {
-        $this->setObject(new Objects\Hlr());
+        $this->object = new Objects\Hlr();
         $this->setResourceName('lookup');
 
         parent::__construct($httpClient);

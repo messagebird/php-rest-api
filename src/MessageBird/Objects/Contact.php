@@ -2,6 +2,8 @@
 
 namespace MessageBird\Objects;
 
+use stdClass;
+
 /**
  * Class Contact
  *
@@ -65,16 +67,16 @@ class Contact extends Base
     /**
      * The hash of the group this contact belongs to.
      *
-     * @var array
+     * @var ?stdClass
      */
-    protected $groups = [];
+    protected $groups = null;
 
     /**
      * The hash with messages sent to contact.
      *
-     * @var array
+     * @var ?stdClass
      */
-    protected $messages = [];
+    protected $messages = null;
 
     /**
      * The date and time of the creation of the contact in RFC3339 format (Y-m-d\TH:i:sP)
@@ -100,12 +102,12 @@ class Contact extends Base
         return $this->href;
     }
 
-    public function getGroups(): array
+    public function getGroups(): stdClass
     {
         return $this->groups;
     }
 
-    public function getMessages(): array
+    public function getMessages(): stdClass
     {
         return $this->messages;
     }
@@ -115,7 +117,7 @@ class Contact extends Base
         return $this->createdDatetime;
     }
 
-    public function getUpdatedDatetime(): string
+    public function getUpdatedDatetime(): ?string
     {
         return $this->updatedDatetime;
     }
@@ -126,16 +128,27 @@ class Contact extends Base
     }
 
     /**
+     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
+     * 
      * @param mixed $object
      */
-    public function loadFromArray($object): Contact
+    public function loadFromArray($object): self
     {
         unset($this->custom1, $this->custom2, $this->custom3, $this->custom4);
-
+        
         return parent::loadFromArray($object);
     }
 
+    public function loadFromStdclass(stdClass $object): self
+    {
+        unset($this->custom1, $this->custom2, $this->custom3, $this->custom4);
+        
+        return parent::loadFromStdclass($object);
+    }
+
     /**
+     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclassForGroups()}
+     * 
      * @param mixed $object
      *
      * @return $this ->object
@@ -148,6 +161,21 @@ class Contact extends Base
             foreach ($object->items as &$item) {
                 $group = new Group();
                 $group->loadFromArray($item);
+
+                $item = $group;
+            }
+        }
+        return $object;
+    }
+
+    public function loadFromStdclassForGroups(stdClass $object)
+    {
+        parent::loadFromStdclass($object);
+
+        if (!empty($object->items)) {
+            foreach ($object->items as &$item) {
+                $group = new Group();
+                $group->loadFromStdclass($item);
 
                 $item = $group;
             }

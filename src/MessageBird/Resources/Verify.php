@@ -18,7 +18,7 @@ class Verify extends Base
 {
     public function __construct(Common\HttpClient $httpClient)
     {
-        $this->setObject(new Objects\Verify());
+        $this->object = new Objects\Verify();
         $this->setResourceName('verify');
 
         parent::__construct($httpClient);

@@ -51,11 +51,11 @@ class AvailablePhoneNumbers
         unset($body->items);
 
         $baseList = new Objects\BaseList();
-        $baseList->loadFromArray($body);
+        $baseList->loadFromStdclass($body);
 
         foreach ($items as $item) {
             $object = new Objects\Number();
-            $itemObject = $object->loadFromArray($item);
+            $itemObject = $object->loadFromStdclass($item);
             $baseList->items[] = $itemObject;
         }
         return $baseList;
@@ -84,6 +84,6 @@ class AvailablePhoneNumbers
             throw new Exceptions\RequestException($responseError->getErrorString());
         }
 
-        return (new Objects\Number())->loadFromArray($body->data[0]);
+        return (new Objects\Number())->loadFromStdclass($body->data[0]);
     }
 }

@@ -28,7 +28,7 @@ class ConversationContentTest extends BaseTest
     private function messageFromJson(string $json): Message
     {
         $message = new Message();
-        $message->loadFromArray(
+        $message->loadFromStdclass(
             json_decode($json)
         );
 

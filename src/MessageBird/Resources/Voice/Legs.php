@@ -27,7 +27,7 @@ class Legs
     public function __construct(HttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
-        $this->setObject(new Objects\Voice\Leg());
+        $this->object = new Objects\Voice\Leg();
     }
 
     public function getObject(): Objects\Voice\Leg
@@ -36,6 +36,8 @@ class Legs
     }
 
     /**
+     * @deprecated
+     * 
      * @param mixed $object
      */
     public function setObject($object): void
@@ -67,7 +69,7 @@ class Legs
             unset($body->data);
 
             $baseList = new Objects\BaseList();
-            $baseList->loadFromArray($body);
+            $baseList->loadFromStdclass($body);
 
             $objectName = $this->object;
 
@@ -75,7 +77,7 @@ class Legs
                 /** @psalm-suppress UndefinedClass */
                 $object = new $objectName($this->httpClient);
 
-                $itemObject = $object->loadFromArray($item);
+                $itemObject = $object->loadFromStdclass($item);
                 $baseList->items[] = $itemObject;
             }
             return $baseList;
@@ -103,7 +105,7 @@ class Legs
         }
 
         if (empty($body->errors)) {
-            return $this->object->loadFromArray($body->data[0]);
+            return $this->object->loadFromStdclass($body->data[0]);
         }
 
         $responseError = new Common\ResponseError($body);

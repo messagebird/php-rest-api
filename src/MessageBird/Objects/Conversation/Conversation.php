@@ -3,6 +3,7 @@
 namespace MessageBird\Objects\Conversation;
 
 use MessageBird\Objects\Base;
+use stdClass;
 
 /**
  * A conversation is the view of all messages between you and a customer across
@@ -96,6 +97,8 @@ class Conversation extends Base
     public $updatedDatetime;
 
     /**
+     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
+     * 
      * @param mixed $object
      */
     public function loadFromArray($object): Conversation
@@ -125,6 +128,40 @@ class Conversation extends Base
         if (!empty($this->messages)) {
             $messages = new MessageReference();
             $messages->loadFromArray($this->messages);
+
+            $this->messages = $messages;
+        }
+
+        return $this;
+    }
+
+    public function loadFromStdclass(stdClass $object): self
+    {
+        parent::loadFromStdclass($object);
+
+        if (!empty($object->contact)) {
+            $newContact = new Contact();
+            $newContact->loadFromStdclass($object->contact);
+
+            $this->contact = $newContact;
+        }
+
+        if (!empty($object->channels)) {
+            $channels = [];
+
+            foreach ($object->channels as $channel) {
+                $newChannel = new Channel();
+                $newChannel->loadFromStdclass($channel);
+
+                $channels[] = $newChannel;
+            }
+
+            $this->channels = $channels;
+        }
+
+        if (!empty($object->messages)) {
+            $messages = new MessageReference();
+            $messages->loadFromStdclass($object->messages);
 
             $this->messages = $messages;
         }

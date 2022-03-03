@@ -2,6 +2,8 @@
 
 namespace MessageBird\Objects;
 
+use stdClass;
+
 /**
  * Class Group
  *
@@ -15,6 +17,7 @@ class Group extends Base
      * @var int
      */
     public $name;
+
     /**
      * An unique random ID which is created on the MessageBird
      * platform and is returned upon creation of the object.
@@ -22,18 +25,20 @@ class Group extends Base
      * @var string
      */
     protected $id;
+
     /**
      * The URL of the created object.
      *
      * @var string
      */
     protected $href;
+
     /**
      * The hash with the contacts in group.
      *
-     * @var array
+     * @var ?stdClass
      */
-    protected $contacts = [];
+    protected $contacts = null;
 
     /**
      * The date and time of the creation of the group in RFC3339 format (Y-m-d\TH:i:sP)
@@ -76,29 +81,30 @@ class Group extends Base
     /**
      * Get the $updatedDatetime value
      */
-    public function getUpdatedDatetime(): string
+    public function getUpdatedDatetime(): ?string
     {
         return $this->createdDatetime;
     }
 
+    public function getContacts(): stdClass
+    {
+        return $this->contacts;
+    }
+
     /**
+     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
+     * 
      * @param mixed $object
      *
      * @return $this|void
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): self
     {
-        parent::loadFromArray($object);
+        return parent::loadFromArray($object);
+    }
 
-        if (!empty($object->items)) {
-            foreach ($object->items as &$item) {
-                $contact = new Contact();
-                $contact->loadFromArray($item);
-
-                $item = $contact;
-            }
-        }
-
-        return $object;
+    public function loadFromStdclass(stdClass $object): self
+    {
+        return parent::loadFromStdclass($object);
     }
 }

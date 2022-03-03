@@ -14,10 +14,17 @@ use MessageBird\Objects;
  */
 class Groups extends Base
 {
+    /**
+     * @var Contacts
+     */
+    private $contactsObject;
+
     public function __construct(Common\HttpClient $httpClient)
     {
-        $this->setObject(new Objects\Group());
+        $this->object = new Objects\Group();
         $this->setResourceName('groups');
+
+        $this->contactsObject = new Contacts($httpClient);
 
         parent::__construct($httpClient);
     }
@@ -74,8 +81,8 @@ class Groups extends Base
             throw new InvalidArgumentException('No group id provided.');
         }
 
-        $this->setResourceName($this->resourceName . '/' . $id . '/contacts');
-        return $this->getList($parameters);
+        $this->contactsObject->setResourceName($this->resourceName . '/' . $id . '/contacts');
+        return $this->contactsObject->getList($parameters);
     }
 
     /**

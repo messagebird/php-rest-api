@@ -23,7 +23,7 @@ class Send extends Base
     {
         parent::__construct($httpClient);
 
-        $this->setObject(new SendMessageResult());
+        $this->object = new SendMessageResult();
         $this->setResourceName(self::RESOURCE_NAME);
     }
 

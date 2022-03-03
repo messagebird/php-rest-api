@@ -12,6 +12,6 @@ class Contacts extends Base
     {
         parent::__construct($httpClient);
 
-        $this->setObject(new Contact());
+        $this->object = new Contact();
     }
 }

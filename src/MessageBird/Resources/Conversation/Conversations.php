@@ -21,7 +21,7 @@ class Conversations extends Base
     {
         parent::__construct($httpClient);
 
-        $this->setObject(new Conversation());
+        $this->object = new Conversation();
         $this->setResourceName(self::RESOURCE_NAME);
     }
 

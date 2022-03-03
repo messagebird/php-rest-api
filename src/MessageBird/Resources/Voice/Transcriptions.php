@@ -27,7 +27,7 @@ class Transcriptions
     public function __construct(HttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
-        $this->setObject(new Objects\Voice\Transcription());
+        $this->object = new Objects\Voice\Transcription();
     }
 
     public function getObject(): Objects\Voice\Transcription
@@ -36,6 +36,8 @@ class Transcriptions
     }
 
     /**
+     * @deprecated
+     * 
      * @param mixed $object
      */
     public function setObject($object): void
@@ -80,7 +82,7 @@ class Transcriptions
         }
 
         if (empty($body->errors)) {
-            return $this->object->loadFromArray($body->data[0]);
+            return $this->object->loadFromStdclass($body->data[0]);
         }
 
         $responseError = new Common\ResponseError($body);
@@ -111,7 +113,7 @@ class Transcriptions
             unset($body->data);
 
             $baseList = new Objects\BaseList();
-            $baseList->loadFromArray($body);
+            $baseList->loadFromStdclass($body);
 
             $objectName = $this->object;
 
@@ -119,7 +121,7 @@ class Transcriptions
                 /** @psalm-suppress UndefinedClass */
                 $object = new $objectName($this->httpClient);
 
-                $itemObject = $object->loadFromArray($item);
+                $itemObject = $object->loadFromStdclass($item);
                 $baseList->items[] = $itemObject;
             }
             return $baseList;

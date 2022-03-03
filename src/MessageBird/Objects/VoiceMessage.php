@@ -130,11 +130,13 @@ class VoiceMessage extends Base
     }
 
     /**
+     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
+     * 
      * @param mixed $object
      *
      * @return $this|void
      */
-    public function loadFromArray($object)
+    public function loadFromArray($object): self
     {
         parent::loadFromArray($object);
 

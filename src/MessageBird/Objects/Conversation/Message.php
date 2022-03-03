@@ -4,6 +4,7 @@ namespace MessageBird\Objects\Conversation;
 
 use JsonSerializable;
 use MessageBird\Objects\Base;
+use stdClass;
 
 /**
  * Messages that have been sent by, or received from, a customer are
@@ -95,6 +96,8 @@ class Message extends Base implements JsonSerializable
     public $updatedDatetime;
 
     /**
+     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
+     * 
      * @param mixed $object
      */
     public function loadFromArray($object): Message
@@ -105,6 +108,19 @@ class Message extends Base implements JsonSerializable
         $content->loadFromArray($this->content);
 
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function loadFromStdclass(stdClass $object): self
+    {
+        parent::loadFromStdclass($object);
+
+        if (property_exists($object, 'content')) {
+            $content = new Content();
+            $content->loadFromStdclass($object->content);
+            $this->content = $content;
+        }
 
         return $this;
     }

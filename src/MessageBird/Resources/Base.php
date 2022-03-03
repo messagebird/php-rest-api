@@ -61,6 +61,8 @@ class Base
     }
 
     /**
+     * @deprecated
+     * 
      * @param mixed $object
      */
     public function setObject($object): void
@@ -133,10 +135,18 @@ class Base
         }
 
         if ($this->responseObject) {
-            return $this->responseObject->loadFromArray($body);
+            return $this->responseObject->loadFromStdclass($body);
+        }
+        
+        if (is_array($body)) {
+            $parsed = [];
+            foreach ($body as $b) {
+                $parsed[] = $this->object->loadFromStdclass($b);
+            }
+            return $parsed;
         }
 
-        return $this->object->loadFromArray($body);
+        return $this->object->loadFromStdclass($body);
     }
 
     /**
