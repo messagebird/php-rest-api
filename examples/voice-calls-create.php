@@ -7,7 +7,6 @@ $call = new \MessageBird\Objects\Voice\Call();
 $call->source = '31971234567';
 $call->destination = '31612345678';
 $callFlow = new \MessageBird\Objects\Voice\CallFlow();
-$callFlow->title = 'Say message';
 $step = new \MessageBird\Objects\Voice\Step();
 $step->action = 'say';
 $step->options = [
