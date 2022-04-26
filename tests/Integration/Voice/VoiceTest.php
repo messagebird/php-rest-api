@@ -348,7 +348,6 @@ class VoiceTest extends BaseTest
     public function testCreateVoiceCallFlow(): void
     {
         $callFlow = new CallFlow();
-        $callFlow->title = 'Foobar';
         $callFlow->steps = [
             [
                 'action' => 'transfer',
@@ -365,7 +364,6 @@ class VoiceTest extends BaseTest
   "data": [
     {
       "id": "de3ed163-d5fc-45f4-b8c4-7eea7458c635",
-      "title": "Forward call to 31612345678",
       "steps": [
         {
           "id": "3538a6b8-5a2e-4537-8745-f72def6bd393",
@@ -397,7 +395,7 @@ class VoiceTest extends BaseTest
             "POST",
             'call-flows',
             null,
-            '{"title":"Foobar","steps":[{"action":"transfer","options":{"destination":"31612345678"}}]}'
+            '{"steps":[{"action":"transfer","options":{"destination":"31612345678"}}]}'
         );
         $this->client->voiceCallFlows->create($callFlow);
     }

@@ -4,7 +4,6 @@ require_once(__DIR__ . '/../autoload.php');
 
 $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 $callFlow = new \MessageBird\Objects\Voice\CallFlow();
-$callFlow->title = 'Foobar';
 $step = new \MessageBird\Objects\Voice\Step();
 $step->action = 'say';
 $step->options = [

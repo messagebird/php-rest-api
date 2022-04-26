@@ -10,6 +10,7 @@ class CallFlow extends Base
      * The title of the call flow
      *
      * @var string
+     * @deprecated
      */
     public $title;
     /**
@@ -40,6 +41,12 @@ class CallFlow extends Base
      * @var string
      */
     protected $updatedAt;
+
+    function __construct() {
+        if ($this->title == null) {
+            unset($this->title);
+        }
+    }
 
     /**
      * @inheritdoc
