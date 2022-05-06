@@ -25,8 +25,7 @@ class MessageReference extends Base
     public $totalCount;
     
     /**
-     *
-     * @var string
+     * @var string|null
      */
     public $lastMessageId;
 }

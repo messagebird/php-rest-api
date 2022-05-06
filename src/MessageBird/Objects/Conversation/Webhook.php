@@ -30,7 +30,7 @@ class Webhook extends Base implements JsonSerializable
     /**
      * The URL of this webhook object.
      *
-     * @var string
+     * @var string|null
      */
     public $href;
 
