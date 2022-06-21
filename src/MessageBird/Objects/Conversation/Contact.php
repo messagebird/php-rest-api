@@ -28,7 +28,7 @@ class Contact extends Base
     /**
      * The MSISDN/phone number of this contact.
      *
-     * @var string
+     * @var int|null
      */
     public $msisdn;
 

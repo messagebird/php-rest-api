@@ -44,7 +44,7 @@ class Message extends Base implements JsonSerializable
      * outbound messages sent through the API or 'received' (mobile-originated)
      * for inbound messages from the contact.
      *
-     * @var string
+     * @var string|null
      */
     public $direction;
 
@@ -59,7 +59,7 @@ class Message extends Base implements JsonSerializable
 
     /**
      * Type of this message's content. Possible values: "text", "image",
-     * "audio", "video", "file", "location".
+     * "audio", "video", "file", "location", "hsm", "interactive", "email".
      *
      * @var string
      */

@@ -61,7 +61,7 @@ class Contact extends Base
     /**
      * Custom fields of the contact.
      *
-     * @var array
+     * @var stdClass
      */
     protected $customDetails = [];
     /**
@@ -88,7 +88,7 @@ class Contact extends Base
     /**
      * The date and time of the updated of the contact in RFC3339 format (Y-m-d\TH:i:sP)
      *
-     * @var string
+     * @var string|null
      */
     protected $updatedDatetime;
 
@@ -122,7 +122,7 @@ class Contact extends Base
         return $this->updatedDatetime;
     }
 
-    public function getCustomDetails(): array
+    public function getCustomDetails(): stdClass
     {
         return $this->customDetails;
     }

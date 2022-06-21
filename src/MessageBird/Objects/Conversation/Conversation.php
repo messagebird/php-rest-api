@@ -29,7 +29,7 @@ class Conversation extends Base
     /**
      * The URL of this conversation object.
      *
-     * @var string
+     * @var string|null
      */
     public $href;
 
