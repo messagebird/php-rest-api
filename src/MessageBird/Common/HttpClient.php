@@ -19,6 +19,8 @@ class HttpClient
     public const REQUEST_PUT = 'PUT';
     public const REQUEST_PATCH = 'PATCH';
 
+    public const HTTP_NO_CONTENT = 204;
+
     public const TIMEOUT_DEFAULT = 10;
 
     public const CONNECTION_TIMEOUT_DEFAULT = 2;
@@ -58,6 +60,12 @@ class HttpClient
      */
     private $httpOptions = [];
 
+    /**
+     * @param string $endpoint
+     * @param int $timeout
+     * @param int $connectionTimeout
+     * @param array $headers
+     */
     public function __construct(
         string $endpoint,
         int    $timeout = self::TIMEOUT_DEFAULT,
@@ -94,16 +102,28 @@ class HttpClient
         $this->headers = $headers;
     }
 
+    /**
+     * @param string $userAgent
+     * @return void
+     */
     public function addUserAgentString(string $userAgent): void
     {
         $this->userAgent[] = $userAgent;
     }
 
+    /**
+     * @param Authentication $authentication
+     * @return void
+     */
     public function setAuthentication(Common\Authentication $authentication): void
     {
         $this->authentication = $authentication;
     }
 
+    /**
+     * @param array $headers
+     * @return void
+     */
     public function setHeaders(array $headers): void
     {
         $this->headers = $headers;
@@ -230,12 +250,20 @@ class HttpClient
         return $requestUrl;
     }
 
+    /**
+     * @param int $timeout
+     * @return $this
+     */
     public function setTimeout(int $timeout): HttpClient
     {
         $this->timeout = $timeout;
         return $this;
     }
 
+    /**
+     * @param int $connectionTimeout
+     * @return $this
+     */
     public function setConnectionTimeout(int $connectionTimeout): HttpClient
     {
         $this->connectionTimeout = $connectionTimeout;

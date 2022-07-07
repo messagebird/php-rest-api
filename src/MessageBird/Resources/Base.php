@@ -6,6 +6,7 @@ use MessageBird\Common;
 use MessageBird\Common\HttpClient;
 use MessageBird\Exceptions;
 use MessageBird\Objects;
+use MessageBird\Objects\Jsonable;
 
 /**
  * Class Base
@@ -34,20 +35,26 @@ class Base
      */
     protected $responseObject;
 
+    /**
+     * @param HttpClient $httpClient
+     */
     public function __construct(HttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
     }
 
+    /**
+     * @return string
+     */
     public function getResourceName(): string
     {
         return $this->resourceName;
     }
 
     /**
-     * @param mixed $resourceName
+     * @param string $resourceName
      */
-    public function setResourceName($resourceName): void
+    public function setResourceName(string $resourceName): void
     {
         $this->resourceName = $resourceName;
     }
@@ -62,7 +69,7 @@ class Base
 
     /**
      * @deprecated
-     * 
+     *
      * @param mixed $object
      */
     public function setObject($object): void
@@ -70,6 +77,9 @@ class Base
         $this->object = $object;
     }
 
+    /**
+     * @return Objects\MessageResponse
+     */
     public function getResponseObject(): Objects\MessageResponse
     {
         return $this->responseObject;
@@ -86,7 +96,7 @@ class Base
     /**
      * @no-named-arguments
      *
-     * @param mixed $object
+     * @param Jsonable $object
      * @param array|null $query
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\MessageResponse|Objects\Verify|Objects\VoiceMessage|null
@@ -96,9 +106,9 @@ class Base
      * @throws Exceptions\BalanceException
      * @throws \JsonException
      */
-    public function create($object, ?array $query = null)
+    public function create(Jsonable $object, array $query = null)
     {
-        $body = json_encode($object, \JSON_THROW_ON_ERROR);
+        $body = $object->toJson(\JSON_THROW_ON_ERROR);
         [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_POST,
             $this->resourceName,
@@ -137,7 +147,7 @@ class Base
         if ($this->responseObject) {
             return $this->responseObject->loadFromStdclass($body);
         }
-        
+
         if (is_array($body)) {
             $parsed = [];
             foreach ($body as $b) {
@@ -277,6 +287,9 @@ class Base
         return $this->processRequest($body);
     }
 
+    /**
+     * @return HttpClient
+     */
     public function getHttpClient(): HttpClient
     {
         return $this->httpClient;
