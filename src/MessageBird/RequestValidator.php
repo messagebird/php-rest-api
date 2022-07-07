@@ -6,7 +6,6 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Firebase\JWT\SignatureInvalidException;
 use MessageBird\Exceptions\ValidationException;
-use MessageBird\Objects\SignedRequest;
 
 use function base64_decode;
 use function hash;
