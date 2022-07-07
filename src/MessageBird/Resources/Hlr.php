@@ -2,8 +2,7 @@
 
 namespace MessageBird\Resources;
 
-use MessageBird\Common;
-use MessageBird\Objects;
+use GuzzleHttp\ClientInterface;
 
 /**
  * Class Hlr
@@ -12,11 +11,19 @@ use MessageBird\Objects;
  */
 class Hlr extends Base
 {
-    public function __construct(Common\HttpClient $httpClient)
+    /**
+     * @param ClientInterface $httpClient
+     */
+    public function __construct(ClientInterface $httpClient)
     {
-        $this->object = new Objects\Hlr();
-        $this->setResourceName('hlr');
+        parent::__construct($httpClient, 'hlr');
+    }
 
-        parent::__construct($httpClient);
+    /**
+     * @return string
+     */
+    protected function responseClass(): string
+    {
+        return \MessageBird\Objects\Hlr::class;
     }
 }

@@ -40,14 +40,20 @@ abstract class Base
 
     /**
      * @param Arrayable $params
-     * @param array|null $query
+     * @param array $query
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\MessageResponse|Objects\Verify|Objects\VoiceMessage|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function create(Arrayable $params, array $query = null): Objects\Base
+    public function create(Arrayable $params, array $query = []): Objects\Base
     {
-        $response = $this->httpClient->request(HttpClient::REQUEST_POST, $this->resourceName, [
+        if (empty($query)) {
+            $uri = $this->resourceName;
+        } else {
+            $uri = $this->resourceName . '?' . http_build_query($query);
+        }
+
+        $response = $this->httpClient->request(HttpClient::REQUEST_POST, $uri, [
             'body' => $params->toArray()
         ]);
 
@@ -139,7 +145,7 @@ abstract class Base
      * @throws Exceptions\ServerException|\GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
      */
-    public function read(string $id, array $params = []): Objects\Base
+    protected function readById(string $id, array $params = []): Objects\Base
     {
         $uri = $this->resourceName . '/' . $id . '?' . http_build_query($params);
         $response = $this->httpClient->request(HttpClient::REQUEST_GET, $uri);
@@ -148,9 +154,25 @@ abstract class Base
     }
 
     /**
+     * @param string $name
+     * @param array $arguments
+     * @return Objects\Base|void
+     * @throws Exceptions\ServerException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
+     */
+    public function __call(string $name, array $arguments)
+    {
+        if ($name == 'read') {
+            return $this->readById(...$arguments);
+        }
+    }
+
+    /**
      * @param string $id
      * @return Objects\Base
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
     public function delete(string $id): Objects\Base
     {
@@ -163,6 +185,7 @@ abstract class Base
     /**
      * @param ResponseInterface $response
      * @return Objects\Base
+     * @throws \JsonMapper_Exception
      */
     protected function handleDeleteResponse(ResponseInterface $response): Objects\Base
     {
@@ -180,4 +203,12 @@ abstract class Base
      * @return string
      */
     abstract protected function responseClass(): string;
+
+    /**
+     * @return string
+     */
+    protected function getResourceName(): string
+    {
+        return $this->resourceName;
+    }
 }

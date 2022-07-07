@@ -2,8 +2,10 @@
 
 namespace MessageBird\Resources;
 
+use GuzzleHttp\ClientInterface;
 use InvalidArgumentException;
 use MessageBird\Common;
+use MessageBird\Common\HttpClient;
 use MessageBird\Exceptions\AuthenticateException;
 use MessageBird\Exceptions\HttpException;
 use MessageBird\Exceptions\RequestException;
@@ -17,38 +19,40 @@ use MessageBird\Objects;
  */
 class Lookup extends Base
 {
-    public function __construct(Common\HttpClient $httpClient)
+    /**
+     * @param ClientInterface $httpClient
+     */
+    public function __construct(ClientInterface $httpClient)
     {
-        $this->object = new Objects\Lookup();
-        $this->setResourceName('lookup');
-
-        parent::__construct($httpClient);
+        parent::__construct($httpClient, 'lookup');
     }
 
     /**
-     * @no-named-arguments
-     *
+     * @return string
+     */
+    protected function responseClass(): string
+    {
+        return Objects\Lookup::class;
+    }
+
+    /**
      * @param string|int $phoneNumber
      * @param string|null $countryCode
      *
-     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|\MessageBird\Objects\Messages\Message|Objects\Verify|Objects\VoiceMessage|null
-     *
-     * @throws HttpException
-     * @throws RequestException
-     * @throws ServerException
-     * @throws AuthenticateException
+     * @return Objects\Lookup|Objects\Base
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
-    public function read($phoneNumber = null, ?string $countryCode = null)
+    public function read(string $phoneNumber, string $countryCode = null): Objects\Lookup
     {
-        if (empty($phoneNumber)) {
-            throw new InvalidArgumentException('The phone number cannot be empty.');
-        }
-        $query = null;
         if ($countryCode !== null) {
             $query = ["countryCode" => $countryCode];
         }
-        $resourceName = $this->resourceName . '/' . $phoneNumber;
-        [, , $body] = $this->httpClient->performHttpRequest(Common\HttpClient::REQUEST_GET, $resourceName, $query);
-        return $this->processRequest($body);
+
+        $uri = $this->getResourceName() . '/' . $phoneNumber . '?' . http_build_query(["countryCode" => $countryCode]);
+
+        $response = $this->httpClient->request(HttpClient::REQUEST_GET, $uri);
+
+        return $this->handleCreateResponse($response);
     }
 }

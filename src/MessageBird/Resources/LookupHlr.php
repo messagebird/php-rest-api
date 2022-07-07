@@ -2,13 +2,11 @@
 
 namespace MessageBird\Resources;
 
+use GuzzleHttp\ClientInterface;
 use InvalidArgumentException;
-use MessageBird\Common;
-use MessageBird\Exceptions\AuthenticateException;
-use MessageBird\Exceptions\HttpException;
-use MessageBird\Exceptions\RequestException;
-use MessageBird\Exceptions\ServerException;
+use MessageBird\Common\HttpClient;
 use MessageBird\Objects;
+use MessageBird\Objects\Arrayable;
 
 /**
  * Class LookupHlr
@@ -17,76 +15,66 @@ use MessageBird\Objects;
  */
 class LookupHlr extends Base
 {
-    public function __construct(Common\HttpClient $httpClient)
+    /**
+     * @param ClientInterface $httpClient
+     */
+    public function __construct(ClientInterface $httpClient)
     {
-        $this->object = new Objects\Hlr();
-        $this->setResourceName('lookup');
-
-        parent::__construct($httpClient);
+        parent::__construct($httpClient, 'lookup');
     }
 
     /**
-     * @param Objects\Hlr $object
-     * @param array|null $query
-     *
-     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|\MessageBird\Objects\Messages\Message|Objects\Verify|Objects\VoiceMessage|null
-     *
-     * @throws HttpException
-     * @throws RequestException
-     * @throws ServerException
-     * @throws \JsonException
-     * @throws AuthenticateException
+     * @return string
      */
-    public function create($hlr, $countryCode = null)
+    protected function responseClass(): string
+    {
+        return Objects\Hlr::class;
+    }
+
+    /**
+     * @param Objects\Hlr|Arrayable $hlr
+     * @param array $query
+     * @return Objects\Hlr|Objects\Base
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
+     */
+    public function create(Arrayable $hlr, array $query = []): Objects\Hlr
     {
         if (empty($hlr->msisdn)) {
             throw new InvalidArgumentException('The phone number ($hlr->msisdn) cannot be empty.');
         }
 
-        $query = null;
-        if ($countryCode !== null) {
-            $query = ["countryCode" => $countryCode];
+        $uri = $this->getResourceName() . '/' . ($hlr->msisdn) . '/hlr';
+
+        if (empty($query) === false) {
+            $uri .= '?' . http_build_query($query);
         }
-        $resourceName = $this->resourceName . '/' . ($hlr->msisdn) . '/hlr';
-        [, , $body] = $this->httpClient->performHttpRequest(
-            Common\HttpClient::REQUEST_POST,
-            $resourceName,
-            $query,
-            json_encode($hlr, \JSON_THROW_ON_ERROR)
-        );
-        return $this->processRequest($body);
+
+        $response = $this->httpClient->request(HttpClient::REQUEST_POST, $uri, [
+            'body' => $hlr->toArray()
+        ]);
+
+        return $this->handleCreateResponse($response);
     }
 
     /**
-     * @no-named-arguments
-     *
      * @param mixed $phoneNumber
-     * @param string|null $countryCode
+     * @param array $query
+     * @return Objects\Hlr|Objects\Base
      *
-     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|\MessageBird\Objects\Messages\Message|Objects\Verify|Objects\VoiceMessage|null
-     *
-     * @throws HttpException
-     * @throws RequestException
-     * @throws ServerException
-     * @throws AuthenticateException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
-    public function read($phoneNumber = null, ?string $countryCode = null)
+    public function read(string $phoneNumber, array $query = []): Objects\Hlr
     {
         if (empty($phoneNumber)) {
             throw new InvalidArgumentException('The phone number cannot be empty.');
         }
 
-        $query = null;
-        if ($countryCode !== null) {
-            $query = ["countryCode" => $countryCode];
-        }
-        $resourceName = $this->resourceName . '/' . $phoneNumber . '/hlr';
-        [, , $body] = $this->httpClient->performHttpRequest(
-            Common\HttpClient::REQUEST_GET,
-            $resourceName,
-            $query,
-            null
-        );
-        return $this->processRequest($body);
+        $uri = $this->getResourceName() . '/' . $phoneNumber . '/hlr' . '?' . http_build_query($query);
+
+        $response = $this->httpClient->request(HttpClient::REQUEST_GET, $uri);
+
+        return $this->handleCreateResponse($response);
     }
 }

@@ -2,11 +2,8 @@
 
 namespace MessageBird\Resources;
 
-use MessageBird\Common;
-use MessageBird\Exceptions\AuthenticateException;
-use MessageBird\Exceptions\HttpException;
-use MessageBird\Exceptions\RequestException;
-use MessageBird\Exceptions\ServerException;
+use GuzzleHttp\ClientInterface;
+use MessageBird\Common\HttpClient;
 use MessageBird\Objects;
 
 /**
@@ -16,32 +13,36 @@ use MessageBird\Objects;
  */
 class Verify extends Base
 {
-    public function __construct(Common\HttpClient $httpClient)
+    /**
+     * @param ClientInterface $httpClient
+     */
+    public function __construct(ClientInterface $httpClient)
     {
-        $this->object = new Objects\Verify();
-        $this->setResourceName('verify');
-
-        parent::__construct($httpClient);
+        parent::__construct($httpClient, 'verify');
     }
 
     /**
-     * @param mixed $id
-     * @param mixed $token
+     * @param string $id
+     * @param string $token
      *
-     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|\MessageBird\Objects\Messages\Message|Objects\Verify|Objects\VoiceMessage|null
-     *
-     * @throws HttpException
-     * @throws RequestException
-     * @throws ServerException|AuthenticateException
+     * @return Objects\Verify|Objects\Base
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
-    public function verify($id, $token)
+    public function verify(string $id, string $token): Objects\Verify
     {
-        $resourceName = $this->resourceName . (($id) ? '/' . $id : null);
-        [, , $body] = $this->httpClient->performHttpRequest(
-            Common\HttpClient::REQUEST_GET,
-            $resourceName,
-            ['token' => $token]
-        );
-        return $this->processRequest($body);
+        $uri = $this->getResourceName() . '/' . $id . '?' . http_build_query(['token' => $token]);
+
+        $response = $this->httpClient->request(HttpClient::REQUEST_GET, $uri);
+
+        return $this->handleCreateResponse($response);
+    }
+
+    /**
+     * @return string
+     */
+    protected function responseClass(): string
+    {
+        return Objects\Verify::class;
     }
 }
