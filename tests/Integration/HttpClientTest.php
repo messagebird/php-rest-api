@@ -12,20 +12,20 @@ class HttpClientTest extends BaseTest
 {
     public function testHttpClient(): void
     {
-        $client = new HttpClient(Client::ENDPOINT);
+        $client = new HttpClient(Client::RESTAPI_ENDPOINT);
 
         $url = $client->getRequestUrl('a', null);
-        self::assertSame(Client::ENDPOINT . '/a', $url);
+        self::assertSame(Client::RESTAPI_ENDPOINT . '/a', $url);
 
         $url = $client->getRequestUrl('a', ['b' => 1]);
-        self::assertSame(Client::ENDPOINT . '/a?b=1', $url);
+        self::assertSame(Client::RESTAPI_ENDPOINT . '/a?b=1', $url);
     }
 
     public function testHttpClientInvalidTimeout(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Timeout must be an int > 0, got "0"');
-        new HttpClient(Client::ENDPOINT, [], 0);
+        new HttpClient(Client::RESTAPI_ENDPOINT, [], 0);
     }
 
     /**
@@ -33,7 +33,7 @@ class HttpClientTest extends BaseTest
      */
     public function testHttpClientValidTimeoutBoundary(): void
     {
-        new HttpClient(Client::ENDPOINT, [], 1);
+        new HttpClient(Client::RESTAPI_ENDPOINT, [], 1);
 
         $this->doAssertionToNotBeConsideredRiskyTest();
     }
@@ -43,7 +43,7 @@ class HttpClientTest extends BaseTest
      */
     public function testHttpClientValidConnectionTimeoutBoundary(): void
     {
-        new HttpClient(Client::ENDPOINT, [], 10, 0);
+        new HttpClient(Client::RESTAPI_ENDPOINT, [], 10, 0);
 
         $this->doAssertionToNotBeConsideredRiskyTest();
     }
@@ -55,7 +55,7 @@ class HttpClientTest extends BaseTest
     {
         $this->expectException(AuthenticateException::class);
         $this->expectExceptionMessage('Can not perform API Request without Authentication');
-        $client = new HttpClient(Client::ENDPOINT);
+        $client = new HttpClient(Client::RESTAPI_ENDPOINT);
         $client->performHttpRequest('foo', 'bar');
     }
 
@@ -64,7 +64,7 @@ class HttpClientTest extends BaseTest
      */
     public function testHttpClientWithHttpOptions(): void
     {
-        $client = new HttpClient(Client::ENDPOINT);
+        $client = new HttpClient(Client::RESTAPI_ENDPOINT);
         $url = '127.0.0.1:8080';
 
         $client->addHttpOption(\CURLOPT_PROXY, $url);

@@ -3,6 +3,7 @@
 namespace MessageBird;
 
 use MessageBird\Common\HttpClient;
+use Psr\Http\Client\ClientInterface;
 
 /**
  * Class Client
@@ -11,13 +12,17 @@ use MessageBird\Common\HttpClient;
  */
 class Client
 {
-    public const ENDPOINT = 'https://rest.messagebird.com';
+    public const RESTAPI_ENDPOINT = 'https://rest.messagebird.com';
     public const CONVERSATIONSAPI_ENDPOINT = 'https://conversations.messagebird.com/v1';
     public const VOICEAPI_ENDPOINT = 'https://voice.messagebird.com';
     public const PARTNER_ACCOUNT_ENDPOINT = 'https://partner-accounts.messagebird.com';
     public const NUMBERSAPI_ENDPOINT = 'https://numbers.messagebird.com/v1';
 
     const CLIENT_VERSION = '3.1.2';
+
+    public const TIMEOUT_DEFAULT = 10;
+
+    public const CONNECTION_TIMEOUT_DEFAULT = 2;
 
     /**
      * @var Resources\Messages
@@ -115,87 +120,94 @@ class Client
      * @var Resources\PartnerAccount\Accounts;
      */
     public $partnerAccounts;
-    /**
-     * @var string
-     */
-    protected $endpoint = self::ENDPOINT;
-    /**
-     * @var Common\HttpClient
-     */
-    protected $httpClient;
 
     /**
-     * @var Common\HttpClient
+     * @var ClientInterface
      */
-    protected $conversationsAPIHttpClient;
+    protected $restClient;
 
     /**
-     * @var Common\HttpClient
+     * @var ClientInterface
      */
-    protected $voiceAPIHttpClient;
+    protected $conversationsClient;
 
     /**
-     * @var Common\HttpClient
+     * @var ClientInterface
+     */
+    protected $voiceClient;
+
+    /**
+     * @var ClientInterface
      */
     protected $partnerAccountClient;
 
     /**
-     * @var HttpClient
+     * @var ClientInterface
      */
-    protected $numbersAPIClient;
+    protected $numbersClient;
 
     /**
-     * @param string|null $accessKey
-     * @param HttpClient|null $httpClient
+     * @param string $accessKey
+     * @param ClientInterface|null $client
      */
-    public function __construct(?string $accessKey = null, Common\HttpClient $httpClient = null)
+    public function __construct(string $accessKey, ClientInterface $client = null)
     {
-        $headers = [
-            'User-Agent' => 'MessageBird/ApiClient/' . self::CLIENT_VERSION . ' ' . $this->getPhpVersion()
-        ];
-
-        if ($httpClient === null) {
-            $this->conversationsAPIHttpClient = new HttpClient(self::CONVERSATIONSAPI_ENDPOINT, $headers);
-            $this->httpClient = new HttpClient(self::ENDPOINT, $headers);
-            $this->voiceAPIHttpClient = new Common\HttpClient(self::VOICEAPI_ENDPOINT, $headers);
-            $this->partnerAccountClient = new Common\HttpClient(self::PARTNER_ACCOUNT_ENDPOINT, $headers);
-            $this->numbersAPIClient = new Common\HttpClient(self::NUMBERSAPI_ENDPOINT, $headers);
+        if ($client === null) {
+            $this->conversationsClient = new \GuzzleHttp\Client($this->prepareConfig(self::CONVERSATIONSAPI_ENDPOINT, $accessKey));
+            $this->restClient = new \GuzzleHttp\Client($this->prepareConfig(self::RESTAPI_ENDPOINT, $accessKey));
+            $this->voiceClient = new \GuzzleHttp\Client($this->prepareConfig(self::VOICEAPI_ENDPOINT, $accessKey));
+            $this->partnerAccountClient = new \GuzzleHttp\Client($this->prepareConfig(self::PARTNER_ACCOUNT_ENDPOINT, $accessKey));
+            $this->numbersClient = new \GuzzleHttp\Client($this->prepareConfig(self::NUMBERSAPI_ENDPOINT, $accessKey));
         } else {
-            $this->conversationsAPIHttpClient = $httpClient;
-            $this->httpClient = $httpClient;
-            $this->voiceAPIHttpClient = $httpClient;
-            $this->partnerAccountClient = $httpClient;
-            $this->numbersAPIClient = $httpClient;
+            $this->conversationsClient = $client;
+            $this->restClient = $client;
+            $this->voiceClient = $client;
+            $this->partnerAccountClient = $client;
+            $this->numbersClient = $client;
         }
 
-        if ($accessKey !== null) {
-            $this->applyAccessKey($accessKey);
-        }
-
-        $this->messages = new Resources\Messages($this->httpClient);
-        $this->hlr = new Resources\Hlr($this->httpClient);
-        $this->verify = new Resources\Verify($this->httpClient);
-        $this->balance = new Resources\Balance($this->httpClient);
-        $this->emailmessages = new Resources\EmailMessage($this->httpClient);
-        $this->voicemessages = new Resources\VoiceMessage($this->httpClient);
-        $this->lookup = new Resources\Lookup($this->httpClient);
-        $this->lookupHlr = new Resources\LookupHlr($this->httpClient);
-        $this->voiceCallFlows = new Resources\Voice\CallFlows($this->voiceAPIHttpClient);
-        $this->voiceCalls = new Resources\Voice\Calls($this->voiceAPIHttpClient);
-        $this->voiceLegs = new Resources\Voice\Legs($this->voiceAPIHttpClient);
-        $this->voiceRecordings = new Resources\Voice\Recordings($this->voiceAPIHttpClient);
-        $this->voiceTranscriptions = new Resources\Voice\Transcriptions($this->voiceAPIHttpClient);
-        $this->voiceWebhooks = new Resources\Voice\Webhooks($this->voiceAPIHttpClient);
-        $this->mmsMessages = new Resources\MmsMessages($this->httpClient);
-        $this->contacts = new Resources\Contacts($this->httpClient);
-        $this->groups = new Resources\Groups($this->httpClient);
-        $this->conversations = new Resources\Conversation\Conversations($this->conversationsAPIHttpClient);
-        $this->conversationMessages = new Resources\Conversation\Messages($this->conversationsAPIHttpClient);
-        $this->conversationSend = new Resources\Conversation\Send($this->conversationsAPIHttpClient);
-        $this->conversationWebhooks = new Resources\Conversation\Webhooks($this->conversationsAPIHttpClient);
+        $this->messages = new Resources\Messages($this->restClient);
+        $this->hlr = new Resources\Hlr($this->restClient);
+        $this->verify = new Resources\Verify($this->restClient);
+        $this->balance = new Resources\Balance($this->restClient);
+        $this->emailmessages = new Resources\EmailMessage($this->restClient);
+        $this->voicemessages = new Resources\VoiceMessage($this->restClient);
+        $this->lookup = new Resources\Lookup($this->restClient);
+        $this->lookupHlr = new Resources\LookupHlr($this->restClient);
+        $this->voiceCallFlows = new Resources\Voice\CallFlows($this->voiceClient);
+        $this->voiceCalls = new Resources\Voice\Calls($this->voiceClient);
+        $this->voiceLegs = new Resources\Voice\Legs($this->voiceClient);
+        $this->voiceRecordings = new Resources\Voice\Recordings($this->voiceClient);
+        $this->voiceTranscriptions = new Resources\Voice\Transcriptions($this->voiceClient);
+        $this->voiceWebhooks = new Resources\Voice\Webhooks($this->voiceClient);
+        $this->mmsMessages = new Resources\MmsMessages($this->restClient);
+        $this->contacts = new Resources\Contacts($this->restClient);
+        $this->groups = new Resources\Groups($this->restClient);
+        $this->conversations = new Resources\Conversation\Conversations($this->conversationsClient);
+        $this->conversationMessages = new Resources\Conversation\Messages($this->conversationsClient);
+        $this->conversationSend = new Resources\Conversation\Send($this->conversationsClient);
+        $this->conversationWebhooks = new Resources\Conversation\Webhooks($this->conversationsClient);
         $this->partnerAccounts = new Resources\PartnerAccount\Accounts($this->partnerAccountClient);
-        $this->phoneNumbers = new Resources\PhoneNumbers($this->numbersAPIClient);
-        $this->availablePhoneNumbers = new Resources\AvailablePhoneNumbers($this->numbersAPIClient);
+        $this->phoneNumbers = new Resources\PhoneNumbers($this->numbersClient);
+        $this->availablePhoneNumbers = new Resources\AvailablePhoneNumbers($this->numbersClient);
+    }
+
+    /**
+     * @param string $endpoint
+     * @param string $accessKey
+     * @return array
+     */
+    private function prepareConfig(string $endpoint, string $accessKey): array
+    {
+        return [
+            'base_uri' => $endpoint,
+            'headers' => [
+                'User-Agent' => 'MessageBird/ApiClient/' . self::CLIENT_VERSION . ' ' . $this->getPhpVersion(),
+                'Authorization' => 'AccessKey ' . $accessKey,
+            ],
+            'timeout' => self::TIMEOUT_DEFAULT,
+            'connect_timeout' => self::CONNECTION_TIMEOUT_DEFAULT,
+        ];
     }
 
     /**
@@ -209,19 +221,5 @@ class Client
         }
 
         return 'PHP/' . \PHP_VERSION_ID;
-    }
-
-    /**
-     * @param string $accessKey
-     */
-    public function applyAccessKey(string $accessKey): void
-    {
-        $authentication = new Common\Authentication($accessKey);
-
-        $this->conversationsAPIHttpClient->setAuthentication($authentication);
-        $this->httpClient->setAuthentication($authentication);
-        $this->voiceAPIHttpClient->setAuthentication($authentication);
-        $this->partnerAccountClient->setAuthentication($authentication);
-        $this->numbersAPIClient->setAuthentication($authentication);
     }
 }
