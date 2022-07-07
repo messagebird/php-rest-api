@@ -2,8 +2,8 @@
 
 namespace MessageBird\Resources;
 
-use MessageBird\Common;
-use MessageBird\Objects;
+use GuzzleHttp\ClientInterface;
+use MessageBird\Objects\Message;
 
 /**
  * Class Messages
@@ -12,12 +12,19 @@ use MessageBird\Objects;
  */
 class Messages extends Base
 {
-    public function __construct(Common\HttpClient $httpClient)
+    /**
+     * @param ClientInterface $httpClient
+     */
+    public function __construct(ClientInterface $httpClient)
     {
-        $this->object = new Objects\Message();
-        $this->setResponseObject(new Objects\MessageResponse());
-        $this->setResourceName('messages');
+        parent::__construct($httpClient, 'messages');
+    }
 
-        parent::__construct($httpClient);
+    /**
+     * @return string
+     */
+    protected function responseClass(): string
+    {
+        return Message::class;
     }
 }

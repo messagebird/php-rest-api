@@ -7,18 +7,18 @@ namespace MessageBird\Objects;
  *
  * @package MessageBird\Objects
  */
-class BaseList extends Base
+class BaseList
 {
-    public $limit;
-    public $offset;
-    public $count;
-    public $totalCount;
-    public $links = [
+    public int $limit;
+    public int $offset;
+    public int $count;
+    public int $totalCount;
+    public array $links = [
         'first' => null,
         'previous' => null,
         'next' => null,
         'last' => null,
     ];
 
-    public $items = [];
+    public array $items = [];
 }

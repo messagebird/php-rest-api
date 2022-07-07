@@ -2,8 +2,8 @@
 
 namespace MessageBird;
 
+use GuzzleHttp\ClientInterface;
 use MessageBird\Common\HttpClient;
-use Psr\Http\Client\ClientInterface;
 
 /**
  * Class Client
@@ -207,6 +207,7 @@ class Client
             ],
             'timeout' => self::TIMEOUT_DEFAULT,
             'connect_timeout' => self::CONNECTION_TIMEOUT_DEFAULT,
+            'verify' => dirname(__DIR__) . '/ca-bundle.crt',
         ];
     }
 

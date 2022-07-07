@@ -9,7 +9,7 @@ use stdClass;
  *
  * @package MessageBird\Objects
  */
-class Base implements Jsonable
+class Base implements Arrayable
 {
     /**
      * @param stdClass $object
@@ -26,11 +26,10 @@ class Base implements Jsonable
     }
 
     /**
-     * @param int $flags
-     * @return string
+     * @return array
      */
-    public function toJson(int $flags = 0): string
+    public function toArray(): array
     {
-        return json_encode($this, $flags);
+        return (array)$this;
     }
 }
