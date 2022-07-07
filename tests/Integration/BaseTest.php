@@ -2,6 +2,7 @@
 
 namespace Tests\Integration;
 
+use GuzzleHttp\ClientInterface;
 use MessageBird\Client;
 use MessageBird\Common\HttpClient;
 use MessageBird\Resources\Balance;
@@ -38,7 +39,8 @@ class BaseTest extends TestCase
     {
         parent::setUp();
 
-        $this->mockClient = $this->getMockBuilder(HttpClient::class)->setConstructorArgs(["fake.messagebird.dev"])->getMock();
+        $this->mockClient = $this->getMockBuilder(ClientInterface::class)->getMock();
+//        $this->mockClient = $this->getMockBuilder(HttpClient::class)->setConstructorArgs(["fake.messagebird.dev"])->getMock();
         $this->client = new Client('YOUR_ACCESS_KEY', $this->mockClient);
     }
 
@@ -50,5 +52,14 @@ class BaseTest extends TestCase
     protected function doAssertionToNotBeConsideredRiskyTest(): void
     {
         static::assertTrue(true);
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    protected function loadResponseStub(string $name): string
+    {
+        return file_get_contents(__DIR__ . '/../Stubs/' . $name . '.json');
     }
 }

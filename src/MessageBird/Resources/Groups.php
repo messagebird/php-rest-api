@@ -33,7 +33,7 @@ class Groups extends Base
      * @param mixed $object
      * @param mixed $id
      *
-     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|\MessageBird\Objects\Messages\Message|Objects\Verify|Objects\VoiceMessage|null ->object
      *
      * @throws Exceptions\AuthenticateException
      * @throws Exceptions\HttpException

@@ -45,10 +45,10 @@ class Recipient extends Base
     public $statusReason;
 
     /**
-     * Extra error code that describes the failure in more detail (optional, 
+     * Extra error code that describes the failure in more detail (optional,
      * null if not available)
      *
-     * @var string
+     * @var string|null
      */
     public $statusErrorCode;
 
@@ -67,7 +67,7 @@ class Recipient extends Base
     public $recipientCountryPrefix;
 
     /**
-     * The name of the operator of the recipient. Identified by MCCMNC 
+     * The name of the operator of the recipient. Identified by MCCMNC
      * of the message.
      *
      * @var string
@@ -75,7 +75,7 @@ class Recipient extends Base
     public $recipientOperator;
 
     /**
-     * The code of the operator of the message sender. 
+     * The code of the operator of the message sender.
      * It could have null value if the message isn’t delivered yet.
      *
      * @var string
@@ -95,9 +95,9 @@ class Recipient extends Base
      * @var string
      */
     public $mnc;
-    
+
     /**
-     * The length of the message in characters. Depends on the 
+     * The length of the message in characters. Depends on the
      * message datacoding.
      *
      * @var int

@@ -1,0 +1,46 @@
+{
+    "id": "e8077d803532c0b5937c639b60216938",
+    "href": "https://rest.messagebird.com/messages/e8077d803532c0b5937c639b60216938",
+    "direction": "mt",
+    "type": "binary",
+    "originator": "YourName",
+    "body": "This is a test message",
+    "reference": null,
+    "validity": null,
+    "gateway": null,
+    "typeDetails": {
+        "udh": "HEADER"
+    },
+    "datacoding": "plain",
+    "mclass": 0,
+    "scheduledDatetime": null,
+    "createdDatetime": "2015-07-03T07:55:31+00:00",
+    "recipients": {
+        "totalCount": 1,
+        "totalSentCount": 1,
+        "totalDeliveredCount": 0,
+        "totalDeliveryFailedCount": 0,
+        "items": [
+            {
+                "recipient": 31612345678,
+                "status": "sent",
+                "statusDatetime": "2015-07-03T07:55:31+00:00",
+                "statusReason": "successfully delivered",
+                "statusErrorCode": null,
+                "recipientCountry": "Netherlands",
+                "recipientCountryPrefix": 31,
+                "recipientOperator": "KPN",
+                "mccmnc": "20408",
+                "mcc": "204",
+                "mnc": "08",
+                "messageLength": 22,
+                "messagePartCount": 1,
+                "price": {
+                    "amount": 0.075,
+                    "currency": "EUR"
+                }
+            }
+        ]
+    },
+    "reportUrl": null
+}

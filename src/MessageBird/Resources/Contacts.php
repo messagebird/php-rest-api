@@ -6,7 +6,6 @@ use InvalidArgumentException;
 use MessageBird\Common;
 use MessageBird\Exceptions;
 use MessageBird\Objects;
-use MessageBird\Resources\Messages;
 
 /**
  * Class Contacts
@@ -34,7 +33,7 @@ class Contacts extends Base
      * @param mixed $object
      * @param mixed $id
      *
-     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|\MessageBird\Objects\Messages\Message|Objects\Verify|Objects\VoiceMessage|null ->object
      *
      * @throws \JsonException
      * @throws Exceptions\AuthenticateException
@@ -70,7 +69,7 @@ class Contacts extends Base
      * @param mixed $id
      * @param array|null $parameters
      *
-     * @return Objects\Balance|Objects\BaseList|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
+     * @return Objects\Balance|Objects\BaseList|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|\MessageBird\Objects\Messages\Message|Objects\Verify|Objects\VoiceMessage|null ->object
      * @throws \JsonException
      */
     public function getMessages($id, ?array $parameters = [])
@@ -87,7 +86,7 @@ class Contacts extends Base
      * @param mixed $id
      * @param array|null $parameters
      *
-     * @return Objects\Balance|Objects\BaseList|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null ->object
+     * @return Objects\Balance|Objects\BaseList|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|\MessageBird\Objects\Messages\Message|Objects\Verify|Objects\VoiceMessage|null ->object
      * @throws \JsonException
      */
     public function getGroups($id, ?array $parameters = [])

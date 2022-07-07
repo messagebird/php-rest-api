@@ -31,7 +31,7 @@ class Conversations extends Base
      * @param Message $object
      * @param array|null $query
      *
-     * @return Conversation|Balance|Hlr|Lookup|\MessageBird\Objects\Message|Verify|VoiceMessage|null
+     * @return Conversation|Balance|Hlr|Lookup|\MessageBird\Objects\Messages\Message|Verify|VoiceMessage|null
      *
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
@@ -64,7 +64,7 @@ class Conversations extends Base
      *
      * @param int $object
      *
-     * @return Conversation|Balance|Hlr|Lookup|\MessageBird\Objects\Message|Verify|VoiceMessage|null
+     * @return Conversation|Balance|Hlr|Lookup|\MessageBird\Objects\Messages\Message|Verify|VoiceMessage|null
      *
      * @throws Exceptions\HttpException
      * @throws Exceptions\RequestException
@@ -88,7 +88,7 @@ class Conversations extends Base
      * @param mixed $object
      * @param mixed $id
      *
-     * @return Conversation|Balance|Hlr|Lookup|\MessageBird\Objects\Message|Verify|VoiceMessage|null ->object
+     * @return Conversation|Balance|Hlr|Lookup|\MessageBird\Objects\Messages\Message|Verify|VoiceMessage|null ->object
      *
      * @internal param array $parameters
      */

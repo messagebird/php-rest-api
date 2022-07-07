@@ -3,17 +3,17 @@
 namespace MessageBird\Resources\PartnerAccount;
 
 use MessageBird\Common\HttpClient;
+use MessageBird\Exceptions;
 use MessageBird\Objects\Balance;
 use MessageBird\Objects\Conversation\Conversation;
 use MessageBird\Objects\Hlr;
 use MessageBird\Objects\Jsonable;
 use MessageBird\Objects\Lookup;
-use MessageBird\Objects\Message;
+use MessageBird\Objects\Messages\Message;
 use MessageBird\Objects\PartnerAccount\Account;
 use MessageBird\Objects\Verify;
 use MessageBird\Objects\VoiceMessage;
 use MessageBird\Resources\Base;
-use MessageBird\Exceptions;
 
 class Accounts extends Base
 {

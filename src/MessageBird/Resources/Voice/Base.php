@@ -8,7 +8,7 @@ use MessageBird\Objects\Balance;
 use MessageBird\Objects\Conversation\Conversation;
 use MessageBird\Objects\Hlr;
 use MessageBird\Objects\Lookup;
-use MessageBird\Objects\Message;
+use MessageBird\Objects\Messages\Message;
 use MessageBird\Objects\Verify;
 use MessageBird\Objects\Voice\BaseList;
 use MessageBird\Objects\VoiceMessage;

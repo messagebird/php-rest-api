@@ -31,7 +31,7 @@ class Lookup extends Base
      * @param string|int $phoneNumber
      * @param string|null $countryCode
      *
-     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\Message|Objects\Verify|Objects\VoiceMessage|null
+     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|\MessageBird\Objects\Messages\Message|Objects\Verify|Objects\VoiceMessage|null
      *
      * @throws HttpException
      * @throws RequestException

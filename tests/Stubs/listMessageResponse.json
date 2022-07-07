@@ -1,0 +1,100 @@
+{
+    "offset": 0,
+    "limit": 20,
+    "count": 2,
+    "totalCount": 2,
+    "links": {
+        "first": "https://rest.messagebird.com/messages/?offset=0",
+        "previous": null,
+        "next": null,
+        "last": "https://rest.messagebird.com/messages/?offset=0"
+    },
+    "items": [
+        {
+            "id": "6fe65f90454aa61536e6a88b88972670",
+            "href": "https://rest.messagebird.com/messages/6fe65f90454aa61536e6a88b88972670",
+            "direction": "mt",
+            "type": "sms",
+            "originator": "TestName",
+            "body": "Hello World",
+            "reference": null,
+            "validity": null,
+            "gateway": 239,
+            "typeDetails": {},
+            "datacoding": "plain",
+            "mclass": 1,
+            "scheduledDatetime": null,
+            "createdDatetime": "2022-01-05T10:02:59+00:00",
+            "recipients": {
+                "totalCount": 1,
+                "totalSentCount": 1,
+                "totalDeliveredCount": 0,
+                "totalDeliveryFailedCount": 0,
+                "items": [
+                    {
+                        "recipient": 31612345678,
+                        "status": "sent",
+                        "statusDatetime": "2022-01-05T10:02:59+00:00",
+                        "messagePartCount": 1,
+                        "recipientCountry": "Ukraine",
+                        "recipientCountryPrefix": 380,
+                        "recipientOperator": "life:)",
+                        "messageLength": 22,
+                        "statusErrorCode": null,
+                        "statusReason": "successfully delivered",
+                        "price": {
+                            "amount": 22,
+                            "currency": "UAH"
+                        },
+                        "mccmnc": "25506",
+                        "mcc": "255",
+                        "mnc": "06"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "6fe65f90454aa61536e6a88b88972670",
+            "href": "https://rest.messagebird.com/messages/6fe65f90454aa61536e6a88b88972670",
+            "direction": "mt",
+            "type": "sms",
+            "originator": "TestName",
+            "body": "Hello World",
+            "reference": null,
+            "validity": null,
+            "gateway": 239,
+            "typeDetails": {},
+            "datacoding": "plain",
+            "mclass": 1,
+            "scheduledDatetime": null,
+            "createdDatetime": "2022-01-05T10:02:59+00:00",
+            "recipients": {
+                "totalCount": 1,
+                "totalSentCount": 1,
+                "totalDeliveredCount": 0,
+                "totalDeliveryFailedCount": 0,
+                "items": [
+                    {
+                        "recipient": 31612345678,
+                        "status": "sent",
+                        "statusDatetime": "2022-01-05T10:02:59+00:00",
+                        "messagePartCount": 1,
+                        "recipientCountry": "Netherlands",
+                        "recipientCountryPrefix": 31,
+                        "recipientOperator": "KPN",
+                        "messageLength": 22,
+                        "statusErrorCode": null,
+                        "statusReason": "successfully delivered",
+                        "price": {
+                            "amount": 22,
+                            "currency": "UAH"
+                        },
+                        "mccmnc": "20408",
+                        "mcc": "255",
+                        "mnc": "06"
+                    }
+                ]
+            }
+        }
+    ]
+}

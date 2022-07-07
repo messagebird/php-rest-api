@@ -3,6 +3,7 @@
 namespace MessageBird\Resources;
 
 use GuzzleHttp\ClientInterface;
+use JsonMapper;
 use MessageBird\Common\HttpClient;
 use MessageBird\Exceptions;
 use MessageBird\Objects;
@@ -58,29 +59,29 @@ abstract class Base
      *
      * @param ResponseInterface $response
      * @return Objects\Base
+     * @throws \JsonMapper_Exception
      */
     protected function handleCreateResponse(ResponseInterface $response): Objects\Base
     {
         $responseArray = json_decode($response->getBody(), true);
-        $responseObject = new ($this->responseClass());
 
-        foreach ($responseArray as $key => $value) {
-            $responseObject->$key = $value;
-        }
-
-        return $responseObject;
+        $mapper = new JsonMapper();
+        $mapper->bEnforceMapType = false;
+        return $mapper->map($responseArray, new ($this->responseClass()));
     }
 
     /**
+     * @param string $id
      * @param Arrayable $params
-     * @param array|null $query
      *
      * @return Objects\Base
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
-    public function update(Arrayable $params, array $query = null): Objects\Base
+    public function update(string $id, Arrayable $params): Objects\Base
     {
-        $response = $this->httpClient->request(HttpClient::REQUEST_PUT, $this->resourceName, [
+        $uri = $this->resourceName . '/' . $id;
+        $response = $this->httpClient->request(HttpClient::REQUEST_PUT, $uri, [
             'body' => $params->toArray()
         ]);
 
@@ -136,6 +137,7 @@ abstract class Base
      * @param array $params
      * @return Objects\Base
      * @throws Exceptions\ServerException|\GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
     public function read(string $id, array $params = []): Objects\Base
     {

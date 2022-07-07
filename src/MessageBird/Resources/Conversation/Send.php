@@ -10,7 +10,7 @@ use MessageBird\Objects\Conversation\SendMessage;
 use MessageBird\Objects\Conversation\SendMessageResult;
 use MessageBird\Objects\Hlr;
 use MessageBird\Objects\Lookup;
-use MessageBird\Objects\Message;
+use MessageBird\Objects\Messages\Message;
 use MessageBird\Objects\Verify;
 use MessageBird\Objects\VoiceMessage;
 use MessageBird\Resources\Base;

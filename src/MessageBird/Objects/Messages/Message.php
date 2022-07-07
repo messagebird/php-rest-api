@@ -1,7 +1,10 @@
 <?php
 
-namespace MessageBird\Objects;
+namespace MessageBird\Objects\Messages;
 
+use MessageBird\Objects\Base;
+use MessageBird\Objects\Recipient;
+use MessageBird\Objects\Recipients;
 use stdClass;
 
 /**
@@ -18,6 +21,8 @@ class Message extends Base
     public const DATACODING_UNICODE = 'unicode';
     public const DATACODING_PLAIN = 'plain';
 
+    public string $id;
+
     /**
      * Tells you if the message is sent or received.
      * mt: mobile terminated (sent to mobile)
@@ -26,6 +31,13 @@ class Message extends Base
      * @var string
      */
     public $direction = 'mt';
+
+    /**
+     * The URL of the created object.
+     *
+     * @var string
+     */
+    public $href;
 
     /**
      * The type of message. Values can be: sms, binary, premium, or flash
@@ -54,7 +66,7 @@ class Message extends Base
      * A client reference. Here you can put your own reference,
      * like your internal reference.
      *
-     * @var string
+     * @var string|null
      */
     public $reference;
 
@@ -63,7 +75,7 @@ class Message extends Base
      * If a message is not delivered within this time,
      * the message will be discarded.
      *
-     * @var int
+     * @var int|null
      */
     public $validity;
 
@@ -71,7 +83,7 @@ class Message extends Base
      * The SMS route that is used to send the message. This is for
      * advanced users.
      *
-     * @var int
+     * @var int|null
      */
     public $gateway;
 
@@ -100,26 +112,27 @@ class Message extends Base
     /**
      * The scheduled date and time of the message in RFC3339 format (Y-m-d\TH:i:sP)
      *
-     * @var string
+     * @var string|null
      */
     public $scheduledDatetime;
     /**
      * An array of recipients
      *
-     * @var array
+     * @var \MessageBird\Objects\Recipients
      */
-    public $recipients = [];
+    public $recipients;
     /**
      * The URL to send status delivery reports for the message to
      *
-     * @var string
+     * @var string|null
      */
     public $reportUrl;
+
     /**
      * The date and time of the creation of the message in RFC3339 format (Y-m-d\TH:i:sP)
-     * @var string
+     * @var string|null
      */
-    protected $createdDatetime;
+    public $createdDatetime;
 
     /**
      * @param mixed $header
