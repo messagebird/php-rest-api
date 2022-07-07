@@ -28,37 +28,32 @@ class HttpClient
     /**
      * @var string
      */
-    protected $endpoint;
+    protected string $endpoint;
 
     /**
-     * @var array
+     * @var Common\Authentication|null
      */
-    protected $userAgent = [];
-
-    /**
-     * @var Common\Authentication
-     */
-    protected $authentication;
+    protected ?Authentication $authentication;
 
     /**
      * @var int
      */
-    private $timeout;
+    private int $timeout;
 
     /**
      * @var int
      */
-    private $connectionTimeout;
+    private int $connectionTimeout;
 
     /**
      * @var array
      */
-    private $headers = [];
+    private array $headers;
 
     /**
      * @var array
      */
-    private $httpOptions = [];
+    private array $httpOptions = [];
 
     /**
      * @param string $endpoint
@@ -68,47 +63,44 @@ class HttpClient
      */
     public function __construct(
         string $endpoint,
+        array  $headers = [],
         int    $timeout = self::TIMEOUT_DEFAULT,
-        int    $connectionTimeout = self::CONNECTION_TIMEOUT_DEFAULT,
-        array  $headers = []
+        int    $connectionTimeout = self::CONNECTION_TIMEOUT_DEFAULT
     )
     {
+        $this->validateTimeout($timeout);
+        $this->validateConnectionTimeout($connectionTimeout);
+
         $this->endpoint = $endpoint;
-
-        if (!\is_int($timeout) || $timeout < 1) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Timeout must be an int > 0, got "%s".',
-                    \is_object($timeout) ? \get_class($timeout) : \gettype($timeout) . ' ' . var_export($timeout, true)
-                )
-            );
-        }
-
         $this->timeout = $timeout;
-
-        if (!\is_int($connectionTimeout) || $connectionTimeout < 0) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Connection timeout must be an int >= 0, got "%s".',
-                    \is_object($connectionTimeout) ? \get_class($connectionTimeout) : \gettype($connectionTimeout) . ' ' . var_export(
-                            $connectionTimeout,
-                            true
-                        )
-                )
-            );
-        }
-
         $this->connectionTimeout = $connectionTimeout;
         $this->headers = $headers;
     }
 
     /**
-     * @param string $userAgent
+     * @param int $timeout
      * @return void
      */
-    public function addUserAgentString(string $userAgent): void
+    private function validateTimeout(int $timeout): void
     {
-        $this->userAgent[] = $userAgent;
+        if ($timeout < 1) {
+            throw new InvalidArgumentException(
+                sprintf('Timeout must be greater than 0, got "%s".', $timeout)
+            );
+        }
+    }
+
+    /**
+     * @param int $connectionTimeout
+     * @return void
+     */
+    private function validateConnectionTimeout(int $connectionTimeout): void
+    {
+        if ($connectionTimeout < 0) {
+            throw new InvalidArgumentException(
+                sprintf('Connection timeout must be an int >= 0, got "%s".', $connectionTimeout)
+            );
+        }
     }
 
     /**

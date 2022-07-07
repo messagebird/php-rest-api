@@ -144,14 +144,22 @@ class Client
      */
     protected $numbersAPIClient;
 
-    public function __construct(?string $accessKey = null, Common\HttpClient $httpClient = null, array $config = [])
+    /**
+     * @param string|null $accessKey
+     * @param HttpClient|null $httpClient
+     */
+    public function __construct(?string $accessKey = null, Common\HttpClient $httpClient = null)
     {
+        $headers = [
+            'User-Agent' => 'MessageBird/ApiClient/' . self::CLIENT_VERSION . ' ' . $this->getPhpVersion()
+        ];
+
         if ($httpClient === null) {
-            $this->conversationsAPIHttpClient = new HttpClient(self::CONVERSATIONSAPI_ENDPOINT);
-            $this->httpClient = new HttpClient(self::ENDPOINT);
-            $this->voiceAPIHttpClient = new Common\HttpClient(self::VOICEAPI_ENDPOINT);
-            $this->partnerAccountClient = new Common\HttpClient(self::PARTNER_ACCOUNT_ENDPOINT);
-            $this->numbersAPIClient = new Common\HttpClient(self::NUMBERSAPI_ENDPOINT);
+            $this->conversationsAPIHttpClient = new HttpClient(self::CONVERSATIONSAPI_ENDPOINT, $headers);
+            $this->httpClient = new HttpClient(self::ENDPOINT, $headers);
+            $this->voiceAPIHttpClient = new Common\HttpClient(self::VOICEAPI_ENDPOINT, $headers);
+            $this->partnerAccountClient = new Common\HttpClient(self::PARTNER_ACCOUNT_ENDPOINT, $headers);
+            $this->numbersAPIClient = new Common\HttpClient(self::NUMBERSAPI_ENDPOINT, $headers);
         } else {
             $this->conversationsAPIHttpClient = $httpClient;
             $this->httpClient = $httpClient;
@@ -160,23 +168,8 @@ class Client
             $this->numbersAPIClient = $httpClient;
         }
 
-        $this->httpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
-        $this->httpClient->addUserAgentString($this->getPhpVersion());
-
-        $this->conversationsAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
-        $this->conversationsAPIHttpClient->addUserAgentString($this->getPhpVersion());
-
-        $this->voiceAPIHttpClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
-        $this->voiceAPIHttpClient->addUserAgentString($this->getPhpVersion());
-
-        $this->partnerAccountClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
-        $this->partnerAccountClient->addUserAgentString($this->getPhpVersion());
-
-        $this->numbersAPIClient->addUserAgentString('MessageBird/ApiClient/' . self::CLIENT_VERSION);
-        $this->numbersAPIClient->addUserAgentString($this->getPhpVersion());
-
         if ($accessKey !== null) {
-            $this->setAccessKey($accessKey);
+            $this->applyAccessKey($accessKey);
         }
 
         $this->messages = new Resources\Messages($this->httpClient);
@@ -205,6 +198,9 @@ class Client
         $this->availablePhoneNumbers = new Resources\AvailablePhoneNumbers($this->numbersAPIClient);
     }
 
+    /**
+     * @return string
+     */
     private function getPhpVersion(): string
     {
         if (!\defined('PHP_VERSION_ID')) {
@@ -216,9 +212,9 @@ class Client
     }
 
     /**
-     * @param mixed $accessKey
+     * @param string $accessKey
      */
-    public function setAccessKey($accessKey): void
+    public function applyAccessKey(string $accessKey): void
     {
         $authentication = new Common\Authentication($accessKey);
 

@@ -9,12 +9,12 @@ namespace MessageBird\Common;
  */
 class Authentication
 {
-    public $accessKey;
+    public string $accessKey;
 
     /**
-     * @param mixed $accessKey
+     * @param string $accessKey
      */
-    public function __construct($accessKey)
+    public function __construct(string $accessKey)
     {
         $this->accessKey = $accessKey;
     }
