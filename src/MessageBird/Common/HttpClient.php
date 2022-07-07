@@ -17,9 +17,11 @@ class HttpClient
     public const REQUEST_POST = 'POST';
     public const REQUEST_DELETE = 'DELETE';
     public const REQUEST_PUT = 'PUT';
-    public const REQUEST_PATCH = "PATCH";
+    public const REQUEST_PATCH = 'PATCH';
 
-    public const HTTP_NO_CONTENT = 204;
+    public const TIMEOUT_DEFAULT = 10;
+
+    public const CONNECTION_TIMEOUT_DEFAULT = 2;
 
     /**
      * @var string
@@ -56,7 +58,12 @@ class HttpClient
      */
     private $httpOptions = [];
 
-    public function __construct(string $endpoint, int $timeout = 10, int $connectionTimeout = 2, array $headers = [])
+    public function __construct(
+        string $endpoint,
+        int    $timeout = self::TIMEOUT_DEFAULT,
+        int    $connectionTimeout = self::CONNECTION_TIMEOUT_DEFAULT,
+        array  $headers = []
+    )
     {
         $this->endpoint = $endpoint;
 
@@ -76,9 +83,9 @@ class HttpClient
                 sprintf(
                     'Connection timeout must be an int >= 0, got "%s".',
                     \is_object($connectionTimeout) ? \get_class($connectionTimeout) : \gettype($connectionTimeout) . ' ' . var_export(
-                        $connectionTimeout,
-                        true
-                    )
+                            $connectionTimeout,
+                            true
+                        )
                 )
             );
         }

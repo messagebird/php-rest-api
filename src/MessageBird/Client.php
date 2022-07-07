@@ -147,11 +147,9 @@ class Client
     public function __construct(?string $accessKey = null, Common\HttpClient $httpClient = null, array $config = [])
     {
         if ($httpClient === null) {
-            $this->conversationsAPIHttpClient = new Common\HttpClient(self::CONVERSATIONSAPI_ENDPOINT);
-            $this->httpClient = new Common\HttpClient(self::ENDPOINT);
-            $this->voiceAPIHttpClient = new Common\HttpClient(self::VOICEAPI_ENDPOINT, 10, 2, [
-                'X-MessageBird-Version' => '20170314',
-            ]);
+            $this->conversationsAPIHttpClient = new HttpClient(self::CONVERSATIONSAPI_ENDPOINT);
+            $this->httpClient = new HttpClient(self::ENDPOINT);
+            $this->voiceAPIHttpClient = new Common\HttpClient(self::VOICEAPI_ENDPOINT);
             $this->partnerAccountClient = new Common\HttpClient(self::PARTNER_ACCOUNT_ENDPOINT);
             $this->numbersAPIClient = new Common\HttpClient(self::NUMBERSAPI_ENDPOINT);
         } else {
