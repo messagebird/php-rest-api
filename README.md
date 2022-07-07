@@ -46,18 +46,6 @@ $balance = $messageBird->balance->read();
 ```
 
 
-Conversations WhatsApp Sandbox
--------------
-
-To use the WhatsApp sandbox you need to add `\MessageBird\Client::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX` to the list of features you want enabled. Don't forget to replace `YOUR_ACCESS_KEY` with your actual access key.
-
-```php
-$messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY', null, [\MessageBird\Client::ENABLE_CONVERSATIONSAPI_WHATSAPP_SANDBOX]);
-```
-
-If you use a custom `HttpClient` you will have to manually direct Conversation API request to the WhatsApp sandbox endpoint.
-
-
 Documentation
 ----
 Complete documentation, instructions, and examples are available at:
