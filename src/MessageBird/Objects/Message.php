@@ -153,31 +153,8 @@ class Message extends Base
     }
 
     /**
-     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
-     * 
-     * @param mixed $object
-     * 
+     * @param stdClass $object
      * @return self
-     */
-    public function loadFromArray($object): self
-    {
-        parent::loadFromArray($object);
-
-        if (!empty($this->recipients->items)) {
-            foreach ($this->recipients->items as &$item) {
-                $recipient = new Recipient();
-                $recipient->loadFromArray($item);
-
-                $item = $recipient;
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param stdClass $object 
-     * @return self 
      */
     public function loadFromStdclass(stdClass $object): self
     {

@@ -108,28 +108,9 @@ class MmsMessage extends Base
     }
 
     /**
-     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
-     * 
-     * @param mixed $object
-     *
-     * @return $this|void
+     * @param stdClass $object
+     * @return $this
      */
-    public function loadFromArray($object): self
-    {
-        parent::loadFromArray($object);
-
-        if (!empty($this->recipients->items)) {
-            foreach ($this->recipients->items as &$item) {
-                $recipient = new Recipient();
-                $recipient->loadFromArray($item);
-
-                $item = $recipient;
-            }
-        }
-
-        return $this;
-    }
-    
     public function loadFromStdclass(stdClass $object): self
     {
         parent::loadFromStdclass($object);

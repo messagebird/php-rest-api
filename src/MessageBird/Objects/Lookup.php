@@ -83,54 +83,66 @@ class Lookup extends Base
      */
     protected $hlr;
 
+    /**
+     * @return string|null
+     */
     public function getHref(): ?string
     {
         return $this->href;
     }
 
+    /**
+     * @return string|null
+     */
     public function getCountryCode(): ?string
     {
         return $this->countryCode;
     }
 
+    /**
+     * @return int|null
+     */
     public function getCountryPrefix(): ?int
     {
         return $this->countryPrefix;
     }
 
+    /**
+     * @return int|null
+     */
     public function getPhoneNumber(): ?int
     {
         return $this->phoneNumber;
     }
 
+    /**
+     * @return string|null
+     */
     public function getType(): ?string
     {
         return $this->type;
     }
 
+    /**
+     * @return array|null
+     */
     public function getFormats(): ?array
     {
         return $this->formats;
     }
 
+    /**
+     * @return array|null
+     */
     public function getHLR(): ?array
     {
         return $this->hlr;
     }
 
     /**
-     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
-     * 
-     * @param mixed $object
-     *
+     * @param stdClass $object
      * @return $this
      */
-    public function loadFromArray($object): self
-    {
-        unset($this->hlr);
-        return parent::loadFromArray($object);
-    }
-
     public function loadFromStdclass(stdClass $object): self
     {
         unset($this->hlr);

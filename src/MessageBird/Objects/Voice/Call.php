@@ -4,6 +4,9 @@ namespace MessageBird\Objects\Voice;
 
 use MessageBird\Objects\Base;
 
+/**
+ *
+ */
 class Call extends Base
 {
     /**
@@ -66,45 +69,48 @@ class Call extends Base
     protected $endedAt;
 
     /**
-     * @inheritdoc
+     * @return string
      */
-    public function loadFromArray($object): self
-    {
-        parent::loadFromArray($object);
-
-        if (!empty($this->callFlow)) {
-            $callFlow = new CallFlow();
-            $this->callFlow = $callFlow->loadFromArray($this->callFlow);
-        }
-
-        return $this;
-    }
-
     public function getId(): string
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getNumberId(): string
     {
         return $this->numberId;
     }
 
+    /**
+     * @return string
+     */
     public function getStatus(): string
     {
         return $this->status;
     }
 
+    /**
+     * @return string
+     */
     public function getCreatedAt(): string
     {
         return $this->createdAt;
     }
 
+    /**
+     * @return string
+     */
     public function getUpdatedAt(): string
     {
         return $this->updatedAt;
     }
 
+    /**
+     * @return string
+     */
     public function getEndedAt(): string
     {
         return $this->endedAt;

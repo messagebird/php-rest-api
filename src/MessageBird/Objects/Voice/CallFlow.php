@@ -4,15 +4,11 @@ namespace MessageBird\Objects\Voice;
 
 use MessageBird\Objects\Base;
 
+/**
+ *
+ */
 class CallFlow extends Base
 {
-    /**
-     * The title of the call flow
-     *
-     * @var string
-     * @deprecated
-     */
-    public $title;
     /**
      * An array of step objects.
      *
@@ -42,39 +38,26 @@ class CallFlow extends Base
      */
     protected $updatedAt;
 
-    function __construct() {
-        if ($this->title == null) {
-            unset($this->title);
-        }
-    }
 
     /**
-     * @inheritdoc
+     * @return string
      */
-    public function loadFromArray($object): self
-    {
-        parent::loadFromArray($object);
-
-        foreach ($this->steps as &$item) {
-            $step = new Step();
-            $step->loadFromArray($item);
-
-            $item = $step;
-        }
-
-        return $this;
-    }
-
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getCreatedAt(): string
     {
         return $this->createdAt;
     }
 
+    /**
+     * @return string
+     */
     public function getUpdatedAt(): string
     {
         return $this->updatedAt;

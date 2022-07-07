@@ -96,22 +96,9 @@ class Message extends Base implements JsonSerializable
     public $updatedDatetime;
 
     /**
-     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
-     * 
-     * @param mixed $object
+     * @param stdClass $object
+     * @return $this
      */
-    public function loadFromArray($object): Message
-    {
-        parent::loadFromArray($object);
-
-        $content = new Content();
-        $content->loadFromArray($this->content);
-
-        $this->content = $content;
-
-        return $this;
-    }
-
     public function loadFromStdclass(stdClass $object): self
     {
         parent::loadFromStdclass($object);
@@ -126,7 +113,7 @@ class Message extends Base implements JsonSerializable
     }
 
     /**
-     * Serialize only non empty fields.
+     * Serialize only non-empty fields.
      */
     public function jsonSerialize(): array
     {

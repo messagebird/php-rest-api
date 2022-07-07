@@ -97,44 +97,9 @@ class Conversation extends Base
     public $updatedDatetime;
 
     /**
-     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
-     * 
-     * @param mixed $object
+     * @param stdClass $object
+     * @return $this
      */
-    public function loadFromArray($object): Conversation
-    {
-        parent::loadFromArray($object);
-
-        if (!empty($this->contact)) {
-            $newContact = new Contact();
-            $newContact->loadFromArray($this->contact);
-
-            $this->contact = $newContact;
-        }
-
-        if (!empty($this->channels)) {
-            $channels = [];
-
-            foreach ($this->channels as $channel) {
-                $newChannel = new Channel();
-                $newChannel->loadFromArray($channel);
-
-                $channels[] = $newChannel;
-            }
-
-            $this->channels = $channels;
-        }
-
-        if (!empty($this->messages)) {
-            $messages = new MessageReference();
-            $messages->loadFromArray($this->messages);
-
-            $this->messages = $messages;
-        }
-
-        return $this;
-    }
-
     public function loadFromStdclass(stdClass $object): self
     {
         parent::loadFromStdclass($object);

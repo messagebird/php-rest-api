@@ -6,6 +6,7 @@ use MessageBird\Common\HttpClient;
 use MessageBird\Objects\Balance;
 use MessageBird\Objects\Conversation\Conversation;
 use MessageBird\Objects\Hlr;
+use MessageBird\Objects\Jsonable;
 use MessageBird\Objects\Lookup;
 use MessageBird\Objects\Message;
 use MessageBird\Objects\PartnerAccount\Account;
@@ -42,7 +43,7 @@ class Accounts extends Base
             HttpClient::REQUEST_POST,
             self::RESOURCE_NAME,
             null,
-            $object->loadToJson()
+            $object->toJson()
         );
 
         return $this->processRequest($body);
@@ -89,13 +90,13 @@ class Accounts extends Base
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
      */
-    public function update($object, $id)
+    public function update(Jsonable $object, $id)
     {
         [, , $body] = $this->httpClient->performHttpRequest(
             HttpClient::REQUEST_PATCH,
             sprintf('%s/%s', self::RESOURCE_NAME, $id),
             null,
-            $object->loadToJson()
+            $object->toJson()
         );
 
         return $this->processRequest($body);

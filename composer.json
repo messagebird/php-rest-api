@@ -16,7 +16,7 @@
         "source": "https://github.com/messagebird/php-rest-api"
     },
     "require": {
-        "php": ">=7.3|~8.0.0|~8.1.0",
+        "php": ">=7.4|~8.0.0|~8.1.0",
         "ext-curl": "*",
         "ext-json": "*",
         "firebase/php-jwt": "^5.5.1|^6.2"

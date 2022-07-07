@@ -92,83 +92,78 @@ class Contact extends Base
      */
     protected $updatedDatetime;
 
+    /**
+     * @return string
+     */
     public function getId(): string
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getHref(): string
     {
         return $this->href;
     }
 
+    /**
+     * @return stdClass
+     */
     public function getGroups(): stdClass
     {
         return $this->groups;
     }
 
+    /**
+     * @return stdClass
+     */
     public function getMessages(): stdClass
     {
         return $this->messages;
     }
 
+    /**
+     * @return string
+     */
     public function getCreatedDatetime(): string
     {
         return $this->createdDatetime;
     }
 
+    /**
+     * @return string|null
+     */
     public function getUpdatedDatetime(): ?string
     {
         return $this->updatedDatetime;
     }
 
+    /**
+     * @return stdClass
+     */
     public function getCustomDetails(): stdClass
     {
         return $this->customDetails;
     }
 
     /**
-     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
-     * 
-     * @param mixed $object
+     * @param stdClass $object
+     * @return $this
      */
-    public function loadFromArray($object): self
-    {
-        unset($this->custom1, $this->custom2, $this->custom3, $this->custom4);
-        
-        return parent::loadFromArray($object);
-    }
-
     public function loadFromStdclass(stdClass $object): self
     {
         unset($this->custom1, $this->custom2, $this->custom3, $this->custom4);
-        
+
         return parent::loadFromStdclass($object);
     }
 
     /**
-     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclassForGroups()}
-     * 
-     * @param mixed $object
-     *
-     * @return $this ->object
+     * @param stdClass $object
+     * @return stdClass
      */
-    public function loadFromArrayForGroups($object)
-    {
-        parent::loadFromArray($object);
-
-        if (!empty($object->items)) {
-            foreach ($object->items as &$item) {
-                $group = new Group();
-                $group->loadFromArray($item);
-
-                $item = $group;
-            }
-        }
-        return $object;
-    }
-
-    public function loadFromStdclassForGroups(stdClass $object)
+    public function loadFromStdclassForGroups(stdClass $object): stdClass
     {
         parent::loadFromStdclass($object);
 

@@ -16,31 +16,31 @@ class Contact extends Base
      *
      * @var string
      */
-    public $id;
+    public string $id;
 
     /**
      * The URL of this contact object.
      *
      * @var string
      */
-    public $href;
+    public string $href;
 
     /**
      * The MSISDN/phone number of this contact.
      *
      * @var int|null
      */
-    public $msisdn;
+    public ?int $msisdn;
 
     /**
      * @var string
      */
-    public $firstName;
+    public string $firstName;
 
     /**
      * @var string
      */
-    public $lastName;
+    public string $lastName;
 
     /**
      * An associative array containing additional details about this contact.
@@ -55,7 +55,7 @@ class Contact extends Base
      *
      * @var string
      */
-    public $createdDatetime;
+    public string $createdDatetime;
 
     /**
      * The date and time when this contact was most recently updated in
@@ -63,24 +63,12 @@ class Contact extends Base
      *
      * @var string
      */
-    public $updatedDatetime;
+    public string $updatedDatetime;
 
     /**
-     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
-     * 
-     * @param mixed $object
+     * @param stdClass $object
+     * @return $this
      */
-    public function loadFromArray($object): Contact
-    {
-        parent::loadFromArray($object);
-
-        if (!empty($this->customDetails)) {
-            $this->customDetails = (array)$this->customDetails;
-        }
-
-        return $this;
-    }
-
     public function loadFromStdclass(stdClass $object): self
     {
         parent::loadFromStdclass($object);

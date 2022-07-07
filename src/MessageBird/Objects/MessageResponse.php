@@ -127,20 +127,9 @@ class MessageResponse extends Base
     public $recipients;
 
     /**
-     * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
-     * 
-     * @param mixed $object
+     * @param stdClass $object
+     * @return $this
      */
-    public function loadFromArray($object): MessageResponse
-    {
-        parent::loadFromArray($object);
-
-        $this->recipients = (new Recipients())->loadFromArray($this->recipients);
-        $this->typeDetails = get_object_vars($this->typeDetails);
-
-        return $this;
-    }
-
     public function loadFromStdclass(stdClass $object): self
     {
         parent::loadFromStdclass($object);

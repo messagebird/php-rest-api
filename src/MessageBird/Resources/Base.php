@@ -115,6 +115,7 @@ class Base
             $query,
             $body
         );
+
         return $this->processRequest($body);
     }
 
@@ -184,7 +185,7 @@ class Base
             unset($body->items);
 
             $baseList = new Objects\BaseList();
-            $baseList->loadFromArray($body);
+            $baseList->loadFromStdclass($body);
 
             $objectName = $this->object;
 
@@ -198,7 +199,7 @@ class Base
                 /** @psalm-suppress UndefinedClass */
                 $object = new $objectName($this->httpClient);
 
-                $message = $object->loadFromArray($item);
+                $message = $object->loadFromStdclass($item);
                 $baseList->items[] = $message;
             }
 
@@ -265,7 +266,7 @@ class Base
      * @throws \JsonException
      * @internal param array $parameters
      */
-    public function update($object, $id)
+    public function update(Jsonable $object, $id)
     {
         $objVars = get_object_vars($object);
         $body = [];

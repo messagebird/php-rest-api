@@ -62,56 +62,6 @@ class RequestValidator
     }
 
     /**
-     * Verify that the signed request was submitted from MessageBird using the known key.
-     *
-     * @return bool
-     * @deprecated Use {@link RequestValidator::validateSignature()} instead.
-     */
-    public function verify(SignedRequest $signedRequest): bool
-    {
-        $payload = $this->buildPayloadFromRequest($signedRequest);
-
-        $calculatedSignature = hash_hmac(self::HMAC_HASH_ALGO, $payload, $this->signingKey, true);
-        $expectedSignature = base64_decode($signedRequest->signature, true);
-
-        return hash_equals($expectedSignature, $calculatedSignature);
-    }
-
-    /**
-     * @deprecated Use {@link RequestValidator::validateSignature()} instead.
-     */
-    private function buildPayloadFromRequest(SignedRequest $signedRequest): string
-    {
-        $parts = [];
-
-        // Add request timestamp
-        $parts[] = $signedRequest->requestTimestamp;
-
-        // Build sorted query string
-        $query = $signedRequest->queryParameters;
-        ksort($query, \SORT_STRING);
-        $parts[] = http_build_query($query);
-
-        // Calculate checksum for request body
-        $parts[] = hash(self::BODY_HASH_ALGO, $signedRequest->body, true);
-
-        return implode("\n", $parts);
-    }
-
-    /**
-     * Check whether the request was made recently.
-     *
-     * @param SignedRequest $signedRequest The signed request object.
-     * @param int $offset The maximum number of seconds that is allowed to consider the request recent
-     * @return bool
-     * @deprecated Use {@link RequestValidator::validateSignature()} instead.
-     */
-    public function isRecent(SignedRequest $signedRequest, int $offset = 10): bool
-    {
-        return (\time() - (int)$signedRequest->requestTimestamp) < $offset;
-    }
-
-    /**
      * Validate JWT signature.
      * This JWT is signed with a MessageBird account unique secret key, ensuring the request is from MessageBird and a specific account.
      * The JWT contains the following claims:
