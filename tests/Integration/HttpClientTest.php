@@ -24,8 +24,8 @@ class HttpClientTest extends BaseTest
     public function testHttpClientInvalidTimeout(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Timeout must be an int > 0, got "integer 0"');
-        new HttpClient(Client::ENDPOINT, 0);
+        $this->expectExceptionMessage('Timeout must be an int > 0, got "0"');
+        new HttpClient(Client::ENDPOINT, [], 0);
     }
 
     /**
@@ -33,7 +33,7 @@ class HttpClientTest extends BaseTest
      */
     public function testHttpClientValidTimeoutBoundary(): void
     {
-        new HttpClient(Client::ENDPOINT, 1);
+        new HttpClient(Client::ENDPOINT, [], 1);
 
         $this->doAssertionToNotBeConsideredRiskyTest();
     }
@@ -43,7 +43,7 @@ class HttpClientTest extends BaseTest
      */
     public function testHttpClientValidConnectionTimeoutBoundary(): void
     {
-        new HttpClient(Client::ENDPOINT, 10, 0);
+        new HttpClient(Client::ENDPOINT, [], 10, 0);
 
         $this->doAssertionToNotBeConsideredRiskyTest();
     }

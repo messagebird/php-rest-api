@@ -75,6 +75,7 @@ class HttpClient
         $this->timeout = $timeout;
         $this->connectionTimeout = $connectionTimeout;
         $this->headers = $headers;
+        $this->authentication = null;
     }
 
     /**
@@ -85,7 +86,7 @@ class HttpClient
     {
         if ($timeout < 1) {
             throw new InvalidArgumentException(
-                sprintf('Timeout must be greater than 0, got "%s".', $timeout)
+                sprintf('Timeout must be an int > 0, got "%s".', $timeout)
             );
         }
     }
