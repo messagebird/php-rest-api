@@ -248,6 +248,7 @@ class HttpClient
      */
     public function setTimeout(int $timeout): HttpClient
     {
+        $this->validateTimeout($timeout);
         $this->timeout = $timeout;
         return $this;
     }
@@ -258,6 +259,7 @@ class HttpClient
      */
     public function setConnectionTimeout(int $connectionTimeout): HttpClient
     {
+        $this->validateConnectionTimeout($connectionTimeout);
         $this->connectionTimeout = $connectionTimeout;
         return $this;
     }

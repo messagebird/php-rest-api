@@ -34,12 +34,6 @@ class BaseTest extends TestCase
         self::assertInstanceOf(Verify::class, $messageBird->verify);
     }
 
-    public function testHttpClientMock(): void
-    {
-        $this->mockClient->expects($this->atLeastOnce())->method('addUserAgentString');
-        new Client('YOUR_ACCESS_KEY', $this->mockClient);
-    }
-
     protected function setUp(): void
     {
         parent::setUp();
