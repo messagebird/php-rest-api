@@ -3,6 +3,7 @@
 namespace MessageBird;
 
 use GuzzleHttp\ClientInterface;
+use JsonMapper;
 
 /**
  * Class Client
@@ -165,30 +166,32 @@ class Client
             $this->numbersClient = $client;
         }
 
-        $this->messages = new Resources\Messages($this->restClient);
-        $this->hlr = new Resources\Hlr($this->restClient);
-        $this->verify = new Resources\Verify($this->restClient);
-        $this->balance = new Resources\Balance($this->restClient);
-        $this->emailmessages = new Resources\EmailMessage($this->restClient);
-        $this->voicemessages = new Resources\VoiceMessage($this->restClient);
-        $this->lookup = new Resources\Lookup($this->restClient);
-        $this->lookupHlr = new Resources\LookupHlr($this->restClient);
-        $this->voiceCallFlows = new Resources\Voice\CallFlows($this->voiceClient);
-        $this->voiceCalls = new Resources\Voice\Calls($this->voiceClient);
-        $this->voiceLegs = new Resources\Voice\Legs($this->voiceClient);
-        $this->voiceRecordings = new Resources\Voice\Recordings($this->voiceClient);
-        $this->voiceTranscriptions = new Resources\Voice\Transcriptions($this->voiceClient);
-        $this->voiceWebhooks = new Resources\Voice\Webhooks($this->voiceClient);
-        $this->mmsMessages = new Resources\MmsMessages($this->restClient);
-        $this->contacts = new Resources\Contacts($this->restClient);
-        $this->groups = new Resources\Groups($this->restClient);
-        $this->conversations = new Resources\Conversation\Conversations($this->conversationsClient);
-        $this->conversationMessages = new Resources\Conversation\Messages($this->conversationsClient);
-        $this->conversationSend = new Resources\Conversation\Send($this->conversationsClient);
-        $this->conversationWebhooks = new Resources\Conversation\Webhooks($this->conversationsClient);
-        $this->partnerAccounts = new Resources\PartnerAccount\Accounts($this->partnerAccountClient);
-        $this->phoneNumbers = new Resources\PhoneNumbers($this->numbersClient);
-        $this->availablePhoneNumbers = new Resources\AvailablePhoneNumbers($this->numbersClient);
+        $jsonMapper = new JsonMapper();
+
+        $this->messages = new Resources\Messages($this->restClient, $jsonMapper);
+        $this->hlr = new Resources\Hlr($this->restClient, $jsonMapper);
+        $this->verify = new Resources\Verify($this->restClient, $jsonMapper);
+        $this->balance = new Resources\Balance($this->restClient, $jsonMapper);
+        $this->emailmessages = new Resources\EmailMessage($this->restClient, $jsonMapper);
+        $this->voicemessages = new Resources\VoiceMessage($this->restClient, $jsonMapper);
+        $this->lookup = new Resources\Lookup($this->restClient, $jsonMapper);
+        $this->lookupHlr = new Resources\LookupHlr($this->restClient, $jsonMapper);
+        $this->voiceCallFlows = new Resources\Voice\CallFlows($this->voiceClient, $jsonMapper);
+        $this->voiceCalls = new Resources\Voice\Calls($this->voiceClient, $jsonMapper);
+        $this->voiceLegs = new Resources\Voice\Legs($this->voiceClient, $jsonMapper);
+        $this->voiceRecordings = new Resources\Voice\Recordings($this->voiceClient, $jsonMapper);
+        $this->voiceTranscriptions = new Resources\Voice\Transcriptions($this->voiceClient, $jsonMapper);
+        $this->voiceWebhooks = new Resources\Voice\Webhooks($this->voiceClient, $jsonMapper);
+        $this->mmsMessages = new Resources\MmsMessages($this->restClient, $jsonMapper);
+        $this->contacts = new Resources\Contacts($this->restClient, $jsonMapper);
+        $this->groups = new Resources\Groups($this->restClient, $jsonMapper);
+        $this->conversations = new Resources\Conversation\Conversations($this->conversationsClient, $jsonMapper);
+        $this->conversationMessages = new Resources\Conversation\Messages($this->conversationsClient, $jsonMapper);
+        $this->conversationSend = new Resources\Conversation\Send($this->conversationsClient, $jsonMapper);
+        $this->conversationWebhooks = new Resources\Conversation\Webhooks($this->conversationsClient, $jsonMapper);
+        $this->partnerAccounts = new Resources\PartnerAccount\Accounts($this->partnerAccountClient, $jsonMapper);
+        $this->phoneNumbers = new Resources\PhoneNumbers($this->numbersClient, $jsonMapper);
+        $this->availablePhoneNumbers = new Resources\AvailablePhoneNumbers($this->numbersClient, $jsonMapper);
     }
 
     /**

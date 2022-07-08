@@ -3,6 +3,7 @@
 namespace MessageBird\Resources;
 
 use GuzzleHttp\ClientInterface;
+use JsonMapper;
 use MessageBird\Objects;
 use MessageBird\Objects\Arrayable;
 
@@ -19,9 +20,9 @@ class VoiceMessage extends Base
     /**
      * @param ClientInterface $httpClient
      */
-    public function __construct(ClientInterface $httpClient)
+    public function __construct(ClientInterface $httpClient, JsonMapper $jsonMapper)
     {
-        parent::__construct($httpClient, 'voicemessages');
+        parent::__construct($httpClient, $jsonMapper, 'voicemessages');
     }
 
     /**

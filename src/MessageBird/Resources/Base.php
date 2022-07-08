@@ -34,14 +34,19 @@ abstract class Base
      */
     private string $resourceName;
 
+    private JsonMapper $jsonMapper;
+
     /**
      * @param ClientInterface $httpClient
+     * @param JsonMapper $jsonMapper
      * @param string $resourceName
      */
-    public function __construct(ClientInterface $httpClient, string $resourceName)
+    public function __construct(ClientInterface $httpClient, JsonMapper $jsonMapper, string $resourceName)
     {
         $this->httpClient = $httpClient;
         $this->resourceName = $resourceName;
+        $this->jsonMapper = $jsonMapper;
+        $this->jsonMapper->bEnforceMapType = false;
     }
 
     /**
@@ -192,17 +197,15 @@ abstract class Base
      */
     protected function handleCreateResponse(ResponseInterface $response): Objects\Base
     {
-        $responseArray = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        $responseArray = json_decode($response->getBody()->getContents(), true);
 
-        $mapper = new JsonMapper();
-        $mapper->bEnforceMapType = false;
-
-        return $mapper->map($responseArray, new ($this->responseClass()));
+        return $this->jsonMapper->map($responseArray, new ($this->responseClass()));
     }
 
     /**
      * @param ResponseInterface $response
      * @return BaseList
+     * @throws \JsonMapper_Exception
      */
     protected function handleListResponse(ResponseInterface $response): BaseList
     {
@@ -217,13 +220,9 @@ abstract class Base
 
         $list->items = [];
 
-        $mapper = new JsonMapper();
-        $mapper->bEnforceMapType = false;
-
         foreach ($responseArray['items'] as $item) {
-            $list->items[] = $mapper->map($item, new ($this->responseClass()));
+            $list->items[] = $this->jsonMapper->map($item, new ($this->responseClass()));
         }
-
 
         return $list;
     }
@@ -242,5 +241,13 @@ abstract class Base
     protected function getResourceName(): string
     {
         return $this->resourceName;
+    }
+
+    /**
+     * @return JsonMapper
+     */
+    public function getJsonMapper(): JsonMapper
+    {
+        return $this->jsonMapper;
     }
 }

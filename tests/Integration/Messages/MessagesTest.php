@@ -117,7 +117,8 @@ class MessagesTest extends BaseTest
                         'createdDatetime' => null,
                     ]
                 ]
-            )->willReturn(new Response(200, [], $this->loadResponseStub('createBinaryMessageResponse')));
+            )
+            ->willReturn(new Response(200, [], $this->loadResponseStub('createBinaryMessageResponse')));
 
         $message = $this->client->messages->create($message);
 

@@ -3,6 +3,7 @@
 namespace MessageBird\Resources;
 
 use GuzzleHttp\ClientInterface;
+use JsonMapper;
 use MessageBird\Objects\Arrayable;
 use MessageBird\Objects\DeleteResponse;
 use MessageBird\Objects\Messages\Message;
@@ -22,10 +23,11 @@ class Messages extends Base
 {
     /**
      * @param ClientInterface $httpClient
+     * @param JsonMapper $jsonMapper
      */
-    public function __construct(ClientInterface $httpClient)
+    public function __construct(ClientInterface $httpClient, JsonMapper $jsonMapper)
     {
-        parent::__construct($httpClient, 'messages');
+        parent::__construct($httpClient, $jsonMapper, 'messages');
     }
 
     /**

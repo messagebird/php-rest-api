@@ -3,6 +3,7 @@
 namespace MessageBird\Resources;
 
 use GuzzleHttp\ClientInterface;
+use JsonMapper;
 use MessageBird\Common\HttpClient;
 use MessageBird\Objects;
 
@@ -15,10 +16,11 @@ class Balance extends Base
 {
     /**
      * @param ClientInterface $httpClient
+     * @param JsonMapper $jsonMapper
      */
-    public function __construct(ClientInterface $httpClient)
+    public function __construct(ClientInterface $httpClient, JsonMapper $jsonMapper)
     {
-        parent::__construct($httpClient, 'balance');
+        parent::__construct($httpClient, $jsonMapper, 'balance');
     }
 
     /**

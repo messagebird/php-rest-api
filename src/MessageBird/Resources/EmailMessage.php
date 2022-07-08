@@ -3,6 +3,7 @@
 namespace MessageBird\Resources;
 
 use GuzzleHttp\ClientInterface;
+use JsonMapper;
 use MessageBird\Objects;
 
 /**
@@ -14,10 +15,11 @@ class EmailMessage extends Base
 {
     /**
      * @param ClientInterface $httpClient
+     * @param JsonMapper $jsonMapper
      */
-    public function __construct(ClientInterface $httpClient)
+    public function __construct(ClientInterface $httpClient, JsonMapper $jsonMapper)
     {
-        parent::__construct($httpClient, 'verify/messages/email');
+        parent::__construct($httpClient, $jsonMapper, 'verify/messages/email');
     }
 
     /**

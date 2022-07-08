@@ -3,6 +3,7 @@
 namespace MessageBird\Resources\PartnerAccount;
 
 use GuzzleHttp\ClientInterface;
+use JsonMapper;
 use MessageBird\Common\HttpClient;
 use MessageBird\Objects\Arrayable;
 use MessageBird\Objects\PartnerAccount\Account;
@@ -19,10 +20,11 @@ class Accounts extends Base
 {
     /**
      * @param ClientInterface $httpClient
+     * @param JsonMapper $jsonMapper
      */
-    public function __construct(ClientInterface $httpClient)
+    public function __construct(ClientInterface $httpClient, JsonMapper $jsonMapper)
     {
-        parent::__construct($httpClient, 'child-accounts');
+        parent::__construct($httpClient, $jsonMapper, 'child-accounts');
     }
 
     /**

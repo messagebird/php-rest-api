@@ -4,6 +4,7 @@ namespace MessageBird\Resources;
 
 use GuzzleHttp\ClientInterface;
 use InvalidArgumentException;
+use JsonMapper;
 use MessageBird\Common\HttpClient;
 use MessageBird\Objects;
 use MessageBird\Objects\Arrayable;
@@ -18,9 +19,9 @@ class LookupHlr extends Base
     /**
      * @param ClientInterface $httpClient
      */
-    public function __construct(ClientInterface $httpClient)
+    public function __construct(ClientInterface $httpClient, JsonMapper $jsonMapper)
     {
-        parent::__construct($httpClient, 'lookup');
+        parent::__construct($httpClient, $jsonMapper, 'lookup');
     }
 
     /**
@@ -32,26 +33,30 @@ class LookupHlr extends Base
     }
 
     /**
-     * @param Objects\Hlr|Arrayable $hlr
-     * @param array $query
+     * @param string $phoneNumber
+     * @param string|null $reference
+     * @param string|null $countryCode
      * @return Objects\Hlr|Objects\Base
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonException
      * @throws \JsonMapper_Exception
      */
-    public function create(Arrayable $hlr, array $query = []): Objects\Hlr
+    public function create(string $phoneNumber, string $reference = null, string $countryCode = null): Objects\Hlr
     {
-        if (empty($hlr->msisdn)) {
-            throw new InvalidArgumentException('The phone number ($hlr->msisdn) cannot be empty.');
+        $uri = "{$this->getResourceName()}/$phoneNumber/hlr";
+
+        $body = [];
+
+        if ($reference !== null) {
+            $body['reference'] = $reference;
         }
 
-        $uri = $this->getResourceName() . '/' . ($hlr->msisdn) . '/hlr';
-
-        if (empty($query) === false) {
-            $uri .= '?' . http_build_query($query);
+        if ($countryCode !== null) {
+            $body['countryCode'] = $countryCode;
         }
 
         $response = $this->httpClient->request(HttpClient::REQUEST_POST, $uri, [
-            'body' => $hlr->toArray()
+            'body' => $body
         ]);
 
         return $this->handleCreateResponse($response);
@@ -59,19 +64,20 @@ class LookupHlr extends Base
 
     /**
      * @param mixed $phoneNumber
-     * @param array $query
+     * @param string|null $countryCode
      * @return Objects\Hlr|Objects\Base
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonException
      * @throws \JsonMapper_Exception
      */
-    public function read(string $phoneNumber, array $query = []): Objects\Hlr
+    public function read(string $phoneNumber, string $countryCode = null): Objects\Hlr
     {
-        if (empty($phoneNumber)) {
-            throw new InvalidArgumentException('The phone number cannot be empty.');
-        }
+        $uri = "{$this->getResourceName()}/$phoneNumber/hlr";
 
-        $uri = $this->getResourceName() . '/' . $phoneNumber . '/hlr' . '?' . http_build_query($query);
+        if ($countryCode !== null) {
+            $uri .= "?countryCode=$countryCode";
+        }
 
         $response = $this->httpClient->request(HttpClient::REQUEST_GET, $uri);
 

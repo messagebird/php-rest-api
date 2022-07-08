@@ -3,13 +3,8 @@
 namespace MessageBird\Resources;
 
 use GuzzleHttp\ClientInterface;
-use InvalidArgumentException;
-use MessageBird\Common;
+use JsonMapper;
 use MessageBird\Common\HttpClient;
-use MessageBird\Exceptions\AuthenticateException;
-use MessageBird\Exceptions\HttpException;
-use MessageBird\Exceptions\RequestException;
-use MessageBird\Exceptions\ServerException;
 use MessageBird\Objects;
 
 /**
@@ -21,10 +16,11 @@ class Lookup extends Base
 {
     /**
      * @param ClientInterface $httpClient
+     * @param JsonMapper $jsonMapper
      */
-    public function __construct(ClientInterface $httpClient)
+    public function __construct(ClientInterface $httpClient, JsonMapper $jsonMapper)
     {
-        parent::__construct($httpClient, 'lookup');
+        parent::__construct($httpClient, $jsonMapper, 'lookup');
     }
 
     /**
@@ -42,14 +38,15 @@ class Lookup extends Base
      * @return Objects\Lookup|Objects\Base
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      */
     public function read(string $phoneNumber, string $countryCode = null): Objects\Lookup
     {
-        if ($countryCode !== null) {
-            $query = ["countryCode" => $countryCode];
-        }
+        $uri = "{$this->getResourceName()}/$phoneNumber";
 
-        $uri = $this->getResourceName() . '/' . $phoneNumber . '?' . http_build_query(["countryCode" => $countryCode]);
+        if ($countryCode !== null) {
+            $uri .= "?countryCode=$countryCode";
+        }
 
         $response = $this->httpClient->request(HttpClient::REQUEST_GET, $uri);
 

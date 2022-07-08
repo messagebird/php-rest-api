@@ -4,6 +4,7 @@ namespace MessageBird\Resources;
 
 use GuzzleHttp\ClientInterface;
 use InvalidArgumentException;
+use JsonMapper;
 use MessageBird\Common\HttpClient;
 use MessageBird\Objects;
 use MessageBird\Objects\BaseList;
@@ -17,10 +18,11 @@ class Groups extends Base
 {
     /**
      * @param ClientInterface $httpClient
+     * @param JsonMapper $jsonMapper
      */
-    public function __construct(ClientInterface $httpClient)
+    public function __construct(ClientInterface $httpClient, JsonMapper $jsonMapper)
     {
-        parent::__construct($httpClient, 'groups');
+        parent::__construct($httpClient, $jsonMapper, 'groups');
     }
 
     /**
@@ -37,6 +39,7 @@ class Groups extends Base
      * @return Objects\Group|Objects\Base
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      */
     public function update(Objects\Arrayable $params, string $id): Objects\Group
     {
@@ -92,6 +95,7 @@ class Groups extends Base
      * @return Objects\Base
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      */
     public function addContacts(string $id, array $contacts): Objects\Base
     {
@@ -114,6 +118,7 @@ class Groups extends Base
      * @return Objects\Base
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      */
     public function removeContact(string $groupId, string $contactId): Objects\Base
     {

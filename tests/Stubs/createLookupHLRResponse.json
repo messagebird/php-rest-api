@@ -1,0 +1,11 @@
+{
+    "id": "0da180b035398662ceb3c42h04904985",
+    "href": "https://rest.messagebird.com/hlr/0da180b035398662ceb3c42h04904985",
+    "msisdn": 31612345678,
+    "network": null,
+    "details": [],
+    "reference": "example.org",
+    "status": "sent",
+    "createdDatetime": "2016-05-04T07:32:46+00:00",
+    "statusDatetime": "2016-05-04T07:32:46+00:00"
+}

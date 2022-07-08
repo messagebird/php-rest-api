@@ -3,6 +3,7 @@
 namespace MessageBird\Resources\Conversation;
 
 use GuzzleHttp\ClientInterface;
+use JsonMapper;
 use MessageBird\Objects\Conversation\SendMessage;
 use MessageBird\Objects\Conversation\SendMessageResult;
 use MessageBird\Resources\Base;
@@ -14,10 +15,11 @@ class Send extends Base
 {
     /**
      * @param ClientInterface $httpClient
+     * @param JsonMapper $jsonMapper
      */
-    public function __construct(ClientInterface $httpClient)
+    public function __construct(ClientInterface $httpClient, JsonMapper $jsonMapper)
     {
-        parent::__construct($httpClient, 'send');
+        parent::__construct($httpClient, $jsonMapper, 'send');
     }
 
     /**
@@ -33,9 +35,9 @@ class Send extends Base
      *
      * @param SendMessage $object
      * @param array $query
-     * @return Base
+     * @return \MessageBird\Objects\Base
      */
-    public function send(SendMessage $object, array $query = []): Base
+    public function send(SendMessage $object, array $query = []): \MessageBird\Objects\Base
     {
         return $this->create($object, $query);
     }

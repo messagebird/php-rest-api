@@ -3,11 +3,13 @@
 namespace MessageBird\Resources\Voice;
 
 use GuzzleHttp\ClientInterface;
+use JsonMapper;
 use MessageBird\Common;
 use MessageBird\Common\HttpClient;
 use MessageBird\Exceptions;
 use MessageBird\Objects;
 use MessageBird\Objects\Voice\Transcription;
+use MessageBird\Resources\Base;
 use Psr\Http\Message\StreamInterface;
 
 /**
@@ -15,14 +17,15 @@ use Psr\Http\Message\StreamInterface;
  *
  * @package MessageBird\Resources\Voice
  */
-class Transcriptions extends \MessageBird\Resources\Base
+class Transcriptions extends Base
 {
     /**
      * @param ClientInterface $httpClient
+     * @param JsonMapper $jsonMapper
      */
-    public function __construct(ClientInterface $httpClient)
+    public function __construct(ClientInterface $httpClient, JsonMapper $jsonMapper)
     {
-        parent::__construct($httpClient, 'calls');
+        parent::__construct($httpClient, $jsonMapper, 'calls');
     }
 
     /**
@@ -41,6 +44,7 @@ class Transcriptions extends \MessageBird\Resources\Base
      * @return Objects\Voice\Transcription|Objects\Base
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      */
     public function create(string $callId, string $legId, string $recordingId): Objects\Voice\Transcription
     {
@@ -59,6 +63,7 @@ class Transcriptions extends \MessageBird\Resources\Base
      * @param array $params
      * @return Objects\BaseList
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
     public function list(string $callId, string $legId, string $recordingId, array $params = []): Objects\BaseList
     {
@@ -80,6 +85,7 @@ class Transcriptions extends \MessageBird\Resources\Base
      * @return Transcription|Objects\Base
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      */
     public function read(string $callId, string $legId, string $recordingId, string $transcriptionId): Objects\Voice\Transcription
     {

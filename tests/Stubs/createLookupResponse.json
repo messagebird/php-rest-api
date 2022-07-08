@@ -1,0 +1,13 @@
+{
+    "href": "https://rest.messagebird.com/lookup/31612345678",
+    "countryCode": "NL",
+    "countryPrefix": 31,
+    "phoneNumber": 31612345678,
+    "type": "mobile",
+    "formats": {
+        "e164": "+31612345678",
+        "international": "+31 6 12345678",
+        "national": "06 12345678",
+        "rfc3966": "tel:+31-6-12345678"
+    }
+}

@@ -3,6 +3,7 @@
 namespace MessageBird\Resources;
 
 use GuzzleHttp\ClientInterface;
+use JsonMapper;
 use MessageBird\Common\HttpClient;
 use MessageBird\Objects;
 use MessageBird\Objects\BaseList;
@@ -16,10 +17,11 @@ class Contacts extends Base
 {
     /**
      * @param ClientInterface $httpClient
+     * @param JsonMapper $jsonMapper
      */
-    public function __construct(ClientInterface $httpClient)
+    public function __construct(ClientInterface $httpClient, JsonMapper $jsonMapper)
     {
-        parent::__construct($httpClient, 'contacts');
+        parent::__construct($httpClient, $jsonMapper, 'contacts');
     }
 
     /**
@@ -36,6 +38,7 @@ class Contacts extends Base
      * @return Objects\Base|Objects\Contact
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      */
     public function update(Objects\Arrayable $params, string $id): Objects\Contact
     {

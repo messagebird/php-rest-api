@@ -3,9 +3,11 @@
 namespace MessageBird\Resources\Voice;
 
 use GuzzleHttp\ClientInterface;
+use JsonMapper;
 use MessageBird\Common\HttpClient;
 use MessageBird\Objects\BaseList;
 use MessageBird\Objects\Voice\Recording;
+use MessageBird\Resources\Base;
 use Psr\Http\Message\StreamInterface;
 
 /**
@@ -13,14 +15,15 @@ use Psr\Http\Message\StreamInterface;
  *
  * @package MessageBird\Resources\Voice
  */
-class Recordings extends \MessageBird\Resources\Base
+class Recordings extends Base
 {
     /**
      * @param ClientInterface $httpClient
+     * @param JsonMapper $jsonMapper
      */
-    public function __construct(ClientInterface $httpClient)
+    public function __construct(ClientInterface $httpClient, JsonMapper $jsonMapper)
     {
-        parent::__construct($httpClient, 'calls');
+        parent::__construct($httpClient, $jsonMapper, 'calls');
     }
 
     /**
@@ -37,6 +40,7 @@ class Recordings extends \MessageBird\Resources\Base
      * @param array $params
      * @return BaseList
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
     public function list(string $callId, string $legId, array $params = []): BaseList
     {
@@ -53,6 +57,7 @@ class Recordings extends \MessageBird\Resources\Base
      * @return Recording|\MessageBird\Objects\Base
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      */
     public function read(string $callId, string $legId, string $recordingId): Recording
     {
@@ -71,6 +76,7 @@ class Recordings extends \MessageBird\Resources\Base
      * @return Recording|\MessageBird\Objects\Base
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      */
     public function delete(string $callId, string $legId, string $recordingId): Recording
     {

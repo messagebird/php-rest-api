@@ -3,6 +3,7 @@
 namespace MessageBird\Resources\Conversation;
 
 use GuzzleHttp\ClientInterface;
+use JsonMapper;
 use MessageBird\Common\HttpClient;
 use MessageBird\Objects\Arrayable;
 use MessageBird\Objects\Conversation\Conversation;
@@ -15,10 +16,11 @@ class Conversations extends Base
 {
     /**
      * @param ClientInterface $httpClient
+     * @param JsonMapper $jsonMapper
      */
-    public function __construct(ClientInterface $httpClient)
+    public function __construct(ClientInterface $httpClient, JsonMapper $jsonMapper)
     {
-        parent::__construct($httpClient, 'conversations');
+        parent::__construct($httpClient, $jsonMapper,'conversations');
     }
 
     /**

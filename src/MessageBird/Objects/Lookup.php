@@ -29,33 +29,33 @@ class Lookup extends Base
      *
      * @var string
      */
-    protected $href;
+    public $href;
     /**
      * The country code for this number in ISO 3166-1 alpha-2 format.
      *
      * @var string
      */
-    protected $countryCode;
+    public $countryCode;
 
     /**
      * The country calling code for this number.
      *
      * @var integer
      */
-    protected $countryPrefix;
+    public $countryPrefix;
 
     /**
      * The phone number in E.164 format without the prefixed plus-sign.
      *
      * @var integer
      */
-    protected $phoneNumber;
+    public $phoneNumber;
 
     /**
      * The type of number. This can be fixed line, mobile, fixed line or mobile, toll free, premium rate, shared cost, voip, personal number, pager, universal access number, voice mail or unknown*
      * @var string
      */
-    protected $type;
+    public $type;
 
     /**
      * An associative array containing references to this phone number in several different formats.
@@ -67,7 +67,7 @@ class Lookup extends Base
      * national: The phone number in national/local format.
      * rfc3966: The phone number in RFC3966 format.
      */
-    protected $formats;
+    public $formats;
 
     /**
      * The most recent HLR object. If no such HLR objects exists, this array won't be returned.
@@ -81,63 +81,7 @@ class Lookup extends Base
      * createdDatetime(datetime): The date and time of the creation of the message in RFC3339 format (Y-m-d\TH:i:sP).
      * statusDatetime(datetime): The datum time of the last status in RFC3339 format (Y-m-d\TH:i:sP).
      */
-    protected $hlr;
-
-    /**
-     * @return string|null
-     */
-    public function getHref(): ?string
-    {
-        return $this->href;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getCountryCode(): ?string
-    {
-        return $this->countryCode;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getCountryPrefix(): ?int
-    {
-        return $this->countryPrefix;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getPhoneNumber(): ?int
-    {
-        return $this->phoneNumber;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getFormats(): ?array
-    {
-        return $this->formats;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getHLR(): ?array
-    {
-        return $this->hlr;
-    }
+    public $hlr;
 
     /**
      * @param stdClass $object

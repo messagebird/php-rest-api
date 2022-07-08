@@ -3,22 +3,25 @@
 namespace MessageBird\Resources\Voice;
 
 use GuzzleHttp\ClientInterface;
+use JsonMapper;
 use MessageBird\Common\HttpClient;
 use MessageBird\Objects;
+use MessageBird\Resources\Base;
 
 /**
  * Class Legs
  *
  * @package MessageBird\Resources\Voice
  */
-class Legs extends \MessageBird\Resources\Base
+class Legs extends Base
 {
     /**
      * @param ClientInterface $httpClient
+     * @param JsonMapper $jsonMapper
      */
-    public function __construct(ClientInterface $httpClient)
+    public function __construct(ClientInterface $httpClient, JsonMapper $jsonMapper)
     {
-        parent::__construct($httpClient, 'calls');
+        parent::__construct($httpClient, $jsonMapper, 'calls');
     }
 
     /**
@@ -34,6 +37,7 @@ class Legs extends \MessageBird\Resources\Base
      * @param array $params
      * @return Objects\BaseList
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
     public function list(string $callId, array $params = []): Objects\BaseList
     {
@@ -49,6 +53,7 @@ class Legs extends \MessageBird\Resources\Base
      * @return Objects\Voice\Leg|Objects\Base
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      */
     public function read(string $callId, string $legId): Objects\Voice\Leg
     {

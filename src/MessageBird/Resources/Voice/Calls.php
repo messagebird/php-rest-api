@@ -3,21 +3,24 @@
 namespace MessageBird\Resources\Voice;
 
 use GuzzleHttp\ClientInterface;
+use JsonMapper;
 use MessageBird\Objects;
+use MessageBird\Resources\Base;
 
 /**
  * Class Calls
  *
  * @package MessageBird\Resources\Voice
  */
-class Calls extends \MessageBird\Resources\Base
+class Calls extends Base
 {
     /**
      * @param ClientInterface $httpClient
+     * @param JsonMapper $jsonMapper
      */
-    public function __construct(ClientInterface $httpClient)
+    public function __construct(ClientInterface $httpClient, JsonMapper $jsonMapper)
     {
-        parent::__construct($httpClient, 'calls');
+        parent::__construct($httpClient, $jsonMapper, 'calls');
     }
 
     /**
