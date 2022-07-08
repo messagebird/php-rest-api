@@ -11,12 +11,6 @@ $hlr->reference = "Custom reference";
 try {
     $hlrResult = $messageBird->hlr->create($hlr);
     var_export($hlrResult);
-} catch (\MessageBird\Exceptions\AuthenticateException $e) {
-    // That means that your accessKey is unknown
-    echo 'wrong login';
-} catch (\MessageBird\Exceptions\BalanceException $e) {
-    // That means that you are out of credits, so do something about it.
-    echo 'no balance';
-} catch (\MessageBird\Exceptions\RequestException $e) {
-    echo $e->getMessage();
+} catch (\Exception $e) {
+    var_dump($e);
 }
