@@ -23,7 +23,7 @@ class Hlr extends Base
     /**
      * The MCCMNC code of the network provider. (http://en.wikipedia.org/wiki/Mobile_country_code)
      *
-     * @var int
+     * @var int|null
      */
     public $network;
     /**
@@ -51,56 +51,24 @@ class Hlr extends Base
      *
      * @var string
      */
-    protected $id;
+    public $id;
     /**
      * The URL of the created object.
      *
      * @var string
      */
-    protected $href;
+    public $href;
     /**
      * The date and time of the creation of the hlr in RFC3339 format (Y-m-d\TH:i:sP)
      *
      * @var string
      */
-    protected $createdDatetime;
+    public $createdDatetime;
 
     /**
      * The datum time of the last status in RFC3339 format (Y-m-d\TH:i:sP)
      *
      * @var string
      */
-    protected $statusDatetime;
-
-    /**
-     * Get the created id
-     */
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get the created href
-     */
-    public function getHref(): string
-    {
-        return $this->href;
-    }
-
-    /**
-     * Get the date and time the resource was created
-     */
-    public function getCreatedDatetime(): string
-    {
-        return $this->createdDatetime;
-    }
-
-    /**
-     * Get the date and time the resource was created
-     */
-    public function getStatusDatetime(): string
-    {
-        return $this->statusDatetime;
-    }
+    public $statusDatetime;
 }

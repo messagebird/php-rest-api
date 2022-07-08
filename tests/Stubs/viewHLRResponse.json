@@ -1,0 +1,20 @@
+{
+    "id": "3c42h049049850da180b035398662ceb",
+    "href": "https://rest.messagebird.com/hlr/3c42h049049850da180b035398662ceb",
+    "msisdn": 31612345678,
+    "network": 20406,
+    "reference": "YourReference",
+    "details": {
+        "status_desc": null,
+        "imsi": "204080010948431",
+        "country_iso": "NLD",
+        "country_name": "Netherlands",
+        "location_msc": "316530",
+        "location_iso": "nl",
+        "ported": 0,
+        "roaming": 0
+    },
+    "status": "active",
+    "createdDatetime": "2016-05-04T07:32:46+00:00",
+    "statusDatetime": "2016-05-04T07:32:46+00:00"
+}

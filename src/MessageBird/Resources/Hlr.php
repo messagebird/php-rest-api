@@ -3,11 +3,15 @@
 namespace MessageBird\Resources;
 
 use GuzzleHttp\ClientInterface;
+use MessageBird\Objects\Arrayable;
 
 /**
  * Class Hlr
  *
  * @package MessageBird\Resources
+ *
+ * @method \MessageBird\Objects\Hlr create(Arrayable $params, array $query = [])
+ * @method \MessageBird\Objects\Hlr read(string $id, array $params = [])
  */
 class Hlr extends Base
 {
