@@ -22,12 +22,6 @@ $extraOptions = [
 try {
     $verifyResult = $messageBird->verify->create($verify, $extraOptions);
     var_dump($verifyResult);
-} catch (AuthenticateException $e) {
-    // That means that your accessKey is unknown
-    echo 'wrong login';
-} catch (BalanceException $e) {
-    // That means that you are out of credits, so do something about it.
-    echo 'no balance';
 } catch (\Exception $e) {
-    echo $e->getMessage();
+    var_dump($e);
 }

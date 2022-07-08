@@ -17,14 +17,14 @@ class Verify extends Base
     /**
      * The msisdn or email of the recipient
      *
-     * @var int|string
+     * @var string
      */
     public $recipient;
     /**
      * A client reference. Here you can put your own reference,
      * like your internal reference.
      *
-     * @var string
+     * @var string|null
      */
     public $reference;
     /**
@@ -33,90 +33,39 @@ class Verify extends Base
      *
      * @var string
      */
-    protected $id;
+    public $id;
     /**
      * The URL of the created object.
      *
      * @var string
      */
-    protected $href;
+    public $href;
     /**
      * An associative array containing one href entry referring to the URL of the created object.
      * The entry can either refer to either the messages or the voicemessages endpoint
      *
-     * @var object
+     * @var array
      */
-    protected $messages;
+    public $messages;
 
     /**
      * The status of the Verify. Possible values: sent, expired, failed, verified, and deleted
      *
      * @var string
      */
-    protected $status;
+    public $status;
 
     /**
      * The date and time of the creation of the hlr in RFC3339 format (Y-m-d\TH:i:sP)
      *
      * @var string
      */
-    protected $createdDatetime;
+    public $createdDatetime;
 
     /**
      * The date and time indicating the expiration time of the verify object in RFC3339 format (Y-m-d\TH:i:sP)
      *
      * @var string
      */
-    protected $validUntilDatetime;
-
-
-    /**
-     * Get the created id
-     *
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get the created href
-     */
-    public function getHref(): string
-    {
-        return $this->href;
-    }
-
-    /**
-     * Get the created href
-     */
-    public function getMessage(): string
-    {
-        return $this->messages->href;
-    }
-
-    /**
-     * Get the status
-     */
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
-
-    /**
-     * Get the $createdDatetime value
-     */
-    public function getCreatedDatetime(): string
-    {
-        return $this->createdDatetime;
-    }
-
-    /**
-     * Get the $validUntilDatetime value
-     */
-    public function getValidUntilDatetime(): string
-    {
-        return $this->validUntilDatetime;
-    }
+    public $validUntilDatetime;
 }

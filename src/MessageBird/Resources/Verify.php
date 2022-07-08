@@ -5,6 +5,7 @@ namespace MessageBird\Resources;
 use GuzzleHttp\ClientInterface;
 use MessageBird\Common\HttpClient;
 use MessageBird\Objects;
+use MessageBird\Objects\Arrayable;
 
 /**
  * Class Verify
@@ -22,16 +23,34 @@ class Verify extends Base
     }
 
     /**
+     * @return Objects\Verify|Objects\Base
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonException
+     * @throws \JsonMapper_Exception
+     */
+    public function create(Arrayable $params, array $query = []): Objects\Verify
+    {
+        $response = $this->httpClient->request(
+            HttpClient::REQUEST_POST,
+            $this->getResourceName(),
+            ['body' => array_merge($params->toArray(), $query)]
+        );
+
+        return $this->handleCreateResponse($response);
+    }
+
+    /**
      * @param string $id
      * @param string $token
      *
      * @return Objects\Verify|Objects\Base
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      */
     public function verify(string $id, string $token): Objects\Verify
     {
-        $uri = $this->getResourceName() . '/' . $id . '?' . http_build_query(['token' => $token]);
+        $uri = $this->getResourceName() . '/' . $id . '?token=' . $token;
 
         $response = $this->httpClient->request(HttpClient::REQUEST_GET, $uri);
 

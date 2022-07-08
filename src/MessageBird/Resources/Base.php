@@ -94,6 +94,7 @@ abstract class Base
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\MessageResponse|Objects\Verify|Objects\VoiceMessage|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      */
     public function createBasic(Arrayable $params, array $query = []): Objects\Base
     {
@@ -138,10 +139,6 @@ abstract class Base
     {
         $uri = $this->resourceName . '?' . http_build_query($params);
         $response = $this->httpClient->request(HttpClient::REQUEST_GET, $uri);
-
-//        var_dump($response->getBody()->getContents());
-//        var_dump(json_decode($response->getBody(), true));
-//        exit;
 
         return $this->handleListResponse($response);
     }

@@ -1,0 +1,12 @@
+{
+    "id": "4e213b01155d1e35a9d9571v00162985",
+    "href": "https://rest.messagebird.com/verify/4e213b01155d1e35a9d9571v00162985",
+    "recipient": 31612345678,
+    "reference": null,
+    "messages": {
+        "href": "https://rest.messagebird.com/messages/31bce2a1155d1f7c1db9df6b32167259"
+    },
+    "status": "sent",
+    "createdDatetime": "2016-05-03T14:26:57+00:00",
+    "validUntilDatetime": "2016-05-03T14:27:27+00:00"
+}
