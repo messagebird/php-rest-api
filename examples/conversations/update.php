@@ -3,7 +3,7 @@
 // Updating the conversation allows moving them between 'active' and 'archived'
 // status. This example restores an archived conversation by setting it to active.
 
-require(__DIR__ . '/../../autoload.php');
+require(__DIR__ . '/../../../autoload.php');
 
 $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 

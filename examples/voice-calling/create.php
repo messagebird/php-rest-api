@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . '/../autoload.php');
+require_once(__DIR__ . '/../../autoload.php');
 
 $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 $call = new \MessageBird\Objects\Voice\Call();

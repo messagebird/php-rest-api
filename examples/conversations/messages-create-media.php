@@ -3,7 +3,7 @@
 // Sends a message to an existing conversation, with media as its content.
 // Supported media types are 'audio', 'file', 'image' and 'video.
 
-require(__DIR__ . '/../../autoload.php');
+require(__DIR__ . '/../../../autoload.php');
 
 $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 

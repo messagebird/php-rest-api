@@ -5,7 +5,7 @@
 // that is invoked when new conversations and messages are created in the
 // specified channel.
 
-require(__DIR__ . '/../../autoload.php');
+require(__DIR__ . '/../../../autoload.php');
 
 $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 

@@ -4,7 +4,7 @@
 // with that contact the message will be added to this conversation, otherwise
 // it creates a new conversation.
 
-require(__DIR__ . '/../../autoload.php');
+require(__DIR__ . '/../../../autoload.php');
 
 $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 

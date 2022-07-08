@@ -4,7 +4,7 @@
 // delivered to endpoints on your own server. This example retrieves an
 // existing webhook.
 
-require(__DIR__ . '/../../autoload.php');
+require(__DIR__ . '/../../../autoload.php');
 
 $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 

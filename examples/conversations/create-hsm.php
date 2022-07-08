@@ -2,7 +2,7 @@
 
 // Initiates a conversation by sending a first message. This example uses a hsm message.
 
-require(__DIR__ . '/../../autoload.php');
+require(__DIR__ . '/../../../autoload.php');
 
 $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API access key here.
 
