@@ -3,7 +3,6 @@
 namespace MessageBird;
 
 use GuzzleHttp\ClientInterface;
-use MessageBird\Common\HttpClient;
 
 /**
  * Class Client

@@ -44,7 +44,7 @@ class PhoneNumbersTest extends BaseTest
             null,
             '{"tags":["tag1"]}'
         );
-        $this->client->phoneNumbers->update($number, '31612345678');
+        $this->client->phoneNumbers->updateBasic($number, '31612345678');
     }
 
     public function testPurchasePhoneNumber(): void

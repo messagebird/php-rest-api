@@ -2,9 +2,8 @@
 
 namespace MessageBird\Resources\Voice;
 
-use MessageBird\Common;
+use GuzzleHttp\ClientInterface;
 use MessageBird\Common\HttpClient;
-use MessageBird\Exceptions;
 use MessageBird\Objects;
 
 /**
@@ -12,113 +11,50 @@ use MessageBird\Objects;
  *
  * @package MessageBird\Resources\Voice
  */
-class Legs
+class Legs extends \MessageBird\Resources\Base
 {
     /**
-     * @var HttpClient
+     * @param ClientInterface $httpClient
      */
-    protected $httpClient;
-
-    /**
-     * @var Objects\Voice\Leg
-     */
-    protected $object;
-
-    public function __construct(HttpClient $httpClient)
+    public function __construct(ClientInterface $httpClient)
     {
-        $this->httpClient = $httpClient;
-        $this->object = new Objects\Voice\Leg();
-    }
-
-    public function getObject(): Objects\Voice\Leg
-    {
-        return $this->object;
+        parent::__construct($httpClient, 'calls');
     }
 
     /**
-     * @deprecated
-     * 
-     * @param mixed $object
+     * @return string
      */
-    public function setObject($object): void
+    protected function responseClass(): string
     {
-        $this->object = $object;
+        return Objects\Voice\Leg::class;
     }
 
     /**
      * @param string $callId
-     * @param array $parameters
-     *
-     * @return Objects\BaseList|Objects\Voice\Leg
-     * @throws Exceptions\AuthenticateException
-     * @throws Exceptions\HttpException
-     * @throws \JsonException
+     * @param array $params
+     * @return Objects\BaseList
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getList(string $callId, array $parameters = [])
+    public function list(string $callId, array $params = []): Objects\BaseList
     {
-        [$status, , $body] = $this->httpClient->performHttpRequest(
-            HttpClient::REQUEST_GET,
-            "calls/$callId/legs",
-            $parameters
-        );
+        $uri = $this->getResourceName() . '/' . $callId . '/legs';
+        $response = $this->httpClient->request(HttpClient::REQUEST_GET, $uri);
 
-        if ($status === 200) {
-            $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
-
-            $items = $body->data;
-            unset($body->data);
-
-            $baseList = new Objects\BaseList();
-            $baseList->loadFromStdclass($body);
-
-            $objectName = $this->object;
-
-            foreach ($items as $item) {
-                /** @psalm-suppress UndefinedClass */
-                $object = new $objectName($this->httpClient);
-
-                $itemObject = $object->loadFromStdclass($item);
-                $baseList->items[] = $itemObject;
-            }
-            return $baseList;
-        }
-
-        return $this->processRequest($body);
+        return $this->handleListResponse($response);
     }
 
     /**
-     * @throws Exceptions\AuthenticateException
-     * @throws Exceptions\BalanceException
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
+     * @param string $callId
+     * @param string $legId
+     * @return Objects\Voice\Leg|Objects\Base
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
-    public function processRequest(?string $body): Objects\Voice\Leg
-    {
-        if ($body === null) {
-            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
-        }
-
-        try {
-            $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
-        } catch (\JsonException $e) {
-            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
-        }
-
-        if (empty($body->errors)) {
-            return $this->object->loadFromStdclass($body->data[0]);
-        }
-
-        $responseError = new Common\ResponseError($body);
-        throw new Exceptions\RequestException($responseError->getErrorString());
-    }
-
     public function read(string $callId, string $legId): Objects\Voice\Leg
     {
-        [, , $body] = $this->httpClient->performHttpRequest(
-            HttpClient::REQUEST_GET,
-            "calls/$callId/legs/$legId"
-        );
+        $uri = $this->getResourceName() . '/' . $callId . '/legs/' . $legId;
+        $response = $this->httpClient->request(HttpClient::REQUEST_GET, $uri);
 
-        return $this->processRequest($body);
+        return $this->handleCreateResponse($response);
     }
 }

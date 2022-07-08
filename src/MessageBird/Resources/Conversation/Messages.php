@@ -2,201 +2,78 @@
 
 namespace MessageBird\Resources\Conversation;
 
+use GuzzleHttp\ClientInterface;
 use MessageBird\Common\HttpClient;
-use MessageBird\Common\ResponseError;
-use MessageBird\Exceptions\AuthenticateException;
-use MessageBird\Exceptions\BalanceException;
-use MessageBird\Exceptions\HttpException;
-use MessageBird\Exceptions\RequestException;
-use MessageBird\Exceptions\ServerException;
+use MessageBird\Objects\Arrayable;
 use MessageBird\Objects\BaseList;
 use MessageBird\Objects\Conversation\Message;
+use MessageBird\Resources\Base;
 
 /**
  * Messages does not extend Base because PHP won't let us add parameters to the
  * create and getList functions in overrides.
  */
-class Messages
+class Messages extends Base
 {
-    public const HTTP_STATUS_OK = 200;
-
-    public const RESOURCE_NAME = 'conversations/%s/messages';
-    public const MESSAGE_RESOURCE_NAME = 'messages/%s';
-
     /**
-     * @var HttpClient
+     * @param ClientInterface $httpClient
      */
-    protected $httpClient;
-
-    /**
-     * @var Message
-     */
-    protected $object;
-
-    public function __construct(HttpClient $httpClient)
+    public function __construct(ClientInterface $httpClient)
     {
-        $this->httpClient = $httpClient;
-
-        $this->object = new Message();
-    }
-
-    public function getObject(): Message
-    {
-        return $this->object;
+        parent::__construct($httpClient, 'conversations');
     }
 
     /**
-     * @deprecated
-     * 
-     * @param Message $object 
-     * @return void 
+     * @return string
      */
-    public function setObject(Message $object): void
+    protected function responseClass(): string
     {
-        $this->object = $object;
+        return Message::class;
     }
 
     /**
      * Send a message to a conversation.
      *
-     * @throws HttpException
-     * @throws RequestException
-     * @throws ServerException
-     * @throws AuthenticateException
-     * @throws \JsonException
+     * @param string $conversationId
+     * @param Arrayable $message
+     * @param array $query
+     * @return Message|\MessageBird\Objects\Base
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
-    public function create(string $conversationId, Message $object, ?array $query = null): Message
+    public function create(string $conversationId, Arrayable $message, array $query = []): Message
     {
-        $body = json_encode($object, \JSON_THROW_ON_ERROR);
+        $uri = "{$this->getResourceName()}/$conversationId/messages";
 
-        [, , $body] = $this->httpClient->performHttpRequest(
-            HttpClient::REQUEST_POST,
-            $this->getResourceNameWithId($conversationId),
-            $query,
-            $body
-        );
+        if (empty($query)) {
+            $uri .= '?' . http_build_query($query);
+        }
 
-        return $this->processRequest($body);
+        $response = $this->httpClient->request(HttpClient::REQUEST_POST, $uri, [
+            'body' => $message->toArray()
+        ]);
+
+        return $this->handleCreateResponse($response);
     }
 
     /**
-     * Formats a URL for the Conversation API's messages endpoint based on the
-     * conversationId.
-     */
-    private function getResourceNameWithId(string $id): string
-    {
-        return sprintf(self::RESOURCE_NAME, $id);
-    }
-
-    /**
-     * Throws an exception if the request if the request has any errors.
+     * Retrieves all the messages form the conversation based on its conversationId.
      *
-     * @throws AuthenticateException
-     * @throws RequestException
-     * @throws ServerException
-     * @throws BalanceException
-     * @throws \JsonException
+     * @param string $conversationId
+     * @param array $params
+     * @return BaseList
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function processRequest(string $body): Message
+    public function list(string $conversationId, array $params = []): BaseList
     {
-        try {
-            $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
-        } catch (\JsonException $e) {
-            throw new ServerException('Got an invalid JSON response from the server.');
+        $uri = "{$this->getResourceName()}/$conversationId/messages";
+
+        if (empty($params) === false) {
+            $uri .= '?' . http_build_query($params);
         }
 
-        if ($body === null) {
-            throw new ServerException('Got an invalid JSON response from the server.');
-        }
+        $response = $this->httpClient->request(HttpClient::REQUEST_GET, $uri);
 
-        if (empty($body->errors)) {
-            return $this->object->loadFromStdclass($body);
-        }
-
-        $responseError = new ResponseError($body);
-
-        throw new RequestException(
-            $responseError->getErrorString()
-        );
-    }
-
-    /**
-     * Retrieves all the messages form the conversation based on its
-     * conversationId.
-     *
-     * @return BaseList|Message
-     * @throws AuthenticateException
-     * @throws BalanceException
-     * @throws HttpException
-     * @throws RequestException
-     * @throws ServerException
-     * @throws \JsonException
-     */
-    public function getList(string $conversationId, array $parameters = [])
-    {
-        [$status, , $body] = $this->httpClient->performHttpRequest(
-            HttpClient::REQUEST_GET,
-            $this->getResourceNameWithId($conversationId),
-            $parameters
-        );
-
-        if ($status === self::HTTP_STATUS_OK) {
-            try {
-                $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
-            } catch (\JsonException $e) {
-                throw new ServerException('Got an invalid JSON response from the server.');
-            }
-            $items = $body->items;
-            unset($body->items);
-
-            $baseList = new BaseList();
-            $baseList->loadFromStdclass($body);
-
-            $objectName = $this->object;
-
-            foreach ($items as $item) {
-                /** @psalm-suppress UndefinedClass */
-                $message = new $objectName($this->httpClient);
-                $message->loadFromStdclass($item);
-
-                $baseList->items[] = $message;
-            }
-
-            return $baseList;
-        }
-
-        return $this->processRequest($body);
-    }
-
-    /**
-     * @return Message|self
-     * @throws AuthenticateException
-     * @throws BalanceException
-     * @throws HttpException
-     * @throws RequestException
-     * @throws ServerException
-     * @throws \JsonException
-     */
-    public function read(string $messageId, ?array $parameters = [])
-    {
-        [$status, , $body] = $this->httpClient->performHttpRequest(
-            HttpClient::REQUEST_GET,
-            sprintf(self::MESSAGE_RESOURCE_NAME, $messageId),
-            $parameters
-        );
-
-        if ($status !== self::HTTP_STATUS_OK) {
-            return $this->processRequest($body);
-        }
-
-        $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
-        if (empty($body)) {
-            return $this->processRequest($body);
-        }
-
-        $message = new Message();
-        $message->loadFromStdclass($body);
-
-        return $message;
+        return $this->handleListResponse($response);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace MessageBird\Resources\Voice;
 
-use MessageBird\Common;
+use GuzzleHttp\ClientInterface;
 use MessageBird\Objects;
 
 /**
@@ -10,13 +10,21 @@ use MessageBird\Objects;
  *
  * @package MessageBird\Resources\Voice
  */
-class Webhooks extends Base
+class Webhooks extends \MessageBird\Resources\Base
 {
-    public function __construct(Common\HttpClient $httpClient)
+    /**
+     * @param ClientInterface $httpClient
+     */
+    public function __construct(ClientInterface $httpClient)
     {
-        $this->object = new Objects\Voice\Webhook();
-        $this->setResourceName('webhooks');
+        parent::__construct($httpClient, 'webhooks');
+    }
 
-        parent::__construct($httpClient);
+    /**
+     * @return string
+     */
+    protected function responseClass(): string
+    {
+        return Objects\Voice\Webhook::class;
     }
 }

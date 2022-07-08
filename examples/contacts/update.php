@@ -15,7 +15,7 @@ $contact->custom4 = "custom-4b";
 
 
 try {
-    $groupResult = $messageBird->contacts->update($contact, 'contact_id');
+    $groupResult = $messageBird->contacts->updateBasic($contact, 'contact_id');
     var_dump($groupResult);
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown

@@ -2,8 +2,10 @@
 
 namespace MessageBird\Resources;
 
+use GuzzleHttp\ClientInterface;
 use MessageBird\Common\HttpClient;
 use MessageBird\Objects;
+use MessageBird\Objects\Arrayable;
 
 /**
  * Class PhoneNumbers
@@ -13,51 +15,35 @@ use MessageBird\Objects;
 class PhoneNumbers extends Base
 {
     /**
-     * @var HttpClient
+     * @param ClientInterface $httpClient
      */
-    protected $httpClient;
-
-    public function __construct(HttpClient $httpClient)
+    public function __construct(ClientInterface $httpClient)
     {
-        $this->object = new Objects\Number();
-        $this->setResourceName('phone-numbers');
-
-        parent::__construct($httpClient);
+        parent::__construct($httpClient, 'phone-numbers');
     }
 
     /**
-     * @param mixed $object
-     * @param mixed $id
-     *
-     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|\MessageBird\Objects\Messages\Message|Objects\Verify|Objects\VoiceMessage|null
-     *
-     * @throws \JsonException
-     * @throws \MessageBird\Exceptions\AuthenticateException
-     * @throws \MessageBird\Exceptions\HttpException
-     * @throws \MessageBird\Exceptions\RequestException
-     * @throws \MessageBird\Exceptions\ServerException
-     * @internal param array $parameters
+     * @return string
      */
-    public function update($object, $id)
+    protected function responseClass(): string
     {
-        $objVars = get_object_vars($object);
-        $body = [];
-        foreach ($objVars as $key => $value) {
-            if ($value !== null) {
-                $body[$key] = $value;
-            }
-        }
+        return Objects\Number::class;
+    }
 
-        $resourceName = $this->resourceName . ($id ? '/' . $id : null);
-        $body = json_encode($body, \JSON_THROW_ON_ERROR);
+    /**
+     * @param string $id
+     * @param Arrayable $params
+     * @return Objects\Number|Objects\Base
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
+     */
+    public function update(string $id, Arrayable $params): Objects\Number
+    {
+        $uri = $this->getResourceName() . '/' . $id;
+        $response = $this->httpClient->request(HttpClient::REQUEST_PATCH, $uri, [
+            'body' => $params->toArray()
+        ]);
 
-        // This override is only needed to use the PATCH http method
-        [, , $body] = $this->httpClient->performHttpRequest(
-            HttpClient::REQUEST_PATCH,
-            $resourceName,
-            false,
-            $body
-        );
-        return $this->processRequest($body);
+        return $this->handleCreateResponse($response);
     }
 }

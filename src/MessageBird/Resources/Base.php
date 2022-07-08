@@ -15,6 +15,12 @@ use Psr\Http\Message\ResponseInterface;
  * Class Base
  *
  * @package MessageBird\Resources
+ *
+ * @method BaseList list(array $params = [])
+ * @method Base read(string $id, array $params = [])
+ * @method Base delete(string $id)
+ * @method Base create(Arrayable $params, array $query = [])
+ * @method Base update(string $id, Arrayable $params)
  */
 abstract class Base
 {
@@ -39,13 +45,56 @@ abstract class Base
     }
 
     /**
+     * @param string $name
+     * @param array $arguments
+     * @return Objects\Base|Objects\BaseList
+     * @throws Exceptions\ServerException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
+     */
+    public function __call(string $name, array $arguments)
+    {
+        if ($name == 'read') {
+            return $this->readBasic(...$arguments);
+        }
+        if ($name == 'list') {
+            return $this->listBasic(...$arguments);
+        }
+        if ($name == 'delete') {
+            return $this->deleteBasic(...$arguments);
+        }
+        if ($name == 'create') {
+            return $this->createBasic(...$arguments);
+        }
+        if ($name == 'update') {
+            return $this->updateBasic(...$arguments);
+        }
+    }
+
+    /**
+     * @param string $id
+     * @param array $params
+     * @return Objects\Base
+     * @throws Exceptions\ServerException|\GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
+     */
+    protected function readBasic(string $id, array $params = []): Objects\Base
+    {
+        $uri = $this->resourceName . '/' . $id . '?' . http_build_query($params);
+        $response = $this->httpClient->request(HttpClient::REQUEST_GET, $uri);
+
+        return $this->handleCreateResponse($response);
+    }
+
+    /**
      * @param Arrayable $params
      * @param array $query
      *
      * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|Objects\MessageResponse|Objects\Verify|Objects\VoiceMessage|null
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
-    public function create(Arrayable $params, array $query = []): Objects\Base
+    public function createBasic(Arrayable $params, array $query = []): Objects\Base
     {
         if (empty($query)) {
             $uri = $this->resourceName;
@@ -61,22 +110,6 @@ abstract class Base
     }
 
     /**
-     * Transform response to specified response object.
-     *
-     * @param ResponseInterface $response
-     * @return Objects\Base
-     * @throws \JsonMapper_Exception
-     */
-    protected function handleCreateResponse(ResponseInterface $response): Objects\Base
-    {
-        $responseArray = json_decode($response->getBody(), true);
-
-        $mapper = new JsonMapper();
-        $mapper->bEnforceMapType = false;
-        return $mapper->map($responseArray, new ($this->responseClass()));
-    }
-
-    /**
      * @param string $id
      * @param Arrayable $params
      *
@@ -84,7 +117,7 @@ abstract class Base
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
      */
-    public function update(string $id, Arrayable $params): Objects\Base
+    public function updateBasic(string $id, Arrayable $params): Objects\Base
     {
         $uri = $this->resourceName . '/' . $id;
         $response = $this->httpClient->request(HttpClient::REQUEST_PUT, $uri, [
@@ -99,12 +132,60 @@ abstract class Base
      * @return BaseList
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function list(array $params = []): BaseList
+    protected function listBasic(array $params = []): BaseList
     {
         $uri = $this->resourceName . '?' . http_build_query($params);
         $response = $this->httpClient->request(HttpClient::REQUEST_GET, $uri);
 
         return $this->handleListResponse($response);
+    }
+
+    /**
+     * @param string $id
+     * @return Objects\Base
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
+     */
+    public function deleteBasic(string $id): Objects\Base
+    {
+        $uri = $this->resourceName . '/' . $id;
+        $response = $this->httpClient->request(HttpClient::REQUEST_DELETE, $uri);
+
+        return $this->handleDeleteResponse($response);
+    }
+
+    /**
+     * @param ResponseInterface $response
+     * @return Objects\Base
+     * @throws \JsonMapper_Exception
+     *
+     * @todo rename to handleNoContentResponse
+     */
+    protected function handleDeleteResponse(ResponseInterface $response): Objects\Base
+    {
+        if ($response->getStatusCode() === HttpClient::HTTP_NO_CONTENT) {
+            return new Objects\DeleteResponse();
+        }
+
+        return $this->handleCreateResponse($response);
+    }
+
+    /**
+     * Transform response to specified response object.
+     *
+     * @param ResponseInterface $response
+     * @return Objects\Base
+     * @throws \JsonMapper_Exception
+     *
+     * * @todo rename to handleNoContentResponse
+     */
+    protected function handleCreateResponse(ResponseInterface $response): Objects\Base
+    {
+        $responseArray = json_decode($response->getBody(), true);
+
+        $mapper = new JsonMapper();
+        $mapper->bEnforceMapType = false;
+        return $mapper->map($responseArray, new ($this->responseClass()));
     }
 
     /**
@@ -136,64 +217,6 @@ abstract class Base
 
 
         return $list;
-    }
-
-    /**
-     * @param string $id
-     * @param array $params
-     * @return Objects\Base
-     * @throws Exceptions\ServerException|\GuzzleHttp\Exception\GuzzleException
-     * @throws \JsonMapper_Exception
-     */
-    protected function readById(string $id, array $params = []): Objects\Base
-    {
-        $uri = $this->resourceName . '/' . $id . '?' . http_build_query($params);
-        $response = $this->httpClient->request(HttpClient::REQUEST_GET, $uri);
-
-        return $this->handleCreateResponse($response);
-    }
-
-    /**
-     * @param string $name
-     * @param array $arguments
-     * @return Objects\Base|void
-     * @throws Exceptions\ServerException
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \JsonMapper_Exception
-     */
-    public function __call(string $name, array $arguments)
-    {
-        if ($name == 'read') {
-            return $this->readById(...$arguments);
-        }
-    }
-
-    /**
-     * @param string $id
-     * @return Objects\Base
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \JsonMapper_Exception
-     */
-    public function delete(string $id): Objects\Base
-    {
-        $uri = $this->resourceName . '/' . $id;
-        $response = $this->httpClient->request(HttpClient::REQUEST_DELETE, $uri);
-
-        return $this->handleDeleteResponse($response);
-    }
-
-    /**
-     * @param ResponseInterface $response
-     * @return Objects\Base
-     * @throws \JsonMapper_Exception
-     */
-    protected function handleDeleteResponse(ResponseInterface $response): Objects\Base
-    {
-        if ($response->getStatusCode() === HttpClient::HTTP_NO_CONTENT) {
-            return new Objects\DeleteResponse();
-        }
-
-        return $this->handleCreateResponse($response);
     }
 
     /**

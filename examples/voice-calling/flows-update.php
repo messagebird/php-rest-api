@@ -6,7 +6,7 @@ $messageBird = new \MessageBird\Client('YOUR_ACCESS_KEY'); // Set your own API a
 $callFlow = new \MessageBird\Objects\Voice\CallFlow();
 
 try {
-    $result = $messageBird->voiceCallFlows->update($callFlow, '21e5fc51-3285-4f41-97fd-cd1785ab54f8');
+    $result = $messageBird->voiceCallFlows->updateBasic($callFlow, '21e5fc51-3285-4f41-97fd-cd1785ab54f8');
     var_dump($result);
 } catch (\Exception $e) {
     echo sprintf("%s: %s", get_class($e), $e->getMessage());

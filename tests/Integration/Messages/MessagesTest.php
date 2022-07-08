@@ -253,7 +253,7 @@ class MessagesTest extends BaseTest
             ->with('PUT', 'messages/6fe65f90999aa61536e6a88b88972670')
             ->willReturn(new Response(204, [], $this->loadResponseStub('createMessageResponse')));
 
-        $message = $this->client->messages->update("6fe65f90999aa61536e6a88b88972670", $message);
+        $message = $this->client->messages->updateBasic("6fe65f90999aa61536e6a88b88972670", $message);
 
         self::assertSame('mt', $message->direction);
         self::assertSame('sms', $message->type);

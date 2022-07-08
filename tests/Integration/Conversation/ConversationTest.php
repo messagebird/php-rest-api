@@ -221,9 +221,9 @@ class ConversationTest extends BaseTest
         $conversation = new Conversation();
 
         $conversation->status = Conversation::STATUS_ARCHIVED;
-        $this->client->conversations->update($conversation, 'conversation-id');
+        $this->client->conversations->updateBasic($conversation, 'conversation-id');
 
         $conversation->status = Conversation::STATUS_ACTIVE;
-        $this->client->conversations->update($conversation, 'conversation-id');
+        $this->client->conversations->updateBasic($conversation, 'conversation-id');
     }
 }

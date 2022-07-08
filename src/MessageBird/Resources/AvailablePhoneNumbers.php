@@ -2,9 +2,8 @@
 
 namespace MessageBird\Resources;
 
-use MessageBird\Common;
+use GuzzleHttp\ClientInterface;
 use MessageBird\Common\HttpClient;
-use MessageBird\Exceptions;
 use MessageBird\Objects;
 
 /**
@@ -12,78 +11,37 @@ use MessageBird\Objects;
  *
  * @package MessageBird\Resources
  */
-class AvailablePhoneNumbers
+class AvailablePhoneNumbers extends Base
 {
     /**
-     * @var HttpClient
+     * @param ClientInterface $httpClient
      */
-    protected $httpClient;
-
-    public function __construct(HttpClient $httpClient)
+    public function __construct(ClientInterface $httpClient)
     {
-        $this->httpClient = $httpClient;
+        parent::__construct($httpClient, 'available-phone-numbers');
     }
 
     /**
-     * @return Objects\BaseList|Objects\Number
-     *
-     * @throws Exceptions\AuthenticateException
-     * @throws Exceptions\BalanceException
-     * @throws Exceptions\HttpException
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
-     * @throws \JsonException
+     * @return string
      */
-    public function getList(string $countryCode, array $parameters = [])
+    protected function responseClass(): string
     {
-        [$status, , $body] = $this->httpClient->performHttpRequest(
+        return Objects\Number::class;
+    }
+
+    /**
+     * @param string $countryCode
+     * @param array $params
+     * @return Objects\BaseList
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getList(string $countryCode, array $params = []): Objects\BaseList
+    {
+        $response = $this->httpClient->request(
             HttpClient::REQUEST_GET,
-            "available-phone-numbers/$countryCode",
-            $parameters
+            "{$this->getResourceName()}/$countryCode?" . http_build_query($params)
         );
 
-        if ($status !== 200) {
-            return $this->processRequest($body);
-        }
-        $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
-
-        $items = $body->items;
-        unset($body->items);
-
-        $baseList = new Objects\BaseList();
-        $baseList->loadFromStdclass($body);
-
-        foreach ($items as $item) {
-            $object = new Objects\Number();
-            $itemObject = $object->loadFromStdclass($item);
-            $baseList->items[] = $itemObject;
-        }
-        return $baseList;
-    }
-
-    /**
-     * @throws Exceptions\AuthenticateException
-     * @throws Exceptions\BalanceException
-     * @throws Exceptions\ServerException
-     * @throws Exceptions\RequestException
-     */
-    private function processRequest(?string $body): Objects\Number
-    {
-        if ($body === null) {
-            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
-        }
-
-        try {
-            $body = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-        } catch (\JsonException $e) {
-            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
-        }
-
-        if (!empty($body->errors)) {
-            $responseError = new Common\ResponseError($body);
-            throw new Exceptions\RequestException($responseError->getErrorString());
-        }
-
-        return (new Objects\Number())->loadFromStdclass($body->data[0]);
+        return $this->handleListResponse($response);
     }
 }

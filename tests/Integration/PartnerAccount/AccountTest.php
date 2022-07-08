@@ -174,6 +174,6 @@ class AccountTest extends BaseTest
                 }',
             ]);
 
-        $this->client->partnerAccounts->update($account, 1);
+        $this->client->partnerAccounts->updateBasic($account, 1);
     }
 }

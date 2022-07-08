@@ -12,7 +12,7 @@ try {
     $conversation = $messageBird->conversations->read($conversationId);
 
     $conversation->status = \MessageBird\Objects\Conversation\Conversation::STATUS_ACTIVE;
-    $messageBird->conversations->update($conversation, $conversationId);
+    $messageBird->conversations->updateBasic($conversation, $conversationId);
 } catch (\Exception $e) {
     echo sprintf("%s: %s", get_class($e), $e->getMessage());
 }

@@ -307,7 +307,7 @@ class VoiceTest extends BaseTest
             null,
             '{"url":"https:\/\/example.com\/foo","token":"foobar"}'
         );
-        $this->client->voiceWebhooks->update($webhook, 'foobar123');
+        $this->client->voiceWebhooks->updateBasic($webhook, 'foobar123');
     }
 
     public function testDeleteVoiceWebhook(): void
@@ -437,7 +437,7 @@ class VoiceTest extends BaseTest
             null,
             '{"title":"Updated call flow"}'
         );
-        $this->client->voiceCallFlows->update($webhook, 'foobar123');
+        $this->client->voiceCallFlows->updateBasic($webhook, 'foobar123');
     }
 
     public function testDeleteVoiceCallFlow(): void

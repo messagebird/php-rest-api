@@ -8,7 +8,7 @@ $account = new \MessageBird\Objects\PartnerAccount\Account();
 $account->name = 'Name Test';
 
 try {
-    $partnerAccountResult = $messageBird->partnerAccounts->update($account, 1);
+    $partnerAccountResult = $messageBird->partnerAccounts->updateBasic($account, 1);
     var_dump($partnerAccountResult);
 } catch (\MessageBird\Exceptions\AuthenticateException $e) {
     // That means that your accessKey is unknown

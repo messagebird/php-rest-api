@@ -13,7 +13,7 @@ use MessageBird\Objects\Messages\Message;
  * @package MessageBird\Resources
  *
  * @method Message create(Arrayable $params, array $query = null)
- * @method Message update(string $id, Arrayable $params)
+ * @method Message updateBasic(string $id, Arrayable $params)
  * @method \MessageBird\Objects\Messages\Messages list(array $params = [])
  * @method Message read(string $id, array $params = [])
  * @method DeleteResponse delete(string $id)

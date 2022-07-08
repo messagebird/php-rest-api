@@ -2,103 +2,51 @@
 
 namespace MessageBird\Resources\PartnerAccount;
 
+use GuzzleHttp\ClientInterface;
 use MessageBird\Common\HttpClient;
-use MessageBird\Exceptions;
-use MessageBird\Objects\Balance;
-use MessageBird\Objects\Conversation\Conversation;
-use MessageBird\Objects\Hlr;
-use MessageBird\Objects\Jsonable;
-use MessageBird\Objects\Lookup;
-use MessageBird\Objects\Messages\Message;
+use MessageBird\Objects\Arrayable;
 use MessageBird\Objects\PartnerAccount\Account;
-use MessageBird\Objects\Verify;
-use MessageBird\Objects\VoiceMessage;
 use MessageBird\Resources\Base;
 
+/**
+ * Class Accounts
+ *
+ * @package MessageBird\Resources
+ *
+ * @method Account create(Arrayable $params, array $query = null)
+ */
 class Accounts extends Base
 {
-    public const RESOURCE_NAME = 'child-accounts';
-
-    public function __construct(HttpClient $httpClient)
+    /**
+     * @param ClientInterface $httpClient
+     */
+    public function __construct(ClientInterface $httpClient)
     {
-        parent::__construct($httpClient);
-
-        $this->object = new Account();
-        $this->setResourceName(self::RESOURCE_NAME);
+        parent::__construct($httpClient, 'child-accounts');
     }
 
     /**
-     * @param $object
-     * @param array|null $query
-     * @return Balance|Conversation|Hlr|Lookup|Message|Verify|VoiceMessage|null
-     * @throws Exceptions\AuthenticateException
-     * @throws Exceptions\BalanceException
-     * @throws Exceptions\HttpException
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
+     * @return string
      */
-    public function create($object, ?array $query = null)
+    protected function responseClass(): string
     {
-        [, , $body] = $this->httpClient->performHttpRequest(
-            HttpClient::REQUEST_POST,
-            self::RESOURCE_NAME,
-            null,
-            $object->toJson()
-        );
-
-        return $this->processRequest($body);
+        return Account::class;
     }
 
     /**
-     * @return array|Balance|\MessageBird\Objects\BaseList|Conversation|Hlr|Lookup|Message|\MessageBird\Objects\MessageResponse|Verify|VoiceMessage|null
-     * @throws Exceptions\AuthenticateException
-     * @throws Exceptions\BalanceException
-     * @throws Exceptions\HttpException
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
-     * @throws \JsonException
+     * @param string $id
+     * @param Arrayable $params
+     * @return \MessageBird\Objects\Base|Base
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
-    public function getList(?array $parameters = [])
+    public function update(string $id, Arrayable $params): Account
     {
-        [$status, , $body] = $this->httpClient->performHttpRequest(
-            HttpClient::REQUEST_GET,
-            self::RESOURCE_NAME,
-            $parameters
-        );
+        $uri = $this->getResourceName() . '/' . $id;
+        $response = $this->httpClient->request(HttpClient::REQUEST_PATCH, $uri, [
+            'body' => $params->toArray()
+        ]);
 
-        if ($status !== 200) {
-            return $this->processRequest($body);
-        }
-
-        $response = json_decode($body, false, 512, \JSON_THROW_ON_ERROR);
-
-        $return = [];
-        foreach ($response as &$singleResponse) {
-            $return[] = $this->getObject()->loadFromStdclass($singleResponse);
-        }
-
-        return $return;
-    }
-
-    /**
-     * @param $object
-     * @param $id
-     * @return Balance|Conversation|Hlr|Lookup|Message|Verify|VoiceMessage|null
-     * @throws Exceptions\AuthenticateException
-     * @throws Exceptions\BalanceException
-     * @throws Exceptions\HttpException
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
-     */
-    public function update(Jsonable $object, $id)
-    {
-        [, , $body] = $this->httpClient->performHttpRequest(
-            HttpClient::REQUEST_PATCH,
-            sprintf('%s/%s', self::RESOURCE_NAME, $id),
-            null,
-            $object->toJson()
-        );
-
-        return $this->processRequest($body);
+        return $this->handleCreateResponse($response);
     }
 }

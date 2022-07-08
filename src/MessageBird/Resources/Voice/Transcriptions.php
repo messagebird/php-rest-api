@@ -2,47 +2,35 @@
 
 namespace MessageBird\Resources\Voice;
 
+use GuzzleHttp\ClientInterface;
 use MessageBird\Common;
 use MessageBird\Common\HttpClient;
 use MessageBird\Exceptions;
 use MessageBird\Objects;
+use MessageBird\Objects\Voice\Transcription;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * Class Transcriptions
  *
  * @package MessageBird\Resources\Voice
  */
-class Transcriptions
+class Transcriptions extends \MessageBird\Resources\Base
 {
     /**
-     * @var HttpClient
+     * @param ClientInterface $httpClient
      */
-    protected $httpClient;
-
-    /**
-     * @var Objects\Voice\Transcription
-     */
-    protected $object;
-
-    public function __construct(HttpClient $httpClient)
+    public function __construct(ClientInterface $httpClient)
     {
-        $this->httpClient = $httpClient;
-        $this->object = new Objects\Voice\Transcription();
-    }
-
-    public function getObject(): Objects\Voice\Transcription
-    {
-        return $this->object;
+        parent::__construct($httpClient, 'calls');
     }
 
     /**
-     * @deprecated
-     * 
-     * @param mixed $object
+     * @return string
      */
-    public function setObject($object): void
+    protected function responseClass(): string
     {
-        $this->object = $object;
+        return Transcription::class;
     }
 
     /**
@@ -50,122 +38,74 @@ class Transcriptions
      * @param string $legId
      * @param string $recordingId
      *
-     * @return Objects\Voice\Transcription
-     * @throws Exceptions\AuthenticateException
-     * @throws Exceptions\HttpException
+     * @return Objects\Voice\Transcription|Objects\Base
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
     public function create(string $callId, string $legId, string $recordingId): Objects\Voice\Transcription
     {
-        [, , $body] = $this->httpClient->performHttpRequest(
+        $response = $this->httpClient->request(
             HttpClient::REQUEST_POST,
-            "calls/$callId/legs/$legId/recordings/$recordingId/transcriptions"
+            "{$this->getResourceName()}/$callId/legs/$legId/recordings/$recordingId/transcriptions"
         );
-        return $this->processRequest($body);
+
+        return $this->handleCreateResponse($response);
     }
 
     /**
-     * @throws Exceptions\AuthenticateException
-     * @throws Exceptions\BalanceException
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
+     * @param string $callId
+     * @param string $legId
+     * @param string $recordingId
+     * @param array $params
+     * @return Objects\BaseList
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function processRequest(?string $body): Objects\Voice\Transcription
+    public function list(string $callId, string $legId, string $recordingId, array $params = []): Objects\BaseList
     {
-        try {
-            $body = @json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
-        } catch (\JsonException $e) {
-            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
-        }
 
-        if ($body === null) {
-            throw new Exceptions\ServerException('Got an invalid JSON response from the server.');
-        }
-
-        if (empty($body->errors)) {
-            return $this->object->loadFromStdclass($body->data[0]);
-        }
-
-        $responseError = new Common\ResponseError($body);
-        throw new Exceptions\RequestException($responseError->getErrorString());
-    }
-
-    /**
-     * @return Objects\BaseList|Objects\Voice\Transcription
-     * @throws Exceptions\AuthenticateException
-     * @throws Exceptions\BalanceException
-     * @throws Exceptions\HttpException
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
-     * @throws \JsonException
-     */
-    public function getList(string $callId, string $legId, string $recordingId, array $parameters = [])
-    {
-        [$status, , $body] = $this->httpClient->performHttpRequest(
+        $uri = $this->getResourceName() . '/' . $callId . '/legs/' . $legId . '/recordings/?' . http_build_query($params);
+        $response = $this->httpClient->request(
             HttpClient::REQUEST_GET,
-            "calls/$callId/legs/$legId/recordings/$recordingId/transcriptions",
-            $parameters
+            "{$this->getResourceName()}/$callId/legs/$legId/recordings/$recordingId/transcriptions?" . http_build_query($params)
         );
 
-        if ($status === 200) {
-            $body = json_decode($body, null, 512, \JSON_THROW_ON_ERROR);
-
-            $items = $body->data;
-            unset($body->data);
-
-            $baseList = new Objects\BaseList();
-            $baseList->loadFromStdclass($body);
-
-            $objectName = $this->object;
-
-            foreach ($items as $item) {
-                /** @psalm-suppress UndefinedClass */
-                $object = new $objectName($this->httpClient);
-
-                $itemObject = $object->loadFromStdclass($item);
-                $baseList->items[] = $itemObject;
-            }
-            return $baseList;
-        }
-
-        return $this->processRequest($body);
+        return $this->handleListResponse($response);
     }
 
     /**
-     * @throws Exceptions\AuthenticateException
-     * @throws Exceptions\BalanceException
-     * @throws Exceptions\HttpException
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
+     * @param string $callId
+     * @param string $legId
+     * @param string $recordingId
+     * @param string $transcriptionId
+     * @return Transcription|Objects\Base
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
     public function read(string $callId, string $legId, string $recordingId, string $transcriptionId): Objects\Voice\Transcription
     {
-        [, , $body] = $this->httpClient->performHttpRequest(
+        $response = $this->httpClient->request(
             HttpClient::REQUEST_GET,
-            "calls/$callId/legs/$legId/recordings/$recordingId/transcriptions/$transcriptionId"
+            "{$this->getResourceName()}/$callId/legs/$legId/recordings/$recordingId/transcriptions/$transcriptionId"
         );
 
-        return $this->processRequest($body);
+        return $this->handleCreateResponse($response);
     }
 
     /**
-     * @return Objects\Voice\Transcription|string
-     * @throws Exceptions\AuthenticateException
-     * @throws Exceptions\BalanceException
-     * @throws Exceptions\HttpException
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
+     * @param string $callId
+     * @param string $legId
+     * @param string $recordingId
+     * @param string $transcriptionId
+     * @return StreamInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function download(string $callId, string $legId, string $recordingId, string $transcriptionId)
+    public function download(string $callId, string $legId, string $recordingId, string $transcriptionId): StreamInterface
     {
-        [$status, , $body] = $this->httpClient->performHttpRequest(
+        $response = $this->httpClient->request(
             HttpClient::REQUEST_GET,
-            "calls/$callId/legs/$legId/recordings/$recordingId/transcriptions/$transcriptionId.txt"
+            "{$this->getResourceName()}/$callId/legs/$legId/recordings/$recordingId/transcriptions/$transcriptionId.txt"
         );
 
-        if ($status !== 200) {
-            return $this->processRequest($body);
-        }
-
-        return $body;
+        return $response->getBody();
     }
 }

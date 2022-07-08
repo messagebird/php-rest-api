@@ -3,14 +3,13 @@
 namespace MessageBird\Resources\Voice;
 
 use GuzzleHttp\ClientInterface;
-use MessageBird\Objects;
 
 /**
  * Class CallFlows
  *
  * @package MessageBird\Resources\Voice
  */
-class CallFlows extends Base
+class CallFlows extends \MessageBird\Resources\Base
 {
     /**
      * @param ClientInterface $httpClient

@@ -2,19 +2,25 @@
 
 namespace MessageBird\Resources\Conversation;
 
-use MessageBird\Common\HttpClient;
+use GuzzleHttp\ClientInterface;
 use MessageBird\Objects\Conversation\Webhook;
 use MessageBird\Resources\Base;
 
 class Webhooks extends Base
 {
-    public const RESOURCE_NAME = 'webhooks';
-
-    public function __construct(HttpClient $httpClient)
+    /**
+     * @param ClientInterface $httpClient
+     */
+    public function __construct(ClientInterface $httpClient)
     {
-        parent::__construct($httpClient);
+        parent::__construct($httpClient, 'webhooks');
+    }
 
-        $this->object = new Webhook();
-        $this->setResourceName(self::RESOURCE_NAME);
+    /**
+     * @return string
+     */
+    protected function responseClass(): string
+    {
+        return Webhook::class;
     }
 }

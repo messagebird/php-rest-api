@@ -2,10 +2,11 @@
 
 namespace MessageBird\Resources;
 
+use GuzzleHttp\ClientInterface;
 use InvalidArgumentException;
-use MessageBird\Common;
-use MessageBird\Exceptions;
+use MessageBird\Common\HttpClient;
 use MessageBird\Objects;
+use MessageBird\Objects\BaseList;
 
 /**
  * Class Groups
@@ -15,132 +16,112 @@ use MessageBird\Objects;
 class Groups extends Base
 {
     /**
-     * @var Contacts
+     * @param ClientInterface $httpClient
      */
-    private $contactsObject;
-
-    public function __construct(Common\HttpClient $httpClient)
+    public function __construct(ClientInterface $httpClient)
     {
-        $this->object = new Objects\Group();
-        $this->setResourceName('groups');
-
-        $this->contactsObject = new Contacts($httpClient);
-
-        parent::__construct($httpClient);
+        parent::__construct($httpClient, 'groups');
     }
 
     /**
-     * @param mixed $object
-     * @param mixed $id
-     *
-     * @return Objects\Balance|Objects\Conversation\Conversation|Objects\Hlr|Objects\Lookup|\MessageBird\Objects\Messages\Message|Objects\Verify|Objects\VoiceMessage|null ->object
-     *
-     * @throws Exceptions\AuthenticateException
-     * @throws Exceptions\HttpException
-     * @throws Exceptions\RequestException
-     * @throws Exceptions\ServerException
-     * @throws \JsonException
-     *
-     * @internal param array $parameters
+     * @return string
      */
-    public function update($object, $id)
+    protected function responseClass(): string
     {
-        $objVars = get_object_vars($object);
-        $body = [];
-        foreach ($objVars as $key => $value) {
-            if ($value !== null) {
-                $body[$key] = $value;
+        return Objects\Group::class;
+    }
+
+    /**
+     * @param Objects\Arrayable $params
+     * @param string $id
+     * @return Objects\Group|Objects\Base
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
+     */
+    public function update(Objects\Arrayable $params, string $id): Objects\Group
+    {
+        $response = $this->httpClient->request(
+            HttpClient::REQUEST_PATCH,
+            "{$this->getResourceName()}/$id",
+            ['body' => $params->toArray()]
+        );
+
+        return $this->handleCreateResponse($response);
+    }
+
+    /**
+     * @param string $id
+     * @param array $params
+     * @return BaseList
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function fetchContacts(string $id, array $params = []): BaseList
+    {
+        $response = $this->httpClient->request(
+            HttpClient::REQUEST_GET,
+            "{$this->getResourceName()}/$id/contacts?" . http_build_query($params)
+        );
+
+        $responseArray = json_decode($response->getBody(), true);
+
+        $list = new BaseList();
+        $list->limit = $responseArray['limit'] ?? 0;
+        $list->offset = $responseArray['offset'] ?? 0;
+        $list->count = $responseArray['count'] ?? 0;
+        $list->totalCount = $responseArray['totalCount'] ?? 0;
+        $list->links = $responseArray['links'] ?? [];
+
+        $list->items = [];
+
+        foreach ($responseArray['items'] as $item) {
+            $responseObject = new Objects\Contact();
+
+            foreach ($item as $key => $value) {
+                $responseObject->$key = $value;
             }
+
+            $list->items[] = $responseObject;
         }
 
-        $resourceName = $this->resourceName . ($id ? '/' . $id : null);
-        $body = json_encode($body, \JSON_THROW_ON_ERROR);
-
-        [, , $body] = $this->httpClient->performHttpRequest(
-            Common\HttpClient::REQUEST_PATCH,
-            $resourceName,
-            false,
-            $body
-        );
-        return $this->processRequest($body);
+        return $list;
     }
 
     /**
-     * @param string|null $id
-     * @param array|null $parameters
-     *
-     * @return mixed
-     *
-     * @throws InvalidArgumentException
-     * @throws \JsonException
-     *
-     */
-    public function getContacts(?string $id = null, ?array $parameters = [])
-    {
-        if ($id === null) {
-            throw new InvalidArgumentException('No group id provided.');
-        }
-
-        $this->contactsObject->setResourceName($this->resourceName . '/' . $id . '/contacts');
-        return $this->contactsObject->getList($parameters);
-    }
-
-    /**
+     * @param string $id
      * @param array $contacts
-     * @param string|null $id
-     *
-     * @return mixed
-     * @throws Exceptions\HttpException
-     * @throws InvalidArgumentException
-     *
-     * @throws Exceptions\AuthenticateException
-     * @throws \JsonException
+     * @return Objects\Base
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
-    public function addContacts(array $contacts, ?string $id = null)
+    public function addContacts(string $id, array $contacts): Objects\Base
     {
-        if (!\is_array($contacts)) {
-            throw new  InvalidArgumentException('No array with contacts provided.');
-        }
-        if ($id === null) {
-            throw new InvalidArgumentException('No group id provided.');
+        if (empty($contacts) === true) {
+            throw new InvalidArgumentException('The ID of the contacts required');
         }
 
-        $resourceName = $this->resourceName . ($id ? '/' . $id . '/contacts' : null);
-        $contacts = json_encode($contacts, \JSON_THROW_ON_ERROR);
-        [$responseStatus, , $responseBody] = $this->httpClient->performHttpRequest(
-            Common\HttpClient::REQUEST_PUT,
-            $resourceName,
-            false,
-            $contacts
+        $response = $this->httpClient->request(
+            HttpClient::REQUEST_PUT,
+            "{$this->getResourceName()}/$id/contacts",
+            ['body' => ["ids" => $contacts]]
         );
-        if ($responseStatus !== Common\HttpClient::HTTP_NO_CONTENT) {
-            return json_decode($responseBody, null, 512, \JSON_THROW_ON_ERROR);
-        }
+
+        return $this->handleDeleteResponse($response);
     }
 
     /**
-     * @param string|null $contact_id
-     * @param string|null $id
-     *
-     * @return mixed
-     * @throws Exceptions\HttpException
-     *
-     * @throws Exceptions\AuthenticateException
-     * @throws \JsonException
+     * @param string $groupId
+     * @param string $contactId
+     * @return Objects\Base
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonMapper_Exception
      */
-    public function removeContact(?string $contact_id = null, ?string $id = null)
+    public function removeContact(string $groupId, string $contactId): Objects\Base
     {
-        if ($contact_id === null || $id === null) {
-            throw new InvalidArgumentException('Null Contact or Group id.');
-        }
-        $resourceName = $this->resourceName . ($id ? '/' . $id . '/contacts/' . $contact_id : null);
-
-        [$responseStatus, , $responseBody] = $this->httpClient->performHttpRequest(
-            Common\HttpClient::REQUEST_DELETE,
-            $resourceName
+        $response = $this->httpClient->request(
+            HttpClient::REQUEST_DELETE,
+            "{$this->getResourceName()}/$groupId/contacts/$contactId"
         );
-        if ($responseStatus !== Common\HttpClient::HTTP_NO_CONTENT) {
-            return json_decode($responseBody, null, 512, \JSON_THROW_ON_ERROR);
-        }
+
+        return $this->handleDeleteResponse($response);
     }
 }

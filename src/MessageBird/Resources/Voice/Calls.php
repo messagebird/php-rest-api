@@ -10,7 +10,7 @@ use MessageBird\Objects;
  *
  * @package MessageBird\Resources\Voice
  */
-class Calls extends Base
+class Calls extends \MessageBird\Resources\Base
 {
     /**
      * @param ClientInterface $httpClient

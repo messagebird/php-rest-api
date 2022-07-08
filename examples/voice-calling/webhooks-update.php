@@ -8,7 +8,7 @@ $webhook->url = 'https://example.com/foobar';
 $webhook->token = 'baz';
 
 try {
-    $result = $messageBird->voiceWebhooks->update($webhook, 'e5f56d49-4fa2-4802-895d-b0a306f73f76');
+    $result = $messageBird->voiceWebhooks->updateBasic($webhook, 'e5f56d49-4fa2-4802-895d-b0a306f73f76');
     var_dump($result);
 } catch (\Exception $e) {
     echo sprintf("%s: %s", get_class($e), $e->getMessage());
