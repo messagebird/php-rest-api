@@ -13,7 +13,7 @@ class VoiceMessage extends Base
      * The originator of the voice message.
      *
      * Should be a valid MSISDN (telephone number including country code)
-     * @var string/int
+     * @var string|null
      */
     public $originator;
     /**
@@ -69,15 +69,15 @@ class VoiceMessage extends Base
     /**
      * The scheduled date and time of the message in RFC3339 format (Y-m-d\TH:i:sP)
      *
-     * @var string
+     * @var string|null
      */
     public $scheduledDatetime;
     /**
      * An array of recipients
      *
-     * @var array
+     * @var Recipients
      */
-    public $recipients = [];
+    public $recipients;
     /**
      * The URL to send status delivery reports for the voice message to
      *
@@ -90,42 +90,16 @@ class VoiceMessage extends Base
      *
      * @var string
      */
-    protected $id;
+    public $id;
     /**
      * The URL of the created object.
      *
      * @var string
      */
-    protected $href;
+    public $href;
     /**
      * The date and time of the creation of the message in RFC3339 format (Y-m-d\TH:i:sP)
      * @var string
      */
-    protected $createdDatetime;
-
-    /**
-     * Get the created id
-     *
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get the created href
-     */
-    public function getHref(): string
-    {
-        return $this->href;
-    }
-
-    /**
-     * Get the date and time the resource was created
-     */
-    public function getCreatedDatetime(): string
-    {
-        return $this->createdDatetime;
-    }
+    public $createdDatetime;
 }

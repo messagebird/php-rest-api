@@ -51,6 +51,10 @@ Documentation
 Complete documentation, instructions, and examples are available at:
 [https://developers.messagebird.com/](https://developers.messagebird.com/)
 
+TODO
+----
+- [ ] Add more tests with different responses: empty response, 4xx, 5xx, 202, 204
+
 
 License
 ----

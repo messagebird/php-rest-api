@@ -1,0 +1,27 @@
+{
+    "id": "e8077d803532c0b5937c639b60996938",
+    "href": "https://rest.messagebird.com/voicemessages/e8077d803532c0b5937c639b60216938",
+    "originator": null,
+    "body": "The voice message to be sent",
+    "reference": "the-client-reference",
+    "language": "en-gb",
+    "voice": "female",
+    "repeat": 1,
+    "ifMachine": "continue",
+    "machineTimeout": 7000,
+    "scheduledDatetime": null,
+    "createdDatetime": "2016-05-03T14:26:57+00:00",
+    "recipients": {
+        "totalCount": 1,
+        "totalSentCount": 1,
+        "totalDeliveredCount": 0,
+        "totalDeliveryFailedCount": 0,
+        "items": [
+            {
+                "recipient": 31612345678,
+                "status": "calling",
+                "statusDatetime": "2016-05-03T14:26:57+00:00"
+            }
+        ]
+    }
+}

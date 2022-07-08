@@ -19,6 +19,7 @@ class HttpClient
     public const REQUEST_PUT = 'PUT';
     public const REQUEST_PATCH = 'PATCH';
 
+    public const HTTP_OK = 200;
     public const HTTP_NO_CONTENT = 204;
 
     public const TIMEOUT_DEFAULT = 10;

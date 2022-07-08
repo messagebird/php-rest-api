@@ -17,10 +17,10 @@ use Psr\Http\Message\ResponseInterface;
  * @package MessageBird\Resources
  *
  * @method BaseList list(array $params = [])
- * @method Base read(string $id, array $params = [])
- * @method Base delete(string $id)
- * @method Base create(Arrayable $params, array $query = [])
- * @method Base update(string $id, Arrayable $params)
+ * @method Objects\Base read(string $id, array $params = [])
+ * @method Objects\Base delete(string $id)
+ * @method Objects\Base create(Arrayable $params, array $query = [])
+ * @method Objects\Base update(string $id, Arrayable $params)
  */
 abstract class Base
 {
@@ -51,6 +51,7 @@ abstract class Base
      * @throws Exceptions\ServerException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      */
     public function __call(string $name, array $arguments)
     {
@@ -131,11 +132,16 @@ abstract class Base
      * @param array $params
      * @return BaseList
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonException
      */
     protected function listBasic(array $params = []): BaseList
     {
         $uri = $this->resourceName . '?' . http_build_query($params);
         $response = $this->httpClient->request(HttpClient::REQUEST_GET, $uri);
+
+//        var_dump($response->getBody()->getContents());
+//        var_dump(json_decode($response->getBody(), true));
+//        exit;
 
         return $this->handleListResponse($response);
     }
@@ -145,6 +151,7 @@ abstract class Base
      * @return Objects\Base
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      */
     public function deleteBasic(string $id): Objects\Base
     {
@@ -158,12 +165,17 @@ abstract class Base
      * @param ResponseInterface $response
      * @return Objects\Base
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      *
      * @todo rename to handleNoContentResponse
      */
     protected function handleDeleteResponse(ResponseInterface $response): Objects\Base
     {
         if ($response->getStatusCode() === HttpClient::HTTP_NO_CONTENT) {
+            return new Objects\DeleteResponse();
+        }
+        if ($response->getStatusCode() === HttpClient::HTTP_OK &&
+            ($response->getBody()->getSize() === null || $response->getBody()->getSize() === 0)) {
             return new Objects\DeleteResponse();
         }
 
@@ -176,15 +188,17 @@ abstract class Base
      * @param ResponseInterface $response
      * @return Objects\Base
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      *
      * * @todo rename to handleNoContentResponse
      */
     protected function handleCreateResponse(ResponseInterface $response): Objects\Base
     {
-        $responseArray = json_decode($response->getBody(), true);
+        $responseArray = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
         $mapper = new JsonMapper();
         $mapper->bEnforceMapType = false;
+
         return $mapper->map($responseArray, new ($this->responseClass()));
     }
 
@@ -205,14 +219,11 @@ abstract class Base
 
         $list->items = [];
 
+        $mapper = new JsonMapper();
+        $mapper->bEnforceMapType = false;
+
         foreach ($responseArray['items'] as $item) {
-            $responseObject = new ($this->responseClass());
-
-            foreach ($item as $key => $value) {
-                $responseObject->$key = $value;
-            }
-
-            $list->items[] = $responseObject;
+            $list->items[] = $mapper->map($item, new ($this->responseClass()));
         }
 
 
