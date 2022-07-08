@@ -78,6 +78,7 @@ abstract class Base
      * @return Objects\Base
      * @throws Exceptions\ServerException|\GuzzleHttp\Exception\GuzzleException
      * @throws \JsonMapper_Exception
+     * @throws \JsonException
      */
     protected function readBasic(string $id, array $params = []): Objects\Base
     {
