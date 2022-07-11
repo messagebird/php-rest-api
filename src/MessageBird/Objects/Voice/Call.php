@@ -32,87 +32,49 @@ class Call extends Base
      *
      * @var string
      */
-    protected $id;
+    public $id;
     /**
      * The unique ID of the number that is/was called
      *
      * @var string
      */
-    protected $numberId;
+    public $numberId;
 
     /**
      * The status of the call. Possible values: starting, ongoing, ended.
      *
      * @var string
      */
-    protected $status;
+    public $status;
 
     /**
      * The date and time the call was created
      *
      * @var string
      */
-    protected $createdAt;
+    public $createdAt;
 
     /**
      * The date and time the call was last updated
      *
      * @var string
      */
-    protected $updatedAt;
+    public $updatedAt;
 
     /**
      * The date and time the call ended
      *
      * @var string
      */
-    protected $endedAt;
+    public $endedAt;
 
     /**
-     * @return string
+     * @var array
      */
-    public function getId(): string
-    {
-        return $this->id;
-    }
+    public $webhook;
 
     /**
-     * @return string
+     * @var array
      */
-    public function getNumberId(): string
-    {
-        return $this->numberId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCreatedAt(): string
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUpdatedAt(): string
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEndedAt(): string
-    {
-        return $this->endedAt;
-    }
+    public $_links;
 }

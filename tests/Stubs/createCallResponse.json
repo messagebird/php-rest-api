@@ -1,0 +1,16 @@
+{
+    "data": [
+        {
+            "id": "21025ed1-cc1d-4554-ac05-043fa6c84e00",
+            "status": "queued",
+            "source": "31644556677",
+            "destination": "31612345678",
+            "createdAt": "2017-08-30T07:35:37Z",
+            "updatedAt": "2017-08-30T07:35:37Z",
+            "endedAt": null
+        }
+    ],
+    "_links": {
+        "self": "/calls/21025ed1-cc1d-4554-ac05-043fa6c84e00"
+    }
+}

@@ -3,15 +3,11 @@
 namespace Tests\Integration\Messages;
 
 use GuzzleHttp\Psr7\Response;
-use MessageBird\Exceptions\ServerException;
 use MessageBird\Objects\Messages\Message;
 use Tests\Integration\BaseTest;
 
 class MessagesTest extends BaseTest
 {
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
     public function testCreateMessage(): void
     {
         $message = new Message();
@@ -84,9 +80,6 @@ class MessagesTest extends BaseTest
         self::assertSame(1, $message->recipients->items[0]->messagePartCount);
     }
 
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
     public function testBinarySmsMessage(): void
     {
         $message = new Message();
@@ -126,9 +119,6 @@ class MessagesTest extends BaseTest
         self::assertSame(["udh" => "HEADER"], $message->typeDetails);
     }
 
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
     public function testFlashSmsMessage(): void
     {
         $message = new Message();
@@ -170,9 +160,6 @@ class MessagesTest extends BaseTest
         self::assertSame(0, $message->mclass);
     }
 
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
     public function testListMessage(): void
     {
         $this->mockClient->expects(self::once())
@@ -189,11 +176,6 @@ class MessagesTest extends BaseTest
         self::assertCount(2, $messages->items);
     }
 
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws ServerException
-     * @throws \JsonMapper_Exception
-     */
     public function testReadMessage(): void
     {
         $this->mockClient->expects(self::once())->method('request')

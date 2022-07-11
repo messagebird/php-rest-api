@@ -1,0 +1,16 @@
+{
+    "data": [
+        {
+            "id": "f1aa71c0-8f2a-4fe8-b5ef-9a330454ef58",
+            "status": "ended",
+            "source": "31644556677",
+            "destination": "31612345678",
+            "createdAt": "2017-02-16T10:52:00Z",
+            "updatedAt": "2017-02-16T10:59:04Z",
+            "endedAt": "2017-02-16T10:59:04Z"
+        }
+    ],
+    "_links": {
+        "self": "/calls/f1aa71c0-8f2a-4fe8-b5ef-9a330454ef58"
+    }
+}

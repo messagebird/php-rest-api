@@ -2,34 +2,77 @@
 
 namespace Tests\Integration\Voice;
 
+use GuzzleHttp\Psr7\Response;
 use MessageBird\Exceptions\ServerException;
 use MessageBird\Objects\Voice\Call;
 use MessageBird\Objects\Voice\CallFlow;
+use MessageBird\Objects\Voice\Calls;
 use MessageBird\Objects\Voice\Webhook;
 use Tests\Integration\BaseTest;
 
 class VoiceTest extends BaseTest
 {
+    /**
+     * @throws \JsonMapper_Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testListVoiceCall(): void
     {
-        $this->expectException(ServerException::class);
-        $this->mockClient->expects(self::once())->method('performHttpRequest')->with("GET", 'calls', [
-            'offset' => 100,
-            'limit' => 30,
-        ], null);
-        $this->client->voiceCalls->getList(['offset' => 100, 'limit' => 30]);
+        $this->mockClient->expects(self::once())->method('request')
+            ->with('GET', 'calls?offset=0&limit=30')
+            ->willReturn(new Response(200, [], $this->loadResponseStub('listCallsResponse')));
+
+        $list = $this->client->voiceCalls->list(['offset' => 0, 'limit' => 30]);
+
+        self::assertInstanceOf(Calls::class, $list);
+        self::assertCount(1, $list->_links);
+        self::assertEquals('/calls?page=1', $list->_links['self']);
+        self::assertCount(4, $list->pagination);
+        self::assertEquals(2, $list->pagination['totalCount']);
+        self::assertEquals(1, $list->pagination['pageCount']);
+        self::assertEquals(1, $list->pagination['currentPage']);
+        self::assertEquals(10, $list->pagination['perPage']);
+        self::assertCount(2, $list->data);
+        self::assertInstanceOf(Call::class, $list->data[0]);
+
+        self::assertEquals('f1aa71c0-8f2a-4fe8-b5ef-9a330454ef58', $list->data[0]->id);
+        self::assertEquals('ended', $list->data[0]->status);
+        self::assertEquals('31644556677', $list->data[0]->source);
+        self::assertEquals('31612345678', $list->data[0]->destination);
+        self::assertEquals('2017-02-16T10:52:00Z', $list->data[0]->createdAt);
+        self::assertEquals('2017-02-16T10:59:04Z', $list->data[0]->updatedAt);
+        self::assertEquals('2017-02-16T10:59:04Z', $list->data[0]->endedAt);
+        self::assertCount(1, $list->data[0]->_links);
+        self::assertEquals('/calls/f1aa71c0-8f2a-4fe8-b5ef-9a330454ef58', $list->data[0]->_links['self']);
+
+        self::assertEquals('ac07a602-dbc1-11e6-bf26-cec0c932ce01', $list->data[1]->id);
+        self::assertEquals('ended', $list->data[1]->status);
+        self::assertEquals('31644556677', $list->data[1]->source);
+        self::assertEquals('31612345678', $list->data[1]->destination);
+        self::assertEquals('2017-01-16T07:51:56Z', $list->data[1]->createdAt);
+        self::assertEquals('2017-01-16T07:55:56Z', $list->data[1]->updatedAt);
+        self::assertEquals('2017-01-16T07:55:56Z', $list->data[1]->endedAt);
+        self::assertCount(1, $list->data[1]->_links);
+        self::assertEquals('/calls/ac07a602-dbc1-11e6-bf26-cec0c932ce01', $list->data[1]->_links['self']);
     }
 
     public function testReadVoiceCall(): void
     {
-        $this->expectException(ServerException::class);
-        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
-            "GET",
-            'calls/foobar',
-            null,
-            null
-        );
-        $this->client->voiceCalls->read('foobar');
+        $this->mockClient->expects(self::once())->method('request')
+            ->with('GET', 'calls/ac07a602-dbc1-11e6-bf26-cec0c932ce01')
+            ->willReturn(new Response(200, [], $this->loadResponseStub('viewCallResponse')));
+
+        $call = $this->client->voiceCalls->read('ac07a602-dbc1-11e6-bf26-cec0c932ce01');
+
+        self::assertInstanceOf(Call::class, $call);
+
+        self::assertEquals('f1aa71c0-8f2a-4fe8-b5ef-9a330454ef58', $call->id);
+        self::assertEquals('ended', $call->status);
+        self::assertEquals('31644556677', $call->source);
+        self::assertEquals('31612345678', $call->destination);
+        self::assertEquals('2017-02-16T10:52:00Z', $call->createdAt);
+        self::assertEquals('2017-02-16T10:59:04Z', $call->updatedAt);
+        self::assertEquals('2017-02-16T10:59:04', $call->endedAt);
     }
 
     public function testCreateVoiceCall(): void
@@ -45,34 +88,99 @@ class VoiceTest extends BaseTest
                 ],
             ],
         ];
+        $voiceCall->webhook = [
+            'url' => 'https://example.com',
+            'token' => 'token_to_sign_the_call_events_with',
+        ];
 
-        $this->mockClient->expects($this->atLeastOnce())->method('performHttpRequest')->willReturn([
-            201,
-            '',
-            '{
-  "data": [
-    {
-      "id": "21025ed1-cc1d-4554-ac05-043fa6c84e00",
-      "status": "starting",
-      "source": "31644556677",
-      "destination": "31612345678",
-      "createdAt": "2017-08-30T07:35:37Z",
-      "updatedAt": "2017-08-30T07:35:37Z",
-      "endedAt": null
+        $this->mockClient->expects(self::once())->method('request')
+            ->with(
+                'POST',
+                'calls',
+                [
+                    'body' => [
+                        'source' => '31612354678',
+                        'destination' => '31611223344',
+                        'callFlow' => [
+                            'title' => 'Foobar',
+                            'steps' => [
+                                ['action' => 'hangup'],
+                            ],
+                        ],
+                        'webhook' => [
+                            'url' => 'https://example.com',
+                            'token' => 'token_to_sign_the_call_events_with',
+                        ],
+                    ]
+                ]
+            )
+            ->willReturn(new Response(200, [], $this->loadResponseStub('createCallResponse')));
+
+        $call = $this->client->voiceCalls->create($voiceCall);
+
+        self::assertInstanceOf(Call::class, $call);
+
+        self::assertEquals('21025ed1-cc1d-4554-ac05-043fa6c84e00', $call->id);
+        self::assertEquals('queued', $call->status);
+        self::assertEquals('31644556677', $call->source);
+        self::assertEquals('31612345678', $call->destination);
+        self::assertEquals('2017-08-30T07:35:37Z', $call->createdAt);
+        self::assertEquals('2017-08-30T07:35:37Z', $call->updatedAt);
+        self::assertNull($call->endedAt);
     }
-  ],
-  "_links": {
-    "self": "/calls/21025ed1-cc1d-4554-ac05-043fa6c84e00"
-  }
-}',
-        ]);
-        $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
-            "POST",
-            'calls',
-            null,
-            '{"source":"31612354678","destination":"31611223344","callFlow":{"title":"Foobar","steps":[{"action":"hangup"}]}}'
-        );
-        $this->client->voiceCalls->create($voiceCall);
+
+    public function testUpdateVoiceCall(): void
+    {
+        $voiceCall = new Call();
+        $voiceCall->source = '31612354678';
+        $voiceCall->destination = '31611223344';
+        $voiceCall->callFlow = [
+            'title' => 'Foobar',
+            'steps' => [
+                [
+                    'action' => 'hangup',
+                ],
+            ],
+        ];
+        $voiceCall->webhook = [
+            'url' => 'https://example.com',
+            'token' => 'token_to_sign_the_call_events_with',
+        ];
+
+        $this->mockClient->expects(self::once())->method('request')
+            ->with(
+                'POST',
+                'calls',
+                [
+                    'body' => [
+                        'source' => '31612354678',
+                        'destination' => '31611223344',
+                        'callFlow' => [
+                            'title' => 'Foobar',
+                            'steps' => [
+                                ['action' => 'hangup'],
+                            ],
+                        ],
+                        'webhook' => [
+                            'url' => 'https://example.com',
+                            'token' => 'token_to_sign_the_call_events_with',
+                        ],
+                    ]
+                ]
+            )
+            ->willReturn(new Response(200, [], $this->loadResponseStub('createCallResponse')));
+
+        $call = $this->client->voiceCalls->create($voiceCall);
+
+        self::assertInstanceOf(Call::class, $call);
+
+        self::assertEquals('21025ed1-cc1d-4554-ac05-043fa6c84e00', $call->id);
+        self::assertEquals('queued', $call->status);
+        self::assertEquals('31644556677', $call->source);
+        self::assertEquals('31612345678', $call->destination);
+        self::assertEquals('2017-08-30T07:35:37Z', $call->createdAt);
+        self::assertEquals('2017-08-30T07:35:37Z', $call->updatedAt);
+        self::assertNull($call->endedAt);
     }
 
     public function testListVoiceLegs(): void
