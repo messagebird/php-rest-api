@@ -73,7 +73,8 @@ class Accounts extends Base
 
         $return = [];
         foreach ($response as &$singleResponse) {
-            $return[] = $this->getObject()->loadFromStdclass($singleResponse);
+            $object = clone $this->getObject();
+            $return[] = $object->loadFromStdclass($singleResponse);
         }
 
         return $return;
