@@ -58,9 +58,7 @@ class Lookup extends Base
     protected $type;
 
     /**
-     * An associative array containing references to this phone number in several different formats.
-     *
-     * @var array
+     * An object containing references to this phone number in several formats.
      *
      * e164: The phone number in E.164 format.
      * international: The phone number in international format.
@@ -71,8 +69,6 @@ class Lookup extends Base
 
     /**
      * The most recent HLR object. If no such HLR objects exists, this array won't be returned.
-     *
-     * @var array
      *
      * id(string): An unique random ID which is created on the MessageBird platform.
      * network(int): The MCCMNC code of the network provider.
@@ -108,19 +104,19 @@ class Lookup extends Base
         return $this->type;
     }
 
-    public function getFormats(): ?array
+    public function getFormats(): ?stdClass
     {
         return $this->formats;
     }
 
-    public function getHLR(): ?array
+    public function getHLR(): ?stdClass
     {
         return $this->hlr;
     }
 
     /**
      * @deprecated 2.2.0 No longer used by internal code, please switch to {@see self::loadFromStdclass()}
-     * 
+     *
      * @param mixed $object
      *
      * @return $this
