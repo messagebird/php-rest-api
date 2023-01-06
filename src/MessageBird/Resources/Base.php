@@ -186,7 +186,8 @@ class Base
 
             foreach ($items as $item) {
                 if ($this->responseObject) {
-                    $baseList->items[] =  $this->responseObject->loadFromStdclass($item);
+                    $responseObject = clone $this->responseObject;
+                    $baseList->items[] =  $responseObject->loadFromStdclass($item);
                 } else {
                     /** @psalm-suppress UndefinedClass */
                     $object = new $objectName($this->httpClient);
