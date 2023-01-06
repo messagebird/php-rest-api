@@ -8,6 +8,8 @@ use MessageBird\Objects\BaseList;
 use MessageBird\Objects\Contact;
 use MessageBird\Objects\Group;
 use MessageBird\Objects\Message;
+use MessageBird\Objects\MessageResponse;
+
 use Tests\Integration\BaseTest;
 
 class ContactTest extends BaseTest
@@ -155,7 +157,7 @@ class ContactTest extends BaseTest
         $messages = $this->client->contacts->getMessages("contact_id");
 
         foreach ($messages->items as $message) {
-            self::assertInstanceOf(Message::class, $message);
+            self::assertInstanceOf(MessageResponse::class, $message);
         }
     }
 }
