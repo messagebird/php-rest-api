@@ -119,8 +119,8 @@ class MessagesTest extends BaseTest
         self::assertSame('7d8451f8', $messageList->items[0]->id);
         self::assertSame('https://rest.messagebird.com/messages/7d8451f8', $messageList->items[0]->href);
 
-        self::assertSame('7d8451f8', $messageList->items[1]->id);
-        self::assertSame('https://rest.messagebird.com/messages/7d8451f8', $messageList->items[1]->href);
+        self::assertSame('7d8451f9', $messageList->items[1]->id);
+        self::assertSame('https://rest.messagebird.com/messages/7d8451f9', $messageList->items[1]->href);
 
     }
 
