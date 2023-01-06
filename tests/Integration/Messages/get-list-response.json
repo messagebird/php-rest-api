@@ -1,0 +1,116 @@
+{
+    "offset": 0,
+    "limit": 10,
+    "count": 10,
+    "totalCount": 16,
+    "links":
+    {
+        "first": "https://rest.messagebird.com/messages/?offset=0&limit=10&recipient=31653474496&from=2021-03-16T00%3A00%3A00%2B00%3A00",
+        "previous": null,
+        "next": "https://rest.messagebird.com/messages/?offset=10&limit=10&recipient=31653474496&from=2021-03-16T00%3A00%3A00%2B00%3A00",
+        "last": "https://rest.messagebird.com/messages/?offset=10&limit=10&recipient=31653474496&from=2021-03-16T00%3A00%3A00%2B00%3A00"
+    },
+    "items":
+    [
+        {
+            "id": "7d8451f8",
+            "href": "https://rest.messagebird.com/messages/7d8451f8",
+            "direction": "mt",
+            "type": "sms",
+            "originator": "+31612345678",
+            "body": "Hi there",
+            "reference": null,
+            "validity": null,
+            "gateway": 10,
+            "typeDetails":
+            {
+                "verify": true
+            },
+            "datacoding": "plain",
+            "mclass": 1,
+            "scheduledDatetime": null,
+            "createdDatetime": "2022-10-12T18:46:22+00:00",
+            "recipients":
+            {
+                "totalCount": 1,
+                "totalSentCount": 1,
+                "totalDeliveredCount": 1,
+                "totalDeliveryFailedCount": 0,
+                "items":
+                [
+                    {
+                        "recipient": 31612345678,
+                        "originator": null,
+                        "status": "delivered",
+                        "statusDatetime": "2022-10-12T18:46:24+00:00",
+                        "recipientCountry": "Netherlands",
+                        "recipientCountryPrefix": 31,
+                        "recipientOperator": "KPN",
+                        "messageLength": 20,
+                        "statusErrorCode": null,
+                        "statusReason": "successfully delivered",
+                        "price":
+                        {
+                            "amount": 0.076,
+                            "currency": "EUR"
+                        },
+                        "mccmnc": "20408",
+                        "mcc": "204",
+                        "mnc": "08",
+                        "messagePartCount": 1
+                    }
+                ]
+            }
+        },
+        {
+            "id": "7d8451f8",
+            "href": "https://rest.messagebird.com/messages/7d8451f8",
+            "direction": "mt",
+            "type": "sms",
+            "originator": "+31612345678",
+            "body": "Hi there",
+            "reference": null,
+            "validity": null,
+            "gateway": 10,
+            "typeDetails":
+            {
+                "verify": true
+            },
+            "datacoding": "plain",
+            "mclass": 1,
+            "scheduledDatetime": null,
+            "createdDatetime": "2022-10-12T18:46:22+00:00",
+            "recipients":
+            {
+                "totalCount": 1,
+                "totalSentCount": 1,
+                "totalDeliveredCount": 1,
+                "totalDeliveryFailedCount": 0,
+                "items":
+                [
+                    {
+                        "recipient": 31612345678,
+                        "originator": null,
+                        "status": "delivered",
+                        "statusDatetime": "2022-10-12T18:46:24+00:00",
+                        "recipientCountry": "Netherlands",
+                        "recipientCountryPrefix": 31,
+                        "recipientOperator": "KPN",
+                        "messageLength": 20,
+                        "statusErrorCode": null,
+                        "statusReason": "successfully delivered",
+                        "price":
+                        {
+                            "amount": 0.076,
+                            "currency": "EUR"
+                        },
+                        "mccmnc": "20408",
+                        "mcc": "204",
+                        "mnc": "08",
+                        "messagePartCount": 1
+                    }
+                ]
+            }
+        }
+    ]
+}
