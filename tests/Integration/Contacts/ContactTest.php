@@ -7,7 +7,6 @@ use MessageBird\Exceptions\ServerException;
 use MessageBird\Objects\BaseList;
 use MessageBird\Objects\Contact;
 use MessageBird\Objects\Group;
-use MessageBird\Objects\Message;
 use MessageBird\Objects\MessageResponse;
 
 use Tests\Integration\BaseTest;

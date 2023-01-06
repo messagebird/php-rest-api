@@ -185,10 +185,10 @@ class Base
             }
 
             foreach ($items as $item) {
-                /** @psalm-suppress UndefinedClass */
                 if ($this->responseObject) {
                     $baseList->items[] =  $this->responseObject->loadFromStdclass($item);
                 } else {
+                    /** @psalm-suppress UndefinedClass */
                     $object = new $objectName($this->httpClient);
 
                     $message = $object->loadFromArray($item);
