@@ -185,11 +185,16 @@ class Base
             }
 
             foreach ($items as $item) {
-                /** @psalm-suppress UndefinedClass */
-                $object = new $objectName($this->httpClient);
+                if ($this->responseObject) {
+                    $responseObject = clone $this->responseObject;
+                    $baseList->items[] =  $responseObject->loadFromStdclass($item);
+                } else {
+                    /** @psalm-suppress UndefinedClass */
+                    $object = new $objectName($this->httpClient);
 
-                $message = $object->loadFromArray($item);
-                $baseList->items[] = $message;
+                    $message = $object->loadFromArray($item);
+                    $baseList->items[] = $message;
+                }
             }
 
             return $baseList;

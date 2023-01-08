@@ -100,14 +100,28 @@ class MessagesTest extends BaseTest
 
     public function testListMessage(): void
     {
-        $this->expectException(ServerException::class);
+        $this->mockClient->expects(self::atLeastOnce())->method('performHttpRequest')->willReturn([
+            200,
+            '',
+            file_get_contents(__DIR__ . '/get-list-response.json')
+        ]);
+
         $this->mockClient->expects(self::once())->method('performHttpRequest')->with(
             "GET",
             'messages',
             ['offset' => 100, 'limit' => 30],
             null
         );
-        $this->client->messages->getList(['offset' => 100, 'limit' => 30]);
+
+
+        $messageList = $this->client->messages->getList(['offset' => 100, 'limit' => 30]);
+
+        self::assertSame('7d8451f8', $messageList->items[0]->id);
+        self::assertSame('https://rest.messagebird.com/messages/7d8451f8', $messageList->items[0]->href);
+
+        self::assertSame('7d8451f9', $messageList->items[1]->id);
+        self::assertSame('https://rest.messagebird.com/messages/7d8451f9', $messageList->items[1]->href);
+
     }
 
     public function testReadMessage(): void

@@ -11,14 +11,14 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [ '7.3', '7.4', '8.0', '8.1' ]
-        stability: [ prefer-lowest, prefer-stable ]
+        php: [ '7.4', '8.0', '8.1', '8.2' ]
+        stability: [ prefer-stable ]
 
     name: PHP ${{ matrix.php }} - ${{ matrix.stability }}
 
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
