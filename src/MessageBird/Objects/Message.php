@@ -116,6 +116,12 @@ class Message extends Base
      */
     public $reportUrl;
     /**
+     * Shorten all the URLs present in the message body
+     *
+     * @var bool
+     */
+    public $shortenUrls;
+    /**
      * The date and time of the creation of the message in RFC3339 format (Y-m-d\TH:i:sP)
      * @var string
      */
