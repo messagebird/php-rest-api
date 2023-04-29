@@ -188,7 +188,8 @@ class RequestValidator
     public function validateRequestFromGlobals()
     {
         $signature = $_SERVER['MessageBird-Signature-JWT'] ?? null;
-        $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") .
+            "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
         $body = file_get_contents('php://input');
 
         return $this->validateSignature($signature, $url, $body);
