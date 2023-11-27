@@ -50,15 +50,26 @@ class RequestValidator
     private $skipURLValidation;
 
     /**
+     * Allows the JWT token to be that many seconds after the expiration date
+     * without being considered it expired. Useful to account for server
+     * clocks being slightly out of sync or for integration testing with
+     * a known good token. Should be kept reasonably low in production.
+     *
+     * @var int
+     */
+    private $leewaySeconds;
+
+    /**
      * RequestValidator constructor.
      *
      * @param string $signingKey customer signature key. Can be retrieved through <a href="https://dashboard.messagebird.com/developers/settings">Developer Settings</a>. This is NOT your API key.
      * @param bool $skipURLValidation whether url_hash claim validation should be skipped. Note that when true, no query parameters should be trusted.
      */
-    public function __construct(string $signingKey, bool $skipURLValidation = false)
+    public function __construct(string $signingKey, bool $skipURLValidation = false, int $leewaySeconds = 1)
     {
         $this->signingKey = $signingKey;
         $this->skipURLValidation = $skipURLValidation;
+        $this->leewaySeconds = $leewaySeconds;
     }
 
     /**
@@ -139,7 +150,7 @@ class RequestValidator
             throw new ValidationException("URL cannot be empty");
         }
 
-        JWT::$leeway = 1;
+        JWT::$leeway = $this->leewaySeconds;
         try {
             $headb64 = \explode('.', $signature)[0];
             $headerRaw = JWT::urlsafeB64Decode($headb64);
