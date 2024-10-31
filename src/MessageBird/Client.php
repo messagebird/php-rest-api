@@ -147,7 +147,7 @@ class Client
      */
     protected $numbersAPIClient;
 
-    public function __construct(?string $accessKey = null, Common\HttpClient $httpClient = null, array $config = [])
+    public function __construct(?string $accessKey = null, ?Common\HttpClient $httpClient = null, array $config = [])
     {
         if ($httpClient === null) {
             $this->conversationsAPIHttpClient = new Common\HttpClient(
