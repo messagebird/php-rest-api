@@ -109,7 +109,7 @@ class RequestValidatorTest extends TestCase
 
     const ERROR_MAP = [
         "invalid jwt: signing method none is invalid" => "Algorithm not supported",
-        "invalid jwt: claim nbf is in the future" => "Cannot handle token prior to",
+        "invalid jwt: claim nbf is in the future" => "Cannot handle token with nbf prior to",
         "invalid jwt: claim exp is in the past" => "Expired token",
         "invalid jwt: signature is invalid" => "Signature verification failed"
     ];
