@@ -70,7 +70,7 @@ class Conversations extends Base
      * @throws Exceptions\RequestException
      * @throws Exceptions\ServerException
      */
-    public function create($object, array $query = null)
+    public function create($object, ?array $query = null)
     {
         $body = json_encode(['contactId' => $object], \JSON_THROW_ON_ERROR);
 
