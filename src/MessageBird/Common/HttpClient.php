@@ -199,8 +199,6 @@ class HttpClient
         $isThreePartResponse = (strpos($parts[0], "\n") === false && strpos($parts[0], 'HTTP/1.') === 0);
         [$responseHeader, $responseBody] = $isThreePartResponse ? [$parts[1], $parts[2]] : [$parts[0], $parts[1]];
 
-        curl_close($curl);
-
         return [$responseStatus, $responseHeader, $responseBody];
     }
 
